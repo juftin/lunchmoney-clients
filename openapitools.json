@@ -1,0 +1,24 @@
+{
+    "$schema": "./node_modules/@openapitools/openapi-generator-cli/config.schema.json",
+    "spaces": 2,
+    "generator-cli": {
+        "version": "7.17.0",
+        "generators": {
+            "python": {
+                "inputSpec": "openapi.yaml",
+                "output": "clients/python",
+                "generatorName": "python",
+                "gitUserId": "juftin",
+                "gitRepoId": "lunchmoney-clients",
+                "packageName": "lunchmoney",
+                "library": "urllib3",
+                "additionalProperties": {
+                    "packageVersion": "0.0.0"
+                },
+                "openapi-normalizer": {
+                    "REMOVE_X_INTERNAL": true
+                }
+            }
+        }
+    }
+}

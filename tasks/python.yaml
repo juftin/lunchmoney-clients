@@ -1,0 +1,70 @@
+# yaml-language-server: $schema=https://www.taskfile.dev/schema.json
+
+version: "3"
+vars:
+    CLIENT_NAME: "python"
+    VERSION_PATH: python.additionalProperties.packageVersion
+tasks:
+    #######################################
+    # Client Tasks
+    #######################################
+    install:
+        desc: Install Project + Dev Dependencies
+        cmds:
+            - cmd: uv venv --clear
+            - cmd: uv pip install -r requirements.txt -r test-requirements.txt
+        env:
+            UV_PYTHON: "{{.UV_PYTHON}}"
+    #######################################
+    publish:
+        desc: Publish Package
+        cmds:
+            - rm -rf dist/
+            - uv build
+            # - uv publish dist/*
+    #######################################
+    test:
+        desc: Run Tests with different Python versions
+        cmds:
+            - for:
+                  matrix:
+                      PYTHON: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+              task: test:matrix
+              vars:
+                  UV_PYTHON: "{{.ITEM.PYTHON}}"
+    #######################################
+    postprocess:
+        desc: Post-Process Generated Code
+        cmds:
+            - echo "Post-Processing Generated Code..."
+    #######################################
+    version:
+        desc: Set the Generator Config Version
+        dir: "{{.ROOT_DIR}}"
+        cmds:
+            - cmd: |
+                  jq --indent 4 \
+                    --arg version "{{.VERSION}}" \
+                    '."generator-cli".generators.{{.VERSION_PATH}} = $version' \
+                    openapitools.json \
+                    > openapitools.tmp.json && \
+                    mv openapitools.tmp.json openapitools.json
+    #######################################
+    clean:
+        desc: Clean Generated Client Code
+        cmds:
+            - cmd: rm -rf {{.ROOT_DIR}}/clients/{{.CLIENT_NAME}}
+    #######################################
+    # Internal Tasks
+    #######################################
+    test:matrix:
+        desc: Run Tests
+        internal: true
+        cmds:
+            - .venv/bin/python -m pytest --cov=lunchmoney
+        deps:
+            - task: install
+              vars:
+                  UV_PYTHON: "{{.UV_PYTHON}}"
+        env:
+            UV_PYTHON: "{{.UV_PYTHON}}"

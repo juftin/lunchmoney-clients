@@ -1,0 +1,57 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+
+name: generate
+
+on:
+    workflow_dispatch:
+    schedule:
+        - cron: "0 20 * * *"
+
+jobs:
+    generate:
+        runs-on: ubuntu-latest
+        permissions:
+            pull-requests: write
+            contents: write
+        steps:
+            - name: checkout
+              uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+            - name: setup-node
+              uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
+              with:
+                  node-version: lts/*
+            - name: setup-java
+              uses: actions/setup-java@dded0888837ed1f317902acf8a20df0ad188d165 # v5.0.0
+              with:
+                  distribution: temurin
+                  java-version: "21"
+            - name: setup-uv
+              uses: astral-sh/setup-uv@85856786d1ce8acfbcc2f13a5f3fbd6b938f9f41 # v7.1.2
+            - name: setup-task
+              uses: arduino/setup-task@b91d5d2c96a56797b48ac1e0e89220bf64044611 # v2.0.0
+              with:
+                  repo-token: ${{ secrets.GITHUB_TOKEN }}
+            - name: generator-install
+              run: task install
+            - name: spec
+              run: task spec
+            - name: generate
+              run: task generate
+            - name: openapi-version
+              id: version
+              uses: mikefarah/yq@0ecdce24e83f0fa127940334be98c86b07b0c488 # v4.48.1
+              with:
+                  cmd: cat openapi.yaml | yq -r .info.version
+            - name: git-add
+              run: git add --all
+            - name: date
+              id: date
+              run: echo "date=$(date +'%Y-%m-%d %H:%M:%S %Z')" >> ${GITHUB_OUTPUT}
+            - name: pull-request
+              uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7.0.8
+              with:
+                  commit-message: ✨ v${{ steps.version.outputs.result }} - ${{ steps.date.outputs.date }}
+                  branch: openapi/v${{ steps.version.outputs.result }}/${{ github.run_id }}
+                  delete-branch: true
+                  title: ✨ v${{ steps.version.outputs.result }} - ${{ steps.date.outputs.date }}
+                  body: "## ✨ LunchMoney Developer API v${{ steps.version.outputs.result }} - ${{ steps.date.outputs.date }}"

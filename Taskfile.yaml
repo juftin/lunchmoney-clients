@@ -1,0 +1,111 @@
+# yaml-language-server: $schema=https://www.taskfile.dev/schema.json
+
+version: "3"
+vars:
+    OPENAPI_URL: https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/openapi
+    CLIENTS:
+        - python
+
+includes:
+    python:
+        taskfile: tasks/python.yaml
+        dir: clients/python
+        internal: true
+
+tasks:
+    #######################################
+    # Client Tasks
+    #######################################
+    test:
+        desc: Run Tests
+        cmds:
+            - for:
+                  matrix:
+                      CLIENT:
+                          ref: .CLIENTS
+              task: "{{.ITEM.CLIENT}}:test"
+    #######################################
+    publish:
+        desc: Publish Clients
+        cmds:
+            - for:
+                  matrix:
+                      CLIENT:
+                          ref: .CLIENTS
+              task: "{{.ITEM.CLIENT}}:publish"
+    #######################################
+    # Core Tasks
+    #######################################
+    default:
+        desc: Install Project, List Tasks
+        cmds:
+            - task --list-all
+    #######################################
+    spec:
+        desc: Fetch Latest OpenAPI Spec
+        cmds:
+            - curl -LsSf {{.OPENAPI_URL}} --output openapi.yaml
+            - uv tool run pre-commit run --files openapi.yaml || true
+            - uv tool run pre-commit run --files openapi.yaml
+    #######################################
+    install:
+        desc: Install OpenAPI Generator Dependencies
+        cmds:
+            - task: pre-commit-install
+            - cmd: npm install
+    #######################################
+    generate:
+        desc: Generate Client Code
+        cmds:
+            - task: clean
+            - npm run generate
+            - for:
+                  matrix:
+                      CLIENT:
+                          ref: .CLIENTS
+              task: "{{.ITEM.CLIENT}}:postprocess"
+    #######################################
+    version:
+        desc: Set the version
+        cmds:
+            - for:
+                  matrix:
+                      CLIENT:
+                          ref: .CLIENTS
+              task: "{{.ITEM.CLIENT}}:version"
+        requires:
+            vars:
+                - VERSION
+    #######################################
+    release:
+        desc: Release via semantic-release
+        cmds:
+            - task: install
+            - cmd: npm run semantic-release
+    #######################################
+    fmt:
+        desc: Format Code Files
+        cmds:
+            - uv tool run pre-commit run {{.CLI_ARGS | default "--all-files"}}
+    #######################################
+    clean:
+        desc: Clean Generated Code
+        cmds:
+            - for:
+                  matrix:
+                      CLIENT:
+                          ref: .CLIENTS
+              task: "{{.ITEM.CLIENT}}:clean"
+    #######################################
+    # Internal Tasks
+    #######################################
+    pre-commit-install:
+        internal: true
+        cmds:
+            - cmd: |
+                  if [ "{{.CI | default 0}}" = "0" ]; then
+                      uv tool run --isolated pre-commit install --install-hooks
+                  fi
+              silent: true
+        status:
+            - test ! -f "{{.ROOT_DIR}}/.pre-commit-config.yaml"

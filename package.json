@@ -1,0 +1,40 @@
+{
+    "name": "lunchmoney-openapi-generator",
+    "version": "0.0.0",
+    "scripts": {
+        "generate": "openapi-generator-cli generate",
+        "semantic-release": "semantic-release",
+        "prettier": "prettier"
+    },
+    "devDependencies": {
+        "@openapitools/openapi-generator-cli": "^2.25.0",
+        "@semantic-release/exec": "^7.1.0",
+        "@semantic-release/git": "^10.0.1",
+        "prettier": "^3.6.2",
+        "semantic-release": "^24.2.9",
+        "semantic-release-gitmoji": "^1.6.8"
+    },
+    "release": {
+        "plugins": [
+            "semantic-release-gitmoji",
+            [
+                "@semantic-release/exec",
+                {
+                    "prepareCmd": "task version VERSION=${nextRelease.version} && task generate",
+                    "publishCmd": "task publish"
+                }
+            ],
+            [
+                "@semantic-release/git",
+                {
+                    "assets": [
+                        "openapitools.json",
+                        "clients/**"
+                    ],
+                    "message": "🔖 lunchmoney ${nextRelease.version}\n\n${nextRelease.notes}\n[skip ci]"
+                }
+            ],
+            "@semantic-release/github"
+        ]
+    }
+}
