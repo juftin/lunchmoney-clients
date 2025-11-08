@@ -1,0 +1,42 @@
+# CreateCategoryRequestObjectChildrenInner
+
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**id** | **int** | A system defined unique identifier for the category. | 
+**name** | **str** | The name of the category. | 
+**description** | **str** | The description of the category or &#x60;null&#x60; if not set. | 
+**is_income** | **bool** | If &#x60;true&#x60;, the transactions in this category will be treated as income. (See &lt;a href&#x3D;\&quot;https://support.lunchmoney.app/setup/categories/category-properties\&quot;&gt;Category Properties&lt;/a&gt; for more details) | 
+**exclude_from_budget** | **bool** | If &#x60;true&#x60;, the transactions in this category will be excluded from the budget. (See &lt;a href&#x3D;\&quot;https://support.lunchmoney.app/setup/categories/category-properties\&quot;&gt;Category Properties&lt;/a&gt; for more details) | 
+**exclude_from_totals** | **bool** | If &#x60;true&#x60;, the transactions in this category will be excluded from totals. (See &lt;a href&#x3D;\&quot;https://support.lunchmoney.app/setup/categories/category-properties\&quot;&gt;Category Properties&lt;/a&gt; for more details) | 
+**updated_at** | **datetime** | The date and time of when the category was last updated (in the ISO 8601 extended format). | 
+**created_at** | **datetime** | The date and time of when the category was created (in the ISO 8601 extended format). | 
+**group_id** | **int** | The ID of the category group this category belongs to or &#x60;null&#x60; if the category doesn&#39;t belong to a group, or is itself a category group. | 
+**is_group** | **bool** | If &#x60;true&#x60;, the category is created as a category group. | 
+**children** | [**List[ChildCategoryObject]**](ChildCategoryObject.md) | For category groups, this will populate with details about the categories that belong to this group. The objects in this array are similar to Category Objects but do not include the &#x60;is_income&#x60;, &#x60;exclude_from_budget&#x60;, and &#x60;exclude_from_totals&#x60; properties as these are inherited from the category group. In addition, the &#x60;is_group&#x60; property will always be &#x60;false&#x60;, and there will be no &#x60;children&#x60; attribute. | [optional] 
+**archived** | **bool** | If true, the category is archived and not displayed in relevant areas of the Lunch Money app. | 
+**archived_at** | **datetime** | The date and time of when the category was last archived (in the ISO 8601 extended format). | 
+**order** | **int** | An  specifying the position in which the category is displayed on the categories page in the Lunch Money GUI. For categories within a category group the order  is relative to the other categories within the group.&lt;br&gt; This value for this property will be &#x60;null&#x60; for categories created via the API until they are modified on the Categories page in the Lunch Money GUI.&lt;br&gt; This property cannot be set or updated via the API. | 
+
+## Example
+
+```python
+from lunchmoney.models.create_category_request_object_children_inner import CreateCategoryRequestObjectChildrenInner
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of CreateCategoryRequestObjectChildrenInner from a JSON string
+create_category_request_object_children_inner_instance = CreateCategoryRequestObjectChildrenInner.from_json(json)
+# print the JSON string representation of the object
+print(CreateCategoryRequestObjectChildrenInner.to_json())
+
+# convert the object into a dict
+create_category_request_object_children_inner_dict = create_category_request_object_children_inner_instance.to_dict()
+# create an instance of CreateCategoryRequestObjectChildrenInner from a dict
+create_category_request_object_children_inner_from_dict = CreateCategoryRequestObjectChildrenInner.from_dict(create_category_request_object_children_inner_dict)
+```
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
