@@ -18,6 +18,20 @@
                 "openapi-normalizer": {
                     "REMOVE_X_INTERNAL": true
                 }
+            },
+            "go": {
+                "inputSpec": "openapi.yaml",
+                "output": "clients/go",
+                "generatorName": "go",
+                "gitUserId": "juftin",
+                "gitRepoId": "lunchmoney-clients",
+                "packageName": "lunchmoney",
+                "additionalProperties": {
+                    "packageVersion": "2.0.0"
+                },
+                "openapi-normalizer": {
+                    "REMOVE_X_INTERNAL": true
+                }
             }
         }
     }

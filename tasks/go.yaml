@@ -2,10 +2,8 @@
 
 version: "3"
 vars:
-    CLIENT_NAME: "python"
-    VERSION_PATH: python.additionalProperties.packageVersion
-env:
-    UV_PYTHON: "3.13"
+    CLIENT_NAME: "go"
+    VERSION_PATH: go.additionalProperties.packageVersion
 tasks:
     #######################################
     # Client Tasks
@@ -13,24 +11,20 @@ tasks:
     install:
         desc: Install Project + Dev Dependencies
         cmds:
-            - cmd: uv venv --clear
-            - cmd: uv pip install -r requirements.txt -r test-requirements.txt
-        env:
-            UV_PYTHON: "{{.UV_PYTHON}}"
+            - go get github.com/stretchr/testify/assert
+            - go get golang.org/x/net/context
     #######################################
     publish:
         desc: Publish Package
         cmds:
-            - rm -rf dist/
-            - uv build
+            - exit 0
     #######################################
     test:
-        desc: Run Tests with different Python versions
+        desc: Run Tests
         cmds:
-            - uv run python -m pytest --cov=lunchmoney
+            - go test ./test -v
         deps:
             - install
-    #######################################
     postprocess:
         desc: Post-Process Generated Code
         cmds:

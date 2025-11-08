@@ -18,6 +18,8 @@ jobs:
                   node-version: lts/*
             - name: setup-uv
               uses: astral-sh/setup-uv@85856786d1ce8acfbcc2f13a5f3fbd6b938f9f41 # v7.1.2
+            - name: setup-go
+              uses: actions/setup-go@44694675825211faa026b3c33043df3e48a5fa00 # v6.0.0
             - name: setup-task
               uses: arduino/setup-task@b91d5d2c96a56797b48ac1e0e89220bf64044611 # v2.0.0
               with:

@@ -5,11 +5,16 @@ vars:
     OPENAPI_URL: https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/openapi
     CLIENTS:
         - python
+        - go
 
 includes:
     python:
         taskfile: tasks/python.yaml
         dir: clients/python
+        internal: true
+    go:
+        taskfile: tasks/go.yaml
+        dir: clients/go
         internal: true
 
 tasks:
