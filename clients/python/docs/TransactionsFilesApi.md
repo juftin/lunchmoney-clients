@@ -94,7 +94,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | File attached successfully |  -  |
+**201** | File attached successfully |  -  |
 **400** | Invalid request |  -  |
 **401** | Unauthorized. This error occurs when an invalid API token is passed to the request. |  -  |
 **404** | Transaction not found |  -  |

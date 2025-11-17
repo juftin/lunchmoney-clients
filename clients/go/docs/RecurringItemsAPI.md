@@ -4,7 +4,7 @@ All URIs are relative to *https://api.lunchmoney.dev/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetAllRecurring**](RecurringItemsAPI.md#GetAllRecurring) | **Get** /recurring_items | Get a all recurring items
+[**GetAllRecurring**](RecurringItemsAPI.md#GetAllRecurring) | **Get** /recurring_items | Get all recurring items
 [**GetRecurringById**](RecurringItemsAPI.md#GetRecurringById) | **Get** /recurring_items/{id} | Get a single recurring item
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > GetAllRecurring200Response GetAllRecurring(ctx).StartDate(startDate).EndDate(endDate).IncludeSuggested(includeSuggested).Execute()
 
-Get a all recurring items
+Get all recurring items
 
 
 
