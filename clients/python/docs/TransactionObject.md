@@ -7,9 +7,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** | System created unique identifier for transaction | 
 **var_date** | **date** | Date of transaction in ISO 8601 format | 
-**amount** | **str** | Amount of the transaction in numeric format to 4 decimal places. By default a negative value indicates a debit transaction, however if the user&#39;s &#x60;debits_as_negative&#x60; property is set to false the opposite is true. | 
+**amount** | **str** | Amount of the transaction in numeric format to 4 decimal places. Positive values indicate a debit transaction, negative values indicate a credit transaction. | 
 **currency** | [**CurrencyEnum**](CurrencyEnum.md) | Three-letter lowercase currency code of the transaction in ISO 4217 format. | 
-**to_base** | **float** | The amount converted to the user&#39;s primary currency. If the multi-currency feature is not being used, to_base and amount will be the same. By default a negative value indicates a debit transaction, however if the user&#39;s &#x60;debits_as_negative&#x60; property is set to false the opposite is true. | 
+**to_base** | **float** | The amount converted to the user&#39;s primary currency. If the multi-currency feature is not being used, to_base and amount will be the same. Positive values indicate a debit transaction, negative values indicate a credit transaction. | 
 **recurring_id** | **int** | The unique identifier of the associated recurring item that this transaction matched. | 
 **payee** | **str** | Name of payee set by the user, the financial institution, or by a matched recurring item. This will match the value displayed in payee field on the transactions page in the GUI.  | 
 **category_id** | **int** | Unique identifier of associated category set by the user or by a matched recurring_item.&lt;br&gt; Category details can be obtained by passing the value of this property to the [Get A Single Category](../operations/getCategoryById) API | 

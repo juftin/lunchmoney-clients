@@ -271,8 +271,7 @@ void (empty response body)
 **202** | A 202 ACCEPTED status is returned if Plaid acknowledged the fetch request. This indicates that it is possible to subsequently query the &#x60;GET /plaid_accounts&#x60; endpoint to determine if the request was successful (&#x60;plaid_last_successful_update&#x60; is more recent than &#x60;last_fetch), or if new transactions were synced (&#x60;last_import&#x60; is more recent than &#x60;last_fetch&#x60;).&lt;br&gt; |  -  |
 **400** | Bad Request |  -  |
 **401** | Unauthorized. This error occurs when an invalid API token is passed to the request. |  -  |
-**404** | Not Found |  -  |
-**425** | A 425 Too Early |  -  |
+**425** | Too Early |  -  |
 **429** | Too Many Requests. Retry your request after the number of seconds specified in the retry-after header. |  -  |
 **500** | Internal Server Error. Contact support. |  -  |
 
