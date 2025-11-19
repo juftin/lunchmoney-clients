@@ -3,7 +3,7 @@ Lunch Money API - v2
 
 ## Overview Welcome to the Lunch Money v2 API.  A working version of this API is now available through these docs, or directly at:  `https://api.lunchmoney.dev/v2`  **This service has only had internal testing so users are strongly encouraged to create a test budget with example data as the first step to interacting with the v2 API.** See the [Getting Started Guide](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/getting-started) for more information.  If you are new to the v2 API, you may wish to review the [v2 API Overview of Changes](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/migration-guide).  ### Static Mock Server  You may also use these docs to explore the API using a static mock server endpoint.<p> This enables users to become familiar with the API without having to create an access token, and eliminates the possibility of modifying real data. <p> To access this endpoint select the second endpoint in the the \"Server\" dropdown to the right. When selected you should see \"Static Mock v2 Lunch Money API Server\".<br> When using this server, set your Bearer token to any string with 11 or more characters.  ### Migrating from V1  The v2 API is NOT backwards compatible with the v1 API. Developers are encouraged to review the [Migration Guide](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/migration-guide) to understand the changes and plan their migration.  ### Acknowledgments  If you have been providing feedback on the API during our iterative design process, **THANK YOU**. We are happy to provide the opportunity to finally interact with the working API that was built based on your feedback.  ### Useful links: - [Getting Started](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/getting-started) - [v2 API Changelog](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/changelog) - [Migration Guide](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/migration-guide) - [Rate Limits](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/rate-limits) - [Current v1 Lunch Money API Documentation](https://lunchmoney.dev) - [Awesome Lunch Money Projects](https://github.com/lunch-money/awesome-lunchmoney?tab=readme-ov-file)
 
-API version: 2.8.0
+API version: 2.8.1
 Contact: devsupport@lunchmoney.app
 */
 
@@ -34,13 +34,13 @@ type UpdateTransactionsRequestTransactionsInner struct {
 	RecurringId NullableInt32 `json:"recurring_id,omitempty"`
 	// The new payee for the transaction. 
 	Payee *string `json:"payee,omitempty"`
-	// Unique identifier of the category for this transaction. Set this to 0 to clear the transaction's category.
+	// Unique identifier of the category for this transaction. Set this to null to clear the transaction's category.
 	CategoryId NullableInt32 `json:"category_id,omitempty"`
 	// New notes for the transaction. Set this to an empty string to clear the existing notes. 
 	Notes NullableString `json:"notes,omitempty"`
-	// The unique identifier of the manual account associated with this transaction. Set this to zero to disassociate the transaction with an account. If set `plaid_account_id` may not also be set to a non zero value. Moving an existing transaction to to another account will not work if the transaction belongs to a synced account who's \"Allow Modifications to Transactions\" property is not set.
+	// The unique identifier of the manual account associated with this transaction. Set this to null to disassociate the transaction with an account. If set `plaid_account_id` may not also be set to a non null value. Moving an existing transaction to to another account will not work if the transaction belongs to a synced account who's \"Allow Modifications to Transactions\" property is not set.
 	ManualAccountId NullableInt32 `json:"manual_account_id,omitempty"`
-	// The unique identifier of the plaid account associated with this transaction. If set `manual_account_id` may not also be set to a non zero value. Moving an existing transaction to to an existing Plaid account will not work if the account's \"Allow Modifications to Transactions\" property is not set.
+	// The unique identifier of the plaid account associated with this transaction. If set `manual_account_id` may not also be set to a non null value. Attempting to modify this on a transaction associated with a Plaid account will not work if the account's \"Allow Modifications to Transactions\" property is not set. Similarly, this cannot be set to an id associated with this type of locked Plaid account.
 	PlaidAccountId NullableInt32 `json:"plaid_account_id,omitempty"`
 	// A list of tag_ids for the tags associated with this transaction. If set, this property will overwrite any existing tags. Use `additional_tag_ids` to add tags to the existing transaction's tags. Set this to an empty array to remove all tags from a transaction. If set `additional_tag_ids` may not be set.
 	TagIds []int32 `json:"tag_ids,omitempty"`

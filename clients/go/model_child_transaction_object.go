@@ -3,7 +3,7 @@ Lunch Money API - v2
 
 ## Overview Welcome to the Lunch Money v2 API.  A working version of this API is now available through these docs, or directly at:  `https://api.lunchmoney.dev/v2`  **This service has only had internal testing so users are strongly encouraged to create a test budget with example data as the first step to interacting with the v2 API.** See the [Getting Started Guide](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/getting-started) for more information.  If you are new to the v2 API, you may wish to review the [v2 API Overview of Changes](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/migration-guide).  ### Static Mock Server  You may also use these docs to explore the API using a static mock server endpoint.<p> This enables users to become familiar with the API without having to create an access token, and eliminates the possibility of modifying real data. <p> To access this endpoint select the second endpoint in the the \"Server\" dropdown to the right. When selected you should see \"Static Mock v2 Lunch Money API Server\".<br> When using this server, set your Bearer token to any string with 11 or more characters.  ### Migrating from V1  The v2 API is NOT backwards compatible with the v1 API. Developers are encouraged to review the [Migration Guide](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/migration-guide) to understand the changes and plan their migration.  ### Acknowledgments  If you have been providing feedback on the API during our iterative design process, **THANK YOU**. We are happy to provide the opportunity to finally interact with the working API that was built based on your feedback.  ### Useful links: - [Getting Started](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/getting-started) - [v2 API Changelog](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/changelog) - [Migration Guide](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/migration-guide) - [Rate Limits](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/rate-limits) - [Current v1 Lunch Money API Documentation](https://lunchmoney.dev) - [Awesome Lunch Money Projects](https://github.com/lunch-money/awesome-lunchmoney?tab=readme-ov-file)
 
-API version: 2.8.0
+API version: 2.8.1
 Contact: devsupport@lunchmoney.app
 */
 
@@ -27,11 +27,11 @@ type ChildTransactionObject struct {
 	Id int64 `json:"id"`
 	// Date of transaction in ISO 8601 format
 	Date string `json:"date"`
-	// Amount of the transaction in numeric format to 4 decimal places. By default a negative value indicates a debit transaction, however if the user's `debits_as_negative` property is set to false the opposite is true.
+	// Amount of the transaction in numeric format to 4 decimal places. Positive values indicate a debit transaction, negative values indicate a credit transaction.
 	Amount string `json:"amount"`
 	// Three-letter lowercase currency code of the transaction in ISO 4217 format
 	Currency CurrencyEnum `json:"currency"`
-	// The amount converted to the user's primary currency. If the transaction currency is the same as the user's primary currency, to_base and amount will be the same. By default, a negative value indicates a debit transaction. If the user's `debits_as_negative` property is set to `false`, then the opposite is true.
+	// The amount converted to the user's primary currency. If the transaction currency is the same as the user's primary currency, to_base and amount will be the same. Positive values indicate a debit transaction, negative values indicate a credit transaction.
 	ToBase float64 `json:"to_base"`
 	// The unique identifier of the associated recurring item that this transaction matched.
 	RecurringId NullableInt32 `json:"recurring_id"`
