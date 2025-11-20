@@ -6,9 +6,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **int64** | System created unique identifier for transaction | 
 **Date** | **string** | Date of transaction in ISO 8601 format | 
-**Amount** | **string** | Amount of the transaction in numeric format to 4 decimal places. By default a negative value indicates a debit transaction, however if the user&#39;s &#x60;debits_as_negative&#x60; property is set to false the opposite is true. | 
+**Amount** | **string** | Amount of the transaction in numeric format to 4 decimal places. Positive values indicate a debit transaction, negative values indicate a credit transaction. | 
 **Currency** | [**CurrencyEnum**](CurrencyEnum.md) | Three-letter lowercase currency code of the transaction in ISO 4217 format | 
-**ToBase** | **float64** | The amount converted to the user&#39;s primary currency. If the transaction currency is the same as the user&#39;s primary currency, to_base and amount will be the same. By default, a negative value indicates a debit transaction. If the user&#39;s &#x60;debits_as_negative&#x60; property is set to &#x60;false&#x60;, then the opposite is true. | 
+**ToBase** | **float64** | The amount converted to the user&#39;s primary currency. If the transaction currency is the same as the user&#39;s primary currency, to_base and amount will be the same. Positive values indicate a debit transaction, negative values indicate a credit transaction. | 
 **RecurringId** | **NullableInt32** | The unique identifier of the associated recurring item that this transaction matched. | 
 **Payee** | **string** | Name of payee set by the user, the financial institution, or by a matched recurring item. This will match the value displayed in payee field on the transactions page in the GUI.  | 
 **CategoryId** | **NullableInt32** | Unique identifier of associated category set by the user or by a matched recurring item.&lt;br&gt; Category details can be obtained by passing the value of this property to the [Get A Single Category](../operations/getCategoryById) API | 

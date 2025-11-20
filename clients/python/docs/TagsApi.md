@@ -7,7 +7,7 @@ Method | HTTP request | Description
 [**create_tag**](TagsApi.md#create_tag) | **POST** /tags | Create a new tag
 [**delete_tag**](TagsApi.md#delete_tag) | **DELETE** /tags/{id} | Delete a tag
 [**get_all_tags**](TagsApi.md#get_all_tags) | **GET** /tags | Get All Tags
-[**get_tag_by_id**](TagsApi.md#get_tag_by_id) | **GET** /tags/{id} | Get a single tags
+[**get_tag_by_id**](TagsApi.md#get_tag_by_id) | **GET** /tags/{id} | Get a single tag
 [**update_tag**](TagsApi.md#update_tag) | **PUT** /tags/{id} | Update an existing tag
 
 
@@ -279,7 +279,7 @@ This endpoint does not need any parameter.
 # **get_tag_by_id**
 > TagObject get_tag_by_id(id)
 
-Get a single tags
+Get a single tag
 
 Retrieve the details of a specific tag with the specified ID.
 
@@ -323,7 +323,7 @@ with lunchmoney.ApiClient(configuration) as api_client:
     id = 94319 # int | ID of the tag to retrieve
 
     try:
-        # Get a single tags
+        # Get a single tag
         api_response = api_instance.get_tag_by_id(id)
         print("The response of TagsApi->get_tag_by_id:\n")
         pprint(api_response)

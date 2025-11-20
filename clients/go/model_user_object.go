@@ -3,7 +3,7 @@ Lunch Money API - v2
 
 ## Overview Welcome to the Lunch Money v2 API.  A working version of this API is now available through these docs, or directly at:  `https://api.lunchmoney.dev/v2`  **This service has only had internal testing so users are strongly encouraged to create a test budget with example data as the first step to interacting with the v2 API.** See the [Getting Started Guide](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/getting-started) for more information.  If you are new to the v2 API, you may wish to review the [v2 API Overview of Changes](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/migration-guide).  ### Static Mock Server  You may also use these docs to explore the API using a static mock server endpoint.<p> This enables users to become familiar with the API without having to create an access token, and eliminates the possibility of modifying real data. <p> To access this endpoint select the second endpoint in the the \"Server\" dropdown to the right. When selected you should see \"Static Mock v2 Lunch Money API Server\".<br> When using this server, set your Bearer token to any string with 11 or more characters.  ### Migrating from V1  The v2 API is NOT backwards compatible with the v1 API. Developers are encouraged to review the [Migration Guide](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/migration-guide) to understand the changes and plan their migration.  ### Acknowledgments  If you have been providing feedback on the API during our iterative design process, **THANK YOU**. We are happy to provide the opportunity to finally interact with the working API that was built based on your feedback.  ### Useful links: - [Getting Started](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/getting-started) - [v2 API Changelog](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/changelog) - [Migration Guide](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/migration-guide) - [Rate Limits](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/rate-limits) - [Current v1 Lunch Money API Documentation](https://lunchmoney.dev) - [Awesome Lunch Money Projects](https://github.com/lunch-money/awesome-lunchmoney?tab=readme-ov-file)
 
-API version: 2.8.0
+API version: 2.8.1
 Contact: devsupport@lunchmoney.app
 */
 
@@ -34,8 +34,6 @@ type UserObject struct {
 	BudgetName string `json:"budget_name"`
 	// Primary currency from user's settings
 	PrimaryCurrency CurrencyEnum `json:"primary_currency"`
-	// Describes how negative amounts in transactions should be interpreted.
-	DebitsAsNegative bool `json:"debits_as_negative"`
 	// User-defined label of the developer API key used. Returns null if nothing has been set.
 	ApiKeyLabel NullableString `json:"api_key_label"`
 }
@@ -46,7 +44,7 @@ type _UserObject UserObject
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUserObject(name string, email string, id int32, accountId int64, budgetName string, primaryCurrency CurrencyEnum, debitsAsNegative bool, apiKeyLabel NullableString) *UserObject {
+func NewUserObject(name string, email string, id int32, accountId int64, budgetName string, primaryCurrency CurrencyEnum, apiKeyLabel NullableString) *UserObject {
 	this := UserObject{}
 	this.Name = name
 	this.Email = email
@@ -54,7 +52,6 @@ func NewUserObject(name string, email string, id int32, accountId int64, budgetN
 	this.AccountId = accountId
 	this.BudgetName = budgetName
 	this.PrimaryCurrency = primaryCurrency
-	this.DebitsAsNegative = debitsAsNegative
 	this.ApiKeyLabel = apiKeyLabel
 	return &this
 }
@@ -211,30 +208,6 @@ func (o *UserObject) SetPrimaryCurrency(v CurrencyEnum) {
 	o.PrimaryCurrency = v
 }
 
-// GetDebitsAsNegative returns the DebitsAsNegative field value
-func (o *UserObject) GetDebitsAsNegative() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.DebitsAsNegative
-}
-
-// GetDebitsAsNegativeOk returns a tuple with the DebitsAsNegative field value
-// and a boolean to check if the value has been set.
-func (o *UserObject) GetDebitsAsNegativeOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.DebitsAsNegative, true
-}
-
-// SetDebitsAsNegative sets field value
-func (o *UserObject) SetDebitsAsNegative(v bool) {
-	o.DebitsAsNegative = v
-}
-
 // GetApiKeyLabel returns the ApiKeyLabel field value
 // If the value is explicit nil, the zero value for string will be returned
 func (o *UserObject) GetApiKeyLabel() string {
@@ -277,7 +250,6 @@ func (o UserObject) ToMap() (map[string]interface{}, error) {
 	toSerialize["account_id"] = o.AccountId
 	toSerialize["budget_name"] = o.BudgetName
 	toSerialize["primary_currency"] = o.PrimaryCurrency
-	toSerialize["debits_as_negative"] = o.DebitsAsNegative
 	toSerialize["api_key_label"] = o.ApiKeyLabel.Get()
 	return toSerialize, nil
 }
@@ -293,7 +265,6 @@ func (o *UserObject) UnmarshalJSON(data []byte) (err error) {
 		"account_id",
 		"budget_name",
 		"primary_currency",
-		"debits_as_negative",
 		"api_key_label",
 	}
 
