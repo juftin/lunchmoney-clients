@@ -10,14 +10,13 @@ Name | Type | Description | Notes
 **AccountId** | **int64** | Unique identifier for the associated budgeting account | 
 **BudgetName** | **string** | Name of the associated budgeting account | 
 **PrimaryCurrency** | [**CurrencyEnum**](CurrencyEnum.md) | Primary currency from user&#39;s settings | 
-**DebitsAsNegative** | **bool** | Describes how negative amounts in transactions should be interpreted. | 
 **ApiKeyLabel** | **NullableString** | User-defined label of the developer API key used. Returns null if nothing has been set. | 
 
 ## Methods
 
 ### NewUserObject
 
-`func NewUserObject(name string, email string, id int32, accountId int64, budgetName string, primaryCurrency CurrencyEnum, debitsAsNegative bool, apiKeyLabel NullableString, ) *UserObject`
+`func NewUserObject(name string, email string, id int32, accountId int64, budgetName string, primaryCurrency CurrencyEnum, apiKeyLabel NullableString, ) *UserObject`
 
 NewUserObject instantiates a new UserObject object
 This constructor will assign default values to properties that have it defined,
@@ -150,26 +149,6 @@ and a boolean to check if the value has been set.
 `func (o *UserObject) SetPrimaryCurrency(v CurrencyEnum)`
 
 SetPrimaryCurrency sets PrimaryCurrency field to given value.
-
-
-### GetDebitsAsNegative
-
-`func (o *UserObject) GetDebitsAsNegative() bool`
-
-GetDebitsAsNegative returns the DebitsAsNegative field if non-nil, zero value otherwise.
-
-### GetDebitsAsNegativeOk
-
-`func (o *UserObject) GetDebitsAsNegativeOk() (*bool, bool)`
-
-GetDebitsAsNegativeOk returns a tuple with the DebitsAsNegative field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDebitsAsNegative
-
-`func (o *UserObject) SetDebitsAsNegative(v bool)`
-
-SetDebitsAsNegative sets DebitsAsNegative field to given value.
 
 
 ### GetApiKeyLabel

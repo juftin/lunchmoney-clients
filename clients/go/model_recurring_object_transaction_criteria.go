@@ -3,7 +3,7 @@ Lunch Money API - v2
 
 ## Overview Welcome to the Lunch Money v2 API.  A working version of this API is now available through these docs, or directly at:  `https://api.lunchmoney.dev/v2`  **This service has only had internal testing so users are strongly encouraged to create a test budget with example data as the first step to interacting with the v2 API.** See the [Getting Started Guide](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/getting-started) for more information.  If you are new to the v2 API, you may wish to review the [v2 API Overview of Changes](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/migration-guide).  ### Static Mock Server  You may also use these docs to explore the API using a static mock server endpoint.<p> This enables users to become familiar with the API without having to create an access token, and eliminates the possibility of modifying real data. <p> To access this endpoint select the second endpoint in the the \"Server\" dropdown to the right. When selected you should see \"Static Mock v2 Lunch Money API Server\".<br> When using this server, set your Bearer token to any string with 11 or more characters.  ### Migrating from V1  The v2 API is NOT backwards compatible with the v1 API. Developers are encouraged to review the [Migration Guide](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/migration-guide) to understand the changes and plan their migration.  ### Acknowledgments  If you have been providing feedback on the API during our iterative design process, **THANK YOU**. We are happy to provide the opportunity to finally interact with the working API that was built based on your feedback.  ### Useful links: - [Getting Started](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/getting-started) - [v2 API Changelog](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/changelog) - [Migration Guide](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/migration-guide) - [Rate Limits](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/rate-limits) - [Current v1 Lunch Money API Documentation](https://lunchmoney.dev) - [Awesome Lunch Money Projects](https://github.com/lunch-money/awesome-lunchmoney?tab=readme-ov-file)
 
-API version: 2.8.0
+API version: 2.8.1
 Contact: devsupport@lunchmoney.app
 */
 
@@ -13,6 +13,8 @@ package lunchmoney
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
 
 // checks if the RecurringObjectTransactionCriteria type satisfies the MappedNullable interface at compile time
@@ -21,33 +23,48 @@ var _ MappedNullable = &RecurringObjectTransactionCriteria{}
 // RecurringObjectTransactionCriteria The set of properties used to identify matching transactions.
 type RecurringObjectTransactionCriteria struct {
 	// The beginning of the date range for matching transactions. If `null`, any transactions before end_date may be considered.
-	StartDate NullableString `json:"start_date,omitempty"`
+	StartDate NullableString `json:"start_date"`
 	// The end of the date range for matching transactions. If `null`, any transactions after start_date may be considered.
-	EndDate NullableString `json:"end_date,omitempty"`
+	EndDate NullableString `json:"end_date"`
 	// The unit of time used to define the cadence of the recurring item.
-	Granularity *string `json:"granularity,omitempty"`
+	Granularity string `json:"granularity"`
 	// The number of granularity units between each recurrence.
-	Quantity *int32 `json:"quantity,omitempty"`
+	Quantity int32 `json:"quantity"`
 	// The date used in conjunction with the `quantity` and `granularity` properties to calculate expected occurrences of recurring transactions.
-	AnchorDate *string `json:"anchor_date,omitempty"`
+	AnchorDate string `json:"anchor_date"`
 	// If set, represents the original transaction payee name that triggered this recurring item's creation.
-	Payee NullableString `json:"payee,omitempty"`
+	Payee NullableString `json:"payee"`
 	// The expected amount for a transaction that will match this recurring item. For recurring items that have a flexible amount this is the average of the specified min and max amounts.
-	Amount *string `json:"amount,omitempty" validate:"regexp=^-?\\\\d+(\\\\.\\\\d{1,4})?$"`
+	Amount string `json:"amount" validate:"regexp=^-?\\\\d+(\\\\.\\\\d{1,4})?$"`
+	// The amount converted to the user's primary currency
+	ToBase float32 `json:"to_base"`
 	// Three-letter lowercase currency code of the recurring item.
-	Currency *string `json:"currency,omitempty"`
+	Currency string `json:"currency"`
 	// The Plaid account ID associated with the recurring item, if any.
-	PlaidAccountId NullableInt64 `json:"plaid_account_id,omitempty"`
+	PlaidAccountId NullableInt64 `json:"plaid_account_id"`
 	// The manual account ID associated with the recurring item, if any.
-	ManualAccountId NullableInt64 `json:"manual_account_id,omitempty"`
+	ManualAccountId NullableInt64 `json:"manual_account_id"`
 }
+
+type _RecurringObjectTransactionCriteria RecurringObjectTransactionCriteria
 
 // NewRecurringObjectTransactionCriteria instantiates a new RecurringObjectTransactionCriteria object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRecurringObjectTransactionCriteria() *RecurringObjectTransactionCriteria {
+func NewRecurringObjectTransactionCriteria(startDate NullableString, endDate NullableString, granularity string, quantity int32, anchorDate string, payee NullableString, amount string, toBase float32, currency string, plaidAccountId NullableInt64, manualAccountId NullableInt64) *RecurringObjectTransactionCriteria {
 	this := RecurringObjectTransactionCriteria{}
+	this.StartDate = startDate
+	this.EndDate = endDate
+	this.Granularity = granularity
+	this.Quantity = quantity
+	this.AnchorDate = anchorDate
+	this.Payee = payee
+	this.Amount = amount
+	this.ToBase = toBase
+	this.Currency = currency
+	this.PlaidAccountId = plaidAccountId
+	this.ManualAccountId = manualAccountId
 	return &this
 }
 
@@ -59,16 +76,18 @@ func NewRecurringObjectTransactionCriteriaWithDefaults() *RecurringObjectTransac
 	return &this
 }
 
-// GetStartDate returns the StartDate field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetStartDate returns the StartDate field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *RecurringObjectTransactionCriteria) GetStartDate() string {
-	if o == nil || IsNil(o.StartDate.Get()) {
+	if o == nil || o.StartDate.Get() == nil {
 		var ret string
 		return ret
 	}
+
 	return *o.StartDate.Get()
 }
 
-// GetStartDateOk returns a tuple with the StartDate field value if set, nil otherwise
+// GetStartDateOk returns a tuple with the StartDate field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *RecurringObjectTransactionCriteria) GetStartDateOk() (*string, bool) {
@@ -78,39 +97,23 @@ func (o *RecurringObjectTransactionCriteria) GetStartDateOk() (*string, bool) {
 	return o.StartDate.Get(), o.StartDate.IsSet()
 }
 
-// HasStartDate returns a boolean if a field has been set.
-func (o *RecurringObjectTransactionCriteria) HasStartDate() bool {
-	if o != nil && o.StartDate.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetStartDate gets a reference to the given NullableString and assigns it to the StartDate field.
+// SetStartDate sets field value
 func (o *RecurringObjectTransactionCriteria) SetStartDate(v string) {
 	o.StartDate.Set(&v)
 }
-// SetStartDateNil sets the value for StartDate to be an explicit nil
-func (o *RecurringObjectTransactionCriteria) SetStartDateNil() {
-	o.StartDate.Set(nil)
-}
 
-// UnsetStartDate ensures that no value is present for StartDate, not even an explicit nil
-func (o *RecurringObjectTransactionCriteria) UnsetStartDate() {
-	o.StartDate.Unset()
-}
-
-// GetEndDate returns the EndDate field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetEndDate returns the EndDate field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *RecurringObjectTransactionCriteria) GetEndDate() string {
-	if o == nil || IsNil(o.EndDate.Get()) {
+	if o == nil || o.EndDate.Get() == nil {
 		var ret string
 		return ret
 	}
+
 	return *o.EndDate.Get()
 }
 
-// GetEndDateOk returns a tuple with the EndDate field value if set, nil otherwise
+// GetEndDateOk returns a tuple with the EndDate field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *RecurringObjectTransactionCriteria) GetEndDateOk() (*string, bool) {
@@ -120,135 +123,95 @@ func (o *RecurringObjectTransactionCriteria) GetEndDateOk() (*string, bool) {
 	return o.EndDate.Get(), o.EndDate.IsSet()
 }
 
-// HasEndDate returns a boolean if a field has been set.
-func (o *RecurringObjectTransactionCriteria) HasEndDate() bool {
-	if o != nil && o.EndDate.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetEndDate gets a reference to the given NullableString and assigns it to the EndDate field.
+// SetEndDate sets field value
 func (o *RecurringObjectTransactionCriteria) SetEndDate(v string) {
 	o.EndDate.Set(&v)
 }
-// SetEndDateNil sets the value for EndDate to be an explicit nil
-func (o *RecurringObjectTransactionCriteria) SetEndDateNil() {
-	o.EndDate.Set(nil)
-}
 
-// UnsetEndDate ensures that no value is present for EndDate, not even an explicit nil
-func (o *RecurringObjectTransactionCriteria) UnsetEndDate() {
-	o.EndDate.Unset()
-}
-
-// GetGranularity returns the Granularity field value if set, zero value otherwise.
+// GetGranularity returns the Granularity field value
 func (o *RecurringObjectTransactionCriteria) GetGranularity() string {
-	if o == nil || IsNil(o.Granularity) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Granularity
+
+	return o.Granularity
 }
 
-// GetGranularityOk returns a tuple with the Granularity field value if set, nil otherwise
+// GetGranularityOk returns a tuple with the Granularity field value
 // and a boolean to check if the value has been set.
 func (o *RecurringObjectTransactionCriteria) GetGranularityOk() (*string, bool) {
-	if o == nil || IsNil(o.Granularity) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Granularity, true
+	return &o.Granularity, true
 }
 
-// HasGranularity returns a boolean if a field has been set.
-func (o *RecurringObjectTransactionCriteria) HasGranularity() bool {
-	if o != nil && !IsNil(o.Granularity) {
-		return true
-	}
-
-	return false
-}
-
-// SetGranularity gets a reference to the given string and assigns it to the Granularity field.
+// SetGranularity sets field value
 func (o *RecurringObjectTransactionCriteria) SetGranularity(v string) {
-	o.Granularity = &v
+	o.Granularity = v
 }
 
-// GetQuantity returns the Quantity field value if set, zero value otherwise.
+// GetQuantity returns the Quantity field value
 func (o *RecurringObjectTransactionCriteria) GetQuantity() int32 {
-	if o == nil || IsNil(o.Quantity) {
+	if o == nil {
 		var ret int32
 		return ret
 	}
-	return *o.Quantity
+
+	return o.Quantity
 }
 
-// GetQuantityOk returns a tuple with the Quantity field value if set, nil otherwise
+// GetQuantityOk returns a tuple with the Quantity field value
 // and a boolean to check if the value has been set.
 func (o *RecurringObjectTransactionCriteria) GetQuantityOk() (*int32, bool) {
-	if o == nil || IsNil(o.Quantity) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Quantity, true
+	return &o.Quantity, true
 }
 
-// HasQuantity returns a boolean if a field has been set.
-func (o *RecurringObjectTransactionCriteria) HasQuantity() bool {
-	if o != nil && !IsNil(o.Quantity) {
-		return true
-	}
-
-	return false
-}
-
-// SetQuantity gets a reference to the given int32 and assigns it to the Quantity field.
+// SetQuantity sets field value
 func (o *RecurringObjectTransactionCriteria) SetQuantity(v int32) {
-	o.Quantity = &v
+	o.Quantity = v
 }
 
-// GetAnchorDate returns the AnchorDate field value if set, zero value otherwise.
+// GetAnchorDate returns the AnchorDate field value
 func (o *RecurringObjectTransactionCriteria) GetAnchorDate() string {
-	if o == nil || IsNil(o.AnchorDate) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.AnchorDate
+
+	return o.AnchorDate
 }
 
-// GetAnchorDateOk returns a tuple with the AnchorDate field value if set, nil otherwise
+// GetAnchorDateOk returns a tuple with the AnchorDate field value
 // and a boolean to check if the value has been set.
 func (o *RecurringObjectTransactionCriteria) GetAnchorDateOk() (*string, bool) {
-	if o == nil || IsNil(o.AnchorDate) {
+	if o == nil {
 		return nil, false
 	}
-	return o.AnchorDate, true
+	return &o.AnchorDate, true
 }
 
-// HasAnchorDate returns a boolean if a field has been set.
-func (o *RecurringObjectTransactionCriteria) HasAnchorDate() bool {
-	if o != nil && !IsNil(o.AnchorDate) {
-		return true
-	}
-
-	return false
-}
-
-// SetAnchorDate gets a reference to the given string and assigns it to the AnchorDate field.
+// SetAnchorDate sets field value
 func (o *RecurringObjectTransactionCriteria) SetAnchorDate(v string) {
-	o.AnchorDate = &v
+	o.AnchorDate = v
 }
 
-// GetPayee returns the Payee field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetPayee returns the Payee field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *RecurringObjectTransactionCriteria) GetPayee() string {
-	if o == nil || IsNil(o.Payee.Get()) {
+	if o == nil || o.Payee.Get() == nil {
 		var ret string
 		return ret
 	}
+
 	return *o.Payee.Get()
 }
 
-// GetPayeeOk returns a tuple with the Payee field value if set, nil otherwise
+// GetPayeeOk returns a tuple with the Payee field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *RecurringObjectTransactionCriteria) GetPayeeOk() (*string, bool) {
@@ -258,103 +221,95 @@ func (o *RecurringObjectTransactionCriteria) GetPayeeOk() (*string, bool) {
 	return o.Payee.Get(), o.Payee.IsSet()
 }
 
-// HasPayee returns a boolean if a field has been set.
-func (o *RecurringObjectTransactionCriteria) HasPayee() bool {
-	if o != nil && o.Payee.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetPayee gets a reference to the given NullableString and assigns it to the Payee field.
+// SetPayee sets field value
 func (o *RecurringObjectTransactionCriteria) SetPayee(v string) {
 	o.Payee.Set(&v)
 }
-// SetPayeeNil sets the value for Payee to be an explicit nil
-func (o *RecurringObjectTransactionCriteria) SetPayeeNil() {
-	o.Payee.Set(nil)
-}
 
-// UnsetPayee ensures that no value is present for Payee, not even an explicit nil
-func (o *RecurringObjectTransactionCriteria) UnsetPayee() {
-	o.Payee.Unset()
-}
-
-// GetAmount returns the Amount field value if set, zero value otherwise.
+// GetAmount returns the Amount field value
 func (o *RecurringObjectTransactionCriteria) GetAmount() string {
-	if o == nil || IsNil(o.Amount) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Amount
+
+	return o.Amount
 }
 
-// GetAmountOk returns a tuple with the Amount field value if set, nil otherwise
+// GetAmountOk returns a tuple with the Amount field value
 // and a boolean to check if the value has been set.
 func (o *RecurringObjectTransactionCriteria) GetAmountOk() (*string, bool) {
-	if o == nil || IsNil(o.Amount) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Amount, true
+	return &o.Amount, true
 }
 
-// HasAmount returns a boolean if a field has been set.
-func (o *RecurringObjectTransactionCriteria) HasAmount() bool {
-	if o != nil && !IsNil(o.Amount) {
-		return true
+// SetAmount sets field value
+func (o *RecurringObjectTransactionCriteria) SetAmount(v string) {
+	o.Amount = v
+}
+
+// GetToBase returns the ToBase field value
+func (o *RecurringObjectTransactionCriteria) GetToBase() float32 {
+	if o == nil {
+		var ret float32
+		return ret
 	}
 
-	return false
+	return o.ToBase
 }
 
-// SetAmount gets a reference to the given string and assigns it to the Amount field.
-func (o *RecurringObjectTransactionCriteria) SetAmount(v string) {
-	o.Amount = &v
+// GetToBaseOk returns a tuple with the ToBase field value
+// and a boolean to check if the value has been set.
+func (o *RecurringObjectTransactionCriteria) GetToBaseOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ToBase, true
 }
 
-// GetCurrency returns the Currency field value if set, zero value otherwise.
+// SetToBase sets field value
+func (o *RecurringObjectTransactionCriteria) SetToBase(v float32) {
+	o.ToBase = v
+}
+
+// GetCurrency returns the Currency field value
 func (o *RecurringObjectTransactionCriteria) GetCurrency() string {
-	if o == nil || IsNil(o.Currency) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Currency
+
+	return o.Currency
 }
 
-// GetCurrencyOk returns a tuple with the Currency field value if set, nil otherwise
+// GetCurrencyOk returns a tuple with the Currency field value
 // and a boolean to check if the value has been set.
 func (o *RecurringObjectTransactionCriteria) GetCurrencyOk() (*string, bool) {
-	if o == nil || IsNil(o.Currency) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Currency, true
+	return &o.Currency, true
 }
 
-// HasCurrency returns a boolean if a field has been set.
-func (o *RecurringObjectTransactionCriteria) HasCurrency() bool {
-	if o != nil && !IsNil(o.Currency) {
-		return true
-	}
-
-	return false
-}
-
-// SetCurrency gets a reference to the given string and assigns it to the Currency field.
+// SetCurrency sets field value
 func (o *RecurringObjectTransactionCriteria) SetCurrency(v string) {
-	o.Currency = &v
+	o.Currency = v
 }
 
-// GetPlaidAccountId returns the PlaidAccountId field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetPlaidAccountId returns the PlaidAccountId field value
+// If the value is explicit nil, the zero value for int64 will be returned
 func (o *RecurringObjectTransactionCriteria) GetPlaidAccountId() int64 {
-	if o == nil || IsNil(o.PlaidAccountId.Get()) {
+	if o == nil || o.PlaidAccountId.Get() == nil {
 		var ret int64
 		return ret
 	}
+
 	return *o.PlaidAccountId.Get()
 }
 
-// GetPlaidAccountIdOk returns a tuple with the PlaidAccountId field value if set, nil otherwise
+// GetPlaidAccountIdOk returns a tuple with the PlaidAccountId field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *RecurringObjectTransactionCriteria) GetPlaidAccountIdOk() (*int64, bool) {
@@ -364,39 +319,23 @@ func (o *RecurringObjectTransactionCriteria) GetPlaidAccountIdOk() (*int64, bool
 	return o.PlaidAccountId.Get(), o.PlaidAccountId.IsSet()
 }
 
-// HasPlaidAccountId returns a boolean if a field has been set.
-func (o *RecurringObjectTransactionCriteria) HasPlaidAccountId() bool {
-	if o != nil && o.PlaidAccountId.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetPlaidAccountId gets a reference to the given NullableInt64 and assigns it to the PlaidAccountId field.
+// SetPlaidAccountId sets field value
 func (o *RecurringObjectTransactionCriteria) SetPlaidAccountId(v int64) {
 	o.PlaidAccountId.Set(&v)
 }
-// SetPlaidAccountIdNil sets the value for PlaidAccountId to be an explicit nil
-func (o *RecurringObjectTransactionCriteria) SetPlaidAccountIdNil() {
-	o.PlaidAccountId.Set(nil)
-}
 
-// UnsetPlaidAccountId ensures that no value is present for PlaidAccountId, not even an explicit nil
-func (o *RecurringObjectTransactionCriteria) UnsetPlaidAccountId() {
-	o.PlaidAccountId.Unset()
-}
-
-// GetManualAccountId returns the ManualAccountId field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetManualAccountId returns the ManualAccountId field value
+// If the value is explicit nil, the zero value for int64 will be returned
 func (o *RecurringObjectTransactionCriteria) GetManualAccountId() int64 {
-	if o == nil || IsNil(o.ManualAccountId.Get()) {
+	if o == nil || o.ManualAccountId.Get() == nil {
 		var ret int64
 		return ret
 	}
+
 	return *o.ManualAccountId.Get()
 }
 
-// GetManualAccountIdOk returns a tuple with the ManualAccountId field value if set, nil otherwise
+// GetManualAccountIdOk returns a tuple with the ManualAccountId field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *RecurringObjectTransactionCriteria) GetManualAccountIdOk() (*int64, bool) {
@@ -406,27 +345,9 @@ func (o *RecurringObjectTransactionCriteria) GetManualAccountIdOk() (*int64, boo
 	return o.ManualAccountId.Get(), o.ManualAccountId.IsSet()
 }
 
-// HasManualAccountId returns a boolean if a field has been set.
-func (o *RecurringObjectTransactionCriteria) HasManualAccountId() bool {
-	if o != nil && o.ManualAccountId.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetManualAccountId gets a reference to the given NullableInt64 and assigns it to the ManualAccountId field.
+// SetManualAccountId sets field value
 func (o *RecurringObjectTransactionCriteria) SetManualAccountId(v int64) {
 	o.ManualAccountId.Set(&v)
-}
-// SetManualAccountIdNil sets the value for ManualAccountId to be an explicit nil
-func (o *RecurringObjectTransactionCriteria) SetManualAccountIdNil() {
-	o.ManualAccountId.Set(nil)
-}
-
-// UnsetManualAccountId ensures that no value is present for ManualAccountId, not even an explicit nil
-func (o *RecurringObjectTransactionCriteria) UnsetManualAccountId() {
-	o.ManualAccountId.Unset()
 }
 
 func (o RecurringObjectTransactionCriteria) MarshalJSON() ([]byte, error) {
@@ -439,37 +360,65 @@ func (o RecurringObjectTransactionCriteria) MarshalJSON() ([]byte, error) {
 
 func (o RecurringObjectTransactionCriteria) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.StartDate.IsSet() {
-		toSerialize["start_date"] = o.StartDate.Get()
-	}
-	if o.EndDate.IsSet() {
-		toSerialize["end_date"] = o.EndDate.Get()
-	}
-	if !IsNil(o.Granularity) {
-		toSerialize["granularity"] = o.Granularity
-	}
-	if !IsNil(o.Quantity) {
-		toSerialize["quantity"] = o.Quantity
-	}
-	if !IsNil(o.AnchorDate) {
-		toSerialize["anchor_date"] = o.AnchorDate
-	}
-	if o.Payee.IsSet() {
-		toSerialize["payee"] = o.Payee.Get()
-	}
-	if !IsNil(o.Amount) {
-		toSerialize["amount"] = o.Amount
-	}
-	if !IsNil(o.Currency) {
-		toSerialize["currency"] = o.Currency
-	}
-	if o.PlaidAccountId.IsSet() {
-		toSerialize["plaid_account_id"] = o.PlaidAccountId.Get()
-	}
-	if o.ManualAccountId.IsSet() {
-		toSerialize["manual_account_id"] = o.ManualAccountId.Get()
-	}
+	toSerialize["start_date"] = o.StartDate.Get()
+	toSerialize["end_date"] = o.EndDate.Get()
+	toSerialize["granularity"] = o.Granularity
+	toSerialize["quantity"] = o.Quantity
+	toSerialize["anchor_date"] = o.AnchorDate
+	toSerialize["payee"] = o.Payee.Get()
+	toSerialize["amount"] = o.Amount
+	toSerialize["to_base"] = o.ToBase
+	toSerialize["currency"] = o.Currency
+	toSerialize["plaid_account_id"] = o.PlaidAccountId.Get()
+	toSerialize["manual_account_id"] = o.ManualAccountId.Get()
 	return toSerialize, nil
+}
+
+func (o *RecurringObjectTransactionCriteria) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"start_date",
+		"end_date",
+		"granularity",
+		"quantity",
+		"anchor_date",
+		"payee",
+		"amount",
+		"to_base",
+		"currency",
+		"plaid_account_id",
+		"manual_account_id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRecurringObjectTransactionCriteria := _RecurringObjectTransactionCriteria{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varRecurringObjectTransactionCriteria)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RecurringObjectTransactionCriteria(varRecurringObjectTransactionCriteria)
+
+	return err
 }
 
 type NullableRecurringObjectTransactionCriteria struct {
