@@ -3,7 +3,7 @@ Lunch Money API - v2
 
 ## Overview Welcome to the Lunch Money v2 API.  A working version of this API is now available through these docs, or directly at:  `https://api.lunchmoney.dev/v2`  **This service has only had internal testing so users are strongly encouraged to create a test budget with example data as the first step to interacting with the v2 API.** See the [Getting Started Guide](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/getting-started) for more information.  If you are new to the v2 API, you may wish to review the [v2 API Overview of Changes](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/migration-guide).  ### Static Mock Server  You may also use these docs to explore the API using a static mock server endpoint.<p> This enables users to become familiar with the API without having to create an access token, and eliminates the possibility of modifying real data. <p> To access this endpoint select the second endpoint in the the \"Server\" dropdown to the right. When selected you should see \"Static Mock v2 Lunch Money API Server\".<br> When using this server, set your Bearer token to any string with 11 or more characters.  ### Migrating from V1  The v2 API is NOT backwards compatible with the v1 API. Developers are encouraged to review the [Migration Guide](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/migration-guide) to understand the changes and plan their migration.  ### Acknowledgments  If you have been providing feedback on the API during our iterative design process, **THANK YOU**. We are happy to provide the opportunity to finally interact with the working API that was built based on your feedback.  ### Useful links: - [Getting Started](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/getting-started) - [v2 API Changelog](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/changelog) - [Migration Guide](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/migration-guide) - [Rate Limits](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/rate-limits) - [Current v1 Lunch Money API Documentation](https://lunchmoney.dev) - [Awesome Lunch Money Projects](https://github.com/lunch-money/awesome-lunchmoney?tab=readme-ov-file)
 
-API version: 2.8.0
+API version: 2.8.1
 Contact: devsupport@lunchmoney.app
 */
 
@@ -26,6 +26,10 @@ type CreateTagRequestObject struct {
 	Name string `json:"name"`
 	// The description of the tag. Must not exceed 200 characters.
 	Description NullableString `json:"description,omitempty"`
+	// The text color of the tag.
+	TextColor NullableString `json:"text_color,omitempty"`
+	// The background color of the tag.
+	BackgroundColor NullableString `json:"background_color,omitempty"`
 	// If `true`, the tag is archived and not displayed in relevant areas of the Lunch Money app.
 	Archived *bool `json:"archived,omitempty"`
 }
@@ -120,6 +124,90 @@ func (o *CreateTagRequestObject) UnsetDescription() {
 	o.Description.Unset()
 }
 
+// GetTextColor returns the TextColor field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateTagRequestObject) GetTextColor() string {
+	if o == nil || IsNil(o.TextColor.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.TextColor.Get()
+}
+
+// GetTextColorOk returns a tuple with the TextColor field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateTagRequestObject) GetTextColorOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.TextColor.Get(), o.TextColor.IsSet()
+}
+
+// HasTextColor returns a boolean if a field has been set.
+func (o *CreateTagRequestObject) HasTextColor() bool {
+	if o != nil && o.TextColor.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetTextColor gets a reference to the given NullableString and assigns it to the TextColor field.
+func (o *CreateTagRequestObject) SetTextColor(v string) {
+	o.TextColor.Set(&v)
+}
+// SetTextColorNil sets the value for TextColor to be an explicit nil
+func (o *CreateTagRequestObject) SetTextColorNil() {
+	o.TextColor.Set(nil)
+}
+
+// UnsetTextColor ensures that no value is present for TextColor, not even an explicit nil
+func (o *CreateTagRequestObject) UnsetTextColor() {
+	o.TextColor.Unset()
+}
+
+// GetBackgroundColor returns the BackgroundColor field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateTagRequestObject) GetBackgroundColor() string {
+	if o == nil || IsNil(o.BackgroundColor.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.BackgroundColor.Get()
+}
+
+// GetBackgroundColorOk returns a tuple with the BackgroundColor field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateTagRequestObject) GetBackgroundColorOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.BackgroundColor.Get(), o.BackgroundColor.IsSet()
+}
+
+// HasBackgroundColor returns a boolean if a field has been set.
+func (o *CreateTagRequestObject) HasBackgroundColor() bool {
+	if o != nil && o.BackgroundColor.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetBackgroundColor gets a reference to the given NullableString and assigns it to the BackgroundColor field.
+func (o *CreateTagRequestObject) SetBackgroundColor(v string) {
+	o.BackgroundColor.Set(&v)
+}
+// SetBackgroundColorNil sets the value for BackgroundColor to be an explicit nil
+func (o *CreateTagRequestObject) SetBackgroundColorNil() {
+	o.BackgroundColor.Set(nil)
+}
+
+// UnsetBackgroundColor ensures that no value is present for BackgroundColor, not even an explicit nil
+func (o *CreateTagRequestObject) UnsetBackgroundColor() {
+	o.BackgroundColor.Unset()
+}
+
 // GetArchived returns the Archived field value if set, zero value otherwise.
 func (o *CreateTagRequestObject) GetArchived() bool {
 	if o == nil || IsNil(o.Archived) {
@@ -165,6 +253,12 @@ func (o CreateTagRequestObject) ToMap() (map[string]interface{}, error) {
 	toSerialize["name"] = o.Name
 	if o.Description.IsSet() {
 		toSerialize["description"] = o.Description.Get()
+	}
+	if o.TextColor.IsSet() {
+		toSerialize["text_color"] = o.TextColor.Get()
+	}
+	if o.BackgroundColor.IsSet() {
+		toSerialize["background_color"] = o.BackgroundColor.Get()
 	}
 	if !IsNil(o.Archived) {
 		toSerialize["archived"] = o.Archived

@@ -3,7 +3,7 @@ Lunch Money API - v2
 
 ## Overview Welcome to the Lunch Money v2 API.  A working version of this API is now available through these docs, or directly at:  `https://api.lunchmoney.dev/v2`  **This service has only had internal testing so users are strongly encouraged to create a test budget with example data as the first step to interacting with the v2 API.** See the [Getting Started Guide](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/getting-started) for more information.  If you are new to the v2 API, you may wish to review the [v2 API Overview of Changes](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/migration-guide).  ### Static Mock Server  You may also use these docs to explore the API using a static mock server endpoint.<p> This enables users to become familiar with the API without having to create an access token, and eliminates the possibility of modifying real data. <p> To access this endpoint select the second endpoint in the the \"Server\" dropdown to the right. When selected you should see \"Static Mock v2 Lunch Money API Server\".<br> When using this server, set your Bearer token to any string with 11 or more characters.  ### Migrating from V1  The v2 API is NOT backwards compatible with the v1 API. Developers are encouraged to review the [Migration Guide](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/migration-guide) to understand the changes and plan their migration.  ### Acknowledgments  If you have been providing feedback on the API during our iterative design process, **THANK YOU**. We are happy to provide the opportunity to finally interact with the working API that was built based on your feedback.  ### Useful links: - [Getting Started](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/getting-started) - [v2 API Changelog](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/changelog) - [Migration Guide](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/migration-guide) - [Rate Limits](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/rate-limits) - [Current v1 Lunch Money API Documentation](https://lunchmoney.dev) - [Awesome Lunch Money Projects](https://github.com/lunch-money/awesome-lunchmoney?tab=readme-ov-file)
 
-API version: 2.8.0
+API version: 2.8.1
 Contact: devsupport@lunchmoney.app
 */
 
@@ -29,6 +29,10 @@ type TagObject struct {
 	Name string `json:"name"`
 	// Description of the tag.
 	Description NullableString `json:"description"`
+	// The text color of the tag.
+	TextColor NullableString `json:"text_color"`
+	// The background color of the tag.
+	BackgroundColor NullableString `json:"background_color"`
 	// The date and time of when the tag was last updated (in the ISO 8601 extended format).
 	UpdatedAt time.Time `json:"updated_at"`
 	// The date and time of when the tag was created (in the ISO 8601 extended format).
@@ -45,11 +49,13 @@ type _TagObject TagObject
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTagObject(id int32, name string, description NullableString, updatedAt time.Time, createdAt time.Time, archived bool, archivedAt NullableTime) *TagObject {
+func NewTagObject(id int32, name string, description NullableString, textColor NullableString, backgroundColor NullableString, updatedAt time.Time, createdAt time.Time, archived bool, archivedAt NullableTime) *TagObject {
 	this := TagObject{}
 	this.Id = id
 	this.Name = name
 	this.Description = description
+	this.TextColor = textColor
+	this.BackgroundColor = backgroundColor
 	this.UpdatedAt = updatedAt
 	this.CreatedAt = createdAt
 	this.Archived = archived
@@ -137,6 +143,58 @@ func (o *TagObject) GetDescriptionOk() (*string, bool) {
 // SetDescription sets field value
 func (o *TagObject) SetDescription(v string) {
 	o.Description.Set(&v)
+}
+
+// GetTextColor returns the TextColor field value
+// If the value is explicit nil, the zero value for string will be returned
+func (o *TagObject) GetTextColor() string {
+	if o == nil || o.TextColor.Get() == nil {
+		var ret string
+		return ret
+	}
+
+	return *o.TextColor.Get()
+}
+
+// GetTextColorOk returns a tuple with the TextColor field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *TagObject) GetTextColorOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.TextColor.Get(), o.TextColor.IsSet()
+}
+
+// SetTextColor sets field value
+func (o *TagObject) SetTextColor(v string) {
+	o.TextColor.Set(&v)
+}
+
+// GetBackgroundColor returns the BackgroundColor field value
+// If the value is explicit nil, the zero value for string will be returned
+func (o *TagObject) GetBackgroundColor() string {
+	if o == nil || o.BackgroundColor.Get() == nil {
+		var ret string
+		return ret
+	}
+
+	return *o.BackgroundColor.Get()
+}
+
+// GetBackgroundColorOk returns a tuple with the BackgroundColor field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *TagObject) GetBackgroundColorOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.BackgroundColor.Get(), o.BackgroundColor.IsSet()
+}
+
+// SetBackgroundColor sets field value
+func (o *TagObject) SetBackgroundColor(v string) {
+	o.BackgroundColor.Set(&v)
 }
 
 // GetUpdatedAt returns the UpdatedAt field value
@@ -250,6 +308,8 @@ func (o TagObject) ToMap() (map[string]interface{}, error) {
 	toSerialize["id"] = o.Id
 	toSerialize["name"] = o.Name
 	toSerialize["description"] = o.Description.Get()
+	toSerialize["text_color"] = o.TextColor.Get()
+	toSerialize["background_color"] = o.BackgroundColor.Get()
 	toSerialize["updated_at"] = o.UpdatedAt
 	toSerialize["created_at"] = o.CreatedAt
 	toSerialize["archived"] = o.Archived
@@ -265,6 +325,8 @@ func (o *TagObject) UnmarshalJSON(data []byte) (err error) {
 		"id",
 		"name",
 		"description",
+		"text_color",
+		"background_color",
 		"updated_at",
 		"created_at",
 		"archived",

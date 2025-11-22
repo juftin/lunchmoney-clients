@@ -7,6 +7,8 @@ Name | Type | Description | Notes
 **Id** | **int32** | Unique identifier for the tag. | 
 **Name** | **string** | Name of the tag. | 
 **Description** | **NullableString** | Description of the tag. | 
+**TextColor** | **NullableString** | The text color of the tag. | 
+**BackgroundColor** | **NullableString** | The background color of the tag. | 
 **UpdatedAt** | **time.Time** | The date and time of when the tag was last updated (in the ISO 8601 extended format). | 
 **CreatedAt** | **time.Time** | The date and time of when the tag was created (in the ISO 8601 extended format). | 
 **Archived** | **bool** | If &#x60;true&#x60;, the tag will not show up when creating or updating transactions in the Lunch Money app. **Can it be assigned via the API** | 
@@ -16,7 +18,7 @@ Name | Type | Description | Notes
 
 ### NewTagObject
 
-`func NewTagObject(id int32, name string, description NullableString, updatedAt time.Time, createdAt time.Time, archived bool, archivedAt NullableTime, ) *TagObject`
+`func NewTagObject(id int32, name string, description NullableString, textColor NullableString, backgroundColor NullableString, updatedAt time.Time, createdAt time.Time, archived bool, archivedAt NullableTime, ) *TagObject`
 
 NewTagObject instantiates a new TagObject object
 This constructor will assign default values to properties that have it defined,
@@ -101,6 +103,66 @@ SetDescription sets Description field to given value.
 `func (o *TagObject) UnsetDescription()`
 
 UnsetDescription ensures that no value is present for Description, not even an explicit nil
+### GetTextColor
+
+`func (o *TagObject) GetTextColor() string`
+
+GetTextColor returns the TextColor field if non-nil, zero value otherwise.
+
+### GetTextColorOk
+
+`func (o *TagObject) GetTextColorOk() (*string, bool)`
+
+GetTextColorOk returns a tuple with the TextColor field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTextColor
+
+`func (o *TagObject) SetTextColor(v string)`
+
+SetTextColor sets TextColor field to given value.
+
+
+### SetTextColorNil
+
+`func (o *TagObject) SetTextColorNil(b bool)`
+
+ SetTextColorNil sets the value for TextColor to be an explicit nil
+
+### UnsetTextColor
+`func (o *TagObject) UnsetTextColor()`
+
+UnsetTextColor ensures that no value is present for TextColor, not even an explicit nil
+### GetBackgroundColor
+
+`func (o *TagObject) GetBackgroundColor() string`
+
+GetBackgroundColor returns the BackgroundColor field if non-nil, zero value otherwise.
+
+### GetBackgroundColorOk
+
+`func (o *TagObject) GetBackgroundColorOk() (*string, bool)`
+
+GetBackgroundColorOk returns a tuple with the BackgroundColor field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBackgroundColor
+
+`func (o *TagObject) SetBackgroundColor(v string)`
+
+SetBackgroundColor sets BackgroundColor field to given value.
+
+
+### SetBackgroundColorNil
+
+`func (o *TagObject) SetBackgroundColorNil(b bool)`
+
+ SetBackgroundColorNil sets the value for BackgroundColor to be an explicit nil
+
+### UnsetBackgroundColor
+`func (o *TagObject) UnsetBackgroundColor()`
+
+UnsetBackgroundColor ensures that no value is present for BackgroundColor, not even an explicit nil
 ### GetUpdatedAt
 
 `func (o *TagObject) GetUpdatedAt() time.Time`

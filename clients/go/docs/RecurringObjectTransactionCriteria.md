@@ -4,22 +4,23 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**StartDate** | Pointer to **NullableString** | The beginning of the date range for matching transactions. If &#x60;null&#x60;, any transactions before end_date may be considered. | [optional] 
-**EndDate** | Pointer to **NullableString** | The end of the date range for matching transactions. If &#x60;null&#x60;, any transactions after start_date may be considered. | [optional] 
-**Granularity** | Pointer to **string** | The unit of time used to define the cadence of the recurring item. | [optional] 
-**Quantity** | Pointer to **int32** | The number of granularity units between each recurrence. | [optional] 
-**AnchorDate** | Pointer to **string** | The date used in conjunction with the &#x60;quantity&#x60; and &#x60;granularity&#x60; properties to calculate expected occurrences of recurring transactions. | [optional] 
-**Payee** | Pointer to **NullableString** | If set, represents the original transaction payee name that triggered this recurring item&#39;s creation. | [optional] 
-**Amount** | Pointer to **string** | The expected amount for a transaction that will match this recurring item. For recurring items that have a flexible amount this is the average of the specified min and max amounts. | [optional] 
-**Currency** | Pointer to **string** | Three-letter lowercase currency code of the recurring item. | [optional] 
-**PlaidAccountId** | Pointer to **NullableInt64** | The Plaid account ID associated with the recurring item, if any. | [optional] 
-**ManualAccountId** | Pointer to **NullableInt64** | The manual account ID associated with the recurring item, if any. | [optional] 
+**StartDate** | **NullableString** | The beginning of the date range for matching transactions. If &#x60;null&#x60;, any transactions before end_date may be considered. | 
+**EndDate** | **NullableString** | The end of the date range for matching transactions. If &#x60;null&#x60;, any transactions after start_date may be considered. | 
+**Granularity** | **string** | The unit of time used to define the cadence of the recurring item. | 
+**Quantity** | **int32** | The number of granularity units between each recurrence. | 
+**AnchorDate** | **string** | The date used in conjunction with the &#x60;quantity&#x60; and &#x60;granularity&#x60; properties to calculate expected occurrences of recurring transactions. | 
+**Payee** | **NullableString** | If set, represents the original transaction payee name that triggered this recurring item&#39;s creation. | 
+**Amount** | **string** | The expected amount for a transaction that will match this recurring item. For recurring items that have a flexible amount this is the average of the specified min and max amounts. | 
+**ToBase** | **float32** | The amount converted to the user&#39;s primary currency | 
+**Currency** | **string** | Three-letter lowercase currency code of the recurring item. | 
+**PlaidAccountId** | **NullableInt64** | The Plaid account ID associated with the recurring item, if any. | 
+**ManualAccountId** | **NullableInt64** | The manual account ID associated with the recurring item, if any. | 
 
 ## Methods
 
 ### NewRecurringObjectTransactionCriteria
 
-`func NewRecurringObjectTransactionCriteria() *RecurringObjectTransactionCriteria`
+`func NewRecurringObjectTransactionCriteria(startDate NullableString, endDate NullableString, granularity string, quantity int32, anchorDate string, payee NullableString, amount string, toBase float32, currency string, plaidAccountId NullableInt64, manualAccountId NullableInt64, ) *RecurringObjectTransactionCriteria`
 
 NewRecurringObjectTransactionCriteria instantiates a new RecurringObjectTransactionCriteria object
 This constructor will assign default values to properties that have it defined,
@@ -53,11 +54,6 @@ and a boolean to check if the value has been set.
 
 SetStartDate sets StartDate field to given value.
 
-### HasStartDate
-
-`func (o *RecurringObjectTransactionCriteria) HasStartDate() bool`
-
-HasStartDate returns a boolean if a field has been set.
 
 ### SetStartDateNil
 
@@ -88,11 +84,6 @@ and a boolean to check if the value has been set.
 
 SetEndDate sets EndDate field to given value.
 
-### HasEndDate
-
-`func (o *RecurringObjectTransactionCriteria) HasEndDate() bool`
-
-HasEndDate returns a boolean if a field has been set.
 
 ### SetEndDateNil
 
@@ -123,11 +114,6 @@ and a boolean to check if the value has been set.
 
 SetGranularity sets Granularity field to given value.
 
-### HasGranularity
-
-`func (o *RecurringObjectTransactionCriteria) HasGranularity() bool`
-
-HasGranularity returns a boolean if a field has been set.
 
 ### GetQuantity
 
@@ -148,11 +134,6 @@ and a boolean to check if the value has been set.
 
 SetQuantity sets Quantity field to given value.
 
-### HasQuantity
-
-`func (o *RecurringObjectTransactionCriteria) HasQuantity() bool`
-
-HasQuantity returns a boolean if a field has been set.
 
 ### GetAnchorDate
 
@@ -173,11 +154,6 @@ and a boolean to check if the value has been set.
 
 SetAnchorDate sets AnchorDate field to given value.
 
-### HasAnchorDate
-
-`func (o *RecurringObjectTransactionCriteria) HasAnchorDate() bool`
-
-HasAnchorDate returns a boolean if a field has been set.
 
 ### GetPayee
 
@@ -198,11 +174,6 @@ and a boolean to check if the value has been set.
 
 SetPayee sets Payee field to given value.
 
-### HasPayee
-
-`func (o *RecurringObjectTransactionCriteria) HasPayee() bool`
-
-HasPayee returns a boolean if a field has been set.
 
 ### SetPayeeNil
 
@@ -233,11 +204,26 @@ and a boolean to check if the value has been set.
 
 SetAmount sets Amount field to given value.
 
-### HasAmount
 
-`func (o *RecurringObjectTransactionCriteria) HasAmount() bool`
+### GetToBase
 
-HasAmount returns a boolean if a field has been set.
+`func (o *RecurringObjectTransactionCriteria) GetToBase() float32`
+
+GetToBase returns the ToBase field if non-nil, zero value otherwise.
+
+### GetToBaseOk
+
+`func (o *RecurringObjectTransactionCriteria) GetToBaseOk() (*float32, bool)`
+
+GetToBaseOk returns a tuple with the ToBase field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetToBase
+
+`func (o *RecurringObjectTransactionCriteria) SetToBase(v float32)`
+
+SetToBase sets ToBase field to given value.
+
 
 ### GetCurrency
 
@@ -258,11 +244,6 @@ and a boolean to check if the value has been set.
 
 SetCurrency sets Currency field to given value.
 
-### HasCurrency
-
-`func (o *RecurringObjectTransactionCriteria) HasCurrency() bool`
-
-HasCurrency returns a boolean if a field has been set.
 
 ### GetPlaidAccountId
 
@@ -283,11 +264,6 @@ and a boolean to check if the value has been set.
 
 SetPlaidAccountId sets PlaidAccountId field to given value.
 
-### HasPlaidAccountId
-
-`func (o *RecurringObjectTransactionCriteria) HasPlaidAccountId() bool`
-
-HasPlaidAccountId returns a boolean if a field has been set.
 
 ### SetPlaidAccountIdNil
 
@@ -318,11 +294,6 @@ and a boolean to check if the value has been set.
 
 SetManualAccountId sets ManualAccountId field to given value.
 
-### HasManualAccountId
-
-`func (o *RecurringObjectTransactionCriteria) HasManualAccountId() bool`
-
-HasManualAccountId returns a boolean if a field has been set.
 
 ### SetManualAccountIdNil
 
