@@ -6,6 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | The name of the new tag. Must be between 1 and 100 characters. Must not match the name of any existing tags. | 
 **Description** | Pointer to **NullableString** | The description of the tag. Must not exceed 200 characters. | [optional] 
+**TextColor** | Pointer to **NullableString** | The text color of the tag. | [optional] 
+**BackgroundColor** | Pointer to **NullableString** | The background color of the tag. | [optional] 
 **Archived** | Pointer to **bool** | If &#x60;true&#x60;, the tag is archived and not displayed in relevant areas of the Lunch Money app. | [optional] [default to false]
 
 ## Methods
@@ -82,6 +84,76 @@ HasDescription returns a boolean if a field has been set.
 `func (o *CreateTagRequestObject) UnsetDescription()`
 
 UnsetDescription ensures that no value is present for Description, not even an explicit nil
+### GetTextColor
+
+`func (o *CreateTagRequestObject) GetTextColor() string`
+
+GetTextColor returns the TextColor field if non-nil, zero value otherwise.
+
+### GetTextColorOk
+
+`func (o *CreateTagRequestObject) GetTextColorOk() (*string, bool)`
+
+GetTextColorOk returns a tuple with the TextColor field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTextColor
+
+`func (o *CreateTagRequestObject) SetTextColor(v string)`
+
+SetTextColor sets TextColor field to given value.
+
+### HasTextColor
+
+`func (o *CreateTagRequestObject) HasTextColor() bool`
+
+HasTextColor returns a boolean if a field has been set.
+
+### SetTextColorNil
+
+`func (o *CreateTagRequestObject) SetTextColorNil(b bool)`
+
+ SetTextColorNil sets the value for TextColor to be an explicit nil
+
+### UnsetTextColor
+`func (o *CreateTagRequestObject) UnsetTextColor()`
+
+UnsetTextColor ensures that no value is present for TextColor, not even an explicit nil
+### GetBackgroundColor
+
+`func (o *CreateTagRequestObject) GetBackgroundColor() string`
+
+GetBackgroundColor returns the BackgroundColor field if non-nil, zero value otherwise.
+
+### GetBackgroundColorOk
+
+`func (o *CreateTagRequestObject) GetBackgroundColorOk() (*string, bool)`
+
+GetBackgroundColorOk returns a tuple with the BackgroundColor field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBackgroundColor
+
+`func (o *CreateTagRequestObject) SetBackgroundColor(v string)`
+
+SetBackgroundColor sets BackgroundColor field to given value.
+
+### HasBackgroundColor
+
+`func (o *CreateTagRequestObject) HasBackgroundColor() bool`
+
+HasBackgroundColor returns a boolean if a field has been set.
+
+### SetBackgroundColorNil
+
+`func (o *CreateTagRequestObject) SetBackgroundColorNil(b bool)`
+
+ SetBackgroundColorNil sets the value for BackgroundColor to be an explicit nil
+
+### UnsetBackgroundColor
+`func (o *CreateTagRequestObject) UnsetBackgroundColor()`
+
+UnsetBackgroundColor ensures that no value is present for BackgroundColor, not even an explicit nil
 ### GetArchived
 
 `func (o *CreateTagRequestObject) GetArchived() bool`

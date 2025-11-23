@@ -7,7 +7,7 @@ Method | HTTP request | Description
 [**CreateTag**](TagsAPI.md#CreateTag) | **Post** /tags | Create a new tag
 [**DeleteTag**](TagsAPI.md#DeleteTag) | **Delete** /tags/{id} | Delete a tag
 [**GetAllTags**](TagsAPI.md#GetAllTags) | **Get** /tags | Get All Tags
-[**GetTagById**](TagsAPI.md#GetTagById) | **Get** /tags/{id} | Get a single tags
+[**GetTagById**](TagsAPI.md#GetTagById) | **Get** /tags/{id} | Get a single tag
 [**UpdateTag**](TagsAPI.md#UpdateTag) | **Put** /tags/{id} | Update an existing tag
 
 
@@ -213,7 +213,7 @@ Other parameters are passed through a pointer to a apiGetAllTagsRequest struct v
 
 > TagObject GetTagById(ctx, id).Execute()
 
-Get a single tags
+Get a single tag
 
 
 
