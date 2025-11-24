@@ -8,6 +8,8 @@ Name | Type | Description | Notes
 **id** | **int** | Unique identifier for the tag. | 
 **name** | **str** | Name of the tag. | 
 **description** | **str** | Description of the tag. | 
+**text_color** | **str** | The text color of the tag. | 
+**background_color** | **str** | The background color of the tag. | 
 **updated_at** | **datetime** | The date and time of when the tag was last updated (in the ISO 8601 extended format). | 
 **created_at** | **datetime** | The date and time of when the tag was created (in the ISO 8601 extended format). | 
 **archived** | **bool** | If &#x60;true&#x60;, the tag will not show up when creating or updating transactions in the Lunch Money app. **Can it be assigned via the API** | 

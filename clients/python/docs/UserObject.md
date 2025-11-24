@@ -11,7 +11,6 @@ Name | Type | Description | Notes
 **account_id** | **int** | Unique identifier for the associated budgeting account | 
 **budget_name** | **str** | Name of the associated budgeting account | 
 **primary_currency** | [**CurrencyEnum**](CurrencyEnum.md) | Primary currency from user&#39;s settings | 
-**debits_as_negative** | **bool** | Describes how negative amounts in transactions should be interpreted. | 
 **api_key_label** | **str** | User-defined label of the developer API key used. Returns null if nothing has been set. | 
 
 ## Example
