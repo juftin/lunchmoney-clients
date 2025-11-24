@@ -4,14 +4,14 @@ All URIs are relative to *https://api.lunchmoney.dev/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**get_all_recurring**](RecurringItemsApi.md#get_all_recurring) | **GET** /recurring_items | Get a all recurring items
+[**get_all_recurring**](RecurringItemsApi.md#get_all_recurring) | **GET** /recurring_items | Get all recurring items
 [**get_recurring_by_id**](RecurringItemsApi.md#get_recurring_by_id) | **GET** /recurring_items/{id} | Get a single recurring item
 
 
 # **get_all_recurring**
 > GetAllRecurring200Response get_all_recurring(start_date=start_date, end_date=end_date, include_suggested=include_suggested)
 
-Get a all recurring items
+Get all recurring items
 
 Get info about the recurring items for a specified time frame
 
@@ -57,7 +57,7 @@ with lunchmoney.ApiClient(configuration) as api_client:
     include_suggested = True # bool |  (optional)
 
     try:
-        # Get a all recurring items
+        # Get all recurring items
         api_response = api_instance.get_all_recurring(start_date=start_date, end_date=end_date, include_suggested=include_suggested)
         print("The response of RecurringItemsApi->get_all_recurring:\n")
         pprint(api_response)
