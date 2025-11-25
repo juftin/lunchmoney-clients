@@ -48,6 +48,7 @@ jobs:
               id: date
               run: echo "date=$(date +'%Y-%m-%d %H:%M:%S %Z')" >> ${GITHUB_OUTPUT}
             - name: pull-request
+              id: pr
               uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7.0.8
               with:
                   commit-message: ✨ v${{ steps.version.outputs.result }} - ${{ steps.date.outputs.date }}
@@ -55,3 +56,8 @@ jobs:
                   delete-branch: true
                   title: ✨ v${{ steps.version.outputs.result }} - ${{ steps.date.outputs.date }}
                   body: "## ✨ LunchMoney Developer API v${{ steps.version.outputs.result }} - ${{ steps.date.outputs.date }}"
+            - name: pr-merge
+              if: ${{ steps.cpr.outputs.pull-request-number }}
+              run: gh pr merge --auto --delete-branch ${{ steps.pr.outputs.pull-request-number }}
+              env:
+                  GH_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
