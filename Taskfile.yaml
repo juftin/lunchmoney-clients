@@ -102,6 +102,12 @@ tasks:
                           ref: .CLIENTS
               task: "{{.ITEM.CLIENT}}:clean"
     #######################################
+    docs:
+        desc: Generate Documentation
+        cmds:
+            - cp openapi.yaml docs/openapi.yaml
+            - uv run python -m http.server 8000 --directory docs
+    #######################################
     # Internal Tasks
     #######################################
     pre-commit-install:
