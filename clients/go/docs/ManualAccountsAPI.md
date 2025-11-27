@@ -80,7 +80,7 @@ Name | Type | Description  | Notes
 
 ## DeleteManualAccount
 
-> DeleteManualAccount(ctx, id).Execute()
+> DeleteManualAccount(ctx, id).DeleteItems(deleteItems).DeleteBalanceHistory(deleteBalanceHistory).Execute()
 
 Delete a manual account
 
@@ -100,10 +100,12 @@ import (
 
 func main() {
 	id := int32(119807) // int32 | ID of the manual account to delete
+	deleteItems := true // bool | When set to true will also delete any transactions, rules, and recurring items associated with this account. Use this option with caution, it is irreversible! (optional) (default to false)
+	deleteBalanceHistory := true // bool | When set to true will delete any balance history associated with this account. (optional) (default to false)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ManualAccountsAPI.DeleteManualAccount(context.Background(), id).Execute()
+	r, err := apiClient.ManualAccountsAPI.DeleteManualAccount(context.Background(), id).DeleteItems(deleteItems).DeleteBalanceHistory(deleteBalanceHistory).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ManualAccountsAPI.DeleteManualAccount``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -127,6 +129,8 @@ Other parameters are passed through a pointer to a apiDeleteManualAccountRequest
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **deleteItems** | **bool** | When set to true will also delete any transactions, rules, and recurring items associated with this account. Use this option with caution, it is irreversible! | [default to false]
+ **deleteBalanceHistory** | **bool** | When set to true will delete any balance history associated with this account. | [default to false]
 
 ### Return type
 

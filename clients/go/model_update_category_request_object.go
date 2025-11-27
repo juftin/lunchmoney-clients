@@ -1,9 +1,9 @@
 /*
 Lunch Money API - v2
 
-## Overview Welcome to the Lunch Money v2 API.  A working version of this API is now available through these docs, or directly at:  `https://api.lunchmoney.dev/v2`  **This service has only had internal testing so users are strongly encouraged to create a test budget with example data as the first step to interacting with the v2 API.** See the [Getting Started Guide](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/getting-started) for more information.  If you are new to the v2 API, you may wish to review the [v2 API Overview of Changes](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/migration-guide).  ### Static Mock Server  You may also use these docs to explore the API using a static mock server endpoint.<p> This enables users to become familiar with the API without having to create an access token, and eliminates the possibility of modifying real data. <p> To access this endpoint select the second endpoint in the the \"Server\" dropdown to the right. When selected you should see \"Static Mock v2 Lunch Money API Server\".<br> When using this server, set your Bearer token to any string with 11 or more characters.  ### Migrating from V1  The v2 API is NOT backwards compatible with the v1 API. Developers are encouraged to review the [Migration Guide](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/migration-guide) to understand the changes and plan their migration.  ### Acknowledgments  If you have been providing feedback on the API during our iterative design process, **THANK YOU**. We are happy to provide the opportunity to finally interact with the working API that was built based on your feedback.  ### Useful links: - [Getting Started](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/getting-started) - [v2 API Changelog](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/changelog) - [Migration Guide](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/migration-guide) - [Rate Limits](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/rate-limits) - [Current v1 Lunch Money API Documentation](https://lunchmoney.dev) - [Awesome Lunch Money Projects](https://github.com/lunch-money/awesome-lunchmoney?tab=readme-ov-file)
+## Overview Welcome to the Lunch Money v2 API.  A working version of this API is now available through these docs, or directly at:  `https://alpha.lunchmoney.dev/v2`  **This service has only had internal testing so users are strongly encouraged to create a test budget with example data as the first step to interacting with the v2 API.** See the [Getting Started Guide](https://alpha.lunchmoney.dev/v2/getting-started) for more information.  If you are new to the v2 API, you may wish to review the [v2 API Overview of Changes](https://alpha.lunchmoney.dev/v2/migration-guide).  ### Static Mock Server  You may also use these docs to explore the API using a static mock server endpoint.<p> This enables users to become familiar with the API without having to create an access token, and eliminates the possibility of modifying real data. <p> To access this endpoint select the second endpoint in the the \"Server\" dropdown to the right. When selected you should see \"Static Mock v2 Lunch Money API Server\".<br> When using this server, set your Bearer token to any string with 11 or more characters.  ### Migrating from V1  The v2 API is NOT backwards compatible with the v1 API. Developers are encouraged to review the [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) to understand the changes and plan their migration.  ### Acknowledgments  If you have been providing feedback on the API during our iterative design process, **THANK YOU**. We are happy to provide the opportunity to finally interact with the working API that was built based on your feedback.  ### Useful links: - [Getting Started](https://alpha.lunchmoney.dev/v2/getting-started) - [v2 API Changelog](https://alpha.lunchmoney.dev/v2/changelog) - [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://alpha.lunchmoney.dev/v2/rate-limits) - [Current v1 Lunch Money API Documentation](https://lunchmoney.dev) - [Awesome Lunch Money Projects](https://github.com/lunch-money/awesome-lunchmoney?tab=readme-ov-file)
 
-API version: 2.8.1
+API version: 2.8.2
 Contact: devsupport@lunchmoney.app
 */
 
@@ -39,6 +39,10 @@ type UpdateCategoryRequestObject struct {
 	IsGroup NullableBool `json:"is_group,omitempty"`
 	// The list of existing category objects, or existing category IDs or names of new categories to add to the new category group. This attribute should only be set if modifying an existing category group.<br> The categories or IDs specified must already exist and not belong to an existing category group. Categories that already belong to another category group will be moved. If strings are specified, they will be used as the names of new categories that will be added to the new category group. The request will fail if any names are the same as the name of an existing category.<br> It is permissible to provide both full category objects and IDs as well as strings for names in the same request.
 	Children []CreateCategoryRequestObjectChildrenInner `json:"children,omitempty"`
+	// An index specifying the position in which the category is displayed on the categories page in the Lunch Money GUI. For categories within a category group the order is relative to the other categories within the group.<br>While this property can be set via the API it is generally set by the user in the Lunch Money GUI. API.
+	Order NullableInt32 `json:"order,omitempty"`
+	// If `true`, the category is collapsed in the Lunch Money GUI.<br>While this property can be set via the API it is generally set by the user in the Lunch Money GUI.
+	Collapsed NullableBool `json:"collapsed,omitempty"`
 	// System defined unique identifier for the category. Ignored if set.
 	Id *int64 `json:"id,omitempty"`
 	// System set date and time of when the category was last archived (in the ISO 8601 extended format). Ignored if set.
@@ -47,8 +51,6 @@ type UpdateCategoryRequestObject struct {
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 	// System set date and time of when the category was created (in the ISO 8601 extended format). Ignored if set. (in the ISO 8601 extended format). Ignored if set.
 	CreatedAt *time.Time `json:"created_at,omitempty"`
-	// System or GUI set  specifying the position in which the category is displayed on the categories page in the Lunch Money GUI. Ignored if set.
-	Order NullableInt32 `json:"order,omitempty"`
 }
 
 // NewUpdateCategoryRequestObject instantiates a new UpdateCategoryRequestObject object
@@ -390,6 +392,90 @@ func (o *UpdateCategoryRequestObject) SetChildren(v []CreateCategoryRequestObjec
 	o.Children = v
 }
 
+// GetOrder returns the Order field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *UpdateCategoryRequestObject) GetOrder() int32 {
+	if o == nil || IsNil(o.Order.Get()) {
+		var ret int32
+		return ret
+	}
+	return *o.Order.Get()
+}
+
+// GetOrderOk returns a tuple with the Order field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *UpdateCategoryRequestObject) GetOrderOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Order.Get(), o.Order.IsSet()
+}
+
+// HasOrder returns a boolean if a field has been set.
+func (o *UpdateCategoryRequestObject) HasOrder() bool {
+	if o != nil && o.Order.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetOrder gets a reference to the given NullableInt32 and assigns it to the Order field.
+func (o *UpdateCategoryRequestObject) SetOrder(v int32) {
+	o.Order.Set(&v)
+}
+// SetOrderNil sets the value for Order to be an explicit nil
+func (o *UpdateCategoryRequestObject) SetOrderNil() {
+	o.Order.Set(nil)
+}
+
+// UnsetOrder ensures that no value is present for Order, not even an explicit nil
+func (o *UpdateCategoryRequestObject) UnsetOrder() {
+	o.Order.Unset()
+}
+
+// GetCollapsed returns the Collapsed field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *UpdateCategoryRequestObject) GetCollapsed() bool {
+	if o == nil || IsNil(o.Collapsed.Get()) {
+		var ret bool
+		return ret
+	}
+	return *o.Collapsed.Get()
+}
+
+// GetCollapsedOk returns a tuple with the Collapsed field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *UpdateCategoryRequestObject) GetCollapsedOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Collapsed.Get(), o.Collapsed.IsSet()
+}
+
+// HasCollapsed returns a boolean if a field has been set.
+func (o *UpdateCategoryRequestObject) HasCollapsed() bool {
+	if o != nil && o.Collapsed.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetCollapsed gets a reference to the given NullableBool and assigns it to the Collapsed field.
+func (o *UpdateCategoryRequestObject) SetCollapsed(v bool) {
+	o.Collapsed.Set(&v)
+}
+// SetCollapsedNil sets the value for Collapsed to be an explicit nil
+func (o *UpdateCategoryRequestObject) SetCollapsedNil() {
+	o.Collapsed.Set(nil)
+}
+
+// UnsetCollapsed ensures that no value is present for Collapsed, not even an explicit nil
+func (o *UpdateCategoryRequestObject) UnsetCollapsed() {
+	o.Collapsed.Unset()
+}
+
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *UpdateCategoryRequestObject) GetId() int64 {
 	if o == nil || IsNil(o.Id) {
@@ -528,48 +614,6 @@ func (o *UpdateCategoryRequestObject) SetCreatedAt(v time.Time) {
 	o.CreatedAt = &v
 }
 
-// GetOrder returns the Order field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *UpdateCategoryRequestObject) GetOrder() int32 {
-	if o == nil || IsNil(o.Order.Get()) {
-		var ret int32
-		return ret
-	}
-	return *o.Order.Get()
-}
-
-// GetOrderOk returns a tuple with the Order field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *UpdateCategoryRequestObject) GetOrderOk() (*int32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Order.Get(), o.Order.IsSet()
-}
-
-// HasOrder returns a boolean if a field has been set.
-func (o *UpdateCategoryRequestObject) HasOrder() bool {
-	if o != nil && o.Order.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetOrder gets a reference to the given NullableInt32 and assigns it to the Order field.
-func (o *UpdateCategoryRequestObject) SetOrder(v int32) {
-	o.Order.Set(&v)
-}
-// SetOrderNil sets the value for Order to be an explicit nil
-func (o *UpdateCategoryRequestObject) SetOrderNil() {
-	o.Order.Set(nil)
-}
-
-// UnsetOrder ensures that no value is present for Order, not even an explicit nil
-func (o *UpdateCategoryRequestObject) UnsetOrder() {
-	o.Order.Unset()
-}
-
 func (o UpdateCategoryRequestObject) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -607,6 +651,12 @@ func (o UpdateCategoryRequestObject) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Children) {
 		toSerialize["children"] = o.Children
 	}
+	if o.Order.IsSet() {
+		toSerialize["order"] = o.Order.Get()
+	}
+	if o.Collapsed.IsSet() {
+		toSerialize["collapsed"] = o.Collapsed.Get()
+	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
@@ -618,9 +668,6 @@ func (o UpdateCategoryRequestObject) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["created_at"] = o.CreatedAt
-	}
-	if o.Order.IsSet() {
-		toSerialize["order"] = o.Order.Get()
 	}
 	return toSerialize, nil
 }
