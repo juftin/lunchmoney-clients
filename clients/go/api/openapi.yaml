@@ -8,12 +8,12 @@ info:
 
     A working version of this API is now available through these docs, or directly at:
 
-    `https://api.lunchmoney.dev/v2`
+    `https://alpha.lunchmoney.dev/v2`
 
     **This service has only had internal testing so users are strongly encouraged to create a test budget with example data as the first step to interacting with the v2 API.**
-    See the [Getting Started Guide](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/getting-started) for more information.
+    See the [Getting Started Guide](https://alpha.lunchmoney.dev/v2/getting-started) for more information.
 
-    If you are new to the v2 API, you may wish to review the [v2 API Overview of Changes](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/migration-guide).
+    If you are new to the v2 API, you may wish to review the [v2 API Overview of Changes](https://alpha.lunchmoney.dev/v2/migration-guide).
 
     ### Static Mock Server
 
@@ -24,17 +24,17 @@ info:
 
     ### Migrating from V1
 
-    The v2 API is NOT backwards compatible with the v1 API. Developers are encouraged to review the [Migration Guide](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/migration-guide) to understand the changes and plan their migration.
+    The v2 API is NOT backwards compatible with the v1 API. Developers are encouraged to review the [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) to understand the changes and plan their migration.
 
     ### Acknowledgments
 
     If you have been providing feedback on the API during our iterative design process, **THANK YOU**. We are happy to provide the opportunity to finally interact with the working API that was built based on your feedback.
 
     ### Useful links:
-    - [Getting Started](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/getting-started)
-    - [v2 API Changelog](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/changelog)
-    - [Migration Guide](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/migration-guide)
-    - [Rate Limits](https://lm-v2-api-mock-data-f24357049a1b.herokuapp.com/v2/rate-limits)
+    - [Getting Started](https://alpha.lunchmoney.dev/v2/getting-started)
+    - [v2 API Changelog](https://alpha.lunchmoney.dev/v2/changelog)
+    - [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide)
+    - [Rate Limits](https://alpha.lunchmoney.dev/v2/rate-limits)
     - [Current v1 Lunch Money API Documentation](https://lunchmoney.dev)
     - [Awesome Lunch Money Projects](https://github.com/lunch-money/awesome-lunchmoney?tab=readme-ov-file)
   license:
@@ -42,12 +42,12 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   termsOfService: https://lunchmoney.dev/#current-status
   title: Lunch Money API - v2
-  version: 2.8.1
+  version: 2.8.2
 servers:
 - description: v2 Lunch Money API Server - modifies real data!
   url: https://api.lunchmoney.dev/v2
 - description: Static Mock v2 Lunch Money API Server
-  url: https://lm-v2-api-v1-proxy-08a8f2bf0c0c.herokuapp.com/v2/
+  url: https://alpha.lunchmoney.dev/v2
 security:
 - bearerSecurity: []
 - cookieAuth: []
@@ -1706,6 +1706,27 @@ paths:
           format: int32
           type: integer
         style: simple
+      - description: "When set to true will also delete any transactions, rules, and\
+          \ recurring items associated with this account. Use this option with caution,\
+          \ it is irreversible!"
+        explode: true
+        in: query
+        name: delete_items
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
+      - description: When set to true will delete any balance history associated with
+          this account.
+        explode: true
+        in: query
+        name: delete_balance_history
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
       responses:
         "204":
           description: No Content
@@ -6021,6 +6042,7 @@ components:
       additionalProperties: false
       example:
         archived_at: 2000-01-23T04:56:07.000+00:00
+        collapsed: false
         description: description
         created_at: 2000-01-23T04:56:07.000+00:00
         is_income: true
@@ -6032,6 +6054,7 @@ components:
         group_id: 6
         children:
         - archived_at: 2000-01-23T04:56:07.000+00:00
+          collapsed: true
           description: description
           created_at: 2000-01-23T04:56:07.000+00:00
           is_income: true
@@ -6045,6 +6068,7 @@ components:
           id: 1
           order: 5
         - archived_at: 2000-01-23T04:56:07.000+00:00
+          collapsed: true
           description: description
           created_at: 2000-01-23T04:56:07.000+00:00
           is_income: true
@@ -6137,18 +6161,22 @@ components:
           nullable: true
           type: string
         order:
-          description: An  specifying the position in which the category is displayed
-            on the categories page in the Lunch Money GUI. For categories within a
-            category group the order  is relative to the other categories within the
-            group.<br> This value for this property will be `null` for categories
-            created via the API until they are modified on the Categories page in
-            the Lunch Money GUI.<br> This property cannot be set or updated via the
-            API.
+          description: "An integer specifying the position in which the category is\
+            \ displayed on the categories page in the Lunch Money GUI. For categories\
+            \ within a category group the order is relative to the other categories\
+            \ within the group.<br>Categories with `order: null` will be displayed\
+            \ in alphabetical order by name, prior to any categories with an order"
           nullable: true
           type: integer
+        collapsed:
+          default: false
+          description: "If `true`, the category is collapsed in the Lunch Money GUI."
+          nullable: false
+          type: boolean
       required:
       - archived
       - archived_at
+      - collapsed
       - created_at
       - description
       - exclude_from_budget
@@ -6166,6 +6194,7 @@ components:
       additionalProperties: false
       example:
         archived_at: 2000-01-23T04:56:07.000+00:00
+        collapsed: true
         description: description
         created_at: 2000-01-23T04:56:07.000+00:00
         is_income: true
@@ -6243,12 +6272,16 @@ components:
           nullable: true
           type: string
         order:
-          description: An  specifying the position in which the category is displayed
+          description: An index specifying the position in which the category is displayed
             on the categories page in the Lunch Money GUI. For categories within a
-            category group the order  is relative to the other categories within the
-            group.<br> This property cannot be set or updated via the API.
+            category group the order is relative to the other categories within the
+            group.<br> API.
           nullable: true
           type: integer
+        collapsed:
+          description: "If `true`, the category is collapsed in the Lunch Money GUI."
+          nullable: true
+          type: boolean
       required:
       - archived
       - archived_at
@@ -6333,6 +6366,20 @@ components:
             $ref: "#/components/schemas/createCategoryRequestObject_children_inner"
           nullable: false
           type: array
+        order:
+          description: An index specifying the position in which the category is displayed
+            on the categories page in the Lunch Money GUI. For categories within a
+            category group the order is relative to the other categories within the
+            group.<br>While this property can be set via the API it is generally set
+            by the user in the Lunch Money GUI. API.
+          nullable: true
+          type: integer
+        collapsed:
+          description: "If `true`, the category is collapsed in the Lunch Money GUI.<br>While\
+            \ this property can be set via the API it is generally set by the user\
+            \ in the Lunch Money GUI."
+          nullable: true
+          type: boolean
       required:
       - name
       type: object
@@ -6404,6 +6451,20 @@ components:
             $ref: "#/components/schemas/createCategoryRequestObject_children_inner"
           nullable: false
           type: array
+        order:
+          description: An index specifying the position in which the category is displayed
+            on the categories page in the Lunch Money GUI. For categories within a
+            category group the order is relative to the other categories within the
+            group.<br>While this property can be set via the API it is generally set
+            by the user in the Lunch Money GUI. API.
+          nullable: true
+          type: integer
+        collapsed:
+          description: "If `true`, the category is collapsed in the Lunch Money GUI.<br>While\
+            \ this property can be set via the API it is generally set by the user\
+            \ in the Lunch Money GUI."
+          nullable: true
+          type: boolean
         id:
           description: System defined unique identifier for the category. Ignored
             if set.
@@ -6427,12 +6488,6 @@ components:
           format: date-time
           nullable: false
           type: string
-        order:
-          description: System or GUI set  specifying the position in which the category
-            is displayed on the categories page in the Lunch Money GUI. Ignored if
-            set.
-          nullable: true
-          type: integer
       type: object
     deleteCategoryResponseWithDependencies:
       additionalProperties: false
@@ -9082,6 +9137,7 @@ components:
       example:
         categories:
         - archived_at: 2000-01-23T04:56:07.000+00:00
+          collapsed: false
           description: description
           created_at: 2000-01-23T04:56:07.000+00:00
           is_income: true
@@ -9093,6 +9149,7 @@ components:
           group_id: 6
           children:
           - archived_at: 2000-01-23T04:56:07.000+00:00
+            collapsed: true
             description: description
             created_at: 2000-01-23T04:56:07.000+00:00
             is_income: true
@@ -9106,6 +9163,7 @@ components:
             id: 1
             order: 5
           - archived_at: 2000-01-23T04:56:07.000+00:00
+            collapsed: true
             description: description
             created_at: 2000-01-23T04:56:07.000+00:00
             is_income: true
@@ -9122,6 +9180,7 @@ components:
           id: 0
           order: 2
         - archived_at: 2000-01-23T04:56:07.000+00:00
+          collapsed: false
           description: description
           created_at: 2000-01-23T04:56:07.000+00:00
           is_income: true
@@ -9133,6 +9192,7 @@ components:
           group_id: 6
           children:
           - archived_at: 2000-01-23T04:56:07.000+00:00
+            collapsed: true
             description: description
             created_at: 2000-01-23T04:56:07.000+00:00
             is_income: true
@@ -9146,6 +9206,7 @@ components:
             id: 1
             order: 5
           - archived_at: 2000-01-23T04:56:07.000+00:00
+            collapsed: true
             description: description
             created_at: 2000-01-23T04:56:07.000+00:00
             is_income: true
