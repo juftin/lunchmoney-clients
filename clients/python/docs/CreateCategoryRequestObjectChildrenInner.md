@@ -18,7 +18,8 @@ Name | Type | Description | Notes
 **children** | [**List[ChildCategoryObject]**](ChildCategoryObject.md) | For category groups, this will populate with details about the categories that belong to this group. The objects in this array are similar to Category Objects but do not include the &#x60;is_income&#x60;, &#x60;exclude_from_budget&#x60;, and &#x60;exclude_from_totals&#x60; properties as these are inherited from the category group. In addition, the &#x60;is_group&#x60; property will always be &#x60;false&#x60;, and there will be no &#x60;children&#x60; attribute. | [optional] 
 **archived** | **bool** | If true, the category is archived and not displayed in relevant areas of the Lunch Money app. | 
 **archived_at** | **datetime** | The date and time of when the category was last archived (in the ISO 8601 extended format). | 
-**order** | **int** | An  specifying the position in which the category is displayed on the categories page in the Lunch Money GUI. For categories within a category group the order  is relative to the other categories within the group.&lt;br&gt; This value for this property will be &#x60;null&#x60; for categories created via the API until they are modified on the Categories page in the Lunch Money GUI.&lt;br&gt; This property cannot be set or updated via the API. | 
+**order** | **int** | An integer specifying the position in which the category is displayed on the categories page in the Lunch Money GUI. For categories within a category group the order is relative to the other categories within the group.&lt;br&gt;Categories with &#x60;order: null&#x60; will be displayed in alphabetical order by name, prior to any categories with an order | 
+**collapsed** | **bool** | If &#x60;true&#x60;, the category is collapsed in the Lunch Money GUI. | [default to False]
 
 ## Example
 
