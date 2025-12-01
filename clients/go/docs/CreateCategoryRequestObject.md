@@ -13,6 +13,8 @@ Name | Type | Description | Notes
 **GroupId** | Pointer to **NullableInt64** | If set to the ID of an existing category group, this new category will be assigned to that group. Cannot be set if &#x60;is_group&#x60; is true. | [optional] 
 **Archived** | Pointer to **bool** | If &#x60;true&#x60;, the category is archived and not displayed in relevant areas of the Lunch Money app. | [optional] [default to false]
 **Children** | Pointer to [**[]CreateCategoryRequestObjectChildrenInner**](CreateCategoryRequestObjectChildrenInner.md) | The list of existing category objects, or existing category IDs or names of new categories to add to the new category group. This attribute should only be set if &#x60;is_group&#x60; is also set to true.&lt;br&gt; The categories or IDs specified must already exist and may not be category groups themselves. Categories that already belong to another category group will be moved. If strings are specified, they will be used as the names of new categories that will be added to the new category group. The request will fail if any names are the same as the name of an existing category.&lt;br&gt; It is permissible to provide both full category objects and IDs as well as strings for names in the same request. | [optional] 
+**Order** | Pointer to **NullableInt32** | An index specifying the position in which the category is displayed on the categories page in the Lunch Money GUI. For categories within a category group the order is relative to the other categories within the group.&lt;br&gt;While this property can be set via the API it is generally set by the user in the Lunch Money GUI. API. | [optional] 
+**Collapsed** | Pointer to **NullableBool** | If &#x60;true&#x60;, the category is collapsed in the Lunch Money GUI.&lt;br&gt;While this property can be set via the API it is generally set by the user in the Lunch Money GUI. | [optional] 
 
 ## Methods
 
@@ -273,6 +275,76 @@ SetChildren sets Children field to given value.
 
 HasChildren returns a boolean if a field has been set.
 
+### GetOrder
+
+`func (o *CreateCategoryRequestObject) GetOrder() int32`
+
+GetOrder returns the Order field if non-nil, zero value otherwise.
+
+### GetOrderOk
+
+`func (o *CreateCategoryRequestObject) GetOrderOk() (*int32, bool)`
+
+GetOrderOk returns a tuple with the Order field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOrder
+
+`func (o *CreateCategoryRequestObject) SetOrder(v int32)`
+
+SetOrder sets Order field to given value.
+
+### HasOrder
+
+`func (o *CreateCategoryRequestObject) HasOrder() bool`
+
+HasOrder returns a boolean if a field has been set.
+
+### SetOrderNil
+
+`func (o *CreateCategoryRequestObject) SetOrderNil(b bool)`
+
+ SetOrderNil sets the value for Order to be an explicit nil
+
+### UnsetOrder
+`func (o *CreateCategoryRequestObject) UnsetOrder()`
+
+UnsetOrder ensures that no value is present for Order, not even an explicit nil
+### GetCollapsed
+
+`func (o *CreateCategoryRequestObject) GetCollapsed() bool`
+
+GetCollapsed returns the Collapsed field if non-nil, zero value otherwise.
+
+### GetCollapsedOk
+
+`func (o *CreateCategoryRequestObject) GetCollapsedOk() (*bool, bool)`
+
+GetCollapsedOk returns a tuple with the Collapsed field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCollapsed
+
+`func (o *CreateCategoryRequestObject) SetCollapsed(v bool)`
+
+SetCollapsed sets Collapsed field to given value.
+
+### HasCollapsed
+
+`func (o *CreateCategoryRequestObject) HasCollapsed() bool`
+
+HasCollapsed returns a boolean if a field has been set.
+
+### SetCollapsedNil
+
+`func (o *CreateCategoryRequestObject) SetCollapsedNil(b bool)`
+
+ SetCollapsedNil sets the value for Collapsed to be an explicit nil
+
+### UnsetCollapsed
+`func (o *CreateCategoryRequestObject) UnsetCollapsed()`
+
+UnsetCollapsed ensures that no value is present for Collapsed, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

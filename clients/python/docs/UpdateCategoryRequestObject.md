@@ -14,11 +14,12 @@ Name | Type | Description | Notes
 **group_id** | **int** | If set to the ID of an existing category group, and this category is not itself a category group, this category will be a child of the specified group. | [optional] 
 **is_group** | **bool** | This attribute may not be set to a value that is different than the current status of the category or category group. In other words, this API may not be used to convert a category to a category group or vice versa. | [optional] [default to False]
 **children** | [**List[CreateCategoryRequestObjectChildrenInner]**](CreateCategoryRequestObjectChildrenInner.md) | The list of existing category objects, or existing category IDs or names of new categories to add to the new category group. This attribute should only be set if modifying an existing category group.&lt;br&gt; The categories or IDs specified must already exist and not belong to an existing category group. Categories that already belong to another category group will be moved. If strings are specified, they will be used as the names of new categories that will be added to the new category group. The request will fail if any names are the same as the name of an existing category.&lt;br&gt; It is permissible to provide both full category objects and IDs as well as strings for names in the same request. | [optional] 
+**order** | **int** | An index specifying the position in which the category is displayed on the categories page in the Lunch Money GUI. For categories within a category group the order is relative to the other categories within the group.&lt;br&gt;While this property can be set via the API it is generally set by the user in the Lunch Money GUI. API. | [optional] 
+**collapsed** | **bool** | If &#x60;true&#x60;, the category is collapsed in the Lunch Money GUI.&lt;br&gt;While this property can be set via the API it is generally set by the user in the Lunch Money GUI. | [optional] 
 **id** | **int** | System defined unique identifier for the category. Ignored if set. | [optional] 
 **archived_at** | **str** | System set date and time of when the category was last archived (in the ISO 8601 extended format). Ignored if set. | [optional] 
 **updated_at** | **datetime** | System set date and time of when the category was last updated (in the ISO 8601 extended format). Ignored if set. | [optional] 
 **created_at** | **datetime** | System set date and time of when the category was created (in the ISO 8601 extended format). Ignored if set. (in the ISO 8601 extended format). Ignored if set. | [optional] 
-**order** | **int** | System or GUI set  specifying the position in which the category is displayed on the categories page in the Lunch Money GUI. Ignored if set. | [optional] 
 
 ## Example
 
