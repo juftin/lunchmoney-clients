@@ -57,7 +57,7 @@ jobs:
                   title: ✨ v${{ steps.version.outputs.result }} - ${{ steps.date.outputs.date }}
                   body: "## ✨ LunchMoney Developer API v${{ steps.version.outputs.result }} - ${{ steps.date.outputs.date }}"
             - name: pr-merge
-              if: ${{ steps.cpr.outputs.pull-request-number }}
-              run: gh pr merge --auto --delete-branch ${{ steps.pr.outputs.pull-request-number }}
+              if: ${{ steps.pr.outputs.pull-request-number }}
+              run: gh pr merge --auto --rebase --delete-branch ${{ steps.pr.outputs.pull-request-number }}
               env:
                   GH_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
