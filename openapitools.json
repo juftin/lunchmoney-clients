@@ -13,7 +13,7 @@
                 "packageName": "lunchmoney",
                 "library": "urllib3",
                 "additionalProperties": {
-                    "packageVersion": "2.3.0"
+                    "packageVersion": "2.4.0"
                 },
                 "openapi-normalizer": {
                     "REMOVE_X_INTERNAL": true
@@ -27,7 +27,7 @@
                 "gitRepoId": "lunchmoney-clients",
                 "packageName": "lunchmoney",
                 "additionalProperties": {
-                    "packageVersion": "2.3.0"
+                    "packageVersion": "2.4.0"
                 },
                 "openapi-normalizer": {
                     "REMOVE_X_INTERNAL": true
