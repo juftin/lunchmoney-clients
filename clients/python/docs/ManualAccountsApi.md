@@ -102,7 +102,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_manual_account**
-> delete_manual_account(id)
+> delete_manual_account(id, delete_items=delete_items, delete_balance_history=delete_balance_history)
 
 Delete a manual account
 
@@ -145,10 +145,12 @@ with lunchmoney.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = lunchmoney.ManualAccountsApi(api_client)
     id = 119807 # int | ID of the manual account to delete
+    delete_items = False # bool | When set to true will also delete any transactions, rules, and recurring items associated with this account. Use this option with caution, it is irreversible! (optional) (default to False)
+    delete_balance_history = False # bool | When set to true will delete any balance history associated with this account. (optional) (default to False)
 
     try:
         # Delete a manual account
-        api_instance.delete_manual_account(id)
+        api_instance.delete_manual_account(id, delete_items=delete_items, delete_balance_history=delete_balance_history)
     except Exception as e:
         print("Exception when calling ManualAccountsApi->delete_manual_account: %s\n" % e)
 ```
@@ -161,6 +163,8 @@ with lunchmoney.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| ID of the manual account to delete | 
+ **delete_items** | **bool**| When set to true will also delete any transactions, rules, and recurring items associated with this account. Use this option with caution, it is irreversible! | [optional] [default to False]
+ **delete_balance_history** | **bool**| When set to true will delete any balance history associated with this account. | [optional] [default to False]
 
 ### Return type
 

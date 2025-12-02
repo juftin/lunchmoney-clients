@@ -16,7 +16,8 @@ Name | Type | Description | Notes
 **IsGroup** | **bool** | Will always be false for a category that is part of category group. | 
 **Archived** | **bool** | If true, the category is archived and not displayed in relevant areas of the Lunch Money app. | 
 **ArchivedAt** | **NullableTime** | The date and time of when the category was last archived (in the ISO 8601 extended format). | 
-**Order** | **NullableInt32** | An  specifying the position in which the category is displayed on the categories page in the Lunch Money GUI. For categories within a category group the order  is relative to the other categories within the group.&lt;br&gt; This property cannot be set or updated via the API. | 
+**Order** | **NullableInt32** | An index specifying the position in which the category is displayed on the categories page in the Lunch Money GUI. For categories within a category group the order is relative to the other categories within the group.&lt;br&gt; API. | 
+**Collapsed** | Pointer to **NullableBool** | If &#x60;true&#x60;, the category is collapsed in the Lunch Money GUI. | [optional] 
 
 ## Methods
 
@@ -337,6 +338,41 @@ SetOrder sets Order field to given value.
 `func (o *ChildCategoryObject) UnsetOrder()`
 
 UnsetOrder ensures that no value is present for Order, not even an explicit nil
+### GetCollapsed
+
+`func (o *ChildCategoryObject) GetCollapsed() bool`
+
+GetCollapsed returns the Collapsed field if non-nil, zero value otherwise.
+
+### GetCollapsedOk
+
+`func (o *ChildCategoryObject) GetCollapsedOk() (*bool, bool)`
+
+GetCollapsedOk returns a tuple with the Collapsed field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCollapsed
+
+`func (o *ChildCategoryObject) SetCollapsed(v bool)`
+
+SetCollapsed sets Collapsed field to given value.
+
+### HasCollapsed
+
+`func (o *ChildCategoryObject) HasCollapsed() bool`
+
+HasCollapsed returns a boolean if a field has been set.
+
+### SetCollapsedNil
+
+`func (o *ChildCategoryObject) SetCollapsedNil(b bool)`
+
+ SetCollapsedNil sets the value for Collapsed to be an explicit nil
+
+### UnsetCollapsed
+`func (o *ChildCategoryObject) UnsetCollapsed()`
+
+UnsetCollapsed ensures that no value is present for Collapsed, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
