@@ -17,13 +17,14 @@ Name | Type | Description | Notes
 **Children** | Pointer to [**[]ChildCategoryObject**](ChildCategoryObject.md) | For category groups, this will populate with details about the categories that belong to this group. The objects in this array are similar to Category Objects but do not include the &#x60;is_income&#x60;, &#x60;exclude_from_budget&#x60;, and &#x60;exclude_from_totals&#x60; properties as these are inherited from the category group. In addition, the &#x60;is_group&#x60; property will always be &#x60;false&#x60;, and there will be no &#x60;children&#x60; attribute. | [optional] 
 **Archived** | **bool** | If true, the category is archived and not displayed in relevant areas of the Lunch Money app. | 
 **ArchivedAt** | **NullableTime** | The date and time of when the category was last archived (in the ISO 8601 extended format). | 
-**Order** | **NullableInt32** | An  specifying the position in which the category is displayed on the categories page in the Lunch Money GUI. For categories within a category group the order  is relative to the other categories within the group.&lt;br&gt; This value for this property will be &#x60;null&#x60; for categories created via the API until they are modified on the Categories page in the Lunch Money GUI.&lt;br&gt; This property cannot be set or updated via the API. | 
+**Order** | **NullableInt32** | An integer specifying the position in which the category is displayed on the categories page in the Lunch Money GUI. For categories within a category group the order is relative to the other categories within the group.&lt;br&gt;Categories with &#x60;order: null&#x60; will be displayed in alphabetical order by name, prior to any categories with an order | 
+**Collapsed** | **bool** | If &#x60;true&#x60;, the category is collapsed in the Lunch Money GUI. | [default to false]
 
 ## Methods
 
 ### NewCreateCategoryRequestObjectChildrenInner
 
-`func NewCreateCategoryRequestObjectChildrenInner(id int32, name string, description NullableString, isIncome bool, excludeFromBudget bool, excludeFromTotals bool, updatedAt time.Time, createdAt time.Time, groupId NullableInt64, isGroup bool, archived bool, archivedAt NullableTime, order NullableInt32, ) *CreateCategoryRequestObjectChildrenInner`
+`func NewCreateCategoryRequestObjectChildrenInner(id int32, name string, description NullableString, isIncome bool, excludeFromBudget bool, excludeFromTotals bool, updatedAt time.Time, createdAt time.Time, groupId NullableInt64, isGroup bool, archived bool, archivedAt NullableTime, order NullableInt32, collapsed bool, ) *CreateCategoryRequestObjectChildrenInner`
 
 NewCreateCategoryRequestObjectChildrenInner instantiates a new CreateCategoryRequestObjectChildrenInner object
 This constructor will assign default values to properties that have it defined,
@@ -363,6 +364,26 @@ SetOrder sets Order field to given value.
 `func (o *CreateCategoryRequestObjectChildrenInner) UnsetOrder()`
 
 UnsetOrder ensures that no value is present for Order, not even an explicit nil
+### GetCollapsed
+
+`func (o *CreateCategoryRequestObjectChildrenInner) GetCollapsed() bool`
+
+GetCollapsed returns the Collapsed field if non-nil, zero value otherwise.
+
+### GetCollapsedOk
+
+`func (o *CreateCategoryRequestObjectChildrenInner) GetCollapsedOk() (*bool, bool)`
+
+GetCollapsedOk returns a tuple with the Collapsed field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCollapsed
+
+`func (o *CreateCategoryRequestObjectChildrenInner) SetCollapsed(v bool)`
+
+SetCollapsed sets Collapsed field to given value.
+
+
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

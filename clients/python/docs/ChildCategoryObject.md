@@ -17,7 +17,8 @@ Name | Type | Description | Notes
 **is_group** | **bool** | Will always be false for a category that is part of category group. | 
 **archived** | **bool** | If true, the category is archived and not displayed in relevant areas of the Lunch Money app. | 
 **archived_at** | **datetime** | The date and time of when the category was last archived (in the ISO 8601 extended format). | 
-**order** | **int** | An  specifying the position in which the category is displayed on the categories page in the Lunch Money GUI. For categories within a category group the order  is relative to the other categories within the group.&lt;br&gt; This property cannot be set or updated via the API. | 
+**order** | **int** | An index specifying the position in which the category is displayed on the categories page in the Lunch Money GUI. For categories within a category group the order is relative to the other categories within the group.&lt;br&gt; API. | 
+**collapsed** | **bool** | If &#x60;true&#x60;, the category is collapsed in the Lunch Money GUI. | [optional] 
 
 ## Example
 
