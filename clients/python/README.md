@@ -4,7 +4,7 @@ Welcome to the Lunch Money v2 API.
 
 A working version of this API is now available through these docs, or directly at:
 
-`https://alpha.lunchmoney.dev/v2`
+`https://api.lunchmoney.dev/v2`
 
 **This service has only had internal testing so users are strongly encouraged to create a test budget with example data as the first step to interacting with the v2 API.**
 See the [Getting Started Guide](https://alpha.lunchmoney.dev/v2/getting-started) for more information.
