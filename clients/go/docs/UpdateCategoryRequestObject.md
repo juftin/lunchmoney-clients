@@ -13,11 +13,12 @@ Name | Type | Description | Notes
 **GroupId** | Pointer to **NullableInt64** | If set to the ID of an existing category group, and this category is not itself a category group, this category will be a child of the specified group. | [optional] 
 **IsGroup** | Pointer to **NullableBool** | This attribute may not be set to a value that is different than the current status of the category or category group. In other words, this API may not be used to convert a category to a category group or vice versa. | [optional] [default to false]
 **Children** | Pointer to [**[]CreateCategoryRequestObjectChildrenInner**](CreateCategoryRequestObjectChildrenInner.md) | The list of existing category objects, or existing category IDs or names of new categories to add to the new category group. This attribute should only be set if modifying an existing category group.&lt;br&gt; The categories or IDs specified must already exist and not belong to an existing category group. Categories that already belong to another category group will be moved. If strings are specified, they will be used as the names of new categories that will be added to the new category group. The request will fail if any names are the same as the name of an existing category.&lt;br&gt; It is permissible to provide both full category objects and IDs as well as strings for names in the same request. | [optional] 
+**Order** | Pointer to **NullableInt32** | An index specifying the position in which the category is displayed on the categories page in the Lunch Money GUI. For categories within a category group the order is relative to the other categories within the group.&lt;br&gt;While this property can be set via the API it is generally set by the user in the Lunch Money GUI. API. | [optional] 
+**Collapsed** | Pointer to **NullableBool** | If &#x60;true&#x60;, the category is collapsed in the Lunch Money GUI.&lt;br&gt;While this property can be set via the API it is generally set by the user in the Lunch Money GUI. | [optional] 
 **Id** | Pointer to **int64** | System defined unique identifier for the category. Ignored if set. | [optional] 
 **ArchivedAt** | Pointer to **NullableString** | System set date and time of when the category was last archived (in the ISO 8601 extended format). Ignored if set. | [optional] 
 **UpdatedAt** | Pointer to **time.Time** | System set date and time of when the category was last updated (in the ISO 8601 extended format). Ignored if set. | [optional] 
 **CreatedAt** | Pointer to **time.Time** | System set date and time of when the category was created (in the ISO 8601 extended format). Ignored if set. (in the ISO 8601 extended format). Ignored if set. | [optional] 
-**Order** | Pointer to **NullableInt32** | System or GUI set  specifying the position in which the category is displayed on the categories page in the Lunch Money GUI. Ignored if set. | [optional] 
 
 ## Methods
 
@@ -293,6 +294,76 @@ SetChildren sets Children field to given value.
 
 HasChildren returns a boolean if a field has been set.
 
+### GetOrder
+
+`func (o *UpdateCategoryRequestObject) GetOrder() int32`
+
+GetOrder returns the Order field if non-nil, zero value otherwise.
+
+### GetOrderOk
+
+`func (o *UpdateCategoryRequestObject) GetOrderOk() (*int32, bool)`
+
+GetOrderOk returns a tuple with the Order field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOrder
+
+`func (o *UpdateCategoryRequestObject) SetOrder(v int32)`
+
+SetOrder sets Order field to given value.
+
+### HasOrder
+
+`func (o *UpdateCategoryRequestObject) HasOrder() bool`
+
+HasOrder returns a boolean if a field has been set.
+
+### SetOrderNil
+
+`func (o *UpdateCategoryRequestObject) SetOrderNil(b bool)`
+
+ SetOrderNil sets the value for Order to be an explicit nil
+
+### UnsetOrder
+`func (o *UpdateCategoryRequestObject) UnsetOrder()`
+
+UnsetOrder ensures that no value is present for Order, not even an explicit nil
+### GetCollapsed
+
+`func (o *UpdateCategoryRequestObject) GetCollapsed() bool`
+
+GetCollapsed returns the Collapsed field if non-nil, zero value otherwise.
+
+### GetCollapsedOk
+
+`func (o *UpdateCategoryRequestObject) GetCollapsedOk() (*bool, bool)`
+
+GetCollapsedOk returns a tuple with the Collapsed field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCollapsed
+
+`func (o *UpdateCategoryRequestObject) SetCollapsed(v bool)`
+
+SetCollapsed sets Collapsed field to given value.
+
+### HasCollapsed
+
+`func (o *UpdateCategoryRequestObject) HasCollapsed() bool`
+
+HasCollapsed returns a boolean if a field has been set.
+
+### SetCollapsedNil
+
+`func (o *UpdateCategoryRequestObject) SetCollapsedNil(b bool)`
+
+ SetCollapsedNil sets the value for Collapsed to be an explicit nil
+
+### UnsetCollapsed
+`func (o *UpdateCategoryRequestObject) UnsetCollapsed()`
+
+UnsetCollapsed ensures that no value is present for Collapsed, not even an explicit nil
 ### GetId
 
 `func (o *UpdateCategoryRequestObject) GetId() int64`
@@ -403,41 +474,6 @@ SetCreatedAt sets CreatedAt field to given value.
 
 HasCreatedAt returns a boolean if a field has been set.
 
-### GetOrder
-
-`func (o *UpdateCategoryRequestObject) GetOrder() int32`
-
-GetOrder returns the Order field if non-nil, zero value otherwise.
-
-### GetOrderOk
-
-`func (o *UpdateCategoryRequestObject) GetOrderOk() (*int32, bool)`
-
-GetOrderOk returns a tuple with the Order field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetOrder
-
-`func (o *UpdateCategoryRequestObject) SetOrder(v int32)`
-
-SetOrder sets Order field to given value.
-
-### HasOrder
-
-`func (o *UpdateCategoryRequestObject) HasOrder() bool`
-
-HasOrder returns a boolean if a field has been set.
-
-### SetOrderNil
-
-`func (o *UpdateCategoryRequestObject) SetOrderNil(b bool)`
-
- SetOrderNil sets the value for Order to be an explicit nil
-
-### UnsetOrder
-`func (o *UpdateCategoryRequestObject) UnsetOrder()`
-
-UnsetOrder ensures that no value is present for Order, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
