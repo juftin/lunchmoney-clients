@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Date** | **string** | Date of transaction in ISO 8601 format | 
 **Amount** | [**InsertTransactionObjectAmount**](InsertTransactionObjectAmount.md) |  | 
-**Currency** | Pointer to [**CurrencyEnum**](CurrencyEnum.md) | Three-letter lowercase currency code of the transaction in ISO 4217 format. Must match one of the [supported currencies](). If not set defaults to the user account&#39;s primary currency. | [optional] 
+**Currency** | Pointer to [**CurrencyEnum**](CurrencyEnum.md) | Three-letter lowercase currency code of the transaction in ISO 4217 format. Must match one of the [supported currencies](https://alpha.lunchmoney.dev/v2/currencies). If not set defaults to the user account&#39;s primary currency. | [optional] 
 **Payee** | Pointer to **string** | Name of payee for the transaction. | [optional] 
 **CategoryId** | Pointer to **NullableInt32** | The ID of the category associated with the transactions. If set, the category ID must exist for the user&#39;s account and it cannot be a category group. | [optional] 
 **Notes** | Pointer to **NullableString** | Any transaction notes set by the user or by a matched recurring item. This will match the value displayed in notes field on the transactions page in the GUI.  | [optional] 

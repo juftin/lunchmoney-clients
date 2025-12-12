@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **var_date** | **date** | Date of transaction in ISO 8601 format | 
 **amount** | [**InsertTransactionObjectAmount**](InsertTransactionObjectAmount.md) |  | 
-**currency** | [**CurrencyEnum**](CurrencyEnum.md) | Three-letter lowercase currency code of the transaction in ISO 4217 format. Must match one of the [supported currencies](). If not set defaults to the user account&#39;s primary currency. | [optional] 
+**currency** | [**CurrencyEnum**](CurrencyEnum.md) | Three-letter lowercase currency code of the transaction in ISO 4217 format. Must match one of the [supported currencies](https://alpha.lunchmoney.dev/v2/currencies). If not set defaults to the user account&#39;s primary currency. | [optional] 
 **payee** | **str** | Name of payee for the transaction. | [optional] 
 **category_id** | **int** | The ID of the category associated with the transactions. If set, the category ID must exist for the user&#39;s account and it cannot be a category group. | [optional] 
 **notes** | **str** | Any transaction notes set by the user or by a matched recurring item. This will match the value displayed in notes field on the transactions page in the GUI.  | [optional] 

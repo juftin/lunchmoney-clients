@@ -9,8 +9,8 @@ info:
 
         `https://api.lunchmoney.dev/v2`
 
-        **This service has only had internal testing so users are strongly encouraged to create a test budget with example data as the first step to interacting with the v2 API.**
-        See the [Getting Started Guide](https://alpha.lunchmoney.dev/v2/getting-started) for more information.
+        <span class="red-text"><strong>This is in alpha launch of a major API update. It is still subject to change during this alpha review period and bugs may still exist. Users are strongly encouraged to use the mock service or to create a test budget with example data as the first step to interacting with the v2 API.</strong></span>
+        See the [Getting Started Guide](https://alpha.lunchmoney.dev/v2/getting-started) for more information on using a test budget.
 
         If you are new to the v2 API, you may wish to review the [v2 API Overview of Changes](https://alpha.lunchmoney.dev/v2/migration-guide).
 
@@ -47,7 +47,7 @@ info:
 servers:
     - url: https://api.lunchmoney.dev/v2
       description: v2 Lunch Money API Server - modifies real data!
-    - url: https://alpha.lunchmoney.dev/v2
+    - url: https://mock.lunchmoney.dev/v2
       description: Static Mock v2 Lunch Money API Server
 
 tags:
@@ -1216,7 +1216,7 @@ components:
                 currency:
                     description:
                         Three-letter lowercase currency code of the transaction in ISO 4217
-                        format. Must match one of the [supported currencies](). If not set
+                        format. Must match one of the [supported currencies](https://alpha.lunchmoney.dev/v2/currencies). If not set
                         defaults to the user account's primary currency.
                     allOf:
                         - $ref: "#/components/schemas/currencyEnum"
@@ -5381,20 +5381,20 @@ paths:
                   description:
                       Sets the maximum number of transactions to return. If more match
                       the filter criteria, the response will include a `has_more`
-                      attribute set to `true`. See [pagination](foo)
+                      attribute set to `true`. See [Pagination](https://alpha.lunchmoney.dev/v2/pagination)
                 - name: offset
                   in: query
                   schema:
                       type: integer
                   description:
                       Sets the offset for the records returned. This is typically set
-                      automatically in the header. See [Pagination](/foo)
+                      automatically in the header. See [Pagination](https://alpha.lunchmoney.dev/v2/pagination)
             responses:
                 "200":
                     description:
                         Returns an array of transactions. <br><br>The `has_more` property
                         is set to `true` if more transactions are available. See
-                        [Pagination](/foo)
+                        [Pagination](https://alpha.lunchmoney.dev/v2/pagination)
                     content:
                         application/json:
                             schema:
