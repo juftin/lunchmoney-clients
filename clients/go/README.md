@@ -7,8 +7,8 @@ A working version of this API is now available through these docs, or directly a
 
 `https://api.lunchmoney.dev/v2`
 
-**This service has only had internal testing so users are strongly encouraged to create a test budget with example data as the first step to interacting with the v2 API.**
-See the [Getting Started Guide](https://alpha.lunchmoney.dev/v2/getting-started) for more information.
+<span class=\"red-text\"><strong>This is in alpha launch of a major API update. It is still subject to change during this alpha review period and bugs may still exist. Users are strongly encouraged to use the mock service or to create a test budget with example data as the first step to interacting with the v2 API.</strong></span>
+See the [Getting Started Guide](https://alpha.lunchmoney.dev/v2/getting-started) for more information on using a test budget.
 
 If you are new to the v2 API, you may wish to review the [v2 API Overview of Changes](https://alpha.lunchmoney.dev/v2/migration-guide).
 

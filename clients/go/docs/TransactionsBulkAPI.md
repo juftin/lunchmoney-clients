@@ -179,8 +179,8 @@ func main() {
 	includeSplitParents := true // bool | By default, transactions that were split into multiple transactions are not included in the response. Set to true if you'd like the returned transactions objects to include any  transactions that were split into multiple transactions.  Use with caution as this data is normally not exposed after the split transactions are created. (optional) (default to false)
 	includeChildren := true // bool | By default, the `children` property is not included in the response. Set to true if you'd like the children property to be populated with the transactions that  make up a transaction group, or, if the `include_split_parents` query param is also set,  the transactions that were split from a parent transaction. (optional) (default to false)
 	includeFiles := true // bool | By default, the `files` property is not included in the response. Set to true if you'd like the responses to include a list of of  objects that describe any files attached to the transactions. (optional) (default to false)
-	limit := int32(56) // int32 | Sets the maximum number of transactions to return. If more match the filter criteria, the response will include a `has_more` attribute set to `true`. See [pagination](foo) (optional) (default to 100)
-	offset := int32(56) // int32 | Sets the offset for the records returned. This is typically set automatically in the header. See [Pagination](/foo) (optional)
+	limit := int32(56) // int32 | Sets the maximum number of transactions to return. If more match the filter criteria, the response will include a `has_more` attribute set to `true`. See [Pagination](https://alpha.lunchmoney.dev/v2/pagination) (optional) (default to 100)
+	offset := int32(56) // int32 | Sets the offset for the records returned. This is typically set automatically in the header. See [Pagination](https://alpha.lunchmoney.dev/v2/pagination) (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -220,8 +220,8 @@ Name | Type | Description  | Notes
  **includeSplitParents** | **bool** | By default, transactions that were split into multiple transactions are not included in the response. Set to true if you&#39;d like the returned transactions objects to include any  transactions that were split into multiple transactions.  Use with caution as this data is normally not exposed after the split transactions are created. | [default to false]
  **includeChildren** | **bool** | By default, the &#x60;children&#x60; property is not included in the response. Set to true if you&#39;d like the children property to be populated with the transactions that  make up a transaction group, or, if the &#x60;include_split_parents&#x60; query param is also set,  the transactions that were split from a parent transaction. | [default to false]
  **includeFiles** | **bool** | By default, the &#x60;files&#x60; property is not included in the response. Set to true if you&#39;d like the responses to include a list of of  objects that describe any files attached to the transactions. | [default to false]
- **limit** | **int32** | Sets the maximum number of transactions to return. If more match the filter criteria, the response will include a &#x60;has_more&#x60; attribute set to &#x60;true&#x60;. See [pagination](foo) | [default to 100]
- **offset** | **int32** | Sets the offset for the records returned. This is typically set automatically in the header. See [Pagination](/foo) | 
+ **limit** | **int32** | Sets the maximum number of transactions to return. If more match the filter criteria, the response will include a &#x60;has_more&#x60; attribute set to &#x60;true&#x60;. See [Pagination](https://alpha.lunchmoney.dev/v2/pagination) | [default to 100]
+ **offset** | **int32** | Sets the offset for the records returned. This is typically set automatically in the header. See [Pagination](https://alpha.lunchmoney.dev/v2/pagination) | 
 
 ### Return type
 
