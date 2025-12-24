@@ -2,8 +2,7 @@ openapi: 3.0.2
 info:
     title: Lunch Money API - v2
     description: |-
-        ## Overview
-        Welcome to the Lunch Money v2 API.
+        Welcome the Lunch Money v2 API.
 
         A working version of this API is now available through these docs, or directly at:
 
@@ -12,7 +11,7 @@ info:
         <span class="red-text"><strong>This is in alpha launch of a major API update. It is still subject to change during this alpha review period and bugs may still exist. Users are strongly encouraged to use the mock service or to create a test budget with example data as the first step to interacting with the v2 API.</strong></span>
         See the [Getting Started Guide](https://alpha.lunchmoney.dev/v2/getting-started) for more information on using a test budget.
 
-        If you are new to the v2 API, you may wish to review the [v2 API Overview of Changes](https://alpha.lunchmoney.dev/v2/migration-guide).
+        If you are new to the v2 API, you may wish to review the [v2 API Overview of Changes](https://alpha.lunchmoney.dev/v2/changelog).
 
         ### Static Mock Server
 
@@ -34,6 +33,7 @@ info:
         - [v2 API Changelog](https://alpha.lunchmoney.dev/v2/changelog)
         - [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide)
         - [Rate Limits](https://alpha.lunchmoney.dev/v2/rate-limits)
+        - [Pagination](https://alpha.lunchmoney.dev/v2/pagination)
         - [Current v1 Lunch Money API Documentation](https://lunchmoney.dev)
         - [Awesome Lunch Money Projects](https://github.com/lunch-money/awesome-lunchmoney?tab=readme-ov-file)
     termsOfService: https://lunchmoney.dev/#current-status
@@ -42,12 +42,12 @@ info:
     license:
         name: Apache 2.0
         url: http://www.apache.org/licenses/LICENSE-2.0.html
-    version: 2.8.2
+    version: 2.8.3
 
 servers:
     - url: https://api.lunchmoney.dev/v2
       description: v2 Lunch Money API Server - modifies real data!
-    - url: https://mock.lunchmoney.dev/v2
+    - url: https://alpha.lunchmoney.dev/v2
       description: Static Mock v2 Lunch Money API Server
 
 tags:
@@ -5222,7 +5222,7 @@ paths:
                   description:
                       Filter transactions to those associated with specified manual
                       account ID or set this to 0 to omit any transactions from manual
-                      accounts. Setting both this and `synched_account_id` to 0 will
+                      accounts. Setting both this and `plaid_account_id` to 0 will
                       return transactions with no account. These are listed as "Cash
                       Transactions" in the Lunch Money GUI.
                   examples:
@@ -5244,7 +5244,7 @@ paths:
                   examples:
                       brokerage account:
                           value: 119807
-                      no synched accounts:
+                      no plaid accounts:
                           value: 0
                 - name: recurring_id
                   in: query
@@ -5376,8 +5376,8 @@ paths:
                   schema:
                       type: integer
                       minimum: 1
-                      maximum: 1000
-                      default: 100
+                      maximum: 2000
+                      default: 1000
                   description:
                       Sets the maximum number of transactions to return. If more match
                       the filter criteria, the response will include a `has_more`
