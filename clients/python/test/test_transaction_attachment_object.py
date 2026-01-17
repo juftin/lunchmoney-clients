@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.transaction_attachment_object import TransactionAttachmentObject
+from lunchmoney-python.models.transaction_attachment_object import TransactionAttachmentObject
 
 class TestTransactionAttachmentObject(unittest.TestCase):
     """TransactionAttachmentObject unit test stubs"""

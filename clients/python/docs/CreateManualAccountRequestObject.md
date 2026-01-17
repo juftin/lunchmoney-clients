@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from lunchmoney.models.create_manual_account_request_object import CreateManualAccountRequestObject
+from lunchmoney-python.models.create_manual_account_request_object import CreateManualAccountRequestObject
 
 # TODO update the JSON string below
 json = "{}"

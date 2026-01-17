@@ -20,7 +20,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from lunchmoney.models.create_category_request_object import CreateCategoryRequestObject
+from lunchmoney-python.models.create_category_request_object import CreateCategoryRequestObject
 
 # TODO update the JSON string below
 json = "{}"

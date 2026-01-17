@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from lunchmoney.models.aligned_summary_response_object import AlignedSummaryResponseObject
+from lunchmoney-python.models.aligned_summary_response_object import AlignedSummaryResponseObject
 
 # TODO update the JSON string below
 json = "{}"

@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.create_category_request_object_children_inner import CreateCategoryRequestObjectChildrenInner
+from lunchmoney-python.models.create_category_request_object_children_inner import CreateCategoryRequestObjectChildrenInner
 
 class TestCreateCategoryRequestObjectChildrenInner(unittest.TestCase):
     """CreateCategoryRequestObjectChildrenInner unit test stubs"""
@@ -47,7 +47,7 @@ class TestCreateCategoryRequestObjectChildrenInner(unittest.TestCase):
                 group_id = 56,
                 is_group = True,
                 children = [
-                    lunchmoney.models.child_category_object.childCategoryObject(
+                    lunchmoney-python.models.child_category_object.childCategoryObject(
                         id = 56, 
                         name = '0', 
                         description = '', 

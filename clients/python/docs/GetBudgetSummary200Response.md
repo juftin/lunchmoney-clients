@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from lunchmoney.models.get_budget_summary200_response import GetBudgetSummary200Response
+from lunchmoney-python.models.get_budget_summary200_response import GetBudgetSummary200Response
 
 # TODO update the JSON string below
 json = "{}"

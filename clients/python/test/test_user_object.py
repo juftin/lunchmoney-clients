@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.user_object import UserObject
+from lunchmoney-python.models.user_object import UserObject
 
 class TestUserObject(unittest.TestCase):
     """UserObject unit test stubs"""

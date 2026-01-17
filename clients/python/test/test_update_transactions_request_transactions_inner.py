@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.update_transactions_request_transactions_inner import UpdateTransactionsRequestTransactionsInner
+from lunchmoney-python.models.update_transactions_request_transactions_inner import UpdateTransactionsRequestTransactionsInner
 
 class TestUpdateTransactionsRequestTransactionsInner(unittest.TestCase):
     """UpdateTransactionsRequestTransactionsInner unit test stubs"""
@@ -53,16 +53,16 @@ class TestUpdateTransactionsRequestTransactionsInner(unittest.TestCase):
                     56
                     ],
                 external_id = '',
-                custom_metadata = lunchmoney.models.custom_metadata.custom_metadata(),
+                custom_metadata = lunchmoney-python.models.custom_metadata.custom_metadata(),
                 status = 'reviewed',
                 to_base = 1.337,
                 is_pending = True,
-                plaid_metadata = lunchmoney.models.plaid_metadata.plaid_metadata(),
+                plaid_metadata = lunchmoney-python.models.plaid_metadata.plaid_metadata(),
                 created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
                 updated_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
                 is_split_parent = True,
                 children = [
-                    lunchmoney.models.child_transaction_object.childTransactionObject(
+                    lunchmoney-python.models.child_transaction_object.childTransactionObject(
                         id = 56, 
                         date = datetime.datetime.strptime('1975-12-30', '%Y-%m-%d').date(), 
                         amount = '', 
@@ -87,10 +87,10 @@ class TestUpdateTransactionsRequestTransactionsInner(unittest.TestCase):
                             ], 
                         source = 'api', 
                         external_id = '', 
-                        plaid_metadata = lunchmoney.models.plaid_metadata.plaid_metadata(), 
-                        custom_metadata = lunchmoney.models.custom_metadata.custom_metadata(), 
+                        plaid_metadata = lunchmoney-python.models.plaid_metadata.plaid_metadata(), 
+                        custom_metadata = lunchmoney-python.models.custom_metadata.custom_metadata(), 
                         files = [
-                            lunchmoney.models.transaction_attachment_object.transactionAttachmentObject(
+                            lunchmoney-python.models.transaction_attachment_object.transactionAttachmentObject(
                                 id = 56, 
                                 uploaded_by = 56, 
                                 name = '', 

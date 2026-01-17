@@ -1,4 +1,4 @@
-# lunchmoney.TransactionsBulkApi
+# lunchmoney-python.TransactionsBulkApi
 
 All URIs are relative to *https://api.lunchmoney.dev/v2*
 
@@ -25,15 +25,15 @@ The successful request to this endpoint will return a response body which will i
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
-import lunchmoney
-from lunchmoney.models.create_new_transactions_request import CreateNewTransactionsRequest
-from lunchmoney.models.insert_transactions_response_object import InsertTransactionsResponseObject
-from lunchmoney.rest import ApiException
+import lunchmoney-python
+from lunchmoney-python.models.create_new_transactions_request import CreateNewTransactionsRequest
+from lunchmoney-python.models.insert_transactions_response_object import InsertTransactionsResponseObject
+from lunchmoney-python.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to https://api.lunchmoney.dev/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     host = "https://api.lunchmoney.dev/v2"
 )
 
@@ -49,14 +49,14 @@ configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['cookieAuth'] = 'Bearer'
 
 # Configure Bearer authorization (JWT): bearerSecurity
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with lunchmoney.ApiClient(configuration) as api_client:
+with lunchmoney-python.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = lunchmoney.TransactionsBulkApi(api_client)
+    api_instance = lunchmoney-python.TransactionsBulkApi(api_client)
     create_new_transactions_request = {"transactions":[{"date":"2024-12-01","amount":42.89,"payee":"Food Town","category_id":315163,"status":"reviewed"}]} # CreateNewTransactionsRequest | 
 
     try:
@@ -118,14 +118,14 @@ Otherwise, the specified transactions are deleted.<br><br>
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
-import lunchmoney
-from lunchmoney.models.delete_transactions_request import DeleteTransactionsRequest
-from lunchmoney.rest import ApiException
+import lunchmoney-python
+from lunchmoney-python.models.delete_transactions_request import DeleteTransactionsRequest
+from lunchmoney-python.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to https://api.lunchmoney.dev/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     host = "https://api.lunchmoney.dev/v2"
 )
 
@@ -141,14 +141,14 @@ configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['cookieAuth'] = 'Bearer'
 
 # Configure Bearer authorization (JWT): bearerSecurity
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with lunchmoney.ApiClient(configuration) as api_client:
+with lunchmoney-python.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = lunchmoney.TransactionsBulkApi(api_client)
+    api_instance = lunchmoney-python.TransactionsBulkApi(api_client)
     delete_transactions_request = {"ids":[2112150653,2112150654,2112150655]} # DeleteTransactionsRequest | 
 
     try:
@@ -206,14 +206,14 @@ Retrieve a list of all transactions associated with a user's account. <br>If cal
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
-import lunchmoney
-from lunchmoney.models.get_all_transactions200_response import GetAllTransactions200Response
-from lunchmoney.rest import ApiException
+import lunchmoney-python
+from lunchmoney-python.models.get_all_transactions200_response import GetAllTransactions200Response
+from lunchmoney-python.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to https://api.lunchmoney.dev/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     host = "https://api.lunchmoney.dev/v2"
 )
 
@@ -229,18 +229,18 @@ configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['cookieAuth'] = 'Bearer'
 
 # Configure Bearer authorization (JWT): bearerSecurity
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with lunchmoney.ApiClient(configuration) as api_client:
+with lunchmoney-python.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = lunchmoney.TransactionsBulkApi(api_client)
+    api_instance = lunchmoney-python.TransactionsBulkApi(api_client)
     start_date = '2013-10-20' # date | Denotes the beginning of the time period to fetch transactions for. If omitted, the most recent transactions will be returned. See `limit`. Required if end_date exists. <br> (optional)
     end_date = '2013-10-20' # date | Denotes the end of the time period you'd like to get transactions for. Required if start_date exists.  (optional)
-    created_since = lunchmoney.GetAllTransactionsCreatedSinceParameter() # GetAllTransactionsCreatedSinceParameter | Filter transactions to those created after the specified timestamp. Accepts either a date (YYYY-MM-DD) or ISO 8601 datetime string. Date-only values are interpreted as midnight UTC (00:00:00Z). (optional)
-    updated_since = lunchmoney.GetAllTransactionsCreatedSinceParameter() # GetAllTransactionsCreatedSinceParameter | Filter transactions to those updated after the specified timestamp. Accepts either a date (YYYY-MM-DD) or ISO 8601 datetime string. Date-only values are interpreted as midnight UTC (00:00:00Z). (optional)
+    created_since = lunchmoney-python.GetAllTransactionsCreatedSinceParameter() # GetAllTransactionsCreatedSinceParameter | Filter transactions to those created after the specified timestamp. Accepts either a date (YYYY-MM-DD) or ISO 8601 datetime string. Date-only values are interpreted as midnight UTC (00:00:00Z). (optional)
+    updated_since = lunchmoney-python.GetAllTransactionsCreatedSinceParameter() # GetAllTransactionsCreatedSinceParameter | Filter transactions to those updated after the specified timestamp. Accepts either a date (YYYY-MM-DD) or ISO 8601 datetime string. Date-only values are interpreted as midnight UTC (00:00:00Z). (optional)
     manual_account_id = 219909 # int | Filter transactions to those associated with specified manual account ID or set this to 0 to omit any transactions from manual accounts. Setting both this and `plaid_account_id` to 0 will return transactions with no account. These are listed as \"Cash Transactions\" in the Lunch Money GUI.<br> Note that transaction groups are not associated with any account. If you want the response to include transactions from transaction groups, set the `include_group_children` query parameter to `true` when filtering by manual accounts. (optional)
     plaid_account_id = 119807 # int | Filter transactions to those associated with specified plaid account ID or set this to 0 to omit any transactions from plaid accounts. Setting both this and `manual_account_id` to 0 will return transactions with no account. These are listed as \"Cash Transactions\" in the Lunch Money GUI.<br> Note that transaction groups are not associated with any account. If you want the response to include transactions from transaction groups, set the `include_group_children` query parameter to `true` when filtering by plaid accounts. (optional)
     recurring_id = 994069 # int | Filter transactions to those associated with specified Recurring  Item ID  (optional)
@@ -337,15 +337,15 @@ The request can include between 1 and 500 transactions to update in a single cal
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
-import lunchmoney
-from lunchmoney.models.update_transactions200_response import UpdateTransactions200Response
-from lunchmoney.models.update_transactions_request import UpdateTransactionsRequest
-from lunchmoney.rest import ApiException
+import lunchmoney-python
+from lunchmoney-python.models.update_transactions200_response import UpdateTransactions200Response
+from lunchmoney-python.models.update_transactions_request import UpdateTransactionsRequest
+from lunchmoney-python.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to https://api.lunchmoney.dev/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     host = "https://api.lunchmoney.dev/v2"
 )
 
@@ -361,14 +361,14 @@ configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['cookieAuth'] = 'Bearer'
 
 # Configure Bearer authorization (JWT): bearerSecurity
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with lunchmoney.ApiClient(configuration) as api_client:
+with lunchmoney-python.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = lunchmoney.TransactionsBulkApi(api_client)
+    api_instance = lunchmoney-python.TransactionsBulkApi(api_client)
     update_transactions_request = {"transactions":[{"id":2112150654,"category_id":315162,"notes":"Treat restaurants the same as groceries"},{"id":2112150649,"category_id":315162,"notes":"Treat restaurants the same as groceries"},{"id":2112140372,"category_id":315162,"notes":"Treat restaurants the same as groceries"}]} # UpdateTransactionsRequest | 
 
     try:

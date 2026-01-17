@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.update_manual_account_request_object import UpdateManualAccountRequestObject
+from lunchmoney-python.models.update_manual_account_request_object import UpdateManualAccountRequestObject
 
 class TestUpdateManualAccountRequestObject(unittest.TestCase):
     """UpdateManualAccountRequestObject unit test stubs"""

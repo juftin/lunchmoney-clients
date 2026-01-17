@@ -1,5 +1,5 @@
 [project]
-name = "lunchmoney"
+name = "lunchmoney-python"
 version = "2.7.0"
 description = "Lunch Money API - v2"
 authors = [
@@ -41,7 +41,7 @@ extension-pkg-whitelist = "pydantic"
 
 [tool.mypy]
 files = [
-  "lunchmoney",
+  "lunchmoney-python",
   #"test",  # auto-generated tests
   "tests", # hand-written tests
 ]
@@ -79,7 +79,7 @@ disallow_any_generics = true
 
 [[tool.mypy.overrides]]
 module = [
-  "lunchmoney.configuration",
+  "lunchmoney-python.configuration",
 ]
 warn_unused_ignores = true
 strict_equality = true

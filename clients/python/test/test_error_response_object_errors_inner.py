@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.error_response_object_errors_inner import ErrorResponseObjectErrorsInner
+from lunchmoney-python.models.error_response_object_errors_inner import ErrorResponseObjectErrorsInner
 
 class TestErrorResponseObjectErrorsInner(unittest.TestCase):
     """ErrorResponseObjectErrorsInner unit test stubs"""

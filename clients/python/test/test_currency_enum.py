@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.currency_enum import CurrencyEnum
+from lunchmoney-python.models.currency_enum import CurrencyEnum
 
 class TestCurrencyEnum(unittest.TestCase):
     """CurrencyEnum unit test stubs"""

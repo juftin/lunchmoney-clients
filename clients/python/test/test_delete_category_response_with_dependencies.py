@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.delete_category_response_with_dependencies import DeleteCategoryResponseWithDependencies
+from lunchmoney-python.models.delete_category_response_with_dependencies import DeleteCategoryResponseWithDependencies
 
 class TestDeleteCategoryResponseWithDependencies(unittest.TestCase):
     """DeleteCategoryResponseWithDependencies unit test stubs"""
@@ -37,7 +37,7 @@ class TestDeleteCategoryResponseWithDependencies(unittest.TestCase):
         if include_optional:
             return DeleteCategoryResponseWithDependencies(
                 category_name = '',
-                dependents = lunchmoney.models.delete_category_response_with_dependencies_dependents.deleteCategoryResponseWithDependencies_dependents(
+                dependents = lunchmoney-python.models.delete_category_response_with_dependencies_dependents.deleteCategoryResponseWithDependencies_dependents(
                     budget = 56, 
                     category_rules = 56, 
                     transactions = 56, 
@@ -48,7 +48,7 @@ class TestDeleteCategoryResponseWithDependencies(unittest.TestCase):
         else:
             return DeleteCategoryResponseWithDependencies(
                 category_name = '',
-                dependents = lunchmoney.models.delete_category_response_with_dependencies_dependents.deleteCategoryResponseWithDependencies_dependents(
+                dependents = lunchmoney-python.models.delete_category_response_with_dependencies_dependents.deleteCategoryResponseWithDependencies_dependents(
                     budget = 56, 
                     category_rules = 56, 
                     transactions = 56, 

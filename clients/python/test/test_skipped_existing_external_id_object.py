@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.skipped_existing_external_id_object import SkippedExistingExternalIdObject
+from lunchmoney-python.models.skipped_existing_external_id_object import SkippedExistingExternalIdObject
 
 class TestSkippedExistingExternalIdObject(unittest.TestCase):
     """SkippedExistingExternalIdObject unit test stubs"""
@@ -39,7 +39,7 @@ class TestSkippedExistingExternalIdObject(unittest.TestCase):
                 reason = 'duplicate_external_id',
                 request_transactions_index = 56,
                 existing_transaction_id = 56,
-                request_transaction = lunchmoney.models.insert_transaction_object.insertTransactionObject(
+                request_transaction = lunchmoney-python.models.insert_transaction_object.insertTransactionObject(
                     date = datetime.datetime.strptime('1975-12-30', '%Y-%m-%d').date(), 
                     amount = null, 
                     currency = null, 

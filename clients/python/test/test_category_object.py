@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.category_object import CategoryObject
+from lunchmoney-python.models.category_object import CategoryObject
 
 class TestCategoryObject(unittest.TestCase):
     """CategoryObject unit test stubs"""
@@ -47,7 +47,7 @@ class TestCategoryObject(unittest.TestCase):
                 group_id = 56,
                 is_group = True,
                 children = [
-                    lunchmoney.models.child_category_object.childCategoryObject(
+                    lunchmoney-python.models.child_category_object.childCategoryObject(
                         id = 56, 
                         name = '0', 
                         description = '', 

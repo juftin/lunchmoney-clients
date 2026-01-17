@@ -24,7 +24,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from lunchmoney.models.update_category_request_object import UpdateCategoryRequestObject
+from lunchmoney-python.models.update_category_request_object import UpdateCategoryRequestObject
 
 # TODO update the JSON string below
 json = "{}"

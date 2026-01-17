@@ -1,4 +1,4 @@
-# lunchmoney.TransactionsFilesApi
+# lunchmoney-python.TransactionsFilesApi
 
 All URIs are relative to *https://api.lunchmoney.dev/v2*
 
@@ -22,14 +22,14 @@ Attaches a file to a transaction. The file must be less than 10MB in size.<br><b
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
-import lunchmoney
-from lunchmoney.models.transaction_attachment_object import TransactionAttachmentObject
-from lunchmoney.rest import ApiException
+import lunchmoney-python
+from lunchmoney-python.models.transaction_attachment_object import TransactionAttachmentObject
+from lunchmoney-python.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to https://api.lunchmoney.dev/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     host = "https://api.lunchmoney.dev/v2"
 )
 
@@ -45,14 +45,14 @@ configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['cookieAuth'] = 'Bearer'
 
 # Configure Bearer authorization (JWT): bearerSecurity
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with lunchmoney.ApiClient(configuration) as api_client:
+with lunchmoney-python.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = lunchmoney.TransactionsFilesApi(api_client)
+    api_instance = lunchmoney-python.TransactionsFilesApi(api_client)
     transaction_id = 2112150655 # int | 
     file = None # bytearray | The file to attach via multipart form encoding.  File size may not exceed 10MB. 
     notes = 'notes_example' # str | Optional notes about the file (optional)
@@ -114,13 +114,13 @@ Deletes a file attachment from a transaction.
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
-import lunchmoney
-from lunchmoney.rest import ApiException
+import lunchmoney-python
+from lunchmoney-python.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to https://api.lunchmoney.dev/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     host = "https://api.lunchmoney.dev/v2"
 )
 
@@ -136,14 +136,14 @@ configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['cookieAuth'] = 'Bearer'
 
 # Configure Bearer authorization (JWT): bearerSecurity
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with lunchmoney.ApiClient(configuration) as api_client:
+with lunchmoney-python.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = lunchmoney.TransactionsFilesApi(api_client)
+    api_instance = lunchmoney-python.TransactionsFilesApi(api_client)
     file_id = 1234567890 # int | 
 
     try:
@@ -198,14 +198,14 @@ Returns a signed url that can be used to download the file attachment.
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
-import lunchmoney
-from lunchmoney.models.get_transaction_attachment_url200_response import GetTransactionAttachmentUrl200Response
-from lunchmoney.rest import ApiException
+import lunchmoney-python
+from lunchmoney-python.models.get_transaction_attachment_url200_response import GetTransactionAttachmentUrl200Response
+from lunchmoney-python.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to https://api.lunchmoney.dev/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     host = "https://api.lunchmoney.dev/v2"
 )
 
@@ -221,14 +221,14 @@ configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['cookieAuth'] = 'Bearer'
 
 # Configure Bearer authorization (JWT): bearerSecurity
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with lunchmoney.ApiClient(configuration) as api_client:
+with lunchmoney-python.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = lunchmoney.TransactionsFilesApi(api_client)
+    api_instance = lunchmoney-python.TransactionsFilesApi(api_client)
     file_id = 1234567890 # int | 
 
     try:

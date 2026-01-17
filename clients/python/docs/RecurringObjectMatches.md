@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from lunchmoney.models.recurring_object_matches import RecurringObjectMatches
+from lunchmoney-python.models.recurring_object_matches import RecurringObjectMatches
 
 # TODO update the JSON string below
 json = "{}"

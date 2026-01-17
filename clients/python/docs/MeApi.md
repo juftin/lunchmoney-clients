@@ -1,4 +1,4 @@
-# lunchmoney.MeApi
+# lunchmoney-python.MeApi
 
 All URIs are relative to *https://api.lunchmoney.dev/v2*
 
@@ -20,14 +20,14 @@ Get details about the user associated with the supplied authorization token.
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
-import lunchmoney
-from lunchmoney.models.user_object import UserObject
-from lunchmoney.rest import ApiException
+import lunchmoney-python
+from lunchmoney-python.models.user_object import UserObject
+from lunchmoney-python.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to https://api.lunchmoney.dev/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     host = "https://api.lunchmoney.dev/v2"
 )
 
@@ -43,14 +43,14 @@ configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['cookieAuth'] = 'Bearer'
 
 # Configure Bearer authorization (JWT): bearerSecurity
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with lunchmoney.ApiClient(configuration) as api_client:
+with lunchmoney-python.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = lunchmoney.MeApi(api_client)
+    api_instance = lunchmoney-python.MeApi(api_client)
 
     try:
         # Get current user

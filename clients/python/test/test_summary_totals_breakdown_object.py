@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.summary_totals_breakdown_object import SummaryTotalsBreakdownObject
+from lunchmoney-python.models.summary_totals_breakdown_object import SummaryTotalsBreakdownObject
 
 class TestSummaryTotalsBreakdownObject(unittest.TestCase):
     """SummaryTotalsBreakdownObject unit test stubs"""

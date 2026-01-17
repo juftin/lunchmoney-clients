@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.get_all_transactions200_response import GetAllTransactions200Response
+from lunchmoney-python.models.get_all_transactions200_response import GetAllTransactions200Response
 
 class TestGetAllTransactions200Response(unittest.TestCase):
     """GetAllTransactions200Response unit test stubs"""
@@ -37,7 +37,7 @@ class TestGetAllTransactions200Response(unittest.TestCase):
         if include_optional:
             return GetAllTransactions200Response(
                 transactions = [
-                    lunchmoney.models.transaction_object.transactionObject(
+                    lunchmoney-python.models.transaction_object.transactionObject(
                         id = 56, 
                         date = datetime.datetime.strptime('1975-12-30', '%Y-%m-%d').date(), 
                         amount = '', 
@@ -62,7 +62,7 @@ class TestGetAllTransactions200Response(unittest.TestCase):
                         is_group_parent = True, 
                         group_parent_id = 56, 
                         children = [
-                            lunchmoney.models.child_transaction_object.childTransactionObject(
+                            lunchmoney-python.models.child_transaction_object.childTransactionObject(
                                 id = 56, 
                                 date = datetime.datetime.strptime('1975-12-30', '%Y-%m-%d').date(), 
                                 amount = '', 
@@ -87,10 +87,10 @@ class TestGetAllTransactions200Response(unittest.TestCase):
                                     ], 
                                 source = 'api', 
                                 external_id = '', 
-                                plaid_metadata = lunchmoney.models.plaid_metadata.plaid_metadata(), 
-                                custom_metadata = lunchmoney.models.custom_metadata.custom_metadata(), 
+                                plaid_metadata = lunchmoney-python.models.plaid_metadata.plaid_metadata(), 
+                                custom_metadata = lunchmoney-python.models.custom_metadata.custom_metadata(), 
                                 files = [
-                                    lunchmoney.models.transaction_attachment_object.transactionAttachmentObject(
+                                    lunchmoney-python.models.transaction_attachment_object.transactionAttachmentObject(
                                         id = 56, 
                                         uploaded_by = 56, 
                                         name = '', 
@@ -100,10 +100,10 @@ class TestGetAllTransactions200Response(unittest.TestCase):
                                         created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), )
                                     ], )
                             ], 
-                        plaid_metadata = lunchmoney.models.plaid_metadata.plaid_metadata(), 
-                        custom_metadata = lunchmoney.models.custom_metadata.custom_metadata(), 
+                        plaid_metadata = lunchmoney-python.models.plaid_metadata.plaid_metadata(), 
+                        custom_metadata = lunchmoney-python.models.custom_metadata.custom_metadata(), 
                         files = [
-                            lunchmoney.models.transaction_attachment_object.transactionAttachmentObject(
+                            lunchmoney-python.models.transaction_attachment_object.transactionAttachmentObject(
                                 id = 56, 
                                 uploaded_by = 56, 
                                 name = '', 
@@ -120,7 +120,7 @@ class TestGetAllTransactions200Response(unittest.TestCase):
         else:
             return GetAllTransactions200Response(
                 transactions = [
-                    lunchmoney.models.transaction_object.transactionObject(
+                    lunchmoney-python.models.transaction_object.transactionObject(
                         id = 56, 
                         date = datetime.datetime.strptime('1975-12-30', '%Y-%m-%d').date(), 
                         amount = '', 
@@ -145,7 +145,7 @@ class TestGetAllTransactions200Response(unittest.TestCase):
                         is_group_parent = True, 
                         group_parent_id = 56, 
                         children = [
-                            lunchmoney.models.child_transaction_object.childTransactionObject(
+                            lunchmoney-python.models.child_transaction_object.childTransactionObject(
                                 id = 56, 
                                 date = datetime.datetime.strptime('1975-12-30', '%Y-%m-%d').date(), 
                                 amount = '', 
@@ -170,10 +170,10 @@ class TestGetAllTransactions200Response(unittest.TestCase):
                                     ], 
                                 source = 'api', 
                                 external_id = '', 
-                                plaid_metadata = lunchmoney.models.plaid_metadata.plaid_metadata(), 
-                                custom_metadata = lunchmoney.models.custom_metadata.custom_metadata(), 
+                                plaid_metadata = lunchmoney-python.models.plaid_metadata.plaid_metadata(), 
+                                custom_metadata = lunchmoney-python.models.custom_metadata.custom_metadata(), 
                                 files = [
-                                    lunchmoney.models.transaction_attachment_object.transactionAttachmentObject(
+                                    lunchmoney-python.models.transaction_attachment_object.transactionAttachmentObject(
                                         id = 56, 
                                         uploaded_by = 56, 
                                         name = '', 
@@ -183,10 +183,10 @@ class TestGetAllTransactions200Response(unittest.TestCase):
                                         created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), )
                                     ], )
                             ], 
-                        plaid_metadata = lunchmoney.models.plaid_metadata.plaid_metadata(), 
-                        custom_metadata = lunchmoney.models.custom_metadata.custom_metadata(), 
+                        plaid_metadata = lunchmoney-python.models.plaid_metadata.plaid_metadata(), 
+                        custom_metadata = lunchmoney-python.models.custom_metadata.custom_metadata(), 
                         files = [
-                            lunchmoney.models.transaction_attachment_object.transactionAttachmentObject(
+                            lunchmoney-python.models.transaction_attachment_object.transactionAttachmentObject(
                                 id = 56, 
                                 uploaded_by = 56, 
                                 name = '', 

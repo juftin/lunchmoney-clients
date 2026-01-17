@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.update_tag_request_object import UpdateTagRequestObject
+from lunchmoney-python.models.update_tag_request_object import UpdateTagRequestObject
 
 class TestUpdateTagRequestObject(unittest.TestCase):
     """UpdateTagRequestObject unit test stubs"""

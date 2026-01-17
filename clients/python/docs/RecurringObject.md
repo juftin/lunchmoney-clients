@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from lunchmoney.models.recurring_object import RecurringObject
+from lunchmoney-python.models.recurring_object import RecurringObject
 
 # TODO update the JSON string below
 json = "{}"

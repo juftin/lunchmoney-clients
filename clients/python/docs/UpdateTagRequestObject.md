@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from lunchmoney.models.update_tag_request_object import UpdateTagRequestObject
+from lunchmoney-python.models.update_tag_request_object import UpdateTagRequestObject
 
 # TODO update the JSON string below
 json = "{}"

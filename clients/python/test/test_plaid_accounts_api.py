@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.api.plaid_accounts_api import PlaidAccountsApi
+from lunchmoney-python.api.plaid_accounts_api import PlaidAccountsApi
 
 
 class TestPlaidAccountsApi(unittest.TestCase):

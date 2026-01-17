@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.delete_tag_response_with_dependencies import DeleteTagResponseWithDependencies
+from lunchmoney-python.models.delete_tag_response_with_dependencies import DeleteTagResponseWithDependencies
 
 class TestDeleteTagResponseWithDependencies(unittest.TestCase):
     """DeleteTagResponseWithDependencies unit test stubs"""
@@ -37,14 +37,14 @@ class TestDeleteTagResponseWithDependencies(unittest.TestCase):
         if include_optional:
             return DeleteTagResponseWithDependencies(
                 tag_name = '',
-                dependents = lunchmoney.models.delete_tag_response_with_dependencies_dependents.deleteTagResponseWithDependencies_dependents(
+                dependents = lunchmoney-python.models.delete_tag_response_with_dependencies_dependents.deleteTagResponseWithDependencies_dependents(
                     rules = 56, 
                     transactions = 56, )
             )
         else:
             return DeleteTagResponseWithDependencies(
                 tag_name = '',
-                dependents = lunchmoney.models.delete_tag_response_with_dependencies_dependents.deleteTagResponseWithDependencies_dependents(
+                dependents = lunchmoney-python.models.delete_tag_response_with_dependencies_dependents.deleteTagResponseWithDependencies_dependents(
                     rules = 56, 
                     transactions = 56, ),
         )

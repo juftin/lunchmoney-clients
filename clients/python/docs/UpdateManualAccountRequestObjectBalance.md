@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from lunchmoney.models.update_manual_account_request_object_balance import UpdateManualAccountRequestObjectBalance
+from lunchmoney-python.models.update_manual_account_request_object_balance import UpdateManualAccountRequestObjectBalance
 
 # TODO update the JSON string below
 json = "{}"

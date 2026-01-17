@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from lunchmoney.models.summary_rollover_pool_object import SummaryRolloverPoolObject
+from lunchmoney-python.models.summary_rollover_pool_object import SummaryRolloverPoolObject
 
 # TODO update the JSON string below
 json = "{}"

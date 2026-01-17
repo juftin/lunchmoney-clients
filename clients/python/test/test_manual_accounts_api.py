@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.api.manual_accounts_api import ManualAccountsApi
+from lunchmoney-python.api.manual_accounts_api import ManualAccountsApi
 
 
 class TestManualAccountsApi(unittest.TestCase):

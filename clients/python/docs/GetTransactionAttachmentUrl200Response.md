@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from lunchmoney.models.get_transaction_attachment_url200_response import GetTransactionAttachmentUrl200Response
+from lunchmoney-python.models.get_transaction_attachment_url200_response import GetTransactionAttachmentUrl200Response
 
 # TODO update the JSON string below
 json = "{}"

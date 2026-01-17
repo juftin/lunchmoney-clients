@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.get_all_categories200_response import GetAllCategories200Response
+from lunchmoney-python.models.get_all_categories200_response import GetAllCategories200Response
 
 class TestGetAllCategories200Response(unittest.TestCase):
     """GetAllCategories200Response unit test stubs"""
@@ -37,7 +37,7 @@ class TestGetAllCategories200Response(unittest.TestCase):
         if include_optional:
             return GetAllCategories200Response(
                 categories = [
-                    lunchmoney.models.category_object.category object(
+                    lunchmoney-python.models.category_object.category object(
                         id = 56, 
                         name = '0', 
                         description = '', 
@@ -49,7 +49,7 @@ class TestGetAllCategories200Response(unittest.TestCase):
                         group_id = 56, 
                         is_group = True, 
                         children = [
-                            lunchmoney.models.child_category_object.childCategoryObject(
+                            lunchmoney-python.models.child_category_object.childCategoryObject(
                                 id = 56, 
                                 name = '0', 
                                 description = '', 

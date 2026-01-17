@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.api.tags_api import TagsApi
+from lunchmoney-python.api.tags_api import TagsApi
 
 
 class TestTagsApi(unittest.TestCase):

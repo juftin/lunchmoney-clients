@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.create_category_request_object import CreateCategoryRequestObject
+from lunchmoney-python.models.create_category_request_object import CreateCategoryRequestObject
 
 class TestCreateCategoryRequestObject(unittest.TestCase):
     """CreateCategoryRequestObject unit test stubs"""

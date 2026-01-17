@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.non_aligned_summary_response_object import NonAlignedSummaryResponseObject
+from lunchmoney-python.models.non_aligned_summary_response_object import NonAlignedSummaryResponseObject
 
 class TestNonAlignedSummaryResponseObject(unittest.TestCase):
     """NonAlignedSummaryResponseObject unit test stubs"""
@@ -36,15 +36,15 @@ class TestNonAlignedSummaryResponseObject(unittest.TestCase):
         model = NonAlignedSummaryResponseObject()
         if include_optional:
             return NonAlignedSummaryResponseObject(
-                totals = lunchmoney.models.summary_totals_object.summaryTotalsObject(
-                    inflow = lunchmoney.models.summary_totals_breakdown_object.summaryTotalsBreakdownObject(
+                totals = lunchmoney-python.models.summary_totals_object.summaryTotalsObject(
+                    inflow = lunchmoney-python.models.summary_totals_breakdown_object.summaryTotalsBreakdownObject(
                         other_activity = 1.337, 
                         recurring_activity = 1.337, 
                         recurring_remaining = 1.337, 
                         uncategorized = 1.337, 
                         uncategorized_count = 56, 
                         uncategorized_recurring = 1.337, ), 
-                    outflow = lunchmoney.models.summary_totals_breakdown_object.summaryTotalsBreakdownObject(
+                    outflow = lunchmoney-python.models.summary_totals_breakdown_object.summaryTotalsBreakdownObject(
                         other_activity = 1.337, 
                         recurring_activity = 1.337, 
                         recurring_remaining = 1.337, 
@@ -53,9 +53,9 @@ class TestNonAlignedSummaryResponseObject(unittest.TestCase):
                         uncategorized_recurring = 1.337, ), ),
                 aligned = True,
                 categories = [
-                    lunchmoney.models.non_aligned_summary_category_object.nonAlignedSummaryCategoryObject(
+                    lunchmoney-python.models.non_aligned_summary_category_object.nonAlignedSummaryCategoryObject(
                         category_id = 56, 
-                        totals = lunchmoney.models.non_aligned_category_totals_object.nonAlignedCategoryTotalsObject(
+                        totals = lunchmoney-python.models.non_aligned_category_totals_object.nonAlignedCategoryTotalsObject(
                             other_activity = 1.337, 
                             recurring_activity = 1.337, 
                             recurring_remaining = 1.337, 
@@ -66,9 +66,9 @@ class TestNonAlignedSummaryResponseObject(unittest.TestCase):
             return NonAlignedSummaryResponseObject(
                 aligned = True,
                 categories = [
-                    lunchmoney.models.non_aligned_summary_category_object.nonAlignedSummaryCategoryObject(
+                    lunchmoney-python.models.non_aligned_summary_category_object.nonAlignedSummaryCategoryObject(
                         category_id = 56, 
-                        totals = lunchmoney.models.non_aligned_category_totals_object.nonAlignedCategoryTotalsObject(
+                        totals = lunchmoney-python.models.non_aligned_category_totals_object.nonAlignedCategoryTotalsObject(
                             other_activity = 1.337, 
                             recurring_activity = 1.337, 
                             recurring_remaining = 1.337, 

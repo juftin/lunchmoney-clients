@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.update_transaction_object_amount import UpdateTransactionObjectAmount
+from lunchmoney-python.models.update_transaction_object_amount import UpdateTransactionObjectAmount
 
 class TestUpdateTransactionObjectAmount(unittest.TestCase):
     """UpdateTransactionObjectAmount unit test stubs"""

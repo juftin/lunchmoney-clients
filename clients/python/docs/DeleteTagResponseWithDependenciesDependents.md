@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from lunchmoney.models.delete_tag_response_with_dependencies_dependents import DeleteTagResponseWithDependenciesDependents
+from lunchmoney-python.models.delete_tag_response_with_dependencies_dependents import DeleteTagResponseWithDependenciesDependents
 
 # TODO update the JSON string below
 json = "{}"

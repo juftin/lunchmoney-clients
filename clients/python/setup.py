@@ -21,7 +21,7 @@ from setuptools import setup, find_packages  # noqa: H301
 #
 # prerequisite: setuptools
 # http://pypi.python.org/pypi/setuptools
-NAME = "lunchmoney"
+NAME = "lunchmoney-python"
 VERSION = "2.7.0"
 PYTHON_REQUIRES = ">= 3.9"
 REQUIRES = [
@@ -47,5 +47,5 @@ setup(
     long_description="""\
     Welcome to the Lunch Money v2 API.  A working version of this API is now available through these docs, or directly at:  &#x60;https://api.lunchmoney.dev/v2&#x60;  &lt;span class&#x3D;\&quot;red-text\&quot;&gt;&lt;strong&gt;This is in alpha launch of a major API update. It is still subject to change during this alpha review period and bugs may still exist. Users are strongly encouraged to use the mock service or to create a test budget with example data as the first step to interacting with the v2 API.&lt;/strong&gt;&lt;/span&gt; See the [Getting Started Guide](https://alpha.lunchmoney.dev/v2/getting-started) for more information on using a test budget.&lt;br&lt;br&gt;  If you are new to the v2 API, you may wish to review the [v2 API Overview of Changes](https://alpha.lunchmoney.dev/v2/changelog).  ### Static Mock Server  You may also use these docs to explore the API using a static mock server endpoint.&lt;p&gt; This enables users to become familiar with the API without having to create an access token, and eliminates the possibility of modifying real data. &lt;p&gt; To access this endpoint select the second endpoint in the the \&quot;Server\&quot; dropdown to the right. When selected you should see \&quot;Static Mock v2 Lunch Money API Server\&quot;.&lt;br&gt; When using this server, set your Bearer token to any string with 11 or more characters.  ### Migrating from V1  The v2 API is NOT backwards compatible with the v1 API. Developers are encouraged to review the [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) to understand the changes and plan their migration.  ### Acknowledgments  If you have been providing feedback on the API during our iterative design process, **THANK YOU**. We are happy to provide the opportunity to finally interact with the working API that was built based on your feedback.  ### Useful links: - [Getting Started](https://alpha.lunchmoney.dev/v2/getting-started) - [v2 API Changelog](https://alpha.lunchmoney.dev/v2/changelog) - [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://alpha.lunchmoney.dev/v2/rate-limits) - [Current v1 Lunch Money API Documentation](https://lunchmoney.dev) - [Awesome Lunch Money Projects](https://github.com/lunch-money/awesome-lunchmoney?tab&#x3D;readme-ov-file)
     """,  # noqa: E501
-    package_data={"lunchmoney": ["py.typed"]},
+    package_data={"lunchmoney-python": ["py.typed"]},
 )

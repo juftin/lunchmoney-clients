@@ -1,4 +1,4 @@
-# lunchmoney.ManualAccountsApi
+# lunchmoney-python.ManualAccountsApi
 
 All URIs are relative to *https://api.lunchmoney.dev/v2*
 
@@ -24,15 +24,15 @@ Creates a new manually-managed account.
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
-import lunchmoney
-from lunchmoney.models.create_manual_account_request_object import CreateManualAccountRequestObject
-from lunchmoney.models.manual_account_object import ManualAccountObject
-from lunchmoney.rest import ApiException
+import lunchmoney-python
+from lunchmoney-python.models.create_manual_account_request_object import CreateManualAccountRequestObject
+from lunchmoney-python.models.manual_account_object import ManualAccountObject
+from lunchmoney-python.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to https://api.lunchmoney.dev/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     host = "https://api.lunchmoney.dev/v2"
 )
 
@@ -48,14 +48,14 @@ configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['cookieAuth'] = 'Bearer'
 
 # Configure Bearer authorization (JWT): bearerSecurity
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with lunchmoney.ApiClient(configuration) as api_client:
+with lunchmoney-python.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = lunchmoney.ManualAccountsApi(api_client)
+    api_instance = lunchmoney-python.ManualAccountsApi(api_client)
     create_manual_account_request_object = {"name":"API created Account","type":"cash","balance":"100"} # CreateManualAccountRequestObject | 
 
     try:
@@ -114,13 +114,13 @@ Deletes the single manual account with the ID specified on the path. If any tran
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
-import lunchmoney
-from lunchmoney.rest import ApiException
+import lunchmoney-python
+from lunchmoney-python.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to https://api.lunchmoney.dev/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     host = "https://api.lunchmoney.dev/v2"
 )
 
@@ -136,14 +136,14 @@ configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['cookieAuth'] = 'Bearer'
 
 # Configure Bearer authorization (JWT): bearerSecurity
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with lunchmoney.ApiClient(configuration) as api_client:
+with lunchmoney-python.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = lunchmoney.ManualAccountsApi(api_client)
+    api_instance = lunchmoney-python.ManualAccountsApi(api_client)
     id = 119807 # int | ID of the manual account to delete
     delete_items = False # bool | When set to true will also delete any transactions, rules, and recurring items associated with this account. Use this option with caution, it is irreversible! (optional) (default to False)
     delete_balance_history = False # bool | When set to true will delete any balance history associated with this account. (optional) (default to False)
@@ -204,14 +204,14 @@ Retrieve a list of all manually-managed accounts associated with the user's acco
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
-import lunchmoney
-from lunchmoney.models.get_all_manual_accounts200_response import GetAllManualAccounts200Response
-from lunchmoney.rest import ApiException
+import lunchmoney-python
+from lunchmoney-python.models.get_all_manual_accounts200_response import GetAllManualAccounts200Response
+from lunchmoney-python.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to https://api.lunchmoney.dev/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     host = "https://api.lunchmoney.dev/v2"
 )
 
@@ -227,14 +227,14 @@ configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['cookieAuth'] = 'Bearer'
 
 # Configure Bearer authorization (JWT): bearerSecurity
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with lunchmoney.ApiClient(configuration) as api_client:
+with lunchmoney-python.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = lunchmoney.ManualAccountsApi(api_client)
+    api_instance = lunchmoney-python.ManualAccountsApi(api_client)
 
     try:
         # Get all manual accounts
@@ -289,14 +289,14 @@ Retrieve the details of the manual account with the specified ID.
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
-import lunchmoney
-from lunchmoney.models.manual_account_object import ManualAccountObject
-from lunchmoney.rest import ApiException
+import lunchmoney-python
+from lunchmoney-python.models.manual_account_object import ManualAccountObject
+from lunchmoney-python.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to https://api.lunchmoney.dev/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     host = "https://api.lunchmoney.dev/v2"
 )
 
@@ -312,14 +312,14 @@ configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['cookieAuth'] = 'Bearer'
 
 # Configure Bearer authorization (JWT): bearerSecurity
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with lunchmoney.ApiClient(configuration) as api_client:
+with lunchmoney-python.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = lunchmoney.ManualAccountsApi(api_client)
+    api_instance = lunchmoney-python.ManualAccountsApi(api_client)
     id = 119807 # int | ID of the manual account to retrieve
 
     try:
@@ -381,15 +381,15 @@ It is also possible to provide only the properties to be updated in the request 
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
-import lunchmoney
-from lunchmoney.models.manual_account_object import ManualAccountObject
-from lunchmoney.models.update_manual_account_request_object import UpdateManualAccountRequestObject
-from lunchmoney.rest import ApiException
+import lunchmoney-python
+from lunchmoney-python.models.manual_account_object import ManualAccountObject
+from lunchmoney-python.models.update_manual_account_request_object import UpdateManualAccountRequestObject
+from lunchmoney-python.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to https://api.lunchmoney.dev/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     host = "https://api.lunchmoney.dev/v2"
 )
 
@@ -405,14 +405,14 @@ configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['cookieAuth'] = 'Bearer'
 
 # Configure Bearer authorization (JWT): bearerSecurity
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with lunchmoney.ApiClient(configuration) as api_client:
+with lunchmoney-python.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = lunchmoney.ManualAccountsApi(api_client)
+    api_instance = lunchmoney-python.ManualAccountsApi(api_client)
     id = 119807 # int | ID of the manual account to update
     update_manual_account_request_object = {"type":"credit"} # UpdateManualAccountRequestObject | 
 

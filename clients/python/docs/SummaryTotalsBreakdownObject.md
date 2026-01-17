@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from lunchmoney.models.summary_totals_breakdown_object import SummaryTotalsBreakdownObject
+from lunchmoney-python.models.summary_totals_breakdown_object import SummaryTotalsBreakdownObject
 
 # TODO update the JSON string below
 json = "{}"

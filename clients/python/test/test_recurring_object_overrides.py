@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.recurring_object_overrides import RecurringObjectOverrides
+from lunchmoney-python.models.recurring_object_overrides import RecurringObjectOverrides
 
 class TestRecurringObjectOverrides(unittest.TestCase):
     """RecurringObjectOverrides unit test stubs"""

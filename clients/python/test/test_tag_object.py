@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.tag_object import TagObject
+from lunchmoney-python.models.tag_object import TagObject
 
 class TestTagObject(unittest.TestCase):
     """TagObject unit test stubs"""

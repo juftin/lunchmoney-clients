@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.summary_totals_object import SummaryTotalsObject
+from lunchmoney-python.models.summary_totals_object import SummaryTotalsObject
 
 class TestSummaryTotalsObject(unittest.TestCase):
     """SummaryTotalsObject unit test stubs"""
@@ -36,14 +36,14 @@ class TestSummaryTotalsObject(unittest.TestCase):
         model = SummaryTotalsObject()
         if include_optional:
             return SummaryTotalsObject(
-                inflow = lunchmoney.models.summary_totals_breakdown_object.summaryTotalsBreakdownObject(
+                inflow = lunchmoney-python.models.summary_totals_breakdown_object.summaryTotalsBreakdownObject(
                     other_activity = 1.337, 
                     recurring_activity = 1.337, 
                     recurring_remaining = 1.337, 
                     uncategorized = 1.337, 
                     uncategorized_count = 56, 
                     uncategorized_recurring = 1.337, ),
-                outflow = lunchmoney.models.summary_totals_breakdown_object.summaryTotalsBreakdownObject(
+                outflow = lunchmoney-python.models.summary_totals_breakdown_object.summaryTotalsBreakdownObject(
                     other_activity = 1.337, 
                     recurring_activity = 1.337, 
                     recurring_remaining = 1.337, 

@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.api.transactions_files_api import TransactionsFilesApi
+from lunchmoney-python.api.transactions_files_api import TransactionsFilesApi
 
 
 class TestTransactionsFilesApi(unittest.TestCase):

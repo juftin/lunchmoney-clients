@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.non_aligned_summary_category_object import NonAlignedSummaryCategoryObject
+from lunchmoney-python.models.non_aligned_summary_category_object import NonAlignedSummaryCategoryObject
 
 class TestNonAlignedSummaryCategoryObject(unittest.TestCase):
     """NonAlignedSummaryCategoryObject unit test stubs"""
@@ -37,7 +37,7 @@ class TestNonAlignedSummaryCategoryObject(unittest.TestCase):
         if include_optional:
             return NonAlignedSummaryCategoryObject(
                 category_id = 56,
-                totals = lunchmoney.models.non_aligned_category_totals_object.nonAlignedCategoryTotalsObject(
+                totals = lunchmoney-python.models.non_aligned_category_totals_object.nonAlignedCategoryTotalsObject(
                     other_activity = 1.337, 
                     recurring_activity = 1.337, 
                     recurring_remaining = 1.337, 
@@ -46,7 +46,7 @@ class TestNonAlignedSummaryCategoryObject(unittest.TestCase):
         else:
             return NonAlignedSummaryCategoryObject(
                 category_id = 56,
-                totals = lunchmoney.models.non_aligned_category_totals_object.nonAlignedCategoryTotalsObject(
+                totals = lunchmoney-python.models.non_aligned_category_totals_object.nonAlignedCategoryTotalsObject(
                     other_activity = 1.337, 
                     recurring_activity = 1.337, 
                     recurring_remaining = 1.337, 

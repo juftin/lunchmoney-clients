@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.update_category_request_object import UpdateCategoryRequestObject
+from lunchmoney-python.models.update_category_request_object import UpdateCategoryRequestObject
 
 class TestUpdateCategoryRequestObject(unittest.TestCase):
     """UpdateCategoryRequestObject unit test stubs"""

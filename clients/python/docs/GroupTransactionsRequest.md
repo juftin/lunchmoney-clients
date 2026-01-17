@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from lunchmoney.models.group_transactions_request import GroupTransactionsRequest
+from lunchmoney-python.models.group_transactions_request import GroupTransactionsRequest
 
 # TODO update the JSON string below
 json = "{}"
