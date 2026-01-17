@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **external_id** | **str** | An optional user-defined ID for the manual account. | [optional] 
 **custom_metadata** | **Dict[str, object]** | An optional JSON object that includes additional data related to this account. This must be a valid JSON object and, when stringified, must not exceed 4096 characters. | [optional] 
 **exclude_from_transactions** | **bool** | If set, transactions may not be assigned to this manual account. | [optional] 
+**to_base** | **float** | System defined balance converted to the user&#39;s primary currency. Ignored if set.  Use &#x60;balance&#x60; to update the balance in the account. | [optional] 
 **created_at** | **datetime** | System defined date/time the account was created in ISO 8601 extended format. Ignored if set. | [optional] 
 **updated_at** | **datetime** | System defined date/time the account was created in ISO 8601 extended format. Ignored if set. | [optional] 
 

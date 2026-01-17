@@ -8,7 +8,7 @@ Method | HTTP request | Description
 
 
 # **get_budget_summary**
-> GetBudgetSummary200Response get_budget_summary(start_date, end_date, include_exclude_from_budgets=include_exclude_from_budgets, include_occurrences=include_occurrences, include_totals=include_totals)
+> GetBudgetSummary200Response get_budget_summary(start_date, end_date, include_exclude_from_budgets=include_exclude_from_budgets, include_occurrences=include_occurrences, include_past_budget_dates=include_past_budget_dates, include_totals=include_totals, include_rollover_pool=include_rollover_pool)
 
 Get summary
 
@@ -55,11 +55,13 @@ with lunchmoney.ApiClient(configuration) as api_client:
     end_date = '2025-08-31' # date | End of date range in ISO 8601 date format (YYYY-MM-DD).
     include_exclude_from_budgets = False # bool | Enable to include categories that have the 'Exclude from Budgets' flag set in the returned `categories` array. (optional) (default to False)
     include_occurrences = False # bool | Enable to include an `occurrences` array for each category in an aligned response. Each array will include an object for each budget period that falls within the specified date range which includes details on the activity for the budget period. (optional) (default to False)
+    include_past_budget_dates = False # bool | Enable to include the three budget occurrences prior to the start date in the `occurrences` array for each category in an aligned response. This property is ignored if `include_occurrences` is not also set to `true`. (optional) (default to False)
     include_totals = False # bool | Enable to include a top-level `totals` section that summarizes the inflow and outflow across all transactions for the specified date range. (optional) (default to False)
+    include_rollover_pool = False # bool | Enable to include a `rollover_pool` section that summarizes the current rollover pool balance and all previous adjustments. (optional) (default to False)
 
     try:
         # Get summary
-        api_response = api_instance.get_budget_summary(start_date, end_date, include_exclude_from_budgets=include_exclude_from_budgets, include_occurrences=include_occurrences, include_totals=include_totals)
+        api_response = api_instance.get_budget_summary(start_date, end_date, include_exclude_from_budgets=include_exclude_from_budgets, include_occurrences=include_occurrences, include_past_budget_dates=include_past_budget_dates, include_totals=include_totals, include_rollover_pool=include_rollover_pool)
         print("The response of SummaryApi->get_budget_summary:\n")
         pprint(api_response)
     except Exception as e:
@@ -77,7 +79,9 @@ Name | Type | Description  | Notes
  **end_date** | **date**| End of date range in ISO 8601 date format (YYYY-MM-DD). | 
  **include_exclude_from_budgets** | **bool**| Enable to include categories that have the &#39;Exclude from Budgets&#39; flag set in the returned &#x60;categories&#x60; array. | [optional] [default to False]
  **include_occurrences** | **bool**| Enable to include an &#x60;occurrences&#x60; array for each category in an aligned response. Each array will include an object for each budget period that falls within the specified date range which includes details on the activity for the budget period. | [optional] [default to False]
+ **include_past_budget_dates** | **bool**| Enable to include the three budget occurrences prior to the start date in the &#x60;occurrences&#x60; array for each category in an aligned response. This property is ignored if &#x60;include_occurrences&#x60; is not also set to &#x60;true&#x60;. | [optional] [default to False]
  **include_totals** | **bool**| Enable to include a top-level &#x60;totals&#x60; section that summarizes the inflow and outflow across all transactions for the specified date range. | [optional] [default to False]
+ **include_rollover_pool** | **bool**| Enable to include a &#x60;rollover_pool&#x60; section that summarizes the current rollover pool balance and all previous adjustments. | [optional] [default to False]
 
 ### Return type
 

@@ -6,7 +6,7 @@ Per period budget activity for the each budget period within the given date rang
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**current** | **bool** | true if this occurrence is the current budget period. | 
+**in_range** | **bool** | true if this occurrence is within the given date range. | 
 **start_date** | **date** | The start date of the budget period. | 
 **end_date** | **date** | The end date of the budget period. | 
 **other_activity** | **float** | Total non recurring activity, in the user&#39;s default currency, for the category within the given date range. The total activity for the category is the sum of this and the recurring_activity. | 

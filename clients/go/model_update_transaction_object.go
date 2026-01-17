@@ -1,9 +1,9 @@
 /*
 Lunch Money API - v2
 
-Welcome the Lunch Money v2 API.  A working version of this API is now available through these docs, or directly at:  `https://api.lunchmoney.dev/v2`  <span class=\"red-text\"><strong>This is in alpha launch of a major API update. It is still subject to change during this alpha review period and bugs may still exist. Users are strongly encouraged to use the mock service or to create a test budget with example data as the first step to interacting with the v2 API.</strong></span> See the [Getting Started Guide](https://alpha.lunchmoney.dev/v2/getting-started) for more information on using a test budget.  If you are new to the v2 API, you may wish to review the [v2 API Overview of Changes](https://alpha.lunchmoney.dev/v2/changelog).  ### Static Mock Server  You may also use these docs to explore the API using a static mock server endpoint.<p> This enables users to become familiar with the API without having to create an access token, and eliminates the possibility of modifying real data. <p> To access this endpoint select the second endpoint in the the \"Server\" dropdown to the right. When selected you should see \"Static Mock v2 Lunch Money API Server\".<br> When using this server, set your Bearer token to any string with 11 or more characters.  ### Migrating from V1  The v2 API is NOT backwards compatible with the v1 API. Developers are encouraged to review the [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) to understand the changes and plan their migration.  ### Acknowledgments  If you have been providing feedback on the API during our iterative design process, **THANK YOU**. We are happy to provide the opportunity to finally interact with the working API that was built based on your feedback.  ### Useful links: - [Getting Started](https://alpha.lunchmoney.dev/v2/getting-started) - [v2 API Changelog](https://alpha.lunchmoney.dev/v2/changelog) - [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://alpha.lunchmoney.dev/v2/rate-limits) - [Pagination](https://alpha.lunchmoney.dev/v2/pagination) - [Current v1 Lunch Money API Documentation](https://lunchmoney.dev) - [Awesome Lunch Money Projects](https://github.com/lunch-money/awesome-lunchmoney?tab=readme-ov-file)
+Welcome to the Lunch Money v2 API.  A working version of this API is now available through these docs, or directly at:  `https://api.lunchmoney.dev/v2`  <span class=\"red-text\"><strong>This is in alpha launch of a major API update. It is still subject to change during this alpha review period and bugs may still exist. Users are strongly encouraged to use the mock service or to create a test budget with example data as the first step to interacting with the v2 API.</strong></span> See the [Getting Started Guide](https://alpha.lunchmoney.dev/v2/getting-started) for more information on using a test budget.<br<br>  If you are new to the v2 API, you may wish to review the [v2 API Overview of Changes](https://alpha.lunchmoney.dev/v2/changelog).  ### Static Mock Server  You may also use these docs to explore the API using a static mock server endpoint.<p> This enables users to become familiar with the API without having to create an access token, and eliminates the possibility of modifying real data. <p> To access this endpoint select the second endpoint in the the \"Server\" dropdown to the right. When selected you should see \"Static Mock v2 Lunch Money API Server\".<br> When using this server, set your Bearer token to any string with 11 or more characters.  ### Migrating from V1  The v2 API is NOT backwards compatible with the v1 API. Developers are encouraged to review the [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) to understand the changes and plan their migration.  ### Acknowledgments  If you have been providing feedback on the API during our iterative design process, **THANK YOU**. We are happy to provide the opportunity to finally interact with the working API that was built based on your feedback.  ### Useful links: - [Getting Started](https://alpha.lunchmoney.dev/v2/getting-started) - [v2 API Changelog](https://alpha.lunchmoney.dev/v2/changelog) - [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://alpha.lunchmoney.dev/v2/rate-limits) - [Current v1 Lunch Money API Documentation](https://lunchmoney.dev) - [Awesome Lunch Money Projects](https://github.com/lunch-money/awesome-lunchmoney?tab=readme-ov-file)
 
-API version: 2.8.3
+API version: 2.8.4
 Contact: devsupport@lunchmoney.app
 */
 
@@ -50,7 +50,7 @@ type UpdateTransactionObject struct {
 	CustomMetadata map[string]interface{} `json:"custom_metadata,omitempty"`
 	// Status of the transaction, may be one of: - `reviewed`: User has reviewed the transaction, or it was automatically marked as reviewed due to reviewed recurring_item logic - `unreviewed`: User has not reviewed the transaction and it does not match any reviewed recurring_items. 
 	Status *string `json:"status,omitempty"`
-	// System defined amount of this transaction in the user's primary currency. Ignored if set.
+	// System defined amount of this transaction in the user's primary currency. Ignored if set. Use `amount` to update the amount in the transaction.
 	ToBase *float64 `json:"to_base,omitempty"`
 	// System defined flag set for pending transactions. Ignored if set.
 	IsPending *bool `json:"is_pending,omitempty"`
@@ -61,15 +61,15 @@ type UpdateTransactionObject struct {
 	// System defined date and time of when the transaction was last updated. Ignored if set.
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 	// System defined boolean indicating if this transaction was split. To split or unsplit a transaction use the `/transactions/split` endpoint. Ignored if set.
-	IsParent *bool `json:"is_parent,omitempty"`
-	// An array of child transactions that exists when a transaction has been split or if the transaction is a group. Split and Grouped transactions may not be modified using this API. Ignored if set.
+	IsSplitParent *bool `json:"is_split_parent,omitempty"`
+	// An array of child transactions that exists when a transaction has been split or if the transaction is a group. Split
 	Children []ChildTransactionObject `json:"children,omitempty"`
 	// A transaction ID if this is a split transaction. Split transactions may not be modified this API. Use the `transactions/split` endpoint instead. Ignored if set.
-	ParentId NullableInt64 `json:"parent_id,omitempty"`
+	SplitParentId NullableInt64 `json:"split_parent_id,omitempty"`
 	// System defined boolean indicating if this transaction represents a group of transactions. Grouped transactions may not be modified with this API. Use the `transactions/group` endpoint instead. Ignored if set.
-	IsGroup *bool `json:"is_group,omitempty"`
+	IsGroupParent *bool `json:"is_group_parent,omitempty"`
 	// A transaction group ID if this transaction is part of a group. Grouped transactions may not be modified with this API. Use the `transactions/group` endpoint instead. Ignored if set.
-	GroupId NullableInt64 `json:"group_id,omitempty"`
+	GroupParentId NullableInt64 `json:"group_parent_id,omitempty"`
 	// System defined original source of the transaction. Ignored if set. 
 	Source NullableString `json:"source,omitempty"`
 }
@@ -793,36 +793,36 @@ func (o *UpdateTransactionObject) SetUpdatedAt(v time.Time) {
 	o.UpdatedAt = &v
 }
 
-// GetIsParent returns the IsParent field value if set, zero value otherwise.
-func (o *UpdateTransactionObject) GetIsParent() bool {
-	if o == nil || IsNil(o.IsParent) {
+// GetIsSplitParent returns the IsSplitParent field value if set, zero value otherwise.
+func (o *UpdateTransactionObject) GetIsSplitParent() bool {
+	if o == nil || IsNil(o.IsSplitParent) {
 		var ret bool
 		return ret
 	}
-	return *o.IsParent
+	return *o.IsSplitParent
 }
 
-// GetIsParentOk returns a tuple with the IsParent field value if set, nil otherwise
+// GetIsSplitParentOk returns a tuple with the IsSplitParent field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateTransactionObject) GetIsParentOk() (*bool, bool) {
-	if o == nil || IsNil(o.IsParent) {
+func (o *UpdateTransactionObject) GetIsSplitParentOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsSplitParent) {
 		return nil, false
 	}
-	return o.IsParent, true
+	return o.IsSplitParent, true
 }
 
-// HasIsParent returns a boolean if a field has been set.
-func (o *UpdateTransactionObject) HasIsParent() bool {
-	if o != nil && !IsNil(o.IsParent) {
+// HasIsSplitParent returns a boolean if a field has been set.
+func (o *UpdateTransactionObject) HasIsSplitParent() bool {
+	if o != nil && !IsNil(o.IsSplitParent) {
 		return true
 	}
 
 	return false
 }
 
-// SetIsParent gets a reference to the given bool and assigns it to the IsParent field.
-func (o *UpdateTransactionObject) SetIsParent(v bool) {
-	o.IsParent = &v
+// SetIsSplitParent gets a reference to the given bool and assigns it to the IsSplitParent field.
+func (o *UpdateTransactionObject) SetIsSplitParent(v bool) {
+	o.IsSplitParent = &v
 }
 
 // GetChildren returns the Children field value if set, zero value otherwise.
@@ -857,120 +857,120 @@ func (o *UpdateTransactionObject) SetChildren(v []ChildTransactionObject) {
 	o.Children = v
 }
 
-// GetParentId returns the ParentId field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *UpdateTransactionObject) GetParentId() int64 {
-	if o == nil || IsNil(o.ParentId.Get()) {
+// GetSplitParentId returns the SplitParentId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *UpdateTransactionObject) GetSplitParentId() int64 {
+	if o == nil || IsNil(o.SplitParentId.Get()) {
 		var ret int64
 		return ret
 	}
-	return *o.ParentId.Get()
+	return *o.SplitParentId.Get()
 }
 
-// GetParentIdOk returns a tuple with the ParentId field value if set, nil otherwise
+// GetSplitParentIdOk returns a tuple with the SplitParentId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *UpdateTransactionObject) GetParentIdOk() (*int64, bool) {
+func (o *UpdateTransactionObject) GetSplitParentIdOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.ParentId.Get(), o.ParentId.IsSet()
+	return o.SplitParentId.Get(), o.SplitParentId.IsSet()
 }
 
-// HasParentId returns a boolean if a field has been set.
-func (o *UpdateTransactionObject) HasParentId() bool {
-	if o != nil && o.ParentId.IsSet() {
+// HasSplitParentId returns a boolean if a field has been set.
+func (o *UpdateTransactionObject) HasSplitParentId() bool {
+	if o != nil && o.SplitParentId.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetParentId gets a reference to the given NullableInt64 and assigns it to the ParentId field.
-func (o *UpdateTransactionObject) SetParentId(v int64) {
-	o.ParentId.Set(&v)
+// SetSplitParentId gets a reference to the given NullableInt64 and assigns it to the SplitParentId field.
+func (o *UpdateTransactionObject) SetSplitParentId(v int64) {
+	o.SplitParentId.Set(&v)
 }
-// SetParentIdNil sets the value for ParentId to be an explicit nil
-func (o *UpdateTransactionObject) SetParentIdNil() {
-	o.ParentId.Set(nil)
-}
-
-// UnsetParentId ensures that no value is present for ParentId, not even an explicit nil
-func (o *UpdateTransactionObject) UnsetParentId() {
-	o.ParentId.Unset()
+// SetSplitParentIdNil sets the value for SplitParentId to be an explicit nil
+func (o *UpdateTransactionObject) SetSplitParentIdNil() {
+	o.SplitParentId.Set(nil)
 }
 
-// GetIsGroup returns the IsGroup field value if set, zero value otherwise.
-func (o *UpdateTransactionObject) GetIsGroup() bool {
-	if o == nil || IsNil(o.IsGroup) {
+// UnsetSplitParentId ensures that no value is present for SplitParentId, not even an explicit nil
+func (o *UpdateTransactionObject) UnsetSplitParentId() {
+	o.SplitParentId.Unset()
+}
+
+// GetIsGroupParent returns the IsGroupParent field value if set, zero value otherwise.
+func (o *UpdateTransactionObject) GetIsGroupParent() bool {
+	if o == nil || IsNil(o.IsGroupParent) {
 		var ret bool
 		return ret
 	}
-	return *o.IsGroup
+	return *o.IsGroupParent
 }
 
-// GetIsGroupOk returns a tuple with the IsGroup field value if set, nil otherwise
+// GetIsGroupParentOk returns a tuple with the IsGroupParent field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateTransactionObject) GetIsGroupOk() (*bool, bool) {
-	if o == nil || IsNil(o.IsGroup) {
+func (o *UpdateTransactionObject) GetIsGroupParentOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsGroupParent) {
 		return nil, false
 	}
-	return o.IsGroup, true
+	return o.IsGroupParent, true
 }
 
-// HasIsGroup returns a boolean if a field has been set.
-func (o *UpdateTransactionObject) HasIsGroup() bool {
-	if o != nil && !IsNil(o.IsGroup) {
+// HasIsGroupParent returns a boolean if a field has been set.
+func (o *UpdateTransactionObject) HasIsGroupParent() bool {
+	if o != nil && !IsNil(o.IsGroupParent) {
 		return true
 	}
 
 	return false
 }
 
-// SetIsGroup gets a reference to the given bool and assigns it to the IsGroup field.
-func (o *UpdateTransactionObject) SetIsGroup(v bool) {
-	o.IsGroup = &v
+// SetIsGroupParent gets a reference to the given bool and assigns it to the IsGroupParent field.
+func (o *UpdateTransactionObject) SetIsGroupParent(v bool) {
+	o.IsGroupParent = &v
 }
 
-// GetGroupId returns the GroupId field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *UpdateTransactionObject) GetGroupId() int64 {
-	if o == nil || IsNil(o.GroupId.Get()) {
+// GetGroupParentId returns the GroupParentId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *UpdateTransactionObject) GetGroupParentId() int64 {
+	if o == nil || IsNil(o.GroupParentId.Get()) {
 		var ret int64
 		return ret
 	}
-	return *o.GroupId.Get()
+	return *o.GroupParentId.Get()
 }
 
-// GetGroupIdOk returns a tuple with the GroupId field value if set, nil otherwise
+// GetGroupParentIdOk returns a tuple with the GroupParentId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *UpdateTransactionObject) GetGroupIdOk() (*int64, bool) {
+func (o *UpdateTransactionObject) GetGroupParentIdOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.GroupId.Get(), o.GroupId.IsSet()
+	return o.GroupParentId.Get(), o.GroupParentId.IsSet()
 }
 
-// HasGroupId returns a boolean if a field has been set.
-func (o *UpdateTransactionObject) HasGroupId() bool {
-	if o != nil && o.GroupId.IsSet() {
+// HasGroupParentId returns a boolean if a field has been set.
+func (o *UpdateTransactionObject) HasGroupParentId() bool {
+	if o != nil && o.GroupParentId.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetGroupId gets a reference to the given NullableInt64 and assigns it to the GroupId field.
-func (o *UpdateTransactionObject) SetGroupId(v int64) {
-	o.GroupId.Set(&v)
+// SetGroupParentId gets a reference to the given NullableInt64 and assigns it to the GroupParentId field.
+func (o *UpdateTransactionObject) SetGroupParentId(v int64) {
+	o.GroupParentId.Set(&v)
 }
-// SetGroupIdNil sets the value for GroupId to be an explicit nil
-func (o *UpdateTransactionObject) SetGroupIdNil() {
-	o.GroupId.Set(nil)
+// SetGroupParentIdNil sets the value for GroupParentId to be an explicit nil
+func (o *UpdateTransactionObject) SetGroupParentIdNil() {
+	o.GroupParentId.Set(nil)
 }
 
-// UnsetGroupId ensures that no value is present for GroupId, not even an explicit nil
-func (o *UpdateTransactionObject) UnsetGroupId() {
-	o.GroupId.Unset()
+// UnsetGroupParentId ensures that no value is present for GroupParentId, not even an explicit nil
+func (o *UpdateTransactionObject) UnsetGroupParentId() {
+	o.GroupParentId.Unset()
 }
 
 // GetSource returns the Source field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -1085,20 +1085,20 @@ func (o UpdateTransactionObject) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updated_at"] = o.UpdatedAt
 	}
-	if !IsNil(o.IsParent) {
-		toSerialize["is_parent"] = o.IsParent
+	if !IsNil(o.IsSplitParent) {
+		toSerialize["is_split_parent"] = o.IsSplitParent
 	}
 	if !IsNil(o.Children) {
 		toSerialize["children"] = o.Children
 	}
-	if o.ParentId.IsSet() {
-		toSerialize["parent_id"] = o.ParentId.Get()
+	if o.SplitParentId.IsSet() {
+		toSerialize["split_parent_id"] = o.SplitParentId.Get()
 	}
-	if !IsNil(o.IsGroup) {
-		toSerialize["is_group"] = o.IsGroup
+	if !IsNil(o.IsGroupParent) {
+		toSerialize["is_group_parent"] = o.IsGroupParent
 	}
-	if o.GroupId.IsSet() {
-		toSerialize["group_id"] = o.GroupId.Get()
+	if o.GroupParentId.IsSet() {
+		toSerialize["group_parent_id"] = o.GroupParentId.Get()
 	}
 	if o.Source.IsSet() {
 		toSerialize["source"] = o.Source.Get()

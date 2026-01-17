@@ -19,16 +19,16 @@ Name | Type | Description | Notes
 **ExternalId** | Pointer to **NullableString** | A user-defined external ID for the transaction. The update will fail if the transaction does not also have a &#x60;manual_account_id&#x60; or if there is already an existing transaction with the same &#x60;manual_account_id&#x60;/&#x60;external_id&#x60; combination. | [optional] 
 **CustomMetadata** | Pointer to **map[string]interface{}** | User defined JSON data that can be set or cleared via the API. | [optional] 
 **Status** | Pointer to **string** | Status of the transaction, may be one of: - &#x60;reviewed&#x60;: User has reviewed the transaction, or it was automatically marked as reviewed due to reviewed recurring_item logic - &#x60;unreviewed&#x60;: User has not reviewed the transaction and it does not match any reviewed recurring_items.  | [optional] 
-**ToBase** | Pointer to **float64** | System defined amount of this transaction in the user&#39;s primary currency. Ignored if set. | [optional] 
+**ToBase** | Pointer to **float64** | System defined amount of this transaction in the user&#39;s primary currency. Ignored if set. Use &#x60;amount&#x60; to update the amount in the transaction. | [optional] 
 **IsPending** | Pointer to **bool** | System defined flag set for pending transactions. Ignored if set. | [optional] 
 **PlaidMetadata** | Pointer to **map[string]interface{}** | System set metadata from a Plaid account sync. Ignored if set. | [optional] 
 **CreatedAt** | Pointer to **time.Time** | System defined date and time of when the transaction was created. Ignored if set. | [optional] 
 **UpdatedAt** | Pointer to **time.Time** | System defined date and time of when the transaction was last updated. Ignored if set. | [optional] 
-**IsParent** | Pointer to **bool** | System defined boolean indicating if this transaction was split. To split or unsplit a transaction use the &#x60;/transactions/split&#x60; endpoint. Ignored if set. | [optional] 
-**Children** | Pointer to [**[]ChildTransactionObject**](ChildTransactionObject.md) | An array of child transactions that exists when a transaction has been split or if the transaction is a group. Split and Grouped transactions may not be modified using this API. Ignored if set. | [optional] 
-**ParentId** | Pointer to **NullableInt64** | A transaction ID if this is a split transaction. Split transactions may not be modified this API. Use the &#x60;transactions/split&#x60; endpoint instead. Ignored if set. | [optional] 
-**IsGroup** | Pointer to **bool** | System defined boolean indicating if this transaction represents a group of transactions. Grouped transactions may not be modified with this API. Use the &#x60;transactions/group&#x60; endpoint instead. Ignored if set. | [optional] 
-**GroupId** | Pointer to **NullableInt64** | A transaction group ID if this transaction is part of a group. Grouped transactions may not be modified with this API. Use the &#x60;transactions/group&#x60; endpoint instead. Ignored if set. | [optional] 
+**IsSplitParent** | Pointer to **bool** | System defined boolean indicating if this transaction was split. To split or unsplit a transaction use the &#x60;/transactions/split&#x60; endpoint. Ignored if set. | [optional] 
+**Children** | Pointer to [**[]ChildTransactionObject**](ChildTransactionObject.md) | An array of child transactions that exists when a transaction has been split or if the transaction is a group. Split | [optional] 
+**SplitParentId** | Pointer to **NullableInt64** | A transaction ID if this is a split transaction. Split transactions may not be modified this API. Use the &#x60;transactions/split&#x60; endpoint instead. Ignored if set. | [optional] 
+**IsGroupParent** | Pointer to **bool** | System defined boolean indicating if this transaction represents a group of transactions. Grouped transactions may not be modified with this API. Use the &#x60;transactions/group&#x60; endpoint instead. Ignored if set. | [optional] 
+**GroupParentId** | Pointer to **NullableInt64** | A transaction group ID if this transaction is part of a group. Grouped transactions may not be modified with this API. Use the &#x60;transactions/group&#x60; endpoint instead. Ignored if set. | [optional] 
 **Source** | Pointer to **NullableString** | System defined original source of the transaction. Ignored if set.  | [optional] 
 
 ## Methods
@@ -625,30 +625,30 @@ SetUpdatedAt sets UpdatedAt field to given value.
 
 HasUpdatedAt returns a boolean if a field has been set.
 
-### GetIsParent
+### GetIsSplitParent
 
-`func (o *UpdateTransactionsRequestTransactionsInner) GetIsParent() bool`
+`func (o *UpdateTransactionsRequestTransactionsInner) GetIsSplitParent() bool`
 
-GetIsParent returns the IsParent field if non-nil, zero value otherwise.
+GetIsSplitParent returns the IsSplitParent field if non-nil, zero value otherwise.
 
-### GetIsParentOk
+### GetIsSplitParentOk
 
-`func (o *UpdateTransactionsRequestTransactionsInner) GetIsParentOk() (*bool, bool)`
+`func (o *UpdateTransactionsRequestTransactionsInner) GetIsSplitParentOk() (*bool, bool)`
 
-GetIsParentOk returns a tuple with the IsParent field if it's non-nil, zero value otherwise
+GetIsSplitParentOk returns a tuple with the IsSplitParent field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetIsParent
+### SetIsSplitParent
 
-`func (o *UpdateTransactionsRequestTransactionsInner) SetIsParent(v bool)`
+`func (o *UpdateTransactionsRequestTransactionsInner) SetIsSplitParent(v bool)`
 
-SetIsParent sets IsParent field to given value.
+SetIsSplitParent sets IsSplitParent field to given value.
 
-### HasIsParent
+### HasIsSplitParent
 
-`func (o *UpdateTransactionsRequestTransactionsInner) HasIsParent() bool`
+`func (o *UpdateTransactionsRequestTransactionsInner) HasIsSplitParent() bool`
 
-HasIsParent returns a boolean if a field has been set.
+HasIsSplitParent returns a boolean if a field has been set.
 
 ### GetChildren
 
@@ -675,101 +675,101 @@ SetChildren sets Children field to given value.
 
 HasChildren returns a boolean if a field has been set.
 
-### GetParentId
+### GetSplitParentId
 
-`func (o *UpdateTransactionsRequestTransactionsInner) GetParentId() int64`
+`func (o *UpdateTransactionsRequestTransactionsInner) GetSplitParentId() int64`
 
-GetParentId returns the ParentId field if non-nil, zero value otherwise.
+GetSplitParentId returns the SplitParentId field if non-nil, zero value otherwise.
 
-### GetParentIdOk
+### GetSplitParentIdOk
 
-`func (o *UpdateTransactionsRequestTransactionsInner) GetParentIdOk() (*int64, bool)`
+`func (o *UpdateTransactionsRequestTransactionsInner) GetSplitParentIdOk() (*int64, bool)`
 
-GetParentIdOk returns a tuple with the ParentId field if it's non-nil, zero value otherwise
+GetSplitParentIdOk returns a tuple with the SplitParentId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetParentId
+### SetSplitParentId
 
-`func (o *UpdateTransactionsRequestTransactionsInner) SetParentId(v int64)`
+`func (o *UpdateTransactionsRequestTransactionsInner) SetSplitParentId(v int64)`
 
-SetParentId sets ParentId field to given value.
+SetSplitParentId sets SplitParentId field to given value.
 
-### HasParentId
+### HasSplitParentId
 
-`func (o *UpdateTransactionsRequestTransactionsInner) HasParentId() bool`
+`func (o *UpdateTransactionsRequestTransactionsInner) HasSplitParentId() bool`
 
-HasParentId returns a boolean if a field has been set.
+HasSplitParentId returns a boolean if a field has been set.
 
-### SetParentIdNil
+### SetSplitParentIdNil
 
-`func (o *UpdateTransactionsRequestTransactionsInner) SetParentIdNil(b bool)`
+`func (o *UpdateTransactionsRequestTransactionsInner) SetSplitParentIdNil(b bool)`
 
- SetParentIdNil sets the value for ParentId to be an explicit nil
+ SetSplitParentIdNil sets the value for SplitParentId to be an explicit nil
 
-### UnsetParentId
-`func (o *UpdateTransactionsRequestTransactionsInner) UnsetParentId()`
+### UnsetSplitParentId
+`func (o *UpdateTransactionsRequestTransactionsInner) UnsetSplitParentId()`
 
-UnsetParentId ensures that no value is present for ParentId, not even an explicit nil
-### GetIsGroup
+UnsetSplitParentId ensures that no value is present for SplitParentId, not even an explicit nil
+### GetIsGroupParent
 
-`func (o *UpdateTransactionsRequestTransactionsInner) GetIsGroup() bool`
+`func (o *UpdateTransactionsRequestTransactionsInner) GetIsGroupParent() bool`
 
-GetIsGroup returns the IsGroup field if non-nil, zero value otherwise.
+GetIsGroupParent returns the IsGroupParent field if non-nil, zero value otherwise.
 
-### GetIsGroupOk
+### GetIsGroupParentOk
 
-`func (o *UpdateTransactionsRequestTransactionsInner) GetIsGroupOk() (*bool, bool)`
+`func (o *UpdateTransactionsRequestTransactionsInner) GetIsGroupParentOk() (*bool, bool)`
 
-GetIsGroupOk returns a tuple with the IsGroup field if it's non-nil, zero value otherwise
+GetIsGroupParentOk returns a tuple with the IsGroupParent field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetIsGroup
+### SetIsGroupParent
 
-`func (o *UpdateTransactionsRequestTransactionsInner) SetIsGroup(v bool)`
+`func (o *UpdateTransactionsRequestTransactionsInner) SetIsGroupParent(v bool)`
 
-SetIsGroup sets IsGroup field to given value.
+SetIsGroupParent sets IsGroupParent field to given value.
 
-### HasIsGroup
+### HasIsGroupParent
 
-`func (o *UpdateTransactionsRequestTransactionsInner) HasIsGroup() bool`
+`func (o *UpdateTransactionsRequestTransactionsInner) HasIsGroupParent() bool`
 
-HasIsGroup returns a boolean if a field has been set.
+HasIsGroupParent returns a boolean if a field has been set.
 
-### GetGroupId
+### GetGroupParentId
 
-`func (o *UpdateTransactionsRequestTransactionsInner) GetGroupId() int64`
+`func (o *UpdateTransactionsRequestTransactionsInner) GetGroupParentId() int64`
 
-GetGroupId returns the GroupId field if non-nil, zero value otherwise.
+GetGroupParentId returns the GroupParentId field if non-nil, zero value otherwise.
 
-### GetGroupIdOk
+### GetGroupParentIdOk
 
-`func (o *UpdateTransactionsRequestTransactionsInner) GetGroupIdOk() (*int64, bool)`
+`func (o *UpdateTransactionsRequestTransactionsInner) GetGroupParentIdOk() (*int64, bool)`
 
-GetGroupIdOk returns a tuple with the GroupId field if it's non-nil, zero value otherwise
+GetGroupParentIdOk returns a tuple with the GroupParentId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetGroupId
+### SetGroupParentId
 
-`func (o *UpdateTransactionsRequestTransactionsInner) SetGroupId(v int64)`
+`func (o *UpdateTransactionsRequestTransactionsInner) SetGroupParentId(v int64)`
 
-SetGroupId sets GroupId field to given value.
+SetGroupParentId sets GroupParentId field to given value.
 
-### HasGroupId
+### HasGroupParentId
 
-`func (o *UpdateTransactionsRequestTransactionsInner) HasGroupId() bool`
+`func (o *UpdateTransactionsRequestTransactionsInner) HasGroupParentId() bool`
 
-HasGroupId returns a boolean if a field has been set.
+HasGroupParentId returns a boolean if a field has been set.
 
-### SetGroupIdNil
+### SetGroupParentIdNil
 
-`func (o *UpdateTransactionsRequestTransactionsInner) SetGroupIdNil(b bool)`
+`func (o *UpdateTransactionsRequestTransactionsInner) SetGroupParentIdNil(b bool)`
 
- SetGroupIdNil sets the value for GroupId to be an explicit nil
+ SetGroupParentIdNil sets the value for GroupParentId to be an explicit nil
 
-### UnsetGroupId
-`func (o *UpdateTransactionsRequestTransactionsInner) UnsetGroupId()`
+### UnsetGroupParentId
+`func (o *UpdateTransactionsRequestTransactionsInner) UnsetGroupParentId()`
 
-UnsetGroupId ensures that no value is present for GroupId, not even an explicit nil
+UnsetGroupParentId ensures that no value is present for GroupParentId, not even an explicit nil
 ### GetSource
 
 `func (o *UpdateTransactionsRequestTransactionsInner) GetSource() string`

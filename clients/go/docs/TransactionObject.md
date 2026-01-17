@@ -21,11 +21,11 @@ Name | Type | Description | Notes
 **IsPending** | **bool** | Denotes if the transaction is pending (not posted). Applies only to transactions in synced accounts and will always be false for transactions associated with manual accounts. | 
 **CreatedAt** | **time.Time** | The date and time of when the transaction was created (in the ISO 8601 extended format). | 
 **UpdatedAt** | **time.Time** | The date and time of when the transaction was last updated (in the ISO 8601 extended format). | 
-**IsParent** | Pointer to **bool** | If &#x60;true&#x60;, this transaction has been split into two or more other transactions. By default, parent transactions are not returned in call to &#x60;GET /transactions&#x60; but they can be queried directly by their ID. | [optional] 
-**ParentId** | **NullableInt64** | A transaction ID if this is a split transaction. Denotes the transaction ID of the original, or parent, transaction. Is null if this is not a split transaction | 
-**IsGroup** | **bool** | &#x60;true&#x60; if this transaction represents a group of transactions. If so, amount and currency represent the totalled amount of transactions bearing this transaction&#39;s id as their group_id. Amount is calculated based on the user&#39;s primary currency. | 
-**GroupId** | **NullableInt64** | Is set if this transaction is part of a group. Denotes the ID of the grouped transaction this is now included in. By default the transactions that were grouped are not returned in a call to &#x60;GET /transactions&#x60; but they can be queried directly by calling the &#x60;GET /transactions/group/{id}&#x60;, where the id passed is associated with a transaction where the &#x60;is_group&#x60; attribute is true | 
-**Children** | Pointer to [**[]ChildTransactionObject**](ChildTransactionObject.md) | Exists only for transactions which are the parent of a split transaction or for transaction groups. It will not exist in the response unless the &#x60;include_children&#x60; query parameter is set to &#x60;true&#x60;.&lt;br&gt; For parents of split transactions, it contains a list of the associated transactions that it was split into. For transaction groups, it contains the transactions that were grouped together. Examine the &#x60;is_parent&#x60; and &#x60;is_group&#x60; properties to determine which of these it is. | [optional] 
+**IsSplitParent** | Pointer to **bool** | If &#x60;true&#x60;, this transaction has been split into two or more other transactions. By default, parent transactions are not returned in call to &#x60;GET /transactions&#x60; but they can be queried directly by their ID. | [optional] 
+**SplitParentId** | **NullableInt64** | A transaction ID if this is a split transaction. Denotes the transaction ID of the original, or parent, transaction. Is null if this is not a split transaction | 
+**IsGroupParent** | **bool** | &#x60;true&#x60; if this transaction represents a group of transactions. If so, amount and currency represent the totalled amount of transactions bearing this transaction&#39;s id as their group_parent_id. Amount is calculated based on the user&#39;s primary currency. | 
+**GroupParentId** | **NullableInt64** | Is set if this transaction is part of a group. Denotes the ID of the grouped transaction this is now included in. By default the transactions that were grouped are not returned in a call to &#x60;GET /transactions&#x60; but they can be queried directly by calling the &#x60;GET /transactions/group/{id}&#x60;, where the id passed is associated with a transaction where the &#x60;is_group_parent&#x60; attribute is true | 
+**Children** | Pointer to [**[]ChildTransactionObject**](ChildTransactionObject.md) | Exists only for transactions which are the parent of a split transaction or for transaction groups. It will not exist in the response unless the &#x60;include_children&#x60; query parameter is set to &#x60;true&#x60;.&lt;br&gt; For parents of split transactions, it contains a list of the associated transactions that it was split into. For transaction groups, it contains the transactions that were grouped together. Examine the &#x60;is_split_parent&#x60; and &#x60;is_group_parent&#x60; properties to determine which of these it is. | [optional] 
 **PlaidMetadata** | Pointer to **map[string]interface{}** | If requested, the transaction&#39;s plaid_metadata that came when this transaction was obtained. This will be a json object, but the schema is variable. This is only present when the &#x60;include_metadata&#x60; query parameter is set to true. | [optional] 
 **CustomMetadata** | Pointer to **map[string]interface{}** | If requested, the transaction&#39;s custom_metadata that was included when the transaction was inserted via the API. This will be a json object, but the schema is variable. This is only present when the &#x60;include_metadata&#x60; query parameter is set to true. | [optional] 
 **Files** | Pointer to [**[]TransactionAttachmentObject**](TransactionAttachmentObject.md) | A list of objects that describe any attachments to the Transactions. This is only present when the &#x60;include_files&#x60; query parameter is set to true. | [optional] 
@@ -35,7 +35,7 @@ Name | Type | Description | Notes
 
 ### NewTransactionObject
 
-`func NewTransactionObject(id int64, date string, amount string, currency CurrencyEnum, toBase float64, recurringId NullableInt32, payee string, categoryId NullableInt32, plaidAccountId NullableInt32, manualAccountId NullableInt32, externalId NullableString, tagIds []int32, notes NullableString, status string, isPending bool, createdAt time.Time, updatedAt time.Time, parentId NullableInt64, isGroup bool, groupId NullableInt64, source NullableString, ) *TransactionObject`
+`func NewTransactionObject(id int64, date string, amount string, currency CurrencyEnum, toBase float64, recurringId NullableInt32, payee string, categoryId NullableInt32, plaidAccountId NullableInt32, manualAccountId NullableInt32, externalId NullableString, tagIds []int32, notes NullableString, status string, isPending bool, createdAt time.Time, updatedAt time.Time, splitParentId NullableInt64, isGroupParent bool, groupParentId NullableInt64, source NullableString, ) *TransactionObject`
 
 NewTransactionObject instantiates a new TransactionObject object
 This constructor will assign default values to properties that have it defined,
@@ -450,111 +450,111 @@ and a boolean to check if the value has been set.
 SetUpdatedAt sets UpdatedAt field to given value.
 
 
-### GetIsParent
+### GetIsSplitParent
 
-`func (o *TransactionObject) GetIsParent() bool`
+`func (o *TransactionObject) GetIsSplitParent() bool`
 
-GetIsParent returns the IsParent field if non-nil, zero value otherwise.
+GetIsSplitParent returns the IsSplitParent field if non-nil, zero value otherwise.
 
-### GetIsParentOk
+### GetIsSplitParentOk
 
-`func (o *TransactionObject) GetIsParentOk() (*bool, bool)`
+`func (o *TransactionObject) GetIsSplitParentOk() (*bool, bool)`
 
-GetIsParentOk returns a tuple with the IsParent field if it's non-nil, zero value otherwise
+GetIsSplitParentOk returns a tuple with the IsSplitParent field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetIsParent
+### SetIsSplitParent
 
-`func (o *TransactionObject) SetIsParent(v bool)`
+`func (o *TransactionObject) SetIsSplitParent(v bool)`
 
-SetIsParent sets IsParent field to given value.
+SetIsSplitParent sets IsSplitParent field to given value.
 
-### HasIsParent
+### HasIsSplitParent
 
-`func (o *TransactionObject) HasIsParent() bool`
+`func (o *TransactionObject) HasIsSplitParent() bool`
 
-HasIsParent returns a boolean if a field has been set.
+HasIsSplitParent returns a boolean if a field has been set.
 
-### GetParentId
+### GetSplitParentId
 
-`func (o *TransactionObject) GetParentId() int64`
+`func (o *TransactionObject) GetSplitParentId() int64`
 
-GetParentId returns the ParentId field if non-nil, zero value otherwise.
+GetSplitParentId returns the SplitParentId field if non-nil, zero value otherwise.
 
-### GetParentIdOk
+### GetSplitParentIdOk
 
-`func (o *TransactionObject) GetParentIdOk() (*int64, bool)`
+`func (o *TransactionObject) GetSplitParentIdOk() (*int64, bool)`
 
-GetParentIdOk returns a tuple with the ParentId field if it's non-nil, zero value otherwise
+GetSplitParentIdOk returns a tuple with the SplitParentId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetParentId
+### SetSplitParentId
 
-`func (o *TransactionObject) SetParentId(v int64)`
+`func (o *TransactionObject) SetSplitParentId(v int64)`
 
-SetParentId sets ParentId field to given value.
+SetSplitParentId sets SplitParentId field to given value.
 
 
-### SetParentIdNil
+### SetSplitParentIdNil
 
-`func (o *TransactionObject) SetParentIdNil(b bool)`
+`func (o *TransactionObject) SetSplitParentIdNil(b bool)`
 
- SetParentIdNil sets the value for ParentId to be an explicit nil
+ SetSplitParentIdNil sets the value for SplitParentId to be an explicit nil
 
-### UnsetParentId
-`func (o *TransactionObject) UnsetParentId()`
+### UnsetSplitParentId
+`func (o *TransactionObject) UnsetSplitParentId()`
 
-UnsetParentId ensures that no value is present for ParentId, not even an explicit nil
-### GetIsGroup
+UnsetSplitParentId ensures that no value is present for SplitParentId, not even an explicit nil
+### GetIsGroupParent
 
-`func (o *TransactionObject) GetIsGroup() bool`
+`func (o *TransactionObject) GetIsGroupParent() bool`
 
-GetIsGroup returns the IsGroup field if non-nil, zero value otherwise.
+GetIsGroupParent returns the IsGroupParent field if non-nil, zero value otherwise.
 
-### GetIsGroupOk
+### GetIsGroupParentOk
 
-`func (o *TransactionObject) GetIsGroupOk() (*bool, bool)`
+`func (o *TransactionObject) GetIsGroupParentOk() (*bool, bool)`
 
-GetIsGroupOk returns a tuple with the IsGroup field if it's non-nil, zero value otherwise
+GetIsGroupParentOk returns a tuple with the IsGroupParent field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetIsGroup
+### SetIsGroupParent
 
-`func (o *TransactionObject) SetIsGroup(v bool)`
+`func (o *TransactionObject) SetIsGroupParent(v bool)`
 
-SetIsGroup sets IsGroup field to given value.
+SetIsGroupParent sets IsGroupParent field to given value.
 
 
-### GetGroupId
+### GetGroupParentId
 
-`func (o *TransactionObject) GetGroupId() int64`
+`func (o *TransactionObject) GetGroupParentId() int64`
 
-GetGroupId returns the GroupId field if non-nil, zero value otherwise.
+GetGroupParentId returns the GroupParentId field if non-nil, zero value otherwise.
 
-### GetGroupIdOk
+### GetGroupParentIdOk
 
-`func (o *TransactionObject) GetGroupIdOk() (*int64, bool)`
+`func (o *TransactionObject) GetGroupParentIdOk() (*int64, bool)`
 
-GetGroupIdOk returns a tuple with the GroupId field if it's non-nil, zero value otherwise
+GetGroupParentIdOk returns a tuple with the GroupParentId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetGroupId
+### SetGroupParentId
 
-`func (o *TransactionObject) SetGroupId(v int64)`
+`func (o *TransactionObject) SetGroupParentId(v int64)`
 
-SetGroupId sets GroupId field to given value.
+SetGroupParentId sets GroupParentId field to given value.
 
 
-### SetGroupIdNil
+### SetGroupParentIdNil
 
-`func (o *TransactionObject) SetGroupIdNil(b bool)`
+`func (o *TransactionObject) SetGroupParentIdNil(b bool)`
 
- SetGroupIdNil sets the value for GroupId to be an explicit nil
+ SetGroupParentIdNil sets the value for GroupParentId to be an explicit nil
 
-### UnsetGroupId
-`func (o *TransactionObject) UnsetGroupId()`
+### UnsetGroupParentId
+`func (o *TransactionObject) UnsetGroupParentId()`
 
-UnsetGroupId ensures that no value is present for GroupId, not even an explicit nil
+UnsetGroupParentId ensures that no value is present for GroupParentId, not even an explicit nil
 ### GetChildren
 
 `func (o *TransactionObject) GetChildren() []ChildTransactionObject`

@@ -45,6 +45,7 @@ docs/GetAllPlaidAccounts200Response.md
 docs/GetAllRecurring200Response.md
 docs/GetAllTags200Response.md
 docs/GetAllTransactions200Response.md
+docs/GetAllTransactionsCreatedSinceParameter.md
 docs/GetBudgetSummary200Response.md
 docs/GetTransactionAttachmentUrl200Response.md
 docs/GroupTransactionsRequest.md
@@ -125,6 +126,7 @@ model_get_all_plaid_accounts_200_response.go
 model_get_all_recurring_200_response.go
 model_get_all_tags_200_response.go
 model_get_all_transactions_200_response.go
+model_get_all_transactions_created_since_parameter.go
 model_get_budget_summary_200_response.go
 model_get_transaction_attachment_url_200_response.go
 model_group_transactions_request.go

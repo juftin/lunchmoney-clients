@@ -1,9 +1,9 @@
 /*
 Lunch Money API - v2
 
-Welcome the Lunch Money v2 API.  A working version of this API is now available through these docs, or directly at:  `https://api.lunchmoney.dev/v2`  <span class=\"red-text\"><strong>This is in alpha launch of a major API update. It is still subject to change during this alpha review period and bugs may still exist. Users are strongly encouraged to use the mock service or to create a test budget with example data as the first step to interacting with the v2 API.</strong></span> See the [Getting Started Guide](https://alpha.lunchmoney.dev/v2/getting-started) for more information on using a test budget.  If you are new to the v2 API, you may wish to review the [v2 API Overview of Changes](https://alpha.lunchmoney.dev/v2/changelog).  ### Static Mock Server  You may also use these docs to explore the API using a static mock server endpoint.<p> This enables users to become familiar with the API without having to create an access token, and eliminates the possibility of modifying real data. <p> To access this endpoint select the second endpoint in the the \"Server\" dropdown to the right. When selected you should see \"Static Mock v2 Lunch Money API Server\".<br> When using this server, set your Bearer token to any string with 11 or more characters.  ### Migrating from V1  The v2 API is NOT backwards compatible with the v1 API. Developers are encouraged to review the [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) to understand the changes and plan their migration.  ### Acknowledgments  If you have been providing feedback on the API during our iterative design process, **THANK YOU**. We are happy to provide the opportunity to finally interact with the working API that was built based on your feedback.  ### Useful links: - [Getting Started](https://alpha.lunchmoney.dev/v2/getting-started) - [v2 API Changelog](https://alpha.lunchmoney.dev/v2/changelog) - [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://alpha.lunchmoney.dev/v2/rate-limits) - [Pagination](https://alpha.lunchmoney.dev/v2/pagination) - [Current v1 Lunch Money API Documentation](https://lunchmoney.dev) - [Awesome Lunch Money Projects](https://github.com/lunch-money/awesome-lunchmoney?tab=readme-ov-file)
+Welcome to the Lunch Money v2 API.  A working version of this API is now available through these docs, or directly at:  `https://api.lunchmoney.dev/v2`  <span class=\"red-text\"><strong>This is in alpha launch of a major API update. It is still subject to change during this alpha review period and bugs may still exist. Users are strongly encouraged to use the mock service or to create a test budget with example data as the first step to interacting with the v2 API.</strong></span> See the [Getting Started Guide](https://alpha.lunchmoney.dev/v2/getting-started) for more information on using a test budget.<br<br>  If you are new to the v2 API, you may wish to review the [v2 API Overview of Changes](https://alpha.lunchmoney.dev/v2/changelog).  ### Static Mock Server  You may also use these docs to explore the API using a static mock server endpoint.<p> This enables users to become familiar with the API without having to create an access token, and eliminates the possibility of modifying real data. <p> To access this endpoint select the second endpoint in the the \"Server\" dropdown to the right. When selected you should see \"Static Mock v2 Lunch Money API Server\".<br> When using this server, set your Bearer token to any string with 11 or more characters.  ### Migrating from V1  The v2 API is NOT backwards compatible with the v1 API. Developers are encouraged to review the [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) to understand the changes and plan their migration.  ### Acknowledgments  If you have been providing feedback on the API during our iterative design process, **THANK YOU**. We are happy to provide the opportunity to finally interact with the working API that was built based on your feedback.  ### Useful links: - [Getting Started](https://alpha.lunchmoney.dev/v2/getting-started) - [v2 API Changelog](https://alpha.lunchmoney.dev/v2/changelog) - [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://alpha.lunchmoney.dev/v2/rate-limits) - [Current v1 Lunch Money API Documentation](https://lunchmoney.dev) - [Awesome Lunch Money Projects](https://github.com/lunch-money/awesome-lunchmoney?tab=readme-ov-file)
 
-API version: 2.8.3
+API version: 2.8.4
 Contact: devsupport@lunchmoney.app
 */
 
@@ -22,8 +22,8 @@ var _ MappedNullable = &SummaryRolloverPoolAdjustmentObject{}
 
 // SummaryRolloverPoolAdjustmentObject The date and adjusted balance of the rollover pool at the time of the adjustment.
 type SummaryRolloverPoolAdjustmentObject struct {
-	// true if this is the current rollover pool balance.
-	Current bool `json:"current"`
+	// true if this rollover pool adjustment is for a budget period that falls within the given date range.
+	InRange bool `json:"in_range"`
 	Date string `json:"date"`
 	// Amount of the rollover pool at the time of the adjustment.
 	Amount string `json:"amount"`
@@ -39,9 +39,9 @@ type _SummaryRolloverPoolAdjustmentObject SummaryRolloverPoolAdjustmentObject
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSummaryRolloverPoolAdjustmentObject(current bool, date string, amount string, currency CurrencyEnum, toBase float32) *SummaryRolloverPoolAdjustmentObject {
+func NewSummaryRolloverPoolAdjustmentObject(inRange bool, date string, amount string, currency CurrencyEnum, toBase float32) *SummaryRolloverPoolAdjustmentObject {
 	this := SummaryRolloverPoolAdjustmentObject{}
-	this.Current = current
+	this.InRange = inRange
 	this.Date = date
 	this.Amount = amount
 	this.Currency = currency
@@ -57,28 +57,28 @@ func NewSummaryRolloverPoolAdjustmentObjectWithDefaults() *SummaryRolloverPoolAd
 	return &this
 }
 
-// GetCurrent returns the Current field value
-func (o *SummaryRolloverPoolAdjustmentObject) GetCurrent() bool {
+// GetInRange returns the InRange field value
+func (o *SummaryRolloverPoolAdjustmentObject) GetInRange() bool {
 	if o == nil {
 		var ret bool
 		return ret
 	}
 
-	return o.Current
+	return o.InRange
 }
 
-// GetCurrentOk returns a tuple with the Current field value
+// GetInRangeOk returns a tuple with the InRange field value
 // and a boolean to check if the value has been set.
-func (o *SummaryRolloverPoolAdjustmentObject) GetCurrentOk() (*bool, bool) {
+func (o *SummaryRolloverPoolAdjustmentObject) GetInRangeOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Current, true
+	return &o.InRange, true
 }
 
-// SetCurrent sets field value
-func (o *SummaryRolloverPoolAdjustmentObject) SetCurrent(v bool) {
-	o.Current = v
+// SetInRange sets field value
+func (o *SummaryRolloverPoolAdjustmentObject) SetInRange(v bool) {
+	o.InRange = v
 }
 
 // GetDate returns the Date field value
@@ -187,7 +187,7 @@ func (o SummaryRolloverPoolAdjustmentObject) MarshalJSON() ([]byte, error) {
 
 func (o SummaryRolloverPoolAdjustmentObject) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["current"] = o.Current
+	toSerialize["in_range"] = o.InRange
 	toSerialize["date"] = o.Date
 	toSerialize["amount"] = o.Amount
 	toSerialize["currency"] = o.Currency
@@ -200,7 +200,7 @@ func (o *SummaryRolloverPoolAdjustmentObject) UnmarshalJSON(data []byte) (err er
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"current",
+		"in_range",
 		"date",
 		"amount",
 		"currency",

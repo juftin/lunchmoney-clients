@@ -108,8 +108,8 @@ Retrieves the details of a specific transaction by its ID, including the followi
 - `custom_metadata` will either be `null` or contain any custom_metadata added to transactions that were inserted or updated via the API.
 - `files` will be a list of objects that describe any attachments to the transaction.
 
-If `is_group` is true in the returned transaction, the object will also include the `children` property which will contain a list of the original transactions that make up the transaction group.<br>
-If `is_parent` is true in the returned transaction, the object will also include the `children` property which will contain a list of the split transactions.
+If `is_group_parent` is true in the returned transaction, the object will also include the `children` property which will contain a list of the original transactions that make up the transaction group.<br>
+If `is_split_parent` is true in the returned transaction, the object will also include the `children` property which will contain a list of the split transactions.
 
 
 ### Example
@@ -202,7 +202,7 @@ Update an existing transaction
 
 Modifies the properties of an existing transaction.<br><br>
 You may submit the response from a `GET /transactions/{id}` as the request body, however only certain properties can be updated using this API. The following system set properties are accepted in the request body but their values will be ignored: `id`, `to_base`, `is_pending`, `created_at`, `updated_at`, `source`, and `plaid_metadata`.<br><br>
-Transactions that have been previously split or grouped may not be modified by this endpoint. Therefore the `is_parent`, `parent_id`, `is_group`, `group_id`, and `children` properties are also ignored when provided in the request body.<br><br>
+Transactions that have been previously split or grouped may not be modified by this endpoint. Therefore the `is_split_parent`, `split_parent_id`, `is_group_parent`, `group_parent_id`, and `children` properties are also ignored when provided in the request body.<br><br>
 It is also possible to provide only the properties to be updated in the request body, as long as the request includes at least one of the properties that is not listed above. For example a request body that contains only an `category_id` attribute is valid.
 
 ### Example

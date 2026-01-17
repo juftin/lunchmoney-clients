@@ -2,14 +2,15 @@ openapi: 3.0.2
 info:
     title: Lunch Money API - v2
     description: |-
-        Welcome the Lunch Money v2 API.
+        Welcome to the Lunch Money v2 API.
 
         A working version of this API is now available through these docs, or directly at:
 
         `https://api.lunchmoney.dev/v2`
 
-        <span class="red-text"><strong>This is in alpha launch of a major API update. It is still subject to change during this alpha review period and bugs may still exist. Users are strongly encouraged to use the mock service or to create a test budget with example data as the first step to interacting with the v2 API.</strong></span>
-        See the [Getting Started Guide](https://alpha.lunchmoney.dev/v2/getting-started) for more information on using a test budget.
+        <span class="red-text"><strong>This is in alpha launch of a major API update. It is still subject to change during this alpha review
+        period and bugs may still exist. Users are strongly encouraged to use the mock service or to create a test budget with example data as the first step to interacting with the v2 API.</strong></span>
+        See the [Getting Started Guide](https://alpha.lunchmoney.dev/v2/getting-started) for more information on using a test budget.<br<br>
 
         If you are new to the v2 API, you may wish to review the [v2 API Overview of Changes](https://alpha.lunchmoney.dev/v2/changelog).
 
@@ -33,7 +34,6 @@ info:
         - [v2 API Changelog](https://alpha.lunchmoney.dev/v2/changelog)
         - [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide)
         - [Rate Limits](https://alpha.lunchmoney.dev/v2/rate-limits)
-        - [Pagination](https://alpha.lunchmoney.dev/v2/pagination)
         - [Current v1 Lunch Money API Documentation](https://lunchmoney.dev)
         - [Awesome Lunch Money Projects](https://github.com/lunch-money/awesome-lunchmoney?tab=readme-ov-file)
     termsOfService: https://lunchmoney.dev/#current-status
@@ -42,12 +42,12 @@ info:
     license:
         name: Apache 2.0
         url: http://www.apache.org/licenses/LICENSE-2.0.html
-    version: 2.8.3
+    version: 2.8.4
 
 servers:
     - url: https://api.lunchmoney.dev/v2
       description: v2 Lunch Money API Server - modifies real data!
-    - url: https://alpha.lunchmoney.dev/v2
+    - url: https://mock.lunchmoney.dev/v2
       description: Static Mock v2 Lunch Money API Server
 
 tags:
@@ -492,6 +492,7 @@ components:
                         characters.
                     minLength: 1
                     maxLength: 100
+                    x-updatable: true
                 description:
                     type: string
                     nullable: true
@@ -500,21 +501,26 @@ components:
                         characters.
                     minLength: 0 # Allow empty strings
                     maxLength: 200
+                    x-updatable: true
                 is_income:
                     type: boolean
                     nullable: false
                     description: If set, will indicate if this category will be treated as income. (See <a href="https://support.lunchmoney.app/setup/categories/category-properties">Category Properties</a> for more details)
+                    x-updatable: true
                 exclude_from_budget:
                     type: boolean
                     nullable: false
                     description: If set, will indicate if this category will be excluded from budgets. (See <a href="https://support.lunchmoney.app/setup/categories/category-properties">Category Properties</a> for more details)
+                    x-updatable: true
                 exclude_from_totals:
                     type: boolean
                     nullable: false
                     description: If set, will indicate if this category will be excluded from totals. (See <a href="https://support.lunchmoney.app/setup/categories/category-properties">Category Properties</a> for more details)
+                    x-updatable: true
                 archived:
                     type: boolean
                     description: If set, will indicate if this category is archived.
+                    x-updatable: true
                 group_id:
                     type: integer
                     format: int64
@@ -523,6 +529,7 @@ components:
                         If set to the ID of an existing category group, and this category
                         is not itself a category group, this category will be a child of the
                         specified group.
+                    x-updatable: true
                 is_group:
                     type: boolean
                     nullable: true
@@ -547,6 +554,7 @@ components:
                         any names are the same as the name of an existing category.<br> It
                         is permissible to provide both full category objects and IDs as well
                         as strings for names in the same request.
+                    x-updatable: true
                     items:
                         oneOf:
                             - type: integer
@@ -564,20 +572,24 @@ components:
                         a category group the order is relative to the other categories
                         within the group.<br>While this property can be set via the API it is generally set by the user in the Lunch Money GUI.
                         API.
+                    x-updatable: true
                 collapsed:
                     type: boolean
                     nullable: true
                     description: If `true`, the category is collapsed in the Lunch Money GUI.<br>While this property can be set via the API it is generally set by the user in the Lunch Money GUI.
+                    x-updatable: true
                 id:
                     type: integer
                     format: int64
                     description: System defined unique identifier for the category. Ignored if set.
+                    x-updatable: false
                 archived_at:
                     type: string
                     nullable: true
                     description:
                         System set date and time of when the category was last archived (in
                         the ISO 8601 extended format). Ignored if set.
+                    x-updatable: false
                 updated_at:
                     type: string
                     format: date-time
@@ -585,6 +597,7 @@ components:
                     description:
                         System set date and time of when the category was last updated (in
                         the ISO 8601 extended format). Ignored if set.
+                    x-updatable: false
                 created_at:
                     type: string
                     format: date-time
@@ -593,6 +606,7 @@ components:
                         System set date and time of when the category was created (in the
                         ISO 8601 extended format). Ignored if set. (in the ISO 8601 extended
                         format). Ignored if set.
+                    x-updatable: false
 
         # The response object for a DELETE /category request with dependencies
         deleteCategoryResponseWithDependencies:
@@ -789,14 +803,14 @@ components:
                     description:
                         The date and time of when the transaction was last updated (in the
                         ISO 8601 extended format).
-                is_parent:
+                is_split_parent:
                     type: boolean
                     description:
                         If `true`, this transaction has been split into two or more other
                         transactions. By default, parent transactions are not returned in
                         call to `GET /transactions` but they can be queried directly by
                         their ID.
-                parent_id:
+                split_parent_id:
                     type: integer
                     format: int64
                     nullable: true
@@ -804,14 +818,14 @@ components:
                         A transaction ID if this is a split transaction. Denotes the
                         transaction ID of the original, or parent, transaction. Is null if
                         this is not a split transaction
-                is_group:
+                is_group_parent:
                     type: boolean
                     description:
                         "`true` if this transaction represents a group of transactions. If so,
                         amount and currency represent the totalled amount of transactions
-                        bearing this transaction's id as their group_id. Amount is
+                        bearing this transaction's id as their group_parent_id. Amount is
                         calculated based on the user's primary currency."
-                group_id:
+                group_parent_id:
                     type: integer
                     format: int64
                     nullable: true
@@ -821,7 +835,7 @@ components:
                         transactions that were grouped are not returned in a call to `GET
                         /transactions` but they can be queried directly by calling the `GET
                         /transactions/group/{id}`, where the id passed is associated with a
-                        transaction where the `is_group` attribute is true
+                        transaction where the `is_group_parent` attribute is true
                 children:
                     type: array
                     nullable: false
@@ -833,8 +847,8 @@ components:
                         unless the `include_children` query parameter is set to `true`.<br>
                         For parents of split transactions, it contains a list of the associated
                         transactions that it was split into. For transaction groups, it contains
-                        the transactions that were grouped together. Examine the `is_parent` and
-                        `is_group` properties to determine which of these it is.
+                        the transactions that were grouped together. Examine the `is_split_parent` and
+                        `is_group_parent` properties to determine which of these it is.
                 plaid_metadata:
                     type: object
                     nullable: true
@@ -912,9 +926,9 @@ components:
                 - is_pending
                 - created_at
                 - updated_at
-                - parent_id
-                - is_group
-                - group_id
+                - split_parent_id
+                - is_group_parent
+                - group_parent_id
                 - manual_account_id
                 - plaid_account_id
                 - tag_ids
@@ -1031,14 +1045,14 @@ components:
                     description:
                         The date and time of when the transaction was last updated (in the
                         ISO 8601 extended format).
-                is_parent:
+                is_split_parent:
                     type: boolean
                     description:
                         If true this transaction has been split into two or more other
                         transactions. By default parent transactions are not returned in
                         call to `GET /transactions` but they can be queried directly by
                         their ID.
-                parent_id:
+                split_parent_id:
                     type: integer
                     format: int64
                     nullable: true
@@ -1046,14 +1060,14 @@ components:
                         A transaction ID if this is a split transaction. Denotes the
                         transaction ID of the original, or parent, transaction. Is null if
                         this is not a split transaction
-                is_group:
+                is_group_parent:
                     type: boolean
                     description:
                         True if this transaction represents a group of transactions. If so,
                         amount and currency represent the totalled amount of transactions
-                        bearing this transaction's id as their group_id. Amount is
+                        bearing this transaction's id as their group_parent_id. Amount is
                         calculated based on the user's primary currency.
-                group_id:
+                group_parent_id:
                     type: integer
                     format: int64
                     nullable: true
@@ -1063,7 +1077,7 @@ components:
                         transactions that were grouped are not returned in a call to `GET
                         /transactions` but they can be queried directly by calling the `GET
                         /transactions/group/{id}`, where the id passed is associated with a
-                        transaction where the `is_group` attribute is true
+                        transaction where the `is_group_parent` attribute is true
                 manual_account_id:
                     type: integer
                     format: int32
@@ -1183,9 +1197,9 @@ components:
                 - is_pending
                 - created_at
                 - updated_at
-                - parent_id
-                - is_group
-                - group_id
+                - split_parent_id
+                - is_group_parent
+                - group_parent_id
                 - manual_account_id
                 - plaid_account_id
                 - tag_ids
@@ -1327,10 +1341,12 @@ components:
                     type: integer
                     format: int64
                     description: System defined unique identifier of this transaction. Ignored if set.
+                    x-updatable: false
                 date:
                     type: string
                     format: date
                     description: Date of transaction in ISO 8601 format
+                    x-updatable: true
                 amount:
                     oneOf:
                         - type: number
@@ -1344,12 +1360,14 @@ components:
                         <br>
                         May not be updated on transactions that belong to a synced account
                         with the "Allow Modifications to Transactions" property disabled.
+                    x-updatable: true
                 currency:
                     description:
                         Three-letter lowercase currency code of the transaction in ISO 4217
                         format.<br> May not be updated on transactions that belong to a
                         synced account with the "Allow Modifications to Transactions"
                         property disabled.
+                    x-updatable: true
                     allOf:
                         - $ref: "#/components/schemas/currencyEnum"
                 recurring_id:
@@ -1359,12 +1377,14 @@ components:
                     description:
                         The unique identifier of the associated recurring item that this
                         transaction matches.
+                    x-updatable: true
                 payee:
                     type: string
                     description: |
                         The new payee for the transaction.
                     minLength: 0
                     maxLength: 140
+                    x-updatable: true
                 category_id:
                     type: integer
                     format: int32
@@ -1372,6 +1392,7 @@ components:
                     description:
                         Unique identifier of the category for this transaction. Set this to
                         null to clear the transaction's category.
+                    x-updatable: true
                 notes:
                     type: string
                     nullable: true
@@ -1380,6 +1401,7 @@ components:
                         the existing notes.
                     minLength: 0
                     maxLength: 350
+                    x-updatable: true
                 manual_account_id:
                     type: integer
                     format: int32
@@ -1391,6 +1413,7 @@ components:
                         null value. Moving an existing transaction to to another account
                         will not work if the transaction belongs to a synced account who's
                         "Allow Modifications to Transactions" property is not set.
+                    x-updatable: true
                 plaid_account_id:
                     type: integer
                     format: int32
@@ -1402,6 +1425,7 @@ components:
                         account will not work if the account's "Allow Modifications to
                         Transactions" property is not set. Similarly, this cannot be set to an
                         id associated with this type of locked Plaid account.
+                    x-updatable: true
                 tag_ids:
                     type: array
                     nullable: false
@@ -1411,6 +1435,7 @@ components:
                         `additional_tag_ids` to add tags to the existing transaction's tags.
                         Set this to an empty array to remove all tags from a transaction. If
                         set `additional_tag_ids` may not be set.
+                    x-updatable: true
                     items:
                         type: integer
                         format: int32
@@ -1422,6 +1447,7 @@ components:
                         set, the tags listed in this property be added to any existing
                         transaction tags. Use `tag_ids` to overwrite or clear transaction
                         tags. If set `tag_ids` may not be set.
+                    x-updatable: true
                     items:
                         type: integer
                         format: int32
@@ -1435,10 +1461,12 @@ components:
                         `manual_account_id`/`external_id` combination.
                     minLength: 0
                     maxLength: 75
+                    x-updatable: true
                 custom_metadata:
                     type: object
                     nullable: true
                     description: User defined JSON data that can be set or cleared via the API.
+                    x-updatable: true
                 status:
                     type: string
                     description: >
@@ -1453,37 +1481,44 @@ components:
                     enum:
                         - reviewed
                         - unreviewed
+                    x-updatable: true
                 to_base:
                     type: number
                     format: double
                     description:
                         System defined amount of this transaction in the user's primary
-                        currency. Ignored if set.
+                        currency. Ignored if set. Use `amount` to update the amount in the transaction.
+                    x-updatable: false
                 is_pending:
                     type: boolean
                     description: System defined flag set for pending transactions. Ignored if set.
+                    x-updatable: false
                 plaid_metadata:
                     type: object
                     nullable: true
                     description: System set metadata from a Plaid account sync. Ignored if set.
+                    x-updatable: false
                 created_at:
                     type: string
                     format: date-time
                     description:
                         System defined date and time of when the transaction was created.
                         Ignored if set.
+                    x-updatable: false
                 updated_at:
                     type: string
                     format: date-time
                     description:
                         System defined date and time of when the transaction was last
                         updated. Ignored if set.
-                is_parent:
+                    x-updatable: false
+                is_split_parent:
                     type: boolean
                     description:
                         System defined boolean indicating if this transaction was split.
                         To split or unsplit a transaction use the
                         `/transactions/split` endpoint. Ignored if set.
+                    x-updatable: false
                 children:
                     type: array
                     nullable: false
@@ -1492,29 +1527,34 @@ components:
                     description:
                         An array of child transactions that exists when a transaction has
                         been split or if the transaction is a group. Split
+                    x-updatable: false
                         and Grouped transactions may not be modified using this API. Ignored if set.
-                parent_id:
+                split_parent_id:
                     type: integer
                     format: int64
                     nullable: true
                     description: A transaction ID if this is a split transaction. Split
                         transactions may not be modified this API. Use the
                         `transactions/split` endpoint instead. Ignored if set.
-                is_group:
+                    x-updatable: false
+                is_group_parent:
                     type: boolean
                     description:
                         System defined boolean indicating if this transaction represents a
                         group of transactions. Grouped transactions may not be modified with this API. Use the `transactions/group` endpoint instead. Ignored if set.
-                group_id:
+                    x-updatable: false
+                group_parent_id:
                     type: integer
                     format: int64
                     nullable: true
                     description: A transaction group ID if this transaction is part of a group. Grouped transactions may not be modified with this API. Use the `transactions/group` endpoint instead. Ignored if set.
+                    x-updatable: false
                 source:
                     type: string
                     nullable: true
                     description: |
                         System defined original source of the transaction. Ignored if set.
+                    x-updatable: false
                     enum:
                         - api
                         - csv
@@ -1866,13 +1906,16 @@ components:
                     type: integer
                     format: int32
                     description: System defined unique identifier of this account. Ignored if set.
+                    x-updatable: false
                 name:
                     type: string
                     description: If set, the new name of the manual account.
                     minLength: 1
                     maxLength: 45
+                    x-updatable: true
                 type:
                     description: If set, the new type of the manual account.
+                    x-updatable: true
                     allOf:
                         - $ref: "#/components/schemas/accountTypeEnum"
                 subtype:
@@ -1882,12 +1925,14 @@ components:
                         retirement - checking - savings - prepaid credit card
                     minLength: 1
                     maxLength: 100
+                    x-updatable: true
                 display_name:
                     type: string
                     nullable: true
                     description:
                         If set, an optional display name for the manual account.<br>
                         This must be unique for the user.  If not set, it will be derived from the `institution_name` (if any) concatenated with the `name`.
+                    x-updatable: true
                 balance:
                     oneOf:
                         - type: number
@@ -1899,6 +1944,7 @@ components:
                         Numeric value of the current balance, up to four decimal places, of
                         the manual account as a number or string. Do not include any special
                         characters aside from a decimal point.
+                    x-updatable: true
                 balance_as_of:
                     type: string
                     oneOf:
@@ -1908,15 +1954,18 @@ components:
                         May be set as a date, ie: YYYY-MM-DD, or date-time string in ISO 8601 extended format.
                         This property is ignored if `balance` is not also set. If `balance` is set and this property is
                         not set the current time is used."
+                    x-updatable: true
                 closed_on:
                     type: string
                     format: date
                     nullable: true
                     description: If set, the date this manual account was closed in YYYY-MM-DD format.
+                    x-updatable: true
                 currency:
                     description:
                         If set, the new three-letter lowercase currency code of the manual account
                         balance.
+                    x-updatable: true
                     allOf:
                         - $ref: "#/components/schemas/currencyEnum"
                 institution_name:
@@ -1925,12 +1974,14 @@ components:
                     description: If set, the name of institution holding the account.
                     minLength: 1
                     maxLength: 50
+                    x-updatable: true
                 external_id:
                     type: string
                     nullable: true
                     minLength: 0
                     maxLength: 75
                     description: An optional user-defined ID for the manual account.
+                    x-updatable: true
                 custom_metadata:
                     type: object
                     nullable: true
@@ -1939,21 +1990,29 @@ components:
                         this account. This must be a valid JSON object and, when
                         stringified, must not exceed 4096 characters.
                     additionalProperties: true
+                    x-updatable: true
                 exclude_from_transactions:
                     type: boolean
                     description: If set, transactions may not be assigned to this manual account.
+                    x-updatable: true
+                to_base:
+                    type: number
+                    description: System defined balance converted to the user's primary currency. Ignored if set.  Use `balance` to update the balance in the account.
+                    x-updatable: false
                 created_at:
                     type: string
                     format: date-time
                     description:
                         System defined date/time the account was created in ISO 8601
                         extended format. Ignored if set.
+                    x-updatable: false
                 updated_at:
                     type: string
                     format: date-time
                     description:
                         System defined date/time the account was created in ISO 8601
                         extended format. Ignored if set.
+                    x-updatable: false
 
         # The object containing information about a Plaid account
         plaidAccountObject:
@@ -2214,6 +2273,7 @@ components:
                         characters.
                     minLength: 1
                     maxLength: 100
+                    x-updatable: true
                 description:
                     type: string
                     nullable: true
@@ -2221,36 +2281,44 @@ components:
                         If set, the new description of the category. Must not exceed 200
                         characters.
                     maxLength: 200
+                    x-updatable: true
                 text_color:
                     type: string
                     nullable: true
                     description: The text color of the tag.
+                    x-updatable: true
                 background_color:
                     type: string
                     nullable: true
                     description: The background color of the tag.
+                    x-updatable: true
                 archived:
                     type: boolean
                     description: If set, will indicate if this category is archived.
+                    x-updatable: true
                 id:
                     type: integer
                     format: int32
                     description: System-defined unique identifier for the category. Ignored if set.
+                    x-updatable: false
                 updated_at:
                     type: string
                     format: date-time
                     nullable: false
                     description: System-set time the tag was last updated. Ignored if set
+                    x-updatable: false
                 created_at:
                     type: string
                     format: date-time
                     nullable: false
                     description: System-set time the tag was created. Ignored if set.
+                    x-updatable: false
                 archived_at:
                     type: string
                     format: date-time
                     nullable: true
                     description: System-set time the tag was archived. Ignored if set.
+                    x-updatable: false
 
         # The object returned when a DELETE /tag/:id request
         # has an id for a tag that has dependencies
@@ -2959,6 +3027,8 @@ components:
                     type: array
                     items:
                         $ref: "#/components/schemas/summaryCategoryOccurrenceObject"
+                rollover_pool:
+                    $ref: "#/components/schemas/summaryRolloverPoolObject"
             required:
                 - category_id
                 - totals
@@ -3032,8 +3102,8 @@ components:
             x-internal: true # Don't display in schemas section of docs
             description: "The date and adjusted balance of the rollover pool at the time of the adjustment."
             properties:
-                current:
-                    description: "true if this is the current rollover pool balance."
+                in_range:
+                    description: "true if this rollover pool adjustment is for a budget period that falls within the given date range."
                     type: boolean
                 date:
                     type: string
@@ -3049,7 +3119,7 @@ components:
                     description: "Amount of the rollover pool converted to the user's default currency."
                     type: number
             required:
-                - current
+                - in_range
                 - date
                 - amount
                 - currency
@@ -3129,8 +3199,8 @@ components:
                 "Per period budget activity for the each budget period within the given date range.<br>
                 This is only returned if the query parameter `include_occurrences` is set to `true`."
             properties:
-                current:
-                    description: true if this occurrence is the current budget period.
+                in_range:
+                    description: true if this occurrence is within the given date range.
                     type: boolean
                 start_date:
                     description: The start date of the budget period.
@@ -3168,7 +3238,7 @@ components:
                     type: string
                     nullable: true
             required:
-                - current
+                - in_range
                 - start_date
                 - end_date
                 - other_activity
@@ -3370,8 +3440,22 @@ paths:
                       type: boolean
                       default: false
                 - in: query
+                  name: include_past_budget_dates
+                  description: "Enable to include the three budget occurrences prior to the start date in the `occurrences` array for each category in an aligned response. This property is ignored if `include_occurrences` is not also set to `true`."
+                  required: false
+                  schema:
+                      type: boolean
+                      default: false
+                - in: query
                   name: include_totals
                   description: "Enable to include a top-level `totals` section that summarizes the inflow and outflow across all transactions for the specified date range."
+                  required: false
+                  schema:
+                      type: boolean
+                      default: false
+                - in: query
+                  name: include_rollover_pool
+                  description: "Enable to include a `rollover_pool` section that summarizes the current rollover pool balance and all previous adjustments."
                   required: false
                   schema:
                       type: boolean
@@ -3401,7 +3485,7 @@ paths:
                                                   recurring_remaining: 0
                                                   recurring_expected: 0
                                               occurrences:
-                                                  - current: false
+                                                  - in_range: true
                                                     start_date: "2025-07-01"
                                                     end_date: "2025-07-31"
                                                     other_activity: 156.64
@@ -3410,7 +3494,7 @@ paths:
                                                     budgeted_amount: "500.0000"
                                                     budgeted_currency: "usd"
                                                     notes: "Monthly budget allocation"
-                                                  - current: false
+                                                  - in_range: true
                                                     start_date: "2025-08-01"
                                                     end_date: "2025-08-31"
                                                     other_activity: 0
@@ -3428,7 +3512,7 @@ paths:
                                                   recurring_remaining: 0
                                                   recurring_expected: 0
                                               occurrences:
-                                                  - current: false
+                                                  - in_range: true
                                                     start_date: "2025-07-01"
                                                     end_date: "2025-07-31"
                                                     other_activity: 424.8
@@ -3437,7 +3521,7 @@ paths:
                                                     budgeted_amount: "200.0000"
                                                     budgeted_currency: "usd"
                                                     notes: "Based on previous month's activity"
-                                                  - current: false
+                                                  - in_range: true
                                                     start_date: "2025-08-01"
                                                     end_date: "2025-08-31"
                                                     other_activity: 0
@@ -3455,7 +3539,7 @@ paths:
                                                   recurring_remaining: 0
                                                   recurring_expected: 0
                                               occurrences:
-                                                  - current: false
+                                                  - in_range: true
                                                     start_date: "2025-07-01"
                                                     end_date: "2025-07-31"
                                                     other_activity: 25.69
@@ -3464,7 +3548,7 @@ paths:
                                                     budgeted_amount: "200.0000"
                                                     budgeted_currency: "usd"
                                                     notes: "Holiday spending budget"
-                                                  - current: false
+                                                  - in_range: true
                                                     start_date: "2025-08-01"
                                                     end_date: "2025-08-31"
                                                     other_activity: 0
@@ -3550,7 +3634,7 @@ paths:
                                                   recurring_remaining: 0
                                                   recurring_expected: 0
                                               occurrences:
-                                                  - current: false
+                                                  - in_range: true
                                                     start_date: "2025-07-01"
                                                     end_date: "2025-07-31"
                                                     other_activity: 156.64
@@ -3568,7 +3652,7 @@ paths:
                                                   recurring_remaining: 0
                                                   recurring_expected: 0
                                               occurrences:
-                                                  - current: false
+                                                  - in_range: true
                                                     start_date: "2025-07-01"
                                                     end_date: "2025-07-31"
                                                     other_activity: 424.8
@@ -3586,7 +3670,7 @@ paths:
                                                   recurring_remaining: 0
                                                   recurring_expected: 0
                                               occurrences:
-                                                  - current: false
+                                                  - in_range: true
                                                     start_date: "2025-07-01"
                                                     end_date: "2025-07-31"
                                                     other_activity: 0
@@ -3623,7 +3707,7 @@ paths:
                                                   recurring_remaining: 0
                                                   recurring_expected: 0
                                               occurrences:
-                                                  - current: false
+                                                  - in_range: true
                                                     start_date: "2025-07-01"
                                                     end_date: "2025-07-31"
                                                     other_activity: 156.64
@@ -3632,7 +3716,7 @@ paths:
                                                     budgeted_amount: "500.0000"
                                                     budgeted_currency: "usd"
                                                     notes: "Monthly budget allocation"
-                                                  - current: false
+                                                  - in_range: true
                                                     start_date: "2025-08-01"
                                                     end_date: "2025-08-31"
                                                     other_activity: 0
@@ -3650,7 +3734,7 @@ paths:
                                                   recurring_remaining: 0
                                                   recurring_expected: 0
                                               occurrences:
-                                                  - current: false
+                                                  - in_range: true
                                                     start_date: "2025-07-01"
                                                     end_date: "2025-07-31"
                                                     other_activity: 424.8
@@ -3659,7 +3743,7 @@ paths:
                                                     budgeted_amount: "200.0000"
                                                     budgeted_currency: "usd"
                                                     notes: "Based on previous month's activity"
-                                                  - current: false
+                                                  - in_range: true
                                                     start_date: "2025-08-01"
                                                     end_date: "2025-08-31"
                                                     other_activity: 0
@@ -3677,7 +3761,7 @@ paths:
                                                   recurring_remaining: 0
                                                   recurring_expected: 0
                                               occurrences:
-                                                  - current: false
+                                                  - in_range: true
                                                     start_date: "2025-07-01"
                                                     end_date: "2025-07-31"
                                                     other_activity: 25.69
@@ -3686,7 +3770,7 @@ paths:
                                                     budgeted_amount: "200.0000"
                                                     budgeted_currency: "usd"
                                                     notes: "Holiday spending budget"
-                                                  - current: false
+                                                  - in_range: true
                                                     start_date: "2025-08-01"
                                                     end_date: "2025-08-31"
                                                     other_activity: 0
@@ -3695,6 +3779,99 @@ paths:
                                                     budgeted_amount: "200.0000"
                                                     budgeted_currency: "usd"
                                                     notes: "Summer vacation savings"
+                                "with past occurrences":
+                                    summary: "Monthly budget summary with past occurrences included"
+                                    description: "Example response for aligned monthly budget periods with include_past_budget_dates=true, showing 3 past occurrences with in_range: false"
+                                    value:
+                                        aligned: true
+                                        categories:
+                                            - category_id: 315177
+                                              totals:
+                                                  other_activity: 156.64
+                                                  recurring_activity: 0
+                                                  budgeted: 500
+                                                  available: 343.36
+                                                  recurring_remaining: 0
+                                                  recurring_expected: 0
+                                              occurrences:
+                                                  - in_range: false
+                                                    start_date: "2025-04-01"
+                                                    end_date: "2025-04-30"
+                                                    other_activity: 120.50
+                                                    recurring_activity: 0
+                                                    budgeted: 500
+                                                    budgeted_amount: "500.0000"
+                                                    budgeted_currency: "usd"
+                                                    notes: "Monthly budget allocation"
+                                                  - in_range: false
+                                                    start_date: "2025-05-01"
+                                                    end_date: "2025-05-31"
+                                                    other_activity: 180.25
+                                                    recurring_activity: 0
+                                                    budgeted: 500
+                                                    budgeted_amount: "500.0000"
+                                                    budgeted_currency: "usd"
+                                                    notes: null
+                                                  - in_range: false
+                                                    start_date: "2025-06-01"
+                                                    end_date: "2025-06-30"
+                                                    other_activity: 200.00
+                                                    recurring_activity: 0
+                                                    budgeted: 500
+                                                    budgeted_amount: "500.0000"
+                                                    budgeted_currency: "usd"
+                                                    notes: "Adjusted for seasonal spending"
+                                                  - in_range: true
+                                                    start_date: "2025-07-01"
+                                                    end_date: "2025-07-31"
+                                                    other_activity: 156.64
+                                                    recurring_activity: 0
+                                                    budgeted: 500
+                                                    budgeted_amount: "500.0000"
+                                                    budgeted_currency: "usd"
+                                                    notes: "Monthly budget allocation"
+                                "with rollover pool":
+                                    summary: "Monthly budget summary with rollover pool included"
+                                    description: "Example response for aligned monthly budget periods with include_rollover_pool=true, showing rollover pool data for categories with budgets"
+                                    value:
+                                        aligned: true
+                                        categories:
+                                            - category_id: 315177
+                                              totals:
+                                                  other_activity: 156.64
+                                                  recurring_activity: 0
+                                                  budgeted: 500
+                                                  available: 343.36
+                                                  recurring_remaining: 0
+                                                  recurring_expected: 0
+                                              occurrences:
+                                                  - in_range: true
+                                                    start_date: "2025-07-01"
+                                                    end_date: "2025-07-31"
+                                                    other_activity: 156.64
+                                                    recurring_activity: 0
+                                                    budgeted: 500
+                                                    budgeted_amount: "500.0000"
+                                                    budgeted_currency: "usd"
+                                                    notes: "Monthly budget allocation"
+                                              rollover_pool:
+                                                  budgeted_to_base: 179.50
+                                                  all_adjustments:
+                                                      - in_range: false
+                                                        date: "2025-06-30"
+                                                        amount: "179.5000"
+                                                        currency: "usd"
+                                                        to_base: 179.50
+                                                      - in_range: false
+                                                        date: "2025-05-31"
+                                                        amount: "120.2500"
+                                                        currency: "usd"
+                                                        to_base: 120.25
+                                                      - in_range: false
+                                                        date: "2025-04-30"
+                                                        amount: "80.0000"
+                                                        currency: "usd"
+                                                        to_base: 80.00
                 "401":
                     $ref: "#/components/responses/unauthorizedToken"
                 "429":
@@ -4503,7 +4680,7 @@ paths:
             tags:
                 - manual_accounts
             summary: Create a manual account
-            description: Create a new manually-managed account.<br><br>
+            description: Creates a new manually-managed account.
             operationId: createManualAccount
             requestBody:
                 required: true
@@ -4709,7 +4886,7 @@ paths:
 
                 You may submit the response from a `GET /manual_accounts/{id}` as the request body, however only certain
                 properties can be updated using this API. The following system set properties are
-                accepted in the request body but their values will be ignored: `id`, `created_at`, and `updated_at`.<br><br>
+                accepted in the request body but their values will be ignored: `id`, `to_base`, `created_at`, and `updated_at`.<br><br>
 
                 It is also possible to provide only the properties to be updated in the
                 request body, as long as the request includes at least one of the
@@ -5214,6 +5391,30 @@ paths:
                   description:
                       "Denotes the end of the time period you'd like to get transactions
                       for. Required if start_date exists. "
+                - name: created_since
+                  in: query
+                  schema:
+                      oneOf:
+                          - type: string
+                            format: date
+                          - type: string
+                            format: date-time
+                  description:
+                      Filter transactions to those created after the specified timestamp.
+                      Accepts either a date (YYYY-MM-DD) or ISO 8601 datetime string. Date-only values
+                      are interpreted as midnight UTC (00:00:00Z).
+                - name: updated_since
+                  in: query
+                  schema:
+                      oneOf:
+                          - type: string
+                            format: date
+                          - type: string
+                            format: date-time
+                  description:
+                      Filter transactions to those updated after the specified timestamp.
+                      Accepts either a date (YYYY-MM-DD) or ISO 8601 datetime string. Date-only values
+                      are interpreted as midnight UTC (00:00:00Z).
                 - name: manual_account_id
                   in: query
                   schema:
@@ -5224,7 +5425,9 @@ paths:
                       account ID or set this to 0 to omit any transactions from manual
                       accounts. Setting both this and `plaid_account_id` to 0 will
                       return transactions with no account. These are listed as "Cash
-                      Transactions" in the Lunch Money GUI.
+                      Transactions" in the Lunch Money GUI.<br>
+                      Note that transaction groups are not associated with any account. If you want
+                      the response to include transactions from transaction groups, set the `include_group_children` query parameter to `true` when filtering by manual accounts.
                   examples:
                       euro travel card:
                           value: 219909
@@ -5240,7 +5443,9 @@ paths:
                       account ID or set this to 0 to omit any transactions from plaid
                       accounts. Setting both this and `manual_account_id` to 0 will return
                       transactions with no account. These are listed as "Cash
-                      Transactions" in the Lunch Money GUI.
+                      Transactions" in the Lunch Money GUI.<br>
+                      Note that transaction groups are not associated with any account. If you want
+                      the response to include transactions from transaction groups, set the `include_group_children` query parameter to `true` when filtering by plaid accounts.
                   examples:
                       brokerage account:
                           value: 119807
@@ -5281,7 +5486,7 @@ paths:
                   description:
                       Filter transactions to those that have a tag with the specified Tag
                       ID
-                - name: is_group
+                - name: is_group_parent
                   in: query
                   schema:
                       type: boolean
@@ -5351,6 +5556,15 @@ paths:
                       returned transactions objects to include any  transactions that were
                       split into multiple transactions.  Use with caution as this data is
                       normally not exposed after the split transactions are created.
+                - name: include_group_children
+                  in: query
+                  schema:
+                      type: boolean
+                      default: false
+                  description:
+                      By default, individual transactions that joined into a transaction group
+                      are not included in the response. Set to true if you'd like the
+                      returned transactions objects to include any transactions that joined into a transaction group.
                 - name: include_children
                   in: query
                   schema:
@@ -5429,10 +5643,10 @@ paths:
                                               is_pending: false
                                               created_at: "2024-07-28T17:00:06.192Z"
                                               updated_at: "2024-07-28T17:00:06.733Z"
-                                              is_parent: false
-                                              parent_id: null
-                                              is_group: false
-                                              group_id: null
+                                              is_split_parent: false
+                                              split_parent_id: null
+                                              is_group_parent: false
+                                              group_parent_id: null
                                               manual_account_id: null
                                               plaid_account_id: 119806
                                               tag_ids:
@@ -5452,10 +5666,10 @@ paths:
                                               is_pending: false
                                               created_at: "2024-07-24T17:00:06.192Z"
                                               updated_at: "2024-07-24T17:00:06.192Z"
-                                              is_parent: false
-                                              parent_id: null
-                                              is_group: false
-                                              group_id: null
+                                              is_split_parent: false
+                                              split_parent_id: null
+                                              is_group_parent: false
+                                              group_parent_id: null
                                               manual_account_id: null
                                               plaid_account_id: 119805
                                               tag_ids:
@@ -5475,10 +5689,10 @@ paths:
                                               notes: null
                                               created_at: "2024-07-22T17:00:06.192Z"
                                               updated_at: "2024-07-22T17:00:06.733Z"
-                                              is_parent: false
-                                              parent_id: null
-                                              is_group: false
-                                              group_id: null
+                                              is_split_parent: false
+                                              split_parent_id: null
+                                              is_group_parent: false
+                                              group_parent_id: null
                                               manual_account_id: null
                                               plaid_account_id: 119804
                                               tag_ids: []
@@ -5497,10 +5711,10 @@ paths:
                                               is_pending: false
                                               created_at: "2024-07-22T17:00:06.192Z"
                                               updated_at: "2024-07-22T17:00:06.733Z"
-                                              is_parent: false
-                                              parent_id: null
-                                              is_group: false
-                                              group_id: null
+                                              is_split_parent: false
+                                              split_parent_id: null
+                                              is_group_parent: false
+                                              group_parent_id: null
                                               manual_account_id: 119807
                                               plaid_account_id: null
                                               tag_ids: []
@@ -5524,10 +5738,10 @@ paths:
                                               is_pending: false
                                               created_at: "2024-07-28T17:00:06.192Z"
                                               updated_at: "2024-07-28T17:00:06.733Z"
-                                              is_parent: false
-                                              parent_id: null
-                                              is_group: false
-                                              group_id: null
+                                              is_split_parent: false
+                                              split_parent_id: null
+                                              is_group_parent: false
+                                              group_parent_id: null
                                               manual_account_id: null
                                               plaid_account_id: 119806
                                               tag_ids:
@@ -5547,10 +5761,10 @@ paths:
                                               is_pending: false
                                               created_at: "2024-07-14T17:00:06.192Z"
                                               updated_at: "2024-07-14T17:00:06.733Z"
-                                              is_parent: false
-                                              parent_id: null
-                                              is_group: true
-                                              group_id: null
+                                              is_split_parent: false
+                                              split_parent_id: null
+                                              is_group_parent: true
+                                              group_parent_id: null
                                               manual_account_id: null
                                               plaid_account_id: 119806
                                               tag_ids:
@@ -5575,10 +5789,10 @@ paths:
                                               is_pending: false
                                               created_at: "2024-07-28T17:00:06.192Z"
                                               updated_at: "2024-07-28T17:00:06.733Z"
-                                              is_parent: false
-                                              parent_id: null
-                                              is_group: false
-                                              group_id: null
+                                              is_split_parent: false
+                                              split_parent_id: null
+                                              is_group_parent: false
+                                              group_parent_id: null
                                               manual_account_id: null
                                               plaid_account_id: 119806
                                               tag_ids:
@@ -5598,10 +5812,10 @@ paths:
                                               is_pending: false
                                               created_at: "2024-07-24T17:00:06.192Z"
                                               updated_at: "2024-07-24T17:00:06.192Z"
-                                              is_parent: false
-                                              parent_id: null
-                                              is_group: false
-                                              group_id: null
+                                              is_split_parent: false
+                                              split_parent_id: null
+                                              is_group_parent: false
+                                              group_parent_id: null
                                               manual_account_id: null
                                               plaid_account_id: 119805
                                               tag_ids:
@@ -5635,13 +5849,11 @@ paths:
                 - transactions (bulk)
             summary: Insert one or more transactions.
             description: >-
-                Use this endpoint to add transactions to a budget.
-
+                Use this endpoint to add transactions to a budget.<br><br>
 
                 The request body for this endpoint must include a list of transactions
                 with at least one transaction and not more than 500 transactions to
-                insert.
-
+                insert.<br><br>
 
                 The successful request to this endpoint will return a response
                 body which will include two arrays:
@@ -5812,9 +6024,9 @@ paths:
                                               is_pending: false
                                               created_at: "2024-12-18T04:05:58.072Z"
                                               updated_at: "2024-12-18T04:05:58.072Z"
-                                              parent_id: null
-                                              is_group: false
-                                              group_id: null
+                                              split_parent_id: null
+                                              is_group_parent: false
+                                              group_parent_id: null
                                               manual_account_id: null
                                               plaid_account_id: null
                                               tag_ids: []
@@ -5839,9 +6051,9 @@ paths:
                                               is_pending: false
                                               created_at: "2024-11-20T16:09:11.544Z"
                                               updated_at: "2024-11-20T16:09:11.544Z"
-                                              parent_id: null
-                                              is_group: false
-                                              group_id: null
+                                              split_parent_id: null
+                                              is_group_parent: false
+                                              group_parent_id: null
                                               manual_account_id: null
                                               plaid_account_id: null
                                               tag_ids: []
@@ -5866,9 +6078,9 @@ paths:
                                               is_pending: false
                                               created_at: "2024-11-20T16:10:23.395Z"
                                               updated_at: "2024-11-20T16:10:23.395Z"
-                                              parent_id: null
-                                              is_group: false
-                                              group_id: null
+                                              split_parent_id: null
+                                              is_group_parent: false
+                                              group_parent_id: null
                                               manual_account_id: null
                                               plaid_account_id: null
                                               tag_ids: []
@@ -5889,9 +6101,9 @@ paths:
                                               is_pending: false
                                               created_at: "2024-11-20T16:10:23.395Z"
                                               updated_at: "2024-11-20T16:10:23.395Z"
-                                              parent_id: null
-                                              is_group: false
-                                              group_id: null
+                                              split_parent_id: null
+                                              is_group_parent: false
+                                              group_parent_id: null
                                               manual_account_id: null
                                               plaid_account_id: null
                                               tag_ids: []
@@ -5916,9 +6128,9 @@ paths:
                                               is_pending: false
                                               created_at: "2024-11-20T16:15:19.475Z"
                                               updated_at: "2024-11-20T16:15:19.475Z"
-                                              parent_id: null
-                                              is_group: false
-                                              group_id: null
+                                              split_parent_id: null
+                                              is_group_parent: false
+                                              group_parent_id: null
                                               manual_account_id: 219807
                                               plaid_account_id: null
                                               tag_ids: []
@@ -5952,9 +6164,9 @@ paths:
                                               is_pending: false
                                               created_at: "2025-07-18T14:15:23.159Z"
                                               updated_at: "2025-07-18T14:15:23.159Z"
-                                              parent_id: null
-                                              is_group: false
-                                              group_id: null
+                                              split_parent_id: null
+                                              is_group_parent: false
+                                              group_parent_id: null
                                               manual_account_id: 219807
                                               plaid_account_id: null
                                               tag_ids: []
@@ -5998,9 +6210,9 @@ paths:
                                               is_pending: false
                                               created_at: "2025-07-18T14:05:29.253Z"
                                               updated_at: "2025-07-18T14:05:29.253Z"
-                                              parent_id: null
-                                              is_group: false
-                                              group_id: null
+                                              split_parent_id: null
+                                              is_group_parent: false
+                                              group_parent_id: null
                                               manual_account_id: 219807
                                               plaid_account_id: null
                                               tag_ids: []
@@ -6089,7 +6301,7 @@ paths:
                 accepted in the request body, but their values will be ignored: `id`, `to_base`, `is_pending`, `created_at`, `updated_at`, `source`, and `plaid_metadata`.<br><br>
 
                 Transactions that have been previously split or grouped may not be
-                modified by this endpoint. Therefore the `is_parent`, `parent_id`, `is_group`, `group_id`, and `children` properties are also ignored when provided in the request body.<br><br>
+                modified by this endpoint. Therefore the `is_split_parent`, `split_parent_id`, `is_group_parent`, `group_parent_id`, and `children` properties are also ignored when provided in the request body.<br><br>
 
                 Each transaction in the array **must** include an `id` property to identify which transaction to update, along with at least one other property to be updated. For example, a transaction object that contains only an `id` and `category_id` property is valid.<br><br>
 
@@ -6149,10 +6361,10 @@ paths:
                                           is_pending: false
                                           created_at: "2025-07-17T17:00:06.192Z"
                                           updated_at: "2025-07-17T17:00:06.192Z"
-                                          is_parent: false
-                                          parent_id: null
-                                          is_group: false
-                                          group_id: null
+                                          is_split_parent: false
+                                          split_parent_id: null
+                                          is_group_parent: false
+                                          group_parent_id: null
                                           manual_account_id: null
                                           plaid_account_id: null
                                           tag_ids:
@@ -6213,10 +6425,10 @@ paths:
                                               is_pending: false
                                               created_at: "2025-06-24T17:00:06.192Z"
                                               updated_at: "2025-06-24T17:00:06.192Z"
-                                              is_parent: false
-                                              parent_id: null
-                                              is_group: false
-                                              group_id: null
+                                              is_split_parent: false
+                                              split_parent_id: null
+                                              is_group_parent: false
+                                              group_parent_id: null
                                               manual_account_id: null
                                               plaid_account_id: 119805
                                               tag_ids:
@@ -6237,10 +6449,10 @@ paths:
                                               is_pending: false
                                               created_at: "2025-06-18T17:00:06.192Z"
                                               updated_at: "2025-06-18T17:00:06.192Z"
-                                              is_parent: false
-                                              parent_id: null
-                                              is_group: false
-                                              group_id: null
+                                              is_split_parent: false
+                                              split_parent_id: null
+                                              is_group_parent: false
+                                              group_parent_id: null
                                               manual_account_id: null
                                               plaid_account_id: null
                                               tag_ids:
@@ -6261,10 +6473,10 @@ paths:
                                               is_pending: false
                                               created_at: "2025-06-12T17:00:06.192Z"
                                               updated_at: "2025-06-12T17:00:06.733Z"
-                                              is_parent: false
-                                              parent_id: null
-                                              is_group: false
-                                              group_id: null
+                                              is_split_parent: false
+                                              split_parent_id: null
+                                              is_group_parent: false
+                                              group_parent_id: null
                                               manual_account_id: null
                                               plaid_account_id: 119807
                                               tag_ids: []
@@ -6287,10 +6499,10 @@ paths:
                                               is_pending: false
                                               created_at: "2025-07-17T17:00:06.192Z"
                                               updated_at: "2025-07-17T17:00:06.192Z"
-                                              is_parent: false
-                                              parent_id: null
-                                              is_group: false
-                                              group_id: null
+                                              is_split_parent: false
+                                              split_parent_id: null
+                                              is_group_parent: false
+                                              group_parent_id: null
                                               manual_account_id: null
                                               plaid_account_id: null
                                               tag_ids:
@@ -6311,10 +6523,10 @@ paths:
                                               is_pending: false
                                               created_at: "2025-06-18T17:00:06.192Z"
                                               updated_at: "2025-06-18T17:00:06.192Z"
-                                              is_parent: false
-                                              parent_id: null
-                                              is_group: false
-                                              group_id: null
+                                              is_split_parent: false
+                                              split_parent_id: null
+                                              is_group_parent: false
+                                              group_parent_id: null
                                               manual_account_id: null
                                               plaid_account_id: null
                                               tag_ids:
@@ -6569,11 +6781,11 @@ paths:
                 transaction.
 
 
-                If `is_group` is true in the returned transaction, the object will also
+                If `is_group_parent` is true in the returned transaction, the object will also
                 include the `children` property which will contain a list of the
                 original transactions that make up the transaction group.<br>
 
-                If `is_parent` is true in the returned transaction, the object will also
+                If `is_split_parent` is true in the returned transaction, the object will also
                 include the `children` property which will contain a list
                 of the split transactions.
             operationId: getTransactionById
@@ -6621,10 +6833,10 @@ paths:
                                         is_pending: false
                                         created_at: "2024-07-24T17:00:06.192Z"
                                         updated_at: "2024-07-24T17:00:06.192Z"
-                                        parent_id: null
+                                        split_parent_id: null
                                         children: []
-                                        is_group: false
-                                        group_id: null
+                                        is_group_parent: false
+                                        group_parent_id: null
                                         manual_account_id: null
                                         plaid_account_id: 119805
                                         tag_ids: []
@@ -6645,10 +6857,10 @@ paths:
                                         is_pending: true
                                         created_at: "2025-05-28T17:00:06.192Z"
                                         updated_at: "2025-05-28T17:00:06.733Z"
-                                        is_parent: false
-                                        parent_id: null
-                                        is_group: false
-                                        group_id: null
+                                        is_split_parent: false
+                                        split_parent_id: null
+                                        is_group_parent: false
+                                        group_parent_id: null
                                         manual_account_id: null
                                         plaid_account_id: 119806
                                         tag_ids:
@@ -6682,9 +6894,9 @@ paths:
                                         is_pending: false
                                         created_at: "2025-05-17T17:00:06.192Z"
                                         updated_at: "2025-05-17T17:00:06.733Z"
-                                        parent_id: null
-                                        is_group: true
-                                        group_id: null
+                                        split_parent_id: null
+                                        is_group_parent: true
+                                        group_parent_id: null
                                         manual_account_id: null
                                         plaid_account_id: null
                                         tag_ids:
@@ -6706,10 +6918,10 @@ paths:
                                               is_pending: false
                                               created_at: "2025-05-17T17:00:06.192Z"
                                               updated_at: "2025-05-17T17:00:06.733Z"
-                                              is_parent: false
-                                              parent_id: null
-                                              is_group: false
-                                              group_id: 2112140959
+                                              is_split_parent: false
+                                              split_parent_id: null
+                                              is_group_parent: false
+                                              group_parent_id: 2112140959
                                               manual_account_id: null
                                               plaid_account_id: null
                                               tag_ids:
@@ -6730,10 +6942,10 @@ paths:
                                               is_pending: false
                                               created_at: "2025-05-16T17:00:06.192Z"
                                               updated_at: "2025-05-16T17:00:06.192Z"
-                                              is_parent: false
-                                              parent_id: null
-                                              is_group: false
-                                              group_id: 2112140959
+                                              is_split_parent: false
+                                              split_parent_id: null
+                                              is_group_parent: false
+                                              group_parent_id: 2112140959
                                               manual_account_id: null
                                               plaid_account_id: null
                                               tag_ids:
@@ -6754,10 +6966,10 @@ paths:
                                               is_pending: false
                                               created_at: "2025-05-15T17:00:06.192Z"
                                               updated_at: "2025-05-15T17:00:06.733Z"
-                                              is_parent: false
-                                              parent_id: null
-                                              is_group: false
-                                              group_id: 2112140959
+                                              is_split_parent: false
+                                              split_parent_id: null
+                                              is_group_parent: false
+                                              group_parent_id: 2112140959
                                               manual_account_id: null
                                               plaid_account_id: 119805
                                               tag_ids:
@@ -6808,7 +7020,7 @@ paths:
                 accepted in the request body but their values will be ignored: `id`, `to_base`, `is_pending`, `created_at`, `updated_at`, `source`, and `plaid_metadata`.<br><br>
 
                 Transactions that have been previously split or grouped may not be
-                modified by this endpoint. Therefore the `is_parent`, `parent_id`, `is_group`, `group_id`, and `children` properties are also ignored when provided in the request body.<br><br>
+                modified by this endpoint. Therefore the `is_split_parent`, `split_parent_id`, `is_group_parent`, `group_parent_id`, and `children` properties are also ignored when provided in the request body.<br><br>
 
                 It is also possible to provide only the properties to be updated in the
                 request body, as long as the request includes at least one of the
@@ -6864,10 +7076,10 @@ paths:
                                     is_pending: false
                                     created_at: "2024-12-09T17:00:06.192Z"
                                     updated_at: "2024-12-09T17:00:06.733Z"
-                                    is_parent: false
-                                    parent_id: null
-                                    is_group: false
-                                    group_id: null
+                                    is_split_parent: false
+                                    split_parent_id: null
+                                    is_group_parent: false
+                                    group_parent_id: null
                                     manual_account_id: null
                                     plaid_account_id: 119810
                                     tag_ids: []
@@ -6896,10 +7108,10 @@ paths:
                                         is_pending: false
                                         created_at: "2024-12-09T17:00:06.192Z"
                                         updated_at: "2024-12-09T17:00:06.733Z"
-                                        is_parent: false
-                                        parent_id: null
-                                        is_group: false
-                                        group_id: null
+                                        is_split_parent: false
+                                        split_parent_id: null
+                                        is_group_parent: false
+                                        group_parent_id: null
                                         manual_account_id: null
                                         plaid_account_id: 119810
                                         tag_ids: []
@@ -7123,9 +7335,9 @@ paths:
                                         is_pending: false
                                         created_at: "2024-12-18T14:45:03.366Z"
                                         updated_at: "2024-12-18T14:45:03.366Z"
-                                        parent_id: null
-                                        is_group: true
-                                        group_id: null
+                                        split_parent_id: null
+                                        is_group_parent: true
+                                        group_parent_id: null
                                         manual_account_id: null
                                         plaid_account_id: null
                                         tag_ids: []
@@ -7146,10 +7358,10 @@ paths:
                                               is_pending: false
                                               created_at: "2024-11-10T17:00:06.192Z"
                                               updated_at: "2024-11-10T17:00:06.733Z"
-                                              is_parent: false
-                                              parent_id: null
-                                              is_group: false
-                                              group_id: 123456789
+                                              is_split_parent: false
+                                              split_parent_id: null
+                                              is_group_parent: false
+                                              group_parent_id: 123456789
                                               manual_account_id: null
                                               plaid_account_id: 119809
                                               tag_ids: []
@@ -7168,10 +7380,10 @@ paths:
                                               is_pending: false
                                               created_at: "2024-11-09T17:00:06.192Z"
                                               updated_at: "2024-11-09T17:00:06.733Z"
-                                              is_parent: false
-                                              parent_id: null
-                                              is_group: false
-                                              group_id: 123456789
+                                              is_split_parent: false
+                                              split_parent_id: null
+                                              is_group_parent: false
+                                              group_parent_id: 123456789
                                               manual_account_id: null
                                               plaid_account_id: 119810
                                               tag_ids: []
@@ -7193,9 +7405,9 @@ paths:
                                         is_pending: false
                                         created_at: "2025-11-13T21:39:27.609Z"
                                         updated_at: "2025-11-13T21:39:27.609Z"
-                                        parent_id: null
-                                        is_group: true
-                                        group_id: null
+                                        split_parent_id: null
+                                        is_group_parent: true
+                                        group_parent_id: null
                                         manual_account_id: null
                                         plaid_account_id: null
                                         tag_ids: [94318]
@@ -7216,10 +7428,10 @@ paths:
                                               is_pending: false
                                               created_at: "2025-10-22T17:00:06.192Z"
                                               updated_at: "2025-10-22T17:00:06.733Z"
-                                              is_parent: false
-                                              parent_id: null
-                                              is_group: false
-                                              group_id: 123456789
+                                              is_split_parent: false
+                                              split_parent_id: null
+                                              is_group_parent: false
+                                              group_parent_id: 123456789
                                               manual_account_id: null
                                               plaid_account_id: 119804
                                               tag_ids: []
@@ -7239,10 +7451,10 @@ paths:
                                               is_pending: false
                                               created_at: "2025-10-21T17:00:06.192Z"
                                               updated_at: "2025-10-21T17:00:06.733Z"
-                                              is_parent: false
-                                              parent_id: null
-                                              is_group: false
-                                              group_id: 123456789
+                                              is_split_parent: false
+                                              split_parent_id: null
+                                              is_group_parent: false
+                                              group_parent_id: 123456789
                                               manual_account_id: null
                                               plaid_account_id: 119806
                                               tag_ids: []
@@ -7294,7 +7506,7 @@ paths:
                                             - errMsg: "Transaction with id 2112150647 is in a transaction group already and cannot be added to another transaction group."
                                               ids_index: 1
                                               id: 2112150647
-                                              group_id: 2112140959
+                                              group_parent_id: 2112140959
                                 recurring transactions:
                                     value:
                                         message: Request Validation Failure
@@ -7370,7 +7582,7 @@ paths:
 
                 To see the details of the original parent transaction after it has been
                 split, use the `GET /transactions/{id}` endpoint and pass the value of
-                the `parent_id` of one of the children.
+                the `split_parent_id` of one of the children.
             operationId: splitTransaction
             parameters:
                 - name: id
@@ -7447,10 +7659,10 @@ paths:
                                         is_pending: false
                                         created_at: "2024-10-19T17:00:06.192Z"
                                         updated_at: "2024-11-30T22:25:53.232Z"
-                                        parent_id: null
-                                        is_parent: true
-                                        is_group: false
-                                        group_id: null
+                                        split_parent_id: null
+                                        is_split_parent: true
+                                        is_group_parent: false
+                                        group_parent_id: null
                                         manual_account_id: null
                                         plaid_account_id: 119805
                                         tag_ids: []
@@ -7470,10 +7682,10 @@ paths:
                                               is_pending: false
                                               created_at: "2024-11-30T22:25:53.232Z"
                                               updated_at: "2024-11-30T22:25:53.232Z"
-                                              is_parent: false
-                                              parent_id: null
-                                              is_group: false
-                                              group_id: null
+                                              is_split_parent: false
+                                              split_parent_id: null
+                                              is_group_parent: false
+                                              group_parent_id: null
                                               manual_account_id: null
                                               plaid_account_id: 119805
                                               tag_ids: []
@@ -7492,10 +7704,10 @@ paths:
                                               is_pending: false
                                               created_at: "2024-11-30T22:25:53.232Z"
                                               updated_at: "2024-11-30T22:25:53.232Z"
-                                              is_parent: false
-                                              parent_id: null
-                                              is_group: false
-                                              group_id: null
+                                              is_split_parent: false
+                                              split_parent_id: null
+                                              is_group_parent: false
+                                              group_parent_id: null
                                               manual_account_id: null
                                               plaid_account_id: 119805
                                               tag_ids: []
@@ -7571,7 +7783,7 @@ paths:
                 Deletes the split children of a previously split transactions and
                 restores the parent transactions to the normal unsplit state.<br><br>
 
-                Use the value of the `parent_id`property of a split transaction to
+                Use the value of the `split_parent_id`property of a split transaction to
                 specify the parent ID.
             operationId: unsplitTransaction
             parameters:

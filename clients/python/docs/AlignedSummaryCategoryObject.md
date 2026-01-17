@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **category_id** | **int** | ID of the category associated with the totals. | 
 **totals** | [**AlignedCategoryTotalsObject**](AlignedCategoryTotalsObject.md) |  | 
 **occurrences** | [**List[SummaryCategoryOccurrenceObject]**](SummaryCategoryOccurrenceObject.md) |  | [optional] 
+**rollover_pool** | [**SummaryRolloverPoolObject**](SummaryRolloverPoolObject.md) |  | [optional] 
 
 ## Example
 
