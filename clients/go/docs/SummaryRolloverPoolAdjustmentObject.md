@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Current** | **bool** | true if this is the current rollover pool balance. | 
+**InRange** | **bool** | true if this rollover pool adjustment is for a budget period that falls within the given date range. | 
 **Date** | **string** |  | 
 **Amount** | **string** | Amount of the rollover pool at the time of the adjustment. | 
 **Currency** | [**CurrencyEnum**](CurrencyEnum.md) | Currency of the rollover pool at the time of the adjustment. | 
@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 
 ### NewSummaryRolloverPoolAdjustmentObject
 
-`func NewSummaryRolloverPoolAdjustmentObject(current bool, date string, amount string, currency CurrencyEnum, toBase float32, ) *SummaryRolloverPoolAdjustmentObject`
+`func NewSummaryRolloverPoolAdjustmentObject(inRange bool, date string, amount string, currency CurrencyEnum, toBase float32, ) *SummaryRolloverPoolAdjustmentObject`
 
 NewSummaryRolloverPoolAdjustmentObject instantiates a new SummaryRolloverPoolAdjustmentObject object
 This constructor will assign default values to properties that have it defined,
@@ -29,24 +29,24 @@ NewSummaryRolloverPoolAdjustmentObjectWithDefaults instantiates a new SummaryRol
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetCurrent
+### GetInRange
 
-`func (o *SummaryRolloverPoolAdjustmentObject) GetCurrent() bool`
+`func (o *SummaryRolloverPoolAdjustmentObject) GetInRange() bool`
 
-GetCurrent returns the Current field if non-nil, zero value otherwise.
+GetInRange returns the InRange field if non-nil, zero value otherwise.
 
-### GetCurrentOk
+### GetInRangeOk
 
-`func (o *SummaryRolloverPoolAdjustmentObject) GetCurrentOk() (*bool, bool)`
+`func (o *SummaryRolloverPoolAdjustmentObject) GetInRangeOk() (*bool, bool)`
 
-GetCurrentOk returns a tuple with the Current field if it's non-nil, zero value otherwise
+GetInRangeOk returns a tuple with the InRange field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetCurrent
+### SetInRange
 
-`func (o *SummaryRolloverPoolAdjustmentObject) SetCurrent(v bool)`
+`func (o *SummaryRolloverPoolAdjustmentObject) SetInRange(v bool)`
 
-SetCurrent sets Current field to given value.
+SetInRange sets InRange field to given value.
 
 
 ### GetDate

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Current** | **bool** | true if this occurrence is the current budget period. | 
+**InRange** | **bool** | true if this occurrence is within the given date range. | 
 **StartDate** | **string** | The start date of the budget period. | 
 **EndDate** | **string** | The end date of the budget period. | 
 **OtherActivity** | **float32** | Total non recurring activity, in the user&#39;s default currency, for the category within the given date range. The total activity for the category is the sum of this and the recurring_activity. | 
@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 
 ### NewSummaryCategoryOccurrenceObject
 
-`func NewSummaryCategoryOccurrenceObject(current bool, startDate string, endDate string, otherActivity float32, recurringActivity float32, budgeted NullableFloat32, budgetedAmount NullableString, budgetedCurrency NullableCurrencyEnum, notes NullableString, ) *SummaryCategoryOccurrenceObject`
+`func NewSummaryCategoryOccurrenceObject(inRange bool, startDate string, endDate string, otherActivity float32, recurringActivity float32, budgeted NullableFloat32, budgetedAmount NullableString, budgetedCurrency NullableCurrencyEnum, notes NullableString, ) *SummaryCategoryOccurrenceObject`
 
 NewSummaryCategoryOccurrenceObject instantiates a new SummaryCategoryOccurrenceObject object
 This constructor will assign default values to properties that have it defined,
@@ -33,24 +33,24 @@ NewSummaryCategoryOccurrenceObjectWithDefaults instantiates a new SummaryCategor
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetCurrent
+### GetInRange
 
-`func (o *SummaryCategoryOccurrenceObject) GetCurrent() bool`
+`func (o *SummaryCategoryOccurrenceObject) GetInRange() bool`
 
-GetCurrent returns the Current field if non-nil, zero value otherwise.
+GetInRange returns the InRange field if non-nil, zero value otherwise.
 
-### GetCurrentOk
+### GetInRangeOk
 
-`func (o *SummaryCategoryOccurrenceObject) GetCurrentOk() (*bool, bool)`
+`func (o *SummaryCategoryOccurrenceObject) GetInRangeOk() (*bool, bool)`
 
-GetCurrentOk returns a tuple with the Current field if it's non-nil, zero value otherwise
+GetInRangeOk returns a tuple with the InRange field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetCurrent
+### SetInRange
 
-`func (o *SummaryCategoryOccurrenceObject) SetCurrent(v bool)`
+`func (o *SummaryCategoryOccurrenceObject) SetInRange(v bool)`
 
-SetCurrent sets Current field to given value.
+SetInRange sets InRange field to given value.
 
 
 ### GetStartDate

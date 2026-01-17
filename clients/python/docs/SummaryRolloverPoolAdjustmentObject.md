@@ -6,7 +6,7 @@ The date and adjusted balance of the rollover pool at the time of the adjustment
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**current** | **bool** | true if this is the current rollover pool balance. | 
+**in_range** | **bool** | true if this rollover pool adjustment is for a budget period that falls within the given date range. | 
 **var_date** | **date** |  | 
 **amount** | **str** | Amount of the rollover pool at the time of the adjustment. | 
 **currency** | [**CurrencyEnum**](CurrencyEnum.md) | Currency of the rollover pool at the time of the adjustment. | 

@@ -14,7 +14,7 @@ Method | HTTP request | Description
 Split a transaction
 
 Splits an existing transaction into a set of smaller child transactions.<br><br> After a transaction has been split, the original transaction is no longer shown on the transactions page or returned by a `GET /transactions` request. The newly created child transactions are returned instead.
-To see the details of the original parent transaction after it has been split, use the `GET /transactions/{id}` endpoint and pass the value of the `parent_id` of one of the children.
+To see the details of the original parent transaction after it has been split, use the `GET /transactions/{id}` endpoint and pass the value of the `split_parent_id` of one of the children.
 
 ### Example
 
@@ -107,7 +107,7 @@ Name | Type | Description  | Notes
 Unsplit a previously split transactions
 
 Deletes the split children of a previously split transactions and restores the parent transactions to the normal unsplit state.<br><br>
-Use the value of the `parent_id`property of a split transaction to specify the parent ID.
+Use the value of the `split_parent_id`property of a split transaction to specify the parent ID.
 
 ### Example
 

@@ -1,9 +1,9 @@
 /*
 Lunch Money API - v2
 
-Welcome the Lunch Money v2 API.  A working version of this API is now available through these docs, or directly at:  `https://api.lunchmoney.dev/v2`  <span class=\"red-text\"><strong>This is in alpha launch of a major API update. It is still subject to change during this alpha review period and bugs may still exist. Users are strongly encouraged to use the mock service or to create a test budget with example data as the first step to interacting with the v2 API.</strong></span> See the [Getting Started Guide](https://alpha.lunchmoney.dev/v2/getting-started) for more information on using a test budget.  If you are new to the v2 API, you may wish to review the [v2 API Overview of Changes](https://alpha.lunchmoney.dev/v2/changelog).  ### Static Mock Server  You may also use these docs to explore the API using a static mock server endpoint.<p> This enables users to become familiar with the API without having to create an access token, and eliminates the possibility of modifying real data. <p> To access this endpoint select the second endpoint in the the \"Server\" dropdown to the right. When selected you should see \"Static Mock v2 Lunch Money API Server\".<br> When using this server, set your Bearer token to any string with 11 or more characters.  ### Migrating from V1  The v2 API is NOT backwards compatible with the v1 API. Developers are encouraged to review the [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) to understand the changes and plan their migration.  ### Acknowledgments  If you have been providing feedback on the API during our iterative design process, **THANK YOU**. We are happy to provide the opportunity to finally interact with the working API that was built based on your feedback.  ### Useful links: - [Getting Started](https://alpha.lunchmoney.dev/v2/getting-started) - [v2 API Changelog](https://alpha.lunchmoney.dev/v2/changelog) - [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://alpha.lunchmoney.dev/v2/rate-limits) - [Pagination](https://alpha.lunchmoney.dev/v2/pagination) - [Current v1 Lunch Money API Documentation](https://lunchmoney.dev) - [Awesome Lunch Money Projects](https://github.com/lunch-money/awesome-lunchmoney?tab=readme-ov-file)
+Welcome to the Lunch Money v2 API.  A working version of this API is now available through these docs, or directly at:  `https://api.lunchmoney.dev/v2`  <span class=\"red-text\"><strong>This is in alpha launch of a major API update. It is still subject to change during this alpha review period and bugs may still exist. Users are strongly encouraged to use the mock service or to create a test budget with example data as the first step to interacting with the v2 API.</strong></span> See the [Getting Started Guide](https://alpha.lunchmoney.dev/v2/getting-started) for more information on using a test budget.<br<br>  If you are new to the v2 API, you may wish to review the [v2 API Overview of Changes](https://alpha.lunchmoney.dev/v2/changelog).  ### Static Mock Server  You may also use these docs to explore the API using a static mock server endpoint.<p> This enables users to become familiar with the API without having to create an access token, and eliminates the possibility of modifying real data. <p> To access this endpoint select the second endpoint in the the \"Server\" dropdown to the right. When selected you should see \"Static Mock v2 Lunch Money API Server\".<br> When using this server, set your Bearer token to any string with 11 or more characters.  ### Migrating from V1  The v2 API is NOT backwards compatible with the v1 API. Developers are encouraged to review the [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) to understand the changes and plan their migration.  ### Acknowledgments  If you have been providing feedback on the API during our iterative design process, **THANK YOU**. We are happy to provide the opportunity to finally interact with the working API that was built based on your feedback.  ### Useful links: - [Getting Started](https://alpha.lunchmoney.dev/v2/getting-started) - [v2 API Changelog](https://alpha.lunchmoney.dev/v2/changelog) - [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://alpha.lunchmoney.dev/v2/rate-limits) - [Current v1 Lunch Money API Documentation](https://lunchmoney.dev) - [Awesome Lunch Money Projects](https://github.com/lunch-money/awesome-lunchmoney?tab=readme-ov-file)
 
-API version: 2.8.3
+API version: 2.8.4
 Contact: devsupport@lunchmoney.app
 */
 
@@ -41,10 +41,8 @@ func (r ApiCreateNewTransactionsRequest) Execute() (*InsertTransactionsResponseO
 /*
 CreateNewTransactions Insert one or more transactions.
 
-Use this endpoint to add transactions to a budget.
-
-The request body for this endpoint must include a list of transactions with at least one transaction and not more than 500 transactions to insert.
-
+Use this endpoint to add transactions to a budget.<br><br>
+The request body for this endpoint must include a list of transactions with at least one transaction and not more than 500 transactions to insert.<br><br>
 The successful request to this endpoint will return a response body which will include two arrays: <br> - `transactions`: A list of transactions that were successfully inserted.<br> - `skipped_duplicates`: A list of transactions that were duplicates of existing transactions and were not inserted.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -341,17 +339,20 @@ type ApiGetAllTransactionsRequest struct {
 	ApiService *TransactionsBulkAPIService
 	startDate *string
 	endDate *string
+	createdSince *GetAllTransactionsCreatedSinceParameter
+	updatedSince *GetAllTransactionsCreatedSinceParameter
 	manualAccountId *int32
 	plaidAccountId *int32
 	recurringId *int32
 	categoryId *int32
 	tagId *int32
-	isGroup *bool
+	isGroupParent *bool
 	status *string
 	isPending *bool
 	includePending *bool
 	includeMetadata *bool
 	includeSplitParents *bool
+	includeGroupChildren *bool
 	includeChildren *bool
 	includeFiles *bool
 	limit *int32
@@ -370,13 +371,25 @@ func (r ApiGetAllTransactionsRequest) EndDate(endDate string) ApiGetAllTransacti
 	return r
 }
 
-// Filter transactions to those associated with specified manual account ID or set this to 0 to omit any transactions from manual accounts. Setting both this and &#x60;plaid_account_id&#x60; to 0 will return transactions with no account. These are listed as \&quot;Cash Transactions\&quot; in the Lunch Money GUI.
+// Filter transactions to those created after the specified timestamp. Accepts either a date (YYYY-MM-DD) or ISO 8601 datetime string. Date-only values are interpreted as midnight UTC (00:00:00Z).
+func (r ApiGetAllTransactionsRequest) CreatedSince(createdSince GetAllTransactionsCreatedSinceParameter) ApiGetAllTransactionsRequest {
+	r.createdSince = &createdSince
+	return r
+}
+
+// Filter transactions to those updated after the specified timestamp. Accepts either a date (YYYY-MM-DD) or ISO 8601 datetime string. Date-only values are interpreted as midnight UTC (00:00:00Z).
+func (r ApiGetAllTransactionsRequest) UpdatedSince(updatedSince GetAllTransactionsCreatedSinceParameter) ApiGetAllTransactionsRequest {
+	r.updatedSince = &updatedSince
+	return r
+}
+
+// Filter transactions to those associated with specified manual account ID or set this to 0 to omit any transactions from manual accounts. Setting both this and &#x60;plaid_account_id&#x60; to 0 will return transactions with no account. These are listed as \&quot;Cash Transactions\&quot; in the Lunch Money GUI.&lt;br&gt; Note that transaction groups are not associated with any account. If you want the response to include transactions from transaction groups, set the &#x60;include_group_children&#x60; query parameter to &#x60;true&#x60; when filtering by manual accounts.
 func (r ApiGetAllTransactionsRequest) ManualAccountId(manualAccountId int32) ApiGetAllTransactionsRequest {
 	r.manualAccountId = &manualAccountId
 	return r
 }
 
-// Filter transactions to those associated with specified plaid account ID or set this to 0 to omit any transactions from plaid accounts. Setting both this and &#x60;manual_account_id&#x60; to 0 will return transactions with no account. These are listed as \&quot;Cash Transactions\&quot; in the Lunch Money GUI.
+// Filter transactions to those associated with specified plaid account ID or set this to 0 to omit any transactions from plaid accounts. Setting both this and &#x60;manual_account_id&#x60; to 0 will return transactions with no account. These are listed as \&quot;Cash Transactions\&quot; in the Lunch Money GUI.&lt;br&gt; Note that transaction groups are not associated with any account. If you want the response to include transactions from transaction groups, set the &#x60;include_group_children&#x60; query parameter to &#x60;true&#x60; when filtering by plaid accounts.
 func (r ApiGetAllTransactionsRequest) PlaidAccountId(plaidAccountId int32) ApiGetAllTransactionsRequest {
 	r.plaidAccountId = &plaidAccountId
 	return r
@@ -401,8 +414,8 @@ func (r ApiGetAllTransactionsRequest) TagId(tagId int32) ApiGetAllTransactionsRe
 }
 
 // Filter by group (returns only transaction groups if &#x60;true&#x60;)
-func (r ApiGetAllTransactionsRequest) IsGroup(isGroup bool) ApiGetAllTransactionsRequest {
-	r.isGroup = &isGroup
+func (r ApiGetAllTransactionsRequest) IsGroupParent(isGroupParent bool) ApiGetAllTransactionsRequest {
+	r.isGroupParent = &isGroupParent
 	return r
 }
 
@@ -433,6 +446,12 @@ func (r ApiGetAllTransactionsRequest) IncludeMetadata(includeMetadata bool) ApiG
 // By default, transactions that were split into multiple transactions are not included in the response. Set to true if you&#39;d like the returned transactions objects to include any  transactions that were split into multiple transactions.  Use with caution as this data is normally not exposed after the split transactions are created.
 func (r ApiGetAllTransactionsRequest) IncludeSplitParents(includeSplitParents bool) ApiGetAllTransactionsRequest {
 	r.includeSplitParents = &includeSplitParents
+	return r
+}
+
+// By default, individual transactions that joined into a transaction group are not included in the response. Set to true if you&#39;d like the returned transactions objects to include any transactions that joined into a transaction group.
+func (r ApiGetAllTransactionsRequest) IncludeGroupChildren(includeGroupChildren bool) ApiGetAllTransactionsRequest {
+	r.includeGroupChildren = &includeGroupChildren
 	return r
 }
 
@@ -506,6 +525,12 @@ func (a *TransactionsBulkAPIService) GetAllTransactionsExecute(r ApiGetAllTransa
 	if r.endDate != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "end_date", r.endDate, "form", "")
 	}
+	if r.createdSince != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "created_since", r.createdSince, "form", "")
+	}
+	if r.updatedSince != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "updated_since", r.updatedSince, "form", "")
+	}
 	if r.manualAccountId != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "manual_account_id", r.manualAccountId, "form", "")
 	}
@@ -521,8 +546,8 @@ func (a *TransactionsBulkAPIService) GetAllTransactionsExecute(r ApiGetAllTransa
 	if r.tagId != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "tag_id", r.tagId, "form", "")
 	}
-	if r.isGroup != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "is_group", r.isGroup, "form", "")
+	if r.isGroupParent != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "is_group_parent", r.isGroupParent, "form", "")
 	}
 	if r.status != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "status", r.status, "form", "")
@@ -550,6 +575,13 @@ func (a *TransactionsBulkAPIService) GetAllTransactionsExecute(r ApiGetAllTransa
         var defaultValue bool = false
         parameterAddToHeaderOrQuery(localVarQueryParams, "include_split_parents", defaultValue, "form", "")
         r.includeSplitParents = &defaultValue
+	}
+	if r.includeGroupChildren != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "include_group_children", r.includeGroupChildren, "form", "")
+	} else {
+        var defaultValue bool = false
+        parameterAddToHeaderOrQuery(localVarQueryParams, "include_group_children", defaultValue, "form", "")
+        r.includeGroupChildren = &defaultValue
 	}
 	if r.includeChildren != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "include_children", r.includeChildren, "form", "")
@@ -692,7 +724,7 @@ UpdateTransactions Update multiple transactions
 
 Modifies the properties of multiple existing transactions in a single request.<br><br>
 You may submit complete transaction objects from the response returned by a `GET /transactions` in the request body for each transaction, however only certain properties can be updated using this API. The following system set properties are accepted in the request body, but their values will be ignored: `id`, `to_base`, `is_pending`, `created_at`, `updated_at`, `source`, and `plaid_metadata`.<br><br>
-Transactions that have been previously split or grouped may not be modified by this endpoint. Therefore the `is_parent`, `parent_id`, `is_group`, `group_id`, and `children` properties are also ignored when provided in the request body.<br><br>
+Transactions that have been previously split or grouped may not be modified by this endpoint. Therefore the `is_split_parent`, `split_parent_id`, `is_group_parent`, `group_parent_id`, and `children` properties are also ignored when provided in the request body.<br><br>
 Each transaction in the array **must** include an `id` property to identify which transaction to update, along with at least one other property to be updated. For example, a transaction object that contains only an `id` and `category_id` property is valid.<br><br>
 The request can include between 1 and 500 transactions to update in a single call.
 

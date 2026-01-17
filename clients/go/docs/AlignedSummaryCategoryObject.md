@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **CategoryId** | **int32** | ID of the category associated with the totals. | 
 **Totals** | [**AlignedCategoryTotalsObject**](AlignedCategoryTotalsObject.md) |  | 
 **Occurrences** | Pointer to [**[]SummaryCategoryOccurrenceObject**](SummaryCategoryOccurrenceObject.md) |  | [optional] 
+**RolloverPool** | Pointer to [**SummaryRolloverPoolObject**](SummaryRolloverPoolObject.md) |  | [optional] 
 
 ## Methods
 
@@ -91,6 +92,31 @@ SetOccurrences sets Occurrences field to given value.
 `func (o *AlignedSummaryCategoryObject) HasOccurrences() bool`
 
 HasOccurrences returns a boolean if a field has been set.
+
+### GetRolloverPool
+
+`func (o *AlignedSummaryCategoryObject) GetRolloverPool() SummaryRolloverPoolObject`
+
+GetRolloverPool returns the RolloverPool field if non-nil, zero value otherwise.
+
+### GetRolloverPoolOk
+
+`func (o *AlignedSummaryCategoryObject) GetRolloverPoolOk() (*SummaryRolloverPoolObject, bool)`
+
+GetRolloverPoolOk returns a tuple with the RolloverPool field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRolloverPool
+
+`func (o *AlignedSummaryCategoryObject) SetRolloverPool(v SummaryRolloverPoolObject)`
+
+SetRolloverPool sets RolloverPool field to given value.
+
+### HasRolloverPool
+
+`func (o *AlignedSummaryCategoryObject) HasRolloverPool() bool`
+
+HasRolloverPool returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **ExternalId** | Pointer to **NullableString** | An optional user-defined ID for the manual account. | [optional] 
 **CustomMetadata** | Pointer to **map[string]interface{}** | An optional JSON object that includes additional data related to this account. This must be a valid JSON object and, when stringified, must not exceed 4096 characters. | [optional] 
 **ExcludeFromTransactions** | Pointer to **bool** | If set, transactions may not be assigned to this manual account. | [optional] 
+**ToBase** | Pointer to **float32** | System defined balance converted to the user&#39;s primary currency. Ignored if set.  Use &#x60;balance&#x60; to update the balance in the account. | [optional] 
 **CreatedAt** | Pointer to **time.Time** | System defined date/time the account was created in ISO 8601 extended format. Ignored if set. | [optional] 
 **UpdatedAt** | Pointer to **time.Time** | System defined date/time the account was created in ISO 8601 extended format. Ignored if set. | [optional] 
 
@@ -423,6 +424,31 @@ SetExcludeFromTransactions sets ExcludeFromTransactions field to given value.
 `func (o *UpdateManualAccountRequestObject) HasExcludeFromTransactions() bool`
 
 HasExcludeFromTransactions returns a boolean if a field has been set.
+
+### GetToBase
+
+`func (o *UpdateManualAccountRequestObject) GetToBase() float32`
+
+GetToBase returns the ToBase field if non-nil, zero value otherwise.
+
+### GetToBaseOk
+
+`func (o *UpdateManualAccountRequestObject) GetToBaseOk() (*float32, bool)`
+
+GetToBaseOk returns a tuple with the ToBase field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetToBase
+
+`func (o *UpdateManualAccountRequestObject) SetToBase(v float32)`
+
+SetToBase sets ToBase field to given value.
+
+### HasToBase
+
+`func (o *UpdateManualAccountRequestObject) HasToBase() bool`
+
+HasToBase returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
