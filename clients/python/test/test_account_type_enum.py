@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.account_type_enum import AccountTypeEnum
+from lunchmoney-python.models.account_type_enum import AccountTypeEnum
 
 class TestAccountTypeEnum(unittest.TestCase):
     """AccountTypeEnum unit test stubs"""

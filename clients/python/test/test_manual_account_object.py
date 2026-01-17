@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.manual_account_object import ManualAccountObject
+from lunchmoney-python.models.manual_account_object import ManualAccountObject
 
 class TestManualAccountObject(unittest.TestCase):
     """ManualAccountObject unit test stubs"""

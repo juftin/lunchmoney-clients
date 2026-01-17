@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.summary_category_occurrence_object import SummaryCategoryOccurrenceObject
+from lunchmoney-python.models.summary_category_occurrence_object import SummaryCategoryOccurrenceObject
 
 class TestSummaryCategoryOccurrenceObject(unittest.TestCase):
     """SummaryCategoryOccurrenceObject unit test stubs"""

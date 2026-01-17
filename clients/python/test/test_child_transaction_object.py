@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.child_transaction_object import ChildTransactionObject
+from lunchmoney-python.models.child_transaction_object import ChildTransactionObject
 
 class TestChildTransactionObject(unittest.TestCase):
     """ChildTransactionObject unit test stubs"""
@@ -60,10 +60,10 @@ class TestChildTransactionObject(unittest.TestCase):
                     ],
                 source = 'api',
                 external_id = '',
-                plaid_metadata = lunchmoney.models.plaid_metadata.plaid_metadata(),
-                custom_metadata = lunchmoney.models.custom_metadata.custom_metadata(),
+                plaid_metadata = lunchmoney-python.models.plaid_metadata.plaid_metadata(),
+                custom_metadata = lunchmoney-python.models.custom_metadata.custom_metadata(),
                 files = [
-                    lunchmoney.models.transaction_attachment_object.transactionAttachmentObject(
+                    lunchmoney-python.models.transaction_attachment_object.transactionAttachmentObject(
                         id = 56, 
                         uploaded_by = 56, 
                         name = '', 

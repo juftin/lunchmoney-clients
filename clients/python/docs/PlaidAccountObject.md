@@ -29,7 +29,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from lunchmoney.models.plaid_account_object import PlaidAccountObject
+from lunchmoney-python.models.plaid_account_object import PlaidAccountObject
 
 # TODO update the JSON string below
 json = "{}"

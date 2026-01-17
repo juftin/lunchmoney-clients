@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.summary_rollover_pool_object import SummaryRolloverPoolObject
+from lunchmoney-python.models.summary_rollover_pool_object import SummaryRolloverPoolObject
 
 class TestSummaryRolloverPoolObject(unittest.TestCase):
     """SummaryRolloverPoolObject unit test stubs"""
@@ -38,7 +38,7 @@ class TestSummaryRolloverPoolObject(unittest.TestCase):
             return SummaryRolloverPoolObject(
                 budgeted_to_base = 1.337,
                 all_adjustments = [
-                    lunchmoney.models.summary_rollover_pool_adjustment_object.summaryRolloverPoolAdjustmentObject(
+                    lunchmoney-python.models.summary_rollover_pool_adjustment_object.summaryRolloverPoolAdjustmentObject(
                         in_range = True, 
                         date = datetime.datetime.strptime('1975-12-30', '%Y-%m-%d').date(), 
                         amount = '', 
@@ -50,7 +50,7 @@ class TestSummaryRolloverPoolObject(unittest.TestCase):
             return SummaryRolloverPoolObject(
                 budgeted_to_base = 1.337,
                 all_adjustments = [
-                    lunchmoney.models.summary_rollover_pool_adjustment_object.summaryRolloverPoolAdjustmentObject(
+                    lunchmoney-python.models.summary_rollover_pool_adjustment_object.summaryRolloverPoolAdjustmentObject(
                         in_range = True, 
                         date = datetime.datetime.strptime('1975-12-30', '%Y-%m-%d').date(), 
                         amount = '', 

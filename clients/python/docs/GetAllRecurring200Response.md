@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from lunchmoney.models.get_all_recurring200_response import GetAllRecurring200Response
+from lunchmoney-python.models.get_all_recurring200_response import GetAllRecurring200Response
 
 # TODO update the JSON string below
 json = "{}"

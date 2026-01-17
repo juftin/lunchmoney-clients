@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.get_all_manual_accounts200_response import GetAllManualAccounts200Response
+from lunchmoney-python.models.get_all_manual_accounts200_response import GetAllManualAccounts200Response
 
 class TestGetAllManualAccounts200Response(unittest.TestCase):
     """GetAllManualAccounts200Response unit test stubs"""
@@ -37,7 +37,7 @@ class TestGetAllManualAccounts200Response(unittest.TestCase):
         if include_optional:
             return GetAllManualAccounts200Response(
                 manual_accounts = [
-                    lunchmoney.models.manual_account_object.manualAccountObject(
+                    lunchmoney-python.models.manual_account_object.manualAccountObject(
                         id = 56, 
                         name = '0', 
                         type = null, 

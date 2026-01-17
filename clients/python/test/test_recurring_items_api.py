@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.api.recurring_items_api import RecurringItemsApi
+from lunchmoney-python.api.recurring_items_api import RecurringItemsApi
 
 
 class TestRecurringItemsApi(unittest.TestCase):

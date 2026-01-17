@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.get_all_transactions_created_since_parameter import GetAllTransactionsCreatedSinceParameter
+from lunchmoney-python.models.get_all_transactions_created_since_parameter import GetAllTransactionsCreatedSinceParameter
 
 class TestGetAllTransactionsCreatedSinceParameter(unittest.TestCase):
     """GetAllTransactionsCreatedSinceParameter unit test stubs"""

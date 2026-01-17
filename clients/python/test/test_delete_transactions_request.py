@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.delete_transactions_request import DeleteTransactionsRequest
+from lunchmoney-python.models.delete_transactions_request import DeleteTransactionsRequest
 
 class TestDeleteTransactionsRequest(unittest.TestCase):
     """DeleteTransactionsRequest unit test stubs"""

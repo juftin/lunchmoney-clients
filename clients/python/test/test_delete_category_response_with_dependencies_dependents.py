@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.delete_category_response_with_dependencies_dependents import DeleteCategoryResponseWithDependenciesDependents
+from lunchmoney-python.models.delete_category_response_with_dependencies_dependents import DeleteCategoryResponseWithDependenciesDependents
 
 class TestDeleteCategoryResponseWithDependenciesDependents(unittest.TestCase):
     """DeleteCategoryResponseWithDependenciesDependents unit test stubs"""

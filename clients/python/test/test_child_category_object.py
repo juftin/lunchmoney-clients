@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.child_category_object import ChildCategoryObject
+from lunchmoney-python.models.child_category_object import ChildCategoryObject
 
 class TestChildCategoryObject(unittest.TestCase):
     """ChildCategoryObject unit test stubs"""

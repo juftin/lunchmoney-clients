@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.split_transaction_object import SplitTransactionObject
+from lunchmoney-python.models.split_transaction_object import SplitTransactionObject
 
 class TestSplitTransactionObject(unittest.TestCase):
     """SplitTransactionObject unit test stubs"""

@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.get_all_tags200_response import GetAllTags200Response
+from lunchmoney-python.models.get_all_tags200_response import GetAllTags200Response
 
 class TestGetAllTags200Response(unittest.TestCase):
     """GetAllTags200Response unit test stubs"""
@@ -37,7 +37,7 @@ class TestGetAllTags200Response(unittest.TestCase):
         if include_optional:
             return GetAllTags200Response(
                 tags = [
-                    lunchmoney.models.tag_object.tagObject(
+                    lunchmoney-python.models.tag_object.tagObject(
                         id = 56, 
                         name = '', 
                         description = '', 

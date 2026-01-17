@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from lunchmoney.models.recurring_object_overrides import RecurringObjectOverrides
+from lunchmoney-python.models.recurring_object_overrides import RecurringObjectOverrides
 
 # TODO update the JSON string below
 json = "{}"

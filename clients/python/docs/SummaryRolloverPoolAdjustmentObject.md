@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from lunchmoney.models.summary_rollover_pool_adjustment_object import SummaryRolloverPoolAdjustmentObject
+from lunchmoney-python.models.summary_rollover_pool_adjustment_object import SummaryRolloverPoolAdjustmentObject
 
 # TODO update the JSON string below
 json = "{}"

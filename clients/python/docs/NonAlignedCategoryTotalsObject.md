@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from lunchmoney.models.non_aligned_category_totals_object import NonAlignedCategoryTotalsObject
+from lunchmoney-python.models.non_aligned_category_totals_object import NonAlignedCategoryTotalsObject
 
 # TODO update the JSON string below
 json = "{}"

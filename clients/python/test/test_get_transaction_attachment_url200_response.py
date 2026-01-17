@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.get_transaction_attachment_url200_response import GetTransactionAttachmentUrl200Response
+from lunchmoney-python.models.get_transaction_attachment_url200_response import GetTransactionAttachmentUrl200Response
 
 class TestGetTransactionAttachmentUrl200Response(unittest.TestCase):
     """GetTransactionAttachmentUrl200Response unit test stubs"""

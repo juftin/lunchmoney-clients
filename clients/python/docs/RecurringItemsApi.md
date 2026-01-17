@@ -1,4 +1,4 @@
-# lunchmoney.RecurringItemsApi
+# lunchmoney-python.RecurringItemsApi
 
 All URIs are relative to *https://api.lunchmoney.dev/v2*
 
@@ -21,14 +21,14 @@ Get info about the recurring items for a specified time frame
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
-import lunchmoney
-from lunchmoney.models.get_all_recurring200_response import GetAllRecurring200Response
-from lunchmoney.rest import ApiException
+import lunchmoney-python
+from lunchmoney-python.models.get_all_recurring200_response import GetAllRecurring200Response
+from lunchmoney-python.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to https://api.lunchmoney.dev/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     host = "https://api.lunchmoney.dev/v2"
 )
 
@@ -44,14 +44,14 @@ configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['cookieAuth'] = 'Bearer'
 
 # Configure Bearer authorization (JWT): bearerSecurity
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with lunchmoney.ApiClient(configuration) as api_client:
+with lunchmoney-python.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = lunchmoney.RecurringItemsApi(api_client)
+    api_instance = lunchmoney-python.RecurringItemsApi(api_client)
     start_date = '2013-10-20' # date | Denotes the beginning of the range used to populate the `matching` object in the recurring items. If omitted, the current month will be used as the range.<br> Required if end_date exists. (optional)
     end_date = '2013-10-20' # date | Denotes the end of the the range used to populate the `matching` object in the recurring items. Required if start_date exists.  (optional)
     include_suggested = True # bool |  (optional)
@@ -115,14 +115,14 @@ Retrieve the details of a specific recurring item with the specified ID.
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
-import lunchmoney
-from lunchmoney.models.recurring_object import RecurringObject
-from lunchmoney.rest import ApiException
+import lunchmoney-python
+from lunchmoney-python.models.recurring_object import RecurringObject
+from lunchmoney-python.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to https://api.lunchmoney.dev/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     host = "https://api.lunchmoney.dev/v2"
 )
 
@@ -138,14 +138,14 @@ configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['cookieAuth'] = 'Bearer'
 
 # Configure Bearer authorization (JWT): bearerSecurity
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with lunchmoney.ApiClient(configuration) as api_client:
+with lunchmoney-python.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = lunchmoney.RecurringItemsApi(api_client)
+    api_instance = lunchmoney-python.RecurringItemsApi(api_client)
     id = 994069 # int | ID of the recurring item to retrieve
     start_date = '2013-10-20' # date | Denotes the beginning of the range used to populate the `matching` object in the recurring items. If omitted, the current month will be used as the range.<br> Required if end_date exists. (optional)
     end_date = '2013-10-20' # date | Denotes the end of the the range used to populate the `matching` object in the recurring items. Required if start_date exists.  (optional)

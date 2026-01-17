@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.plaid_account_object import PlaidAccountObject
+from lunchmoney-python.models.plaid_account_object import PlaidAccountObject
 
 class TestPlaidAccountObject(unittest.TestCase):
     """PlaidAccountObject unit test stubs"""

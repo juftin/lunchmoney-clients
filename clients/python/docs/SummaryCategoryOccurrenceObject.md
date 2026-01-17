@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from lunchmoney.models.summary_category_occurrence_object import SummaryCategoryOccurrenceObject
+from lunchmoney-python.models.summary_category_occurrence_object import SummaryCategoryOccurrenceObject
 
 # TODO update the JSON string below
 json = "{}"

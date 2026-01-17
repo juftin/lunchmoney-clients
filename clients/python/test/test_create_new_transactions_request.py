@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.create_new_transactions_request import CreateNewTransactionsRequest
+from lunchmoney-python.models.create_new_transactions_request import CreateNewTransactionsRequest
 
 class TestCreateNewTransactionsRequest(unittest.TestCase):
     """CreateNewTransactionsRequest unit test stubs"""
@@ -37,7 +37,7 @@ class TestCreateNewTransactionsRequest(unittest.TestCase):
         if include_optional:
             return CreateNewTransactionsRequest(
                 transactions = [
-                    lunchmoney.models.insert_transaction_object.insertTransactionObject(
+                    lunchmoney-python.models.insert_transaction_object.insertTransactionObject(
                         date = datetime.datetime.strptime('1975-12-30', '%Y-%m-%d').date(), 
                         amount = null, 
                         currency = null, 
@@ -61,7 +61,7 @@ class TestCreateNewTransactionsRequest(unittest.TestCase):
         else:
             return CreateNewTransactionsRequest(
                 transactions = [
-                    lunchmoney.models.insert_transaction_object.insertTransactionObject(
+                    lunchmoney-python.models.insert_transaction_object.insertTransactionObject(
                         date = datetime.datetime.strptime('1975-12-30', '%Y-%m-%d').date(), 
                         amount = null, 
                         currency = null, 

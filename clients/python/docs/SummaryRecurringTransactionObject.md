@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from lunchmoney.models.summary_recurring_transaction_object import SummaryRecurringTransactionObject
+from lunchmoney-python.models.summary_recurring_transaction_object import SummaryRecurringTransactionObject
 
 # TODO update the JSON string below
 json = "{}"

@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.summary_recurring_transaction_object import SummaryRecurringTransactionObject
+from lunchmoney-python.models.summary_recurring_transaction_object import SummaryRecurringTransactionObject
 
 class TestSummaryRecurringTransactionObject(unittest.TestCase):
     """SummaryRecurringTransactionObject unit test stubs"""

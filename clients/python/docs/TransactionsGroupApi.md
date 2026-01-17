@@ -1,4 +1,4 @@
-# lunchmoney.TransactionsGroupApi
+# lunchmoney-python.TransactionsGroupApi
 
 All URIs are relative to *https://api.lunchmoney.dev/v2*
 
@@ -32,15 +32,15 @@ be included in the `children` property of the transaction returned in the respon
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
-import lunchmoney
-from lunchmoney.models.group_transactions_request import GroupTransactionsRequest
-from lunchmoney.models.transaction_object import TransactionObject
-from lunchmoney.rest import ApiException
+import lunchmoney-python
+from lunchmoney-python.models.group_transactions_request import GroupTransactionsRequest
+from lunchmoney-python.models.transaction_object import TransactionObject
+from lunchmoney-python.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to https://api.lunchmoney.dev/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     host = "https://api.lunchmoney.dev/v2"
 )
 
@@ -56,14 +56,14 @@ configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['cookieAuth'] = 'Bearer'
 
 # Configure Bearer authorization (JWT): bearerSecurity
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with lunchmoney.ApiClient(configuration) as api_client:
+with lunchmoney-python.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = lunchmoney.TransactionsGroupApi(api_client)
+    api_instance = lunchmoney-python.TransactionsGroupApi(api_client)
     group_transactions_request = {"ids":[2112140365,2112140361],"payee":"Home Entertainment Transactions","date":"2024-12-10"} # GroupTransactionsRequest | 
 
     try:
@@ -123,13 +123,13 @@ The transactions within the group are not removed and will subsequently be treat
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
-import lunchmoney
-from lunchmoney.rest import ApiException
+import lunchmoney-python
+from lunchmoney-python.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to https://api.lunchmoney.dev/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     host = "https://api.lunchmoney.dev/v2"
 )
 
@@ -145,14 +145,14 @@ configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['cookieAuth'] = 'Bearer'
 
 # Configure Bearer authorization (JWT): bearerSecurity
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with lunchmoney.ApiClient(configuration) as api_client:
+with lunchmoney-python.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = lunchmoney.TransactionsGroupApi(api_client)
+    api_instance = lunchmoney-python.TransactionsGroupApi(api_client)
     id = 2112140959 # int | ID of the transaction group to delete
 
     try:

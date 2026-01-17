@@ -1,4 +1,4 @@
-# lunchmoney.PlaidAccountsApi
+# lunchmoney-python.PlaidAccountsApi
 
 All URIs are relative to *https://api.lunchmoney.dev/v2*
 
@@ -22,14 +22,14 @@ Retrieve a list of all synced accounts associated with the user's account.
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
-import lunchmoney
-from lunchmoney.models.get_all_plaid_accounts200_response import GetAllPlaidAccounts200Response
-from lunchmoney.rest import ApiException
+import lunchmoney-python
+from lunchmoney-python.models.get_all_plaid_accounts200_response import GetAllPlaidAccounts200Response
+from lunchmoney-python.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to https://api.lunchmoney.dev/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     host = "https://api.lunchmoney.dev/v2"
 )
 
@@ -45,14 +45,14 @@ configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['cookieAuth'] = 'Bearer'
 
 # Configure Bearer authorization (JWT): bearerSecurity
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with lunchmoney.ApiClient(configuration) as api_client:
+with lunchmoney-python.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = lunchmoney.PlaidAccountsApi(api_client)
+    api_instance = lunchmoney-python.PlaidAccountsApi(api_client)
 
     try:
         # Get all accounts synced via Plaid
@@ -107,14 +107,14 @@ Retrieve the details of the plaid account with the specified ID.
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
-import lunchmoney
-from lunchmoney.models.plaid_account_object import PlaidAccountObject
-from lunchmoney.rest import ApiException
+import lunchmoney-python
+from lunchmoney-python.models.plaid_account_object import PlaidAccountObject
+from lunchmoney-python.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to https://api.lunchmoney.dev/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     host = "https://api.lunchmoney.dev/v2"
 )
 
@@ -130,14 +130,14 @@ configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['cookieAuth'] = 'Bearer'
 
 # Configure Bearer authorization (JWT): bearerSecurity
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with lunchmoney.ApiClient(configuration) as api_client:
+with lunchmoney-python.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = lunchmoney.PlaidAccountsApi(api_client)
+    api_instance = lunchmoney-python.PlaidAccountsApi(api_client)
     id = 119805 # int | ID of the plaid account to retrieve
 
     try:
@@ -199,13 +199,13 @@ Successful calls will return a 202 ACCEPTED response. Note that fetching from Pl
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
-import lunchmoney
-from lunchmoney.rest import ApiException
+import lunchmoney-python
+from lunchmoney-python.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to https://api.lunchmoney.dev/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     host = "https://api.lunchmoney.dev/v2"
 )
 
@@ -221,14 +221,14 @@ configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['cookieAuth'] = 'Bearer'
 
 # Configure Bearer authorization (JWT): bearerSecurity
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with lunchmoney.ApiClient(configuration) as api_client:
+with lunchmoney-python.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = lunchmoney.PlaidAccountsApi(api_client)
+    api_instance = lunchmoney-python.PlaidAccountsApi(api_client)
     start_date = '2013-10-20' # date | Denotes the beginning of the time period to fetch transactions for. If omitted, the most recent transactions will be returned. <br> Required if end_date exists. <br> (optional)
     end_date = '2013-10-20' # date | Denotes the end of the time period you'd like to get transactions for. Required if start_date exists.  (optional)
     id = 119807 # int | Specific ID of a plaid account to fetch. If not set the endpoint will trigger a fetch for all eligible accounts. (optional)

@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.api.transactions_bulk_api import TransactionsBulkApi
+from lunchmoney-python.api.transactions_bulk_api import TransactionsBulkApi
 
 
 class TestTransactionsBulkApi(unittest.TestCase):

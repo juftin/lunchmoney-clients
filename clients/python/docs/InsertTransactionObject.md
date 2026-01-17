@@ -22,7 +22,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from lunchmoney.models.insert_transaction_object import InsertTransactionObject
+from lunchmoney-python.models.insert_transaction_object import InsertTransactionObject
 
 # TODO update the JSON string below
 json = "{}"

@@ -26,7 +26,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from lunchmoney.models.manual_account_object import ManualAccountObject
+from lunchmoney-python.models.manual_account_object import ManualAccountObject
 
 # TODO update the JSON string below
 json = "{}"

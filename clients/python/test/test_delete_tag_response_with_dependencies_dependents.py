@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.delete_tag_response_with_dependencies_dependents import DeleteTagResponseWithDependenciesDependents
+from lunchmoney-python.models.delete_tag_response_with_dependencies_dependents import DeleteTagResponseWithDependenciesDependents
 
 class TestDeleteTagResponseWithDependenciesDependents(unittest.TestCase):
     """DeleteTagResponseWithDependenciesDependents unit test stubs"""

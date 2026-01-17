@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.insert_transaction_object import InsertTransactionObject
+from lunchmoney-python.models.insert_transaction_object import InsertTransactionObject
 
 class TestInsertTransactionObject(unittest.TestCase):
     """InsertTransactionObject unit test stubs"""

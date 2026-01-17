@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from lunchmoney.models.skipped_existing_external_id_object import SkippedExistingExternalIdObject
+from lunchmoney-python.models.skipped_existing_external_id_object import SkippedExistingExternalIdObject
 
 # TODO update the JSON string below
 json = "{}"

@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.aligned_summary_response_object import AlignedSummaryResponseObject
+from lunchmoney-python.models.aligned_summary_response_object import AlignedSummaryResponseObject
 
 class TestAlignedSummaryResponseObject(unittest.TestCase):
     """AlignedSummaryResponseObject unit test stubs"""
@@ -36,15 +36,15 @@ class TestAlignedSummaryResponseObject(unittest.TestCase):
         model = AlignedSummaryResponseObject()
         if include_optional:
             return AlignedSummaryResponseObject(
-                totals = lunchmoney.models.summary_totals_object.summaryTotalsObject(
-                    inflow = lunchmoney.models.summary_totals_breakdown_object.summaryTotalsBreakdownObject(
+                totals = lunchmoney-python.models.summary_totals_object.summaryTotalsObject(
+                    inflow = lunchmoney-python.models.summary_totals_breakdown_object.summaryTotalsBreakdownObject(
                         other_activity = 1.337, 
                         recurring_activity = 1.337, 
                         recurring_remaining = 1.337, 
                         uncategorized = 1.337, 
                         uncategorized_count = 56, 
                         uncategorized_recurring = 1.337, ), 
-                    outflow = lunchmoney.models.summary_totals_breakdown_object.summaryTotalsBreakdownObject(
+                    outflow = lunchmoney-python.models.summary_totals_breakdown_object.summaryTotalsBreakdownObject(
                         other_activity = 1.337, 
                         recurring_activity = 1.337, 
                         recurring_remaining = 1.337, 
@@ -53,9 +53,9 @@ class TestAlignedSummaryResponseObject(unittest.TestCase):
                         uncategorized_recurring = 1.337, ), ),
                 aligned = True,
                 categories = [
-                    lunchmoney.models.aligned_summary_category_object.alignedSummaryCategoryObject(
+                    lunchmoney-python.models.aligned_summary_category_object.alignedSummaryCategoryObject(
                         category_id = 56, 
-                        totals = lunchmoney.models.aligned_category_totals_object.alignedCategoryTotalsObject(
+                        totals = lunchmoney-python.models.aligned_category_totals_object.alignedCategoryTotalsObject(
                             other_activity = 1.337, 
                             recurring_activity = 1.337, 
                             budgeted = 1.337, 
@@ -63,7 +63,7 @@ class TestAlignedSummaryResponseObject(unittest.TestCase):
                             recurring_remaining = 1.337, 
                             recurring_expected = 1.337, ), 
                         occurrences = [
-                            lunchmoney.models.summary_category_occurrence_object.summaryCategoryOccurrenceObject(
+                            lunchmoney-python.models.summary_category_occurrence_object.summaryCategoryOccurrenceObject(
                                 in_range = True, 
                                 start_date = datetime.datetime.strptime('1975-12-30', '%Y-%m-%d').date(), 
                                 end_date = datetime.datetime.strptime('1975-12-30', '%Y-%m-%d').date(), 
@@ -74,10 +74,10 @@ class TestAlignedSummaryResponseObject(unittest.TestCase):
                                 budgeted_currency = null, 
                                 notes = '', )
                             ], 
-                        rollover_pool = lunchmoney.models.summary_rollover_pool_object.summaryRolloverPoolObject(
+                        rollover_pool = lunchmoney-python.models.summary_rollover_pool_object.summaryRolloverPoolObject(
                             budgeted_to_base = 1.337, 
                             all_adjustments = [
-                                lunchmoney.models.summary_rollover_pool_adjustment_object.summaryRolloverPoolAdjustmentObject(
+                                lunchmoney-python.models.summary_rollover_pool_adjustment_object.summaryRolloverPoolAdjustmentObject(
                                     in_range = True, 
                                     date = datetime.datetime.strptime('1975-12-30', '%Y-%m-%d').date(), 
                                     amount = '', 
@@ -90,9 +90,9 @@ class TestAlignedSummaryResponseObject(unittest.TestCase):
             return AlignedSummaryResponseObject(
                 aligned = True,
                 categories = [
-                    lunchmoney.models.aligned_summary_category_object.alignedSummaryCategoryObject(
+                    lunchmoney-python.models.aligned_summary_category_object.alignedSummaryCategoryObject(
                         category_id = 56, 
-                        totals = lunchmoney.models.aligned_category_totals_object.alignedCategoryTotalsObject(
+                        totals = lunchmoney-python.models.aligned_category_totals_object.alignedCategoryTotalsObject(
                             other_activity = 1.337, 
                             recurring_activity = 1.337, 
                             budgeted = 1.337, 
@@ -100,7 +100,7 @@ class TestAlignedSummaryResponseObject(unittest.TestCase):
                             recurring_remaining = 1.337, 
                             recurring_expected = 1.337, ), 
                         occurrences = [
-                            lunchmoney.models.summary_category_occurrence_object.summaryCategoryOccurrenceObject(
+                            lunchmoney-python.models.summary_category_occurrence_object.summaryCategoryOccurrenceObject(
                                 in_range = True, 
                                 start_date = datetime.datetime.strptime('1975-12-30', '%Y-%m-%d').date(), 
                                 end_date = datetime.datetime.strptime('1975-12-30', '%Y-%m-%d').date(), 
@@ -111,10 +111,10 @@ class TestAlignedSummaryResponseObject(unittest.TestCase):
                                 budgeted_currency = null, 
                                 notes = '', )
                             ], 
-                        rollover_pool = lunchmoney.models.summary_rollover_pool_object.summaryRolloverPoolObject(
+                        rollover_pool = lunchmoney-python.models.summary_rollover_pool_object.summaryRolloverPoolObject(
                             budgeted_to_base = 1.337, 
                             all_adjustments = [
-                                lunchmoney.models.summary_rollover_pool_adjustment_object.summaryRolloverPoolAdjustmentObject(
+                                lunchmoney-python.models.summary_rollover_pool_adjustment_object.summaryRolloverPoolAdjustmentObject(
                                     in_range = True, 
                                     date = datetime.datetime.strptime('1975-12-30', '%Y-%m-%d').date(), 
                                     amount = '', 

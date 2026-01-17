@@ -24,7 +24,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from lunchmoney.models.create_category_request_object_children_inner import CreateCategoryRequestObjectChildrenInner
+from lunchmoney-python.models.create_category_request_object_children_inner import CreateCategoryRequestObjectChildrenInner
 
 # TODO update the JSON string below
 json = "{}"

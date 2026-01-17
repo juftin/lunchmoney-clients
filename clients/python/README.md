@@ -1,4 +1,4 @@
-# lunchmoney
+# lunchmoney-python
 Welcome to the Lunch Money v2 API.
 
 A working version of this API is now available through these docs, or directly at:
@@ -57,7 +57,7 @@ pip install git+https://github.com/juftin/lunchmoney-clients.git
 
 Then import the package:
 ```python
-import lunchmoney
+import lunchmoney-python
 ```
 
 ### Setuptools
@@ -71,7 +71,7 @@ python setup.py install --user
 
 Then import the package:
 ```python
-import lunchmoney
+import lunchmoney-python
 ```
 
 ### Tests
@@ -84,13 +84,13 @@ Please follow the [installation procedure](#installation--usage) and then run th
 
 ```python
 
-import lunchmoney
-from lunchmoney.rest import ApiException
+import lunchmoney-python
+from lunchmoney-python.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to https://api.lunchmoney.dev/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     host = "https://api.lunchmoney.dev/v2"
 )
 
@@ -106,15 +106,15 @@ configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['cookieAuth'] = 'Bearer'
 
 # Configure Bearer authorization (JWT): bearerSecurity
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 
 # Enter a context with an instance of the API client
-with lunchmoney.ApiClient(configuration) as api_client:
+with lunchmoney-python.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = lunchmoney.CategoriesApi(api_client)
+    api_instance = lunchmoney-python.CategoriesApi(api_client)
     create_category_request_object = {"name":"API Created Category","description":"Test description of created category","is_income":false,"exclude_from_budget":true,"exclude_from_totals":false,"is_group":false} # CreateCategoryRequestObject | 
 
     try:

@@ -1,4 +1,4 @@
-# lunchmoney.TransactionsApi
+# lunchmoney-python.TransactionsApi
 
 All URIs are relative to *https://api.lunchmoney.dev/v2*
 
@@ -24,13 +24,13 @@ This action is not reversible!
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
-import lunchmoney
-from lunchmoney.rest import ApiException
+import lunchmoney-python
+from lunchmoney-python.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to https://api.lunchmoney.dev/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     host = "https://api.lunchmoney.dev/v2"
 )
 
@@ -46,14 +46,14 @@ configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['cookieAuth'] = 'Bearer'
 
 # Configure Bearer authorization (JWT): bearerSecurity
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with lunchmoney.ApiClient(configuration) as api_client:
+with lunchmoney-python.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = lunchmoney.TransactionsApi(api_client)
+    api_instance = lunchmoney-python.TransactionsApi(api_client)
     id = 2112140361 # int | ID of the transaction to delete
 
     try:
@@ -118,14 +118,14 @@ If `is_split_parent` is true in the returned transaction, the object will also i
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
-import lunchmoney
-from lunchmoney.models.transaction_object import TransactionObject
-from lunchmoney.rest import ApiException
+import lunchmoney-python
+from lunchmoney-python.models.transaction_object import TransactionObject
+from lunchmoney-python.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to https://api.lunchmoney.dev/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     host = "https://api.lunchmoney.dev/v2"
 )
 
@@ -141,14 +141,14 @@ configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['cookieAuth'] = 'Bearer'
 
 # Configure Bearer authorization (JWT): bearerSecurity
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with lunchmoney.ApiClient(configuration) as api_client:
+with lunchmoney-python.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = lunchmoney.TransactionsApi(api_client)
+    api_instance = lunchmoney-python.TransactionsApi(api_client)
     id = 2112150654 # int | ID of the transaction to retrieve
 
     try:
@@ -211,15 +211,15 @@ It is also possible to provide only the properties to be updated in the request 
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
-import lunchmoney
-from lunchmoney.models.transaction_object import TransactionObject
-from lunchmoney.models.update_transaction_object import UpdateTransactionObject
-from lunchmoney.rest import ApiException
+import lunchmoney-python
+from lunchmoney-python.models.transaction_object import TransactionObject
+from lunchmoney-python.models.update_transaction_object import UpdateTransactionObject
+from lunchmoney-python.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to https://api.lunchmoney.dev/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     host = "https://api.lunchmoney.dev/v2"
 )
 
@@ -235,14 +235,14 @@ configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['cookieAuth'] = 'Bearer'
 
 # Configure Bearer authorization (JWT): bearerSecurity
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with lunchmoney.ApiClient(configuration) as api_client:
+with lunchmoney-python.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = lunchmoney.TransactionsApi(api_client)
+    api_instance = lunchmoney-python.TransactionsApi(api_client)
     id = 2112140361 # int | ID of the transaction to update
     update_transaction_object = {"category_id":315162} # UpdateTransactionObject | 
     update_balance = True # bool | Set this to `false` to skip updating the transaction's associated account balance. Default behavior is to update balances. (optional)

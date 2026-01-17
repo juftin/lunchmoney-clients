@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.recurring_object_matches import RecurringObjectMatches
+from lunchmoney-python.models.recurring_object_matches import RecurringObjectMatches
 
 class TestRecurringObjectMatches(unittest.TestCase):
     """RecurringObjectMatches unit test stubs"""
@@ -42,7 +42,7 @@ class TestRecurringObjectMatches(unittest.TestCase):
                     datetime.datetime.strptime('1975-12-30', '%Y-%m-%d').date()
                     ],
                 found_transactions = [
-                    lunchmoney.models.recurring_object_matches_found_transactions_inner.recurringObject_matches_found_transactions_inner(
+                    lunchmoney-python.models.recurring_object_matches_found_transactions_inner.recurringObject_matches_found_transactions_inner(
                         date = datetime.datetime.strptime('1975-12-30', '%Y-%m-%d').date(), 
                         transaction_id = 56, )
                     ],

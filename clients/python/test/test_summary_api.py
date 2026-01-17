@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.api.summary_api import SummaryApi
+from lunchmoney-python.api.summary_api import SummaryApi
 
 
 class TestSummaryApi(unittest.TestCase):

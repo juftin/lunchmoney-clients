@@ -1,4 +1,4 @@
-# lunchmoney.TransactionsSplitApi
+# lunchmoney-python.TransactionsSplitApi
 
 All URIs are relative to *https://api.lunchmoney.dev/v2*
 
@@ -22,15 +22,15 @@ To see the details of the original parent transaction after it has been split, u
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
-import lunchmoney
-from lunchmoney.models.split_transaction_request import SplitTransactionRequest
-from lunchmoney.models.transaction_object import TransactionObject
-from lunchmoney.rest import ApiException
+import lunchmoney-python
+from lunchmoney-python.models.split_transaction_request import SplitTransactionRequest
+from lunchmoney-python.models.transaction_object import TransactionObject
+from lunchmoney-python.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to https://api.lunchmoney.dev/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     host = "https://api.lunchmoney.dev/v2"
 )
 
@@ -46,14 +46,14 @@ configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['cookieAuth'] = 'Bearer'
 
 # Configure Bearer authorization (JWT): bearerSecurity
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with lunchmoney.ApiClient(configuration) as api_client:
+with lunchmoney-python.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = lunchmoney.TransactionsSplitApi(api_client)
+    api_instance = lunchmoney-python.TransactionsSplitApi(api_client)
     id = 2112150650 # int | ID of the transaction to spit
     split_transaction_request = {"child_transactions":[{"amount":44.23,"payee":"Food Town - Lenny"},{"amount":44.22,"payee":"Food Town - Penny"}]} # SplitTransactionRequest | 
 
@@ -115,13 +115,13 @@ Use the value of the `split_parent_id`property of a split transaction to specify
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
-import lunchmoney
-from lunchmoney.rest import ApiException
+import lunchmoney-python
+from lunchmoney-python.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to https://api.lunchmoney.dev/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     host = "https://api.lunchmoney.dev/v2"
 )
 
@@ -137,14 +137,14 @@ configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['cookieAuth'] = 'Bearer'
 
 # Configure Bearer authorization (JWT): bearerSecurity
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with lunchmoney.ApiClient(configuration) as api_client:
+with lunchmoney-python.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = lunchmoney.TransactionsSplitApi(api_client)
+    api_instance = lunchmoney-python.TransactionsSplitApi(api_client)
     id = 2112140459 # int | ID of the previously split transaction to delete.
 
     try:

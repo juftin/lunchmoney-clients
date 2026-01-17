@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.create_manual_account_request_object import CreateManualAccountRequestObject
+from lunchmoney-python.models.create_manual_account_request_object import CreateManualAccountRequestObject
 
 class TestCreateManualAccountRequestObject(unittest.TestCase):
     """CreateManualAccountRequestObject unit test stubs"""

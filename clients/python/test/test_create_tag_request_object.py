@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.create_tag_request_object import CreateTagRequestObject
+from lunchmoney-python.models.create_tag_request_object import CreateTagRequestObject
 
 class TestCreateTagRequestObject(unittest.TestCase):
     """CreateTagRequestObject unit test stubs"""

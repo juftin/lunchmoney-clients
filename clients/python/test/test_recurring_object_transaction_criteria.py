@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.recurring_object_transaction_criteria import RecurringObjectTransactionCriteria
+from lunchmoney-python.models.recurring_object_transaction_criteria import RecurringObjectTransactionCriteria
 
 class TestRecurringObjectTransactionCriteria(unittest.TestCase):
     """RecurringObjectTransactionCriteria unit test stubs"""

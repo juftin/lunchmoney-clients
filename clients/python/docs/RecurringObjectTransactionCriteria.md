@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from lunchmoney.models.recurring_object_transaction_criteria import RecurringObjectTransactionCriteria
+from lunchmoney-python.models.recurring_object_transaction_criteria import RecurringObjectTransactionCriteria
 
 # TODO update the JSON string below
 json = "{}"

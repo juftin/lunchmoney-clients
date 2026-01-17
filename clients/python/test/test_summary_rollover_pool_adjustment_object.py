@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.summary_rollover_pool_adjustment_object import SummaryRolloverPoolAdjustmentObject
+from lunchmoney-python.models.summary_rollover_pool_adjustment_object import SummaryRolloverPoolAdjustmentObject
 
 class TestSummaryRolloverPoolAdjustmentObject(unittest.TestCase):
     """SummaryRolloverPoolAdjustmentObject unit test stubs"""

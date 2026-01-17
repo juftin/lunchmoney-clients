@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.transaction_object import TransactionObject
+from lunchmoney-python.models.transaction_object import TransactionObject
 
 class TestTransactionObject(unittest.TestCase):
     """TransactionObject unit test stubs"""
@@ -60,7 +60,7 @@ class TestTransactionObject(unittest.TestCase):
                 is_group_parent = True,
                 group_parent_id = 56,
                 children = [
-                    lunchmoney.models.child_transaction_object.childTransactionObject(
+                    lunchmoney-python.models.child_transaction_object.childTransactionObject(
                         id = 56, 
                         date = datetime.datetime.strptime('1975-12-30', '%Y-%m-%d').date(), 
                         amount = '', 
@@ -85,10 +85,10 @@ class TestTransactionObject(unittest.TestCase):
                             ], 
                         source = 'api', 
                         external_id = '', 
-                        plaid_metadata = lunchmoney.models.plaid_metadata.plaid_metadata(), 
-                        custom_metadata = lunchmoney.models.custom_metadata.custom_metadata(), 
+                        plaid_metadata = lunchmoney-python.models.plaid_metadata.plaid_metadata(), 
+                        custom_metadata = lunchmoney-python.models.custom_metadata.custom_metadata(), 
                         files = [
-                            lunchmoney.models.transaction_attachment_object.transactionAttachmentObject(
+                            lunchmoney-python.models.transaction_attachment_object.transactionAttachmentObject(
                                 id = 56, 
                                 uploaded_by = 56, 
                                 name = '', 
@@ -101,7 +101,7 @@ class TestTransactionObject(unittest.TestCase):
                 plaid_metadata = None,
                 custom_metadata = None,
                 files = [
-                    lunchmoney.models.transaction_attachment_object.transactionAttachmentObject(
+                    lunchmoney-python.models.transaction_attachment_object.transactionAttachmentObject(
                         id = 56, 
                         uploaded_by = 56, 
                         name = '', 

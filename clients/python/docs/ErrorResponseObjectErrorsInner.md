@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from lunchmoney.models.error_response_object_errors_inner import ErrorResponseObjectErrorsInner
+from lunchmoney-python.models.error_response_object_errors_inner import ErrorResponseObjectErrorsInner
 
 # TODO update the JSON string below
 json = "{}"

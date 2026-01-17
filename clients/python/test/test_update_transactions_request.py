@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.update_transactions_request import UpdateTransactionsRequest
+from lunchmoney-python.models.update_transactions_request import UpdateTransactionsRequest
 
 class TestUpdateTransactionsRequest(unittest.TestCase):
     """UpdateTransactionsRequest unit test stubs"""

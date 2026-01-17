@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.get_all_recurring200_response import GetAllRecurring200Response
+from lunchmoney-python.models.get_all_recurring200_response import GetAllRecurring200Response
 
 class TestGetAllRecurring200Response(unittest.TestCase):
     """GetAllRecurring200Response unit test stubs"""
@@ -37,11 +37,11 @@ class TestGetAllRecurring200Response(unittest.TestCase):
         if include_optional:
             return GetAllRecurring200Response(
                 recurring_items = [
-                    lunchmoney.models.recurring_object.recurringObject(
+                    lunchmoney-python.models.recurring_object.recurringObject(
                         id = 56, 
                         description = '', 
                         status = 'suggested', 
-                        transaction_criteria = lunchmoney.models.recurring_object_transaction_criteria.recurringObject_transaction_criteria(
+                        transaction_criteria = lunchmoney-python.models.recurring_object_transaction_criteria.recurringObject_transaction_criteria(
                             start_date = datetime.datetime.strptime('1975-12-30', '%Y-%m-%d').date(), 
                             end_date = datetime.datetime.strptime('1975-12-30', '%Y-%m-%d').date(), 
                             granularity = 'day', 
@@ -53,18 +53,18 @@ class TestGetAllRecurring200Response(unittest.TestCase):
                             currency = '', 
                             plaid_account_id = 56, 
                             manual_account_id = 56, ), 
-                        overrides = lunchmoney.models.recurring_object_overrides.recurringObject_overrides(
+                        overrides = lunchmoney-python.models.recurring_object_overrides.recurringObject_overrides(
                             payee = '', 
                             notes = '', 
                             category_id = 56, ), 
-                        matches = lunchmoney.models.recurring_object_matches.recurringObject_matches(
+                        matches = lunchmoney-python.models.recurring_object_matches.recurringObject_matches(
                             request_start_date = datetime.datetime.strptime('1975-12-30', '%Y-%m-%d').date(), 
                             request_end_date = datetime.datetime.strptime('1975-12-30', '%Y-%m-%d').date(), 
                             expected_occurrence_dates = [
                                 datetime.datetime.strptime('1975-12-30', '%Y-%m-%d').date()
                                 ], 
                             found_transactions = [
-                                lunchmoney.models.recurring_object_matches_found_transactions_inner.recurringObject_matches_found_transactions_inner(
+                                lunchmoney-python.models.recurring_object_matches_found_transactions_inner.recurringObject_matches_found_transactions_inner(
                                     date = datetime.datetime.strptime('1975-12-30', '%Y-%m-%d').date(), 
                                     transaction_id = 56, )
                                 ], 

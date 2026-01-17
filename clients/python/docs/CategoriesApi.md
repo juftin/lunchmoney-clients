@@ -1,4 +1,4 @@
-# lunchmoney.CategoriesApi
+# lunchmoney-python.CategoriesApi
 
 All URIs are relative to *https://api.lunchmoney.dev/v2*
 
@@ -24,15 +24,15 @@ Creates a new category with the given name.<br> If the `is_group` attribute is s
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
-import lunchmoney
-from lunchmoney.models.category_object import CategoryObject
-from lunchmoney.models.create_category_request_object import CreateCategoryRequestObject
-from lunchmoney.rest import ApiException
+import lunchmoney-python
+from lunchmoney-python.models.category_object import CategoryObject
+from lunchmoney-python.models.create_category_request_object import CreateCategoryRequestObject
+from lunchmoney-python.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to https://api.lunchmoney.dev/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     host = "https://api.lunchmoney.dev/v2"
 )
 
@@ -48,14 +48,14 @@ configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['cookieAuth'] = 'Bearer'
 
 # Configure Bearer authorization (JWT): bearerSecurity
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with lunchmoney.ApiClient(configuration) as api_client:
+with lunchmoney-python.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = lunchmoney.CategoriesApi(api_client)
+    api_instance = lunchmoney-python.CategoriesApi(api_client)
     create_category_request_object = {"name":"API Created Category","description":"Test description of created category","is_income":false,"exclude_from_budget":true,"exclude_from_totals":false,"is_group":false} # CreateCategoryRequestObject | 
 
     try:
@@ -114,13 +114,13 @@ Attempts to delete the single category or category group specified on the path. 
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
-import lunchmoney
-from lunchmoney.rest import ApiException
+import lunchmoney-python
+from lunchmoney-python.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to https://api.lunchmoney.dev/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     host = "https://api.lunchmoney.dev/v2"
 )
 
@@ -136,14 +136,14 @@ configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['cookieAuth'] = 'Bearer'
 
 # Configure Bearer authorization (JWT): bearerSecurity
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with lunchmoney.ApiClient(configuration) as api_client:
+with lunchmoney-python.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = lunchmoney.CategoriesApi(api_client)
+    api_instance = lunchmoney-python.CategoriesApi(api_client)
     id = 83 # int | ID of the category to delete
     force = False # bool | Set to `true` to force deletion even if there are dependencies (optional) (default to False)
 
@@ -203,14 +203,14 @@ Retrieve a list of all categories associated with the user's account.
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
-import lunchmoney
-from lunchmoney.models.get_all_categories200_response import GetAllCategories200Response
-from lunchmoney.rest import ApiException
+import lunchmoney-python
+from lunchmoney-python.models.get_all_categories200_response import GetAllCategories200Response
+from lunchmoney-python.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to https://api.lunchmoney.dev/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     host = "https://api.lunchmoney.dev/v2"
 )
 
@@ -226,14 +226,14 @@ configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['cookieAuth'] = 'Bearer'
 
 # Configure Bearer authorization (JWT): bearerSecurity
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with lunchmoney.ApiClient(configuration) as api_client:
+with lunchmoney-python.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = lunchmoney.CategoriesApi(api_client)
+    api_instance = lunchmoney-python.CategoriesApi(api_client)
     format = nested # str | If `nested`, returns top-level categories (either category groups or categories not part of a category group) in alphabetical order. Grouped categories are nested within the category group under the property `children`. A `flattened`, response is similar but it includes grouped categories at the top level.<br/><br/> Categories are sorted by their `order`. When `order` is null, they are listed in alphabetical order below other categories with an `order`. (optional) (default to nested)
     is_group = True # bool | If `false`, only categories not part of a category group are returned.<br> If `true`, only category groups are returned.<br> When set, the `format` parameter is ignored. (optional)
 
@@ -294,14 +294,14 @@ Retrieve details of a specific category or category group by its ID.
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
-import lunchmoney
-from lunchmoney.models.category_object import CategoryObject
-from lunchmoney.rest import ApiException
+import lunchmoney-python
+from lunchmoney-python.models.category_object import CategoryObject
+from lunchmoney-python.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to https://api.lunchmoney.dev/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     host = "https://api.lunchmoney.dev/v2"
 )
 
@@ -317,14 +317,14 @@ configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['cookieAuth'] = 'Bearer'
 
 # Configure Bearer authorization (JWT): bearerSecurity
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with lunchmoney.ApiClient(configuration) as api_client:
+with lunchmoney-python.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = lunchmoney.CategoriesApi(api_client)
+    api_instance = lunchmoney-python.CategoriesApi(api_client)
     id = 315174 # int | ID of the category to retrieve
 
     try:
@@ -388,15 +388,15 @@ It is possible to modify the children of an existing category group with this AP
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
-import lunchmoney
-from lunchmoney.models.category_object import CategoryObject
-from lunchmoney.models.update_category_request_object import UpdateCategoryRequestObject
-from lunchmoney.rest import ApiException
+import lunchmoney-python
+from lunchmoney-python.models.category_object import CategoryObject
+from lunchmoney-python.models.update_category_request_object import UpdateCategoryRequestObject
+from lunchmoney-python.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to https://api.lunchmoney.dev/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     host = "https://api.lunchmoney.dev/v2"
 )
 
@@ -412,14 +412,14 @@ configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['cookieAuth'] = 'Bearer'
 
 # Configure Bearer authorization (JWT): bearerSecurity
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with lunchmoney.ApiClient(configuration) as api_client:
+with lunchmoney-python.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = lunchmoney.CategoriesApi(api_client)
+    api_instance = lunchmoney-python.CategoriesApi(api_client)
     id = 83 # int | ID of the category to update
     update_category_request_object = {"name":"Updated Category Name","description":"Updated description of the category"} # UpdateCategoryRequestObject | 
 

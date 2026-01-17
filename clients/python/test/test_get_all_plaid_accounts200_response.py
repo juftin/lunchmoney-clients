@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.get_all_plaid_accounts200_response import GetAllPlaidAccounts200Response
+from lunchmoney-python.models.get_all_plaid_accounts200_response import GetAllPlaidAccounts200Response
 
 class TestGetAllPlaidAccounts200Response(unittest.TestCase):
     """GetAllPlaidAccounts200Response unit test stubs"""
@@ -37,7 +37,7 @@ class TestGetAllPlaidAccounts200Response(unittest.TestCase):
         if include_optional:
             return GetAllPlaidAccounts200Response(
                 plaid_accounts = [
-                    lunchmoney.models.plaid_account_object.plaidAccountObject(
+                    lunchmoney-python.models.plaid_account_object.plaidAccountObject(
                         id = 56, 
                         date_linked = datetime.datetime.strptime('1975-12-30', '%Y-%m-%d').date(), 
                         name = '', 

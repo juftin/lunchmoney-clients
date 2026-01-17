@@ -1,4 +1,4 @@
-# lunchmoney.SummaryApi
+# lunchmoney-python.SummaryApi
 
 All URIs are relative to *https://api.lunchmoney.dev/v2*
 
@@ -20,14 +20,14 @@ Returns a summary of the budget activity for the specified date range.
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
-import lunchmoney
-from lunchmoney.models.get_budget_summary200_response import GetBudgetSummary200Response
-from lunchmoney.rest import ApiException
+import lunchmoney-python
+from lunchmoney-python.models.get_budget_summary200_response import GetBudgetSummary200Response
+from lunchmoney-python.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to https://api.lunchmoney.dev/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     host = "https://api.lunchmoney.dev/v2"
 )
 
@@ -43,14 +43,14 @@ configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['cookieAuth'] = 'Bearer'
 
 # Configure Bearer authorization (JWT): bearerSecurity
-configuration = lunchmoney.Configuration(
+configuration = lunchmoney-python.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with lunchmoney.ApiClient(configuration) as api_client:
+with lunchmoney-python.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = lunchmoney.SummaryApi(api_client)
+    api_instance = lunchmoney-python.SummaryApi(api_client)
     start_date = '2025-07-01' # date | Start of date range in ISO 8601 date format (YYYY-MM-DD).
     end_date = '2025-08-31' # date | End of date range in ISO 8601 date format (YYYY-MM-DD).
     include_exclude_from_budgets = False # bool | Enable to include categories that have the 'Exclude from Budgets' flag set in the returned `categories` array. (optional) (default to False)

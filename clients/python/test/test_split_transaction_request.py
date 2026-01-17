@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.split_transaction_request import SplitTransactionRequest
+from lunchmoney-python.models.split_transaction_request import SplitTransactionRequest
 
 class TestSplitTransactionRequest(unittest.TestCase):
     """SplitTransactionRequest unit test stubs"""
@@ -37,7 +37,7 @@ class TestSplitTransactionRequest(unittest.TestCase):
         if include_optional:
             return SplitTransactionRequest(
                 child_transactions = [
-                    lunchmoney.models.split_transaction_object.splitTransactionObject(
+                    lunchmoney-python.models.split_transaction_object.splitTransactionObject(
                         amount = null, 
                         payee = '', 
                         date = datetime.datetime.strptime('1975-12-30', '%Y-%m-%d').date(), 
@@ -48,7 +48,7 @@ class TestSplitTransactionRequest(unittest.TestCase):
         else:
             return SplitTransactionRequest(
                 child_transactions = [
-                    lunchmoney.models.split_transaction_object.splitTransactionObject(
+                    lunchmoney-python.models.split_transaction_object.splitTransactionObject(
                         amount = null, 
                         payee = '', 
                         date = datetime.datetime.strptime('1975-12-30', '%Y-%m-%d').date(), 

@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from lunchmoney.models.update_transactions_request import UpdateTransactionsRequest
+from lunchmoney-python.models.update_transactions_request import UpdateTransactionsRequest
 
 # TODO update the JSON string below
 json = "{}"

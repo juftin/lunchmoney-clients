@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.api.transactions_split_api import TransactionsSplitApi
+from lunchmoney-python.api.transactions_split_api import TransactionsSplitApi
 
 
 class TestTransactionsSplitApi(unittest.TestCase):

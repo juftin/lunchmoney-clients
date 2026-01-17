@@ -23,7 +23,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from lunchmoney.models.child_category_object import ChildCategoryObject
+from lunchmoney-python.models.child_category_object import ChildCategoryObject
 
 # TODO update the JSON string below
 json = "{}"

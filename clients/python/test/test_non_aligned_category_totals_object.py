@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.models.non_aligned_category_totals_object import NonAlignedCategoryTotalsObject
+from lunchmoney-python.models.non_aligned_category_totals_object import NonAlignedCategoryTotalsObject
 
 class TestNonAlignedCategoryTotalsObject(unittest.TestCase):
     """NonAlignedCategoryTotalsObject unit test stubs"""

@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.api.categories_api import CategoriesApi
+from lunchmoney-python.api.categories_api import CategoriesApi
 
 
 class TestCategoriesApi(unittest.TestCase):

@@ -15,7 +15,7 @@
 
 import unittest
 
-from lunchmoney.api.me_api import MeApi
+from lunchmoney-python.api.me_api import MeApi
 
 
 class TestMeApi(unittest.TestCase):

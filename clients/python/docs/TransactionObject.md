@@ -35,7 +35,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from lunchmoney.models.transaction_object import TransactionObject
+from lunchmoney-python.models.transaction_object import TransactionObject
 
 # TODO update the JSON string below
 json = "{}"
