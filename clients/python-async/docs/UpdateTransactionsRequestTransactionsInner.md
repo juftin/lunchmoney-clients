@@ -1,0 +1,54 @@
+# UpdateTransactionsRequestTransactionsInner
+
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**id** | **int** | The ID of the transaction to update | 
+**var_date** | **date** | Date of transaction in ISO 8601 format | [optional] 
+**amount** | [**UpdateTransactionObjectAmount**](UpdateTransactionObjectAmount.md) |  | [optional] 
+**currency** | [**CurrencyEnum**](CurrencyEnum.md) | Three-letter lowercase currency code of the transaction in ISO 4217 format.&lt;br&gt; May not be updated on transactions that belong to a synced account with the \&quot;Allow Modifications to Transactions\&quot; property disabled. | [optional] 
+**recurring_id** | **int** | The unique identifier of the associated recurring item that this transaction matches. | [optional] 
+**payee** | **str** | The new payee for the transaction.  | [optional] 
+**category_id** | **int** | Unique identifier of the category for this transaction. Set this to null to clear the transaction&#39;s category. | [optional] 
+**notes** | **str** | New notes for the transaction. Set this to an empty string to clear the existing notes.  | [optional] 
+**manual_account_id** | **int** | The unique identifier of the manual account associated with this transaction. Set this to null to disassociate the transaction with an account. If set &#x60;plaid_account_id&#x60; may not also be set to a non null value. Moving an existing transaction to to another account will not work if the transaction belongs to a synced account who&#39;s \&quot;Allow Modifications to Transactions\&quot; property is not set. | [optional] 
+**plaid_account_id** | **int** | The unique identifier of the plaid account associated with this transaction. If set &#x60;manual_account_id&#x60; may not also be set to a non null value. Attempting to modify this on a transaction associated with a Plaid account will not work if the account&#39;s \&quot;Allow Modifications to Transactions\&quot; property is not set. Similarly, this cannot be set to an id associated with this type of locked Plaid account. | [optional] 
+**tag_ids** | **List[int]** | A list of tag_ids for the tags associated with this transaction. If set, this property will overwrite any existing tags. Use &#x60;additional_tag_ids&#x60; to add tags to the existing transaction&#39;s tags. Set this to an empty array to remove all tags from a transaction. If set &#x60;additional_tag_ids&#x60; may not be set. | [optional] 
+**additional_tag_ids** | **List[int]** | A list of tag_ids for the tags associated with this transaction. If set, the tags listed in this property be added to any existing transaction tags. Use &#x60;tag_ids&#x60; to overwrite or clear transaction tags. If set &#x60;tag_ids&#x60; may not be set. | [optional] 
+**external_id** | **str** | A user-defined external ID for the transaction. The update will fail if the transaction does not also have a &#x60;manual_account_id&#x60; or if there is already an existing transaction with the same &#x60;manual_account_id&#x60;/&#x60;external_id&#x60; combination. | [optional] 
+**custom_metadata** | **object** | User defined JSON data that can be set or cleared via the API. | [optional] 
+**status** | **str** | Status of the transaction, may be one of: - &#x60;reviewed&#x60;: User has reviewed the transaction, or it was automatically marked as reviewed due to reviewed recurring_item logic - &#x60;unreviewed&#x60;: User has not reviewed the transaction and it does not match any reviewed recurring_items.  | [optional] 
+**to_base** | **float** | System defined amount of this transaction in the user&#39;s primary currency. Ignored if set. Use &#x60;amount&#x60; to update the amount in the transaction. | [optional] 
+**is_pending** | **bool** | System defined flag set for pending transactions. Ignored if set. | [optional] 
+**plaid_metadata** | **object** | System set metadata from a Plaid account sync. Ignored if set. | [optional] 
+**created_at** | **datetime** | System defined date and time of when the transaction was created. Ignored if set. | [optional] 
+**updated_at** | **datetime** | System defined date and time of when the transaction was last updated. Ignored if set. | [optional] 
+**is_split_parent** | **bool** | System defined boolean indicating if this transaction was split. To split or unsplit a transaction use the &#x60;/transactions/split&#x60; endpoint. Ignored if set. | [optional] 
+**children** | [**List[ChildTransactionObject]**](ChildTransactionObject.md) | An array of child transactions that exists when a transaction has been split or if the transaction is a group. Split | [optional] 
+**split_parent_id** | **int** | A transaction ID if this is a split transaction. Split transactions may not be modified this API. Use the &#x60;transactions/split&#x60; endpoint instead. Ignored if set. | [optional] 
+**is_group_parent** | **bool** | System defined boolean indicating if this transaction represents a group of transactions. Grouped transactions may not be modified with this API. Use the &#x60;transactions/group&#x60; endpoint instead. Ignored if set. | [optional] 
+**group_parent_id** | **int** | A transaction group ID if this transaction is part of a group. Grouped transactions may not be modified with this API. Use the &#x60;transactions/group&#x60; endpoint instead. Ignored if set. | [optional] 
+**source** | **str** | System defined original source of the transaction. Ignored if set.  | [optional] 
+
+## Example
+
+```python
+from lunchmoney.models.update_transactions_request_transactions_inner import UpdateTransactionsRequestTransactionsInner
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of UpdateTransactionsRequestTransactionsInner from a JSON string
+update_transactions_request_transactions_inner_instance = UpdateTransactionsRequestTransactionsInner.from_json(json)
+# print the JSON string representation of the object
+print(UpdateTransactionsRequestTransactionsInner.to_json())
+
+# convert the object into a dict
+update_transactions_request_transactions_inner_dict = update_transactions_request_transactions_inner_instance.to_dict()
+# create an instance of UpdateTransactionsRequestTransactionsInner from a dict
+update_transactions_request_transactions_inner_from_dict = UpdateTransactionsRequestTransactionsInner.from_dict(update_transactions_request_transactions_inner_dict)
+```
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
