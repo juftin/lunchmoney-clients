@@ -12,6 +12,10 @@ includes:
         taskfile: tasks/python.yaml
         dir: clients/python
         internal: true
+    python-async:
+        taskfile: tasks/python-async.yaml
+        dir: clients/python-async
+        internal: true
     go:
         taskfile: tasks/go.yaml
         dir: clients/go

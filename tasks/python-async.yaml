@@ -1,0 +1,62 @@
+# yaml-language-server: $schema=https://www.taskfile.dev/schema.json
+
+version: "3"
+vars:
+    CLIENT_NAME: "python-async"
+    VERSION_PATH: python-async.additionalProperties.packageVersion
+env:
+    UV_PYTHON: "3.13"
+tasks:
+    #######################################
+    # Client Tasks
+    #######################################
+    install:
+        desc: Install Project + Dev Dependencies
+        cmds:
+            - cmd: uv venv --clear
+            - cmd: uv pip install -r requirements.txt -r test-requirements.txt
+        env:
+            UV_PYTHON: "{{.UV_PYTHON}}"
+    #######################################
+    publish:
+        desc: Publish Package
+        cmds:
+            - rm -rf dist/
+            - uv build
+            - uv publish
+    #######################################
+    test:
+        desc: Run Tests with different Python versions
+        cmds:
+            - uv run python -m pytest --cov=lunchmoney
+        deps:
+            - install
+    #######################################
+    postprocess:
+        desc: Post-Process Generated Code
+        cmds:
+            - |
+                uv tool run \
+                  --from toml-cli \
+                  toml set \
+                  --toml-path pyproject.toml \
+                  project.name "{{.PROJECT_NAME}}"
+        vars:
+            PROJECT_NAME: lunchmoney-python-async
+    #######################################
+    version:
+        desc: Set the Generator Config Version
+        dir: "{{.ROOT_DIR}}"
+        cmds:
+            - cmd: |
+                  jq --indent 4 \
+                    --arg version "{{.VERSION}}" \
+                    '."generator-cli".generators.{{.VERSION_PATH}} = $version' \
+                    openapitools.json \
+                    > openapitools.tmp.json && \
+                    mv openapitools.tmp.json openapitools.json
+    #######################################
+    clean:
+        desc: Clean Generated Client Code
+        cmds:
+            - cmd: rm -rf {{.ROOT_DIR}}/clients/{{.CLIENT_NAME}}

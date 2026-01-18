@@ -19,7 +19,16 @@ The `python` client is a synchronous, `urllib3` based client for Lunch Money's A
 `pydantic` data models. See the [documentation](./clients/python/README.md) for more details.
 
 ```shell
-pip install git+https://github.com/juftin/lunchmoney-clients/#subdirectory=clients/python
+pip install lunchmoney-python
+```
+
+### Python (Async)
+
+The `python (Async)` client is an asynchronous, `httpx` based client for Lunch Money's API with
+`pydantic` data models. See the [documentation](./clients/python-async/README.md) for more details.
+
+```shell
+pip install lunchmoney-python-async
 ```
 
 ## Adding a New Client

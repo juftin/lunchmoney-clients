@@ -20,6 +20,22 @@
                     "REMOVE_X_INTERNAL": true
                 }
             },
+            "python-async": {
+                "inputSpec": "openapi.yaml",
+                "output": "clients/python-async",
+                "generatorName": "python",
+                "gitUserId": "juftin",
+                "gitRepoId": "lunchmoney-clients",
+                "library": "httpx",
+                "additionalProperties": {
+                    "packageVersion": "2.8.0",
+                    "packageName": "lunchmoney",
+                    "projectName": "lunchmoney-python-async"
+                },
+                "openapi-normalizer": {
+                    "REMOVE_X_INTERNAL": true
+                }
+            },
             "go": {
                 "inputSpec": "openapi.yaml",
                 "output": "clients/go",
