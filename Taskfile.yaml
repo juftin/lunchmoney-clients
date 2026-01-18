@@ -5,6 +5,7 @@ vars:
     OPENAPI_URL: https://alpha.lunchmoney.dev/v2/openapi
     CLIENTS:
         - python
+        - python-async
         - go
 
 includes:
