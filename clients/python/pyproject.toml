@@ -1,5 +1,5 @@
 [project]
-name = "lunchmoney"
+name = "lunchmoney-python"
 version = "2.7.0"
 description = "Lunch Money API - v2"
 authors = [

@@ -23,6 +23,7 @@ tasks:
         cmds:
             - rm -rf dist/
             - uv build
+            - uv publish
     #######################################
     test:
         desc: Run Tests with different Python versions
@@ -34,7 +35,14 @@ tasks:
     postprocess:
         desc: Post-Process Generated Code
         cmds:
-            - exit 0
+            - |
+                uv tool run \
+                  --from toml-cli \
+                  toml set \
+                  --toml-path pyproject.toml \
+                  project.name "{{.PROJECT_NAME}}"
+        vars:
+            PROJECT_NAME: lunchmoney-python
     #######################################
     version:
         desc: Set the Generator Config Version

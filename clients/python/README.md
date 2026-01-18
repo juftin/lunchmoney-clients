@@ -1,4 +1,4 @@
-# lunchmoney
+# lunchmoney-python
 Welcome to the Lunch Money v2 API.
 
 A working version of this API is now available through these docs, or directly at:
