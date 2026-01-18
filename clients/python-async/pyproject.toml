@@ -1,5 +1,5 @@
 [project]
-name = "lunchmoney"
+name = "lunchmoney-python-async"
 version = "2.8.0"
 description = "Lunch Money API - v2"
 authors = [
