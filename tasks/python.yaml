@@ -1,11 +1,8 @@
 # yaml-language-server: $schema=https://www.taskfile.dev/schema.json
 
 version: "3"
-vars:
-    CLIENT_NAME: "python"
-    VERSION_PATH: python.additionalProperties.packageVersion
 env:
-    UV_PYTHON: "3.13"
+    UV_PYTHON: "{{.UV_PYTHON}}"
 tasks:
     #######################################
     # Client Tasks
@@ -14,7 +11,7 @@ tasks:
         desc: Install Project + Dev Dependencies
         cmds:
             - cmd: uv venv --clear
-            - cmd: uv pip install -r requirements.txt -r test-requirements.txt
+            - cmd: uv pip install httpx pytest-cov .
         env:
             UV_PYTHON: "{{.UV_PYTHON}}"
     #######################################
