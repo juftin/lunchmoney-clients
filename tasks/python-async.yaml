@@ -3,7 +3,7 @@
 version: "3"
 vars:
     CLIENT_NAME: "python-async"
-    VERSION_PATH: python-async.additionalProperties.packageVersion
+    VERSION_PATH: '"python-async".additionalProperties.packageVersion'
 env:
     UV_PYTHON: "3.13"
 tasks:
