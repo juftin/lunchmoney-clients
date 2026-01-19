@@ -44,7 +44,7 @@
                 "gitRepoId": "lunchmoney-clients",
                 "packageName": "lunchmoney",
                 "additionalProperties": {
-                    "packageVersion": "2.10.0"
+                    "packageVersion": "2.11.0"
                 },
                 "openapi-normalizer": {
                     "REMOVE_X_INTERNAL": true
