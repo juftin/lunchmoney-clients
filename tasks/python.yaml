@@ -28,7 +28,7 @@ tasks:
     test:
         desc: Run Tests with different Python versions
         cmds:
-            - uv run python -m pytest --cov=lunchmoney
+            - uv run --no-sync python -m pytest --cov=lunchmoney
         deps:
             - install
     #######################################
@@ -36,7 +36,7 @@ tasks:
         desc: Post-Process Generated Code
         cmds:
             - |
-                uv tool run \
+                uv tool run --isolated \
                   --from toml-cli \
                   toml set \
                   --toml-path pyproject.toml \
