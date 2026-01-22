@@ -38,8 +38,9 @@ tasks:
                   toml set \
                   --toml-path pyproject.toml \
                   project.name "{{.PROJECT_NAME}}"
-        vars:
-            PROJECT_NAME: lunchmoney-python
+        requires:
+            vars:
+                - PROJECT_NAME
     #######################################
     version:
         desc: Set the Generator Config Version

@@ -15,6 +15,7 @@ includes:
         internal: true
         vars:
             CLIENT_NAME: python
+            PROJECT_NAME: lunchmoney-python
             VERSION_PATH: python.additionalProperties.packageVersion
             UV_PYTHON: 3.13
     python-async:
@@ -23,6 +24,7 @@ includes:
         internal: true
         vars:
             CLIENT_NAME: python-async
+            PROJECT_NAME: lunchmoney-python-async
             VERSION_PATH: '"python-async".additionalProperties.packageVersion'
             UV_PYTHON: 3.13
     go:
