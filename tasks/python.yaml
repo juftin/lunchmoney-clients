@@ -1,6 +1,9 @@
 # yaml-language-server: $schema=https://www.taskfile.dev/schema.json
 
 version: "3"
+vars:
+    CLIENT_NAME: "{{.CLIENT_NAME}}"
+    CLIENT_DIR: "{{.ROOT_DIR}}/clients/{{.CLIENT_NAME}}"
 env:
     UV_PYTHON: "{{.UV_PYTHON}}"
 tasks:
@@ -18,9 +21,9 @@ tasks:
     publish:
         desc: Publish Package
         cmds:
-            - rm -rf dist/
-            - uv build
-            - uv publish
+            - rm -rf "{{.CLIENT_DIR}}/dist"
+            - uv build --out-dir "{{.CLIENT_DIR}}/dist"
+            - uv publish "{{.CLIENT_DIR}}/dist/*"
     #######################################
     test:
         desc: Run Tests with different Python versions
