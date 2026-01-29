@@ -1,6 +1,6 @@
 [project]
 name = "lunchmoney-python-async"
-version = "2.16.0"
+version = "2.17.0"
 description = "Lunch Money API - v2"
 authors = [
   {name = "OpenAPI Generator Community",email = "devsupport@lunchmoney.app"},
