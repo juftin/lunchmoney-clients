@@ -4,6 +4,9 @@ version: "3"
 vars:
     CLIENT_NAME: "{{.CLIENT_NAME}}"
     CLIENT_DIR: "{{.ROOT_DIR}}/clients/{{.CLIENT_NAME}}"
+    VERSION_PATH: "{{.VERSION_PATH}}"
+    UV_PYTHON: "{{.UV_PYTHON}}"
+    PROJECT_NAME: "{{.PROJECT_NAME}}"
 env:
     UV_PYTHON: "{{.UV_PYTHON}}"
 tasks:
