@@ -60,4 +60,7 @@ tasks:
     clean:
         desc: Clean Generated Client Code
         cmds:
-            - cmd: rm -rf {{.ROOT_DIR}}/clients/{{.CLIENT_NAME}}
+            - cmd: |
+                  if [ -f "{{.CLIENT_DIR}}/.openapi-generator" ]; then \
+                    xargs rm -f < "{{.CLIENT_DIR}}/.openapi-generator"; \
+                  fi
