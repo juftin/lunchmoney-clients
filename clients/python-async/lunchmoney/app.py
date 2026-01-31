@@ -233,10 +233,10 @@ class LunchMoneyApp:
         configuration = lunchmoney.Configuration(
             host="https://api.lunchmoney.dev/v2", access_token=access_token
         )
-        self.async_client: lunchmoney.ApiClient = lunchmoney.ApiClient(
+        self.client: lunchmoney.ApiClient = lunchmoney.ApiClient(
             configuration=configuration
         )
-        self.api: LunchableApi = LunchableApi.from_client(self.async_client)
+        self.api: LunchableApi = LunchableApi.from_client(self.client)
         self.data: LunchableData = LunchableData()
         self._lunchable_models: Iterable[type[BaseModel]] = (
             lunchable_models or self.__class__.lunchable_models
