@@ -8,11 +8,16 @@ on:
         paths:
             - openapi.yaml
             - docs/**
+    workflow_run:
+        workflows: ["generate"]
+        types:
+            - completed
     workflow_dispatch:
 jobs:
     docs:
         name: docs
         runs-on: ubuntu-latest
+        if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
         permissions:
             pages: write
             id-token: write
@@ -22,6 +27,8 @@ jobs:
         steps:
             - name: checkout
               uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+              with:
+                  ref: ${{ github.event.workflow_run.head_sha || github.ref }}
             - name: spec
               run: cp openapi.yaml docs/openapi.yaml
             - name: configure-page
