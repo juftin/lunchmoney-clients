@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**InRange** | **bool** | true if this occurrence is within the given date range. | 
-**StartDate** | **string** | The start date of the budget period. | 
-**EndDate** | **string** | The end date of the budget period. | 
-**OtherActivity** | **float32** | Total non recurring activity, in the user&#39;s default currency, for the category within the given date range. The total activity for the category is the sum of this and the recurring_activity. | 
+**InRange** | **bool** | true if this occurrence is within the given date range | 
+**StartDate** | **string** | The start date of the budget period | 
+**EndDate** | **string** | The end date of the budget period | 
+**OtherActivity** | **float32** | Total non recurring activity, in the user&#39;s default currency, for the category within the given date range. The total activity for the category is the sum of this and the recurring_activity | 
 **RecurringActivity** | **float32** | Total recurring activity, in the user&#39;s default currency, for the category within the given date range. The total activity for the category is the sum of this and the other_activity. | 
 **Budgeted** | **NullableFloat32** | Total budgeted amount, in the user&#39;s default currency, for the category within the given date range, or null if the category is not budgeted. | 
-**BudgetedAmount** | **NullableString** | Total budgeted amount in the budgeted currency for the category within the given date or null if the category is not budgeted. | 
-**BudgetedCurrency** | [**NullableCurrencyEnum**](CurrencyEnum.md) | Currency of the budgeted amount. | 
+**BudgetedAmount** | **NullableString** | Total budgeted amount in the budgeted currency for the category within the given date or null if the category is not budgeted | 
+**BudgetedCurrency** | [**NullableCurrencyEnum**](CurrencyEnum.md) | Currency of the budgeted amount | 
 **Notes** | **NullableString** | Any notes added in the Web UI for the budget period. | 
 
 ## Methods

@@ -3,7 +3,7 @@ Lunch Money API - v2
 
 Welcome to the Lunch Money v2 API.  A working version of this API is now available through these docs, or directly at:  `https://api.lunchmoney.dev/v2`  <span class=\"red-text\"><strong>This is in alpha launch of a major API update. It is still subject to change during this alpha review period and bugs may still exist. Users are strongly encouraged to use the mock service or to create a test budget with example data as the first step to interacting with the v2 API.</strong></span> See the [Getting Started Guide](https://alpha.lunchmoney.dev/v2/getting-started) for more information on using a test budget.<br<br>  If you are new to the v2 API, you may wish to review the [v2 API Overview of Changes](https://alpha.lunchmoney.dev/v2/changelog).  ### Static Mock Server  You may also use these docs to explore the API using a static mock server endpoint.<p> This enables users to become familiar with the API without having to create an access token, and eliminates the possibility of modifying real data. <p> To access this endpoint select the second endpoint in the the \"Server\" dropdown to the right. When selected you should see \"Static Mock v2 Lunch Money API Server\".<br> When using this server, set your Bearer token to any string with 11 or more characters.  ### Migrating from V1  The v2 API is NOT backwards compatible with the v1 API. Developers are encouraged to review the [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) to understand the changes and plan their migration.  ### Acknowledgments  If you have been providing feedback on the API during our iterative design process, **THANK YOU**. We are happy to provide the opportunity to finally interact with the working API that was built based on your feedback.  ### Useful links: - [Getting Started](https://alpha.lunchmoney.dev/v2/getting-started) - [v2 API Changelog](https://alpha.lunchmoney.dev/v2/changelog) - [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://alpha.lunchmoney.dev/v2/rate-limits) - [Current v1 Lunch Money API Documentation](https://lunchmoney.dev) - [Awesome Lunch Money Projects](https://github.com/lunch-money/awesome-lunchmoney?tab=readme-ov-file)
 
-API version: 2.8.4
+API version: 2.8.5
 Contact: devsupport@lunchmoney.app
 */
 
@@ -27,13 +27,15 @@ type ManualAccountObject struct {
 	Id int32 `json:"id"`
 	// Name of the account
 	Name string `json:"name"`
+	// Name of institution holding the account
+	InstitutionName NullableString `json:"institution_name"`
+	// Optional display name for the account as set by the user or derived from the `institution_name` and `name` if not explicitly set.
+	DisplayName NullableString `json:"display_name"`
 	// Primary type of the account
 	Type AccountTypeEnum `json:"type"`
 	// Optional account subtype. Examples include<br> - retirement - checking - savings - prepaid credit card
 	Subtype NullableString `json:"subtype"`
-	// Optional display name for the account set by the user
-	DisplayName NullableString `json:"display_name"`
-	// Current balance of the account in numeric format to 4 decimal places.
+	// Current balance of the account in numeric format to 4 decimal places
 	Balance string `json:"balance" validate:"regexp=^-?\\\\d+(\\\\.\\\\d{1,4})?$"`
 	// Three-letter lowercase currency code of the account balance
 	Currency string `json:"currency"`
@@ -41,16 +43,18 @@ type ManualAccountObject struct {
 	ToBase float32 `json:"to_base"`
 	// Date balance was last updated in ISO 8601 extended format, can be in date or date-time format
 	BalanceAsOf time.Time `json:"balance_as_of"`
-	// The date this account was closed. Will be null if the account has not been marked as closed
+	// The status of the account
+	Status string `json:"status"`
+	// The date this account was closed in YYYY-MM-DD format. Will be null if the account has not been marked as closed.
 	ClosedOn NullableString `json:"closed_on"`
-	// Name of institution holding the account
-	InstitutionName NullableString `json:"institution_name"`
 	// An optional external_id that may be set or updated via the API
 	ExternalId NullableString `json:"external_id"`
-	// User defined JSON data that can be set or cleared via the API.
+	// User defined JSON data that can be set or cleared via the API
 	CustomMetadata map[string]interface{} `json:"custom_metadata,omitempty"`
 	// If true, this account will not show up as an option for assignment when creating transactions manually
 	ExcludeFromTransactions bool `json:"exclude_from_transactions"`
+	// The name of the user who created the account
+	CreatedByName string `json:"created_by_name"`
 	// Date/time the account was created in ISO 8601 extended format
 	CreatedAt time.Time `json:"created_at"`
 	// Date/time the account was created in ISO 8601 extended format
@@ -63,21 +67,23 @@ type _ManualAccountObject ManualAccountObject
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewManualAccountObject(id int32, name string, type_ AccountTypeEnum, subtype NullableString, displayName NullableString, balance string, currency string, toBase float32, balanceAsOf time.Time, closedOn NullableString, institutionName NullableString, externalId NullableString, excludeFromTransactions bool, createdAt time.Time, updatedAt time.Time) *ManualAccountObject {
+func NewManualAccountObject(id int32, name string, institutionName NullableString, displayName NullableString, type_ AccountTypeEnum, subtype NullableString, balance string, currency string, toBase float32, balanceAsOf time.Time, status string, closedOn NullableString, externalId NullableString, excludeFromTransactions bool, createdByName string, createdAt time.Time, updatedAt time.Time) *ManualAccountObject {
 	this := ManualAccountObject{}
 	this.Id = id
 	this.Name = name
+	this.InstitutionName = institutionName
+	this.DisplayName = displayName
 	this.Type = type_
 	this.Subtype = subtype
-	this.DisplayName = displayName
 	this.Balance = balance
 	this.Currency = currency
 	this.ToBase = toBase
 	this.BalanceAsOf = balanceAsOf
+	this.Status = status
 	this.ClosedOn = closedOn
-	this.InstitutionName = institutionName
 	this.ExternalId = externalId
 	this.ExcludeFromTransactions = excludeFromTransactions
+	this.CreatedByName = createdByName
 	this.CreatedAt = createdAt
 	this.UpdatedAt = updatedAt
 	return &this
@@ -141,6 +147,58 @@ func (o *ManualAccountObject) SetName(v string) {
 	o.Name = v
 }
 
+// GetInstitutionName returns the InstitutionName field value
+// If the value is explicit nil, the zero value for string will be returned
+func (o *ManualAccountObject) GetInstitutionName() string {
+	if o == nil || o.InstitutionName.Get() == nil {
+		var ret string
+		return ret
+	}
+
+	return *o.InstitutionName.Get()
+}
+
+// GetInstitutionNameOk returns a tuple with the InstitutionName field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ManualAccountObject) GetInstitutionNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.InstitutionName.Get(), o.InstitutionName.IsSet()
+}
+
+// SetInstitutionName sets field value
+func (o *ManualAccountObject) SetInstitutionName(v string) {
+	o.InstitutionName.Set(&v)
+}
+
+// GetDisplayName returns the DisplayName field value
+// If the value is explicit nil, the zero value for string will be returned
+func (o *ManualAccountObject) GetDisplayName() string {
+	if o == nil || o.DisplayName.Get() == nil {
+		var ret string
+		return ret
+	}
+
+	return *o.DisplayName.Get()
+}
+
+// GetDisplayNameOk returns a tuple with the DisplayName field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ManualAccountObject) GetDisplayNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.DisplayName.Get(), o.DisplayName.IsSet()
+}
+
+// SetDisplayName sets field value
+func (o *ManualAccountObject) SetDisplayName(v string) {
+	o.DisplayName.Set(&v)
+}
+
 // GetType returns the Type field value
 func (o *ManualAccountObject) GetType() AccountTypeEnum {
 	if o == nil {
@@ -189,32 +247,6 @@ func (o *ManualAccountObject) GetSubtypeOk() (*string, bool) {
 // SetSubtype sets field value
 func (o *ManualAccountObject) SetSubtype(v string) {
 	o.Subtype.Set(&v)
-}
-
-// GetDisplayName returns the DisplayName field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *ManualAccountObject) GetDisplayName() string {
-	if o == nil || o.DisplayName.Get() == nil {
-		var ret string
-		return ret
-	}
-
-	return *o.DisplayName.Get()
-}
-
-// GetDisplayNameOk returns a tuple with the DisplayName field value
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ManualAccountObject) GetDisplayNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.DisplayName.Get(), o.DisplayName.IsSet()
-}
-
-// SetDisplayName sets field value
-func (o *ManualAccountObject) SetDisplayName(v string) {
-	o.DisplayName.Set(&v)
 }
 
 // GetBalance returns the Balance field value
@@ -313,6 +345,30 @@ func (o *ManualAccountObject) SetBalanceAsOf(v time.Time) {
 	o.BalanceAsOf = v
 }
 
+// GetStatus returns the Status field value
+func (o *ManualAccountObject) GetStatus() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value
+// and a boolean to check if the value has been set.
+func (o *ManualAccountObject) GetStatusOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Status, true
+}
+
+// SetStatus sets field value
+func (o *ManualAccountObject) SetStatus(v string) {
+	o.Status = v
+}
+
 // GetClosedOn returns the ClosedOn field value
 // If the value is explicit nil, the zero value for string will be returned
 func (o *ManualAccountObject) GetClosedOn() string {
@@ -337,32 +393,6 @@ func (o *ManualAccountObject) GetClosedOnOk() (*string, bool) {
 // SetClosedOn sets field value
 func (o *ManualAccountObject) SetClosedOn(v string) {
 	o.ClosedOn.Set(&v)
-}
-
-// GetInstitutionName returns the InstitutionName field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *ManualAccountObject) GetInstitutionName() string {
-	if o == nil || o.InstitutionName.Get() == nil {
-		var ret string
-		return ret
-	}
-
-	return *o.InstitutionName.Get()
-}
-
-// GetInstitutionNameOk returns a tuple with the InstitutionName field value
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ManualAccountObject) GetInstitutionNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.InstitutionName.Get(), o.InstitutionName.IsSet()
-}
-
-// SetInstitutionName sets field value
-func (o *ManualAccountObject) SetInstitutionName(v string) {
-	o.InstitutionName.Set(&v)
 }
 
 // GetExternalId returns the ExternalId field value
@@ -448,6 +478,30 @@ func (o *ManualAccountObject) SetExcludeFromTransactions(v bool) {
 	o.ExcludeFromTransactions = v
 }
 
+// GetCreatedByName returns the CreatedByName field value
+func (o *ManualAccountObject) GetCreatedByName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.CreatedByName
+}
+
+// GetCreatedByNameOk returns a tuple with the CreatedByName field value
+// and a boolean to check if the value has been set.
+func (o *ManualAccountObject) GetCreatedByNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.CreatedByName, true
+}
+
+// SetCreatedByName sets field value
+func (o *ManualAccountObject) SetCreatedByName(v string) {
+	o.CreatedByName = v
+}
+
 // GetCreatedAt returns the CreatedAt field value
 func (o *ManualAccountObject) GetCreatedAt() time.Time {
 	if o == nil {
@@ -508,20 +562,22 @@ func (o ManualAccountObject) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id
 	toSerialize["name"] = o.Name
+	toSerialize["institution_name"] = o.InstitutionName.Get()
+	toSerialize["display_name"] = o.DisplayName.Get()
 	toSerialize["type"] = o.Type
 	toSerialize["subtype"] = o.Subtype.Get()
-	toSerialize["display_name"] = o.DisplayName.Get()
 	toSerialize["balance"] = o.Balance
 	toSerialize["currency"] = o.Currency
 	toSerialize["to_base"] = o.ToBase
 	toSerialize["balance_as_of"] = o.BalanceAsOf
+	toSerialize["status"] = o.Status
 	toSerialize["closed_on"] = o.ClosedOn.Get()
-	toSerialize["institution_name"] = o.InstitutionName.Get()
 	toSerialize["external_id"] = o.ExternalId.Get()
 	if o.CustomMetadata != nil {
 		toSerialize["custom_metadata"] = o.CustomMetadata
 	}
 	toSerialize["exclude_from_transactions"] = o.ExcludeFromTransactions
+	toSerialize["created_by_name"] = o.CreatedByName
 	toSerialize["created_at"] = o.CreatedAt
 	toSerialize["updated_at"] = o.UpdatedAt
 	return toSerialize, nil
@@ -534,17 +590,19 @@ func (o *ManualAccountObject) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"id",
 		"name",
+		"institution_name",
+		"display_name",
 		"type",
 		"subtype",
-		"display_name",
 		"balance",
 		"currency",
 		"to_base",
 		"balance_as_of",
+		"status",
 		"closed_on",
-		"institution_name",
 		"external_id",
 		"exclude_from_transactions",
+		"created_by_name",
 		"created_at",
 		"updated_at",
 	}

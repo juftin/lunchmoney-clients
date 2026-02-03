@@ -6,11 +6,12 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **int64** | System created unique identifier for transaction | 
 **Date** | **string** | Date of transaction in ISO 8601 format | 
-**Amount** | **string** | Amount of the transaction in numeric format to 4 decimal places. Positive values indicate a debit transaction, negative values indicate a credit transaction. | 
+**Amount** | **string** | Amount of the transaction in numeric format to 4 decimal places. Positive values indicate a debit transaction, negative values indicate a credit transaction | 
 **Currency** | [**CurrencyEnum**](CurrencyEnum.md) | Three-letter lowercase currency code of the transaction in ISO 4217 format | 
 **ToBase** | **float64** | The amount converted to the user&#39;s primary currency. If the transaction currency is the same as the user&#39;s primary currency, to_base and amount will be the same. Positive values indicate a debit transaction, negative values indicate a credit transaction. | 
 **RecurringId** | **NullableInt32** | The unique identifier of the associated recurring item that this transaction matched. | 
 **Payee** | **string** | Name of payee set by the user, the financial institution, or by a matched recurring item. This will match the value displayed in payee field on the transactions page in the GUI.  | 
+**OriginalName** | Pointer to **NullableString** | Original payee name from the source (financial institution, CSV, etc.). For Plaid transactions, this is the raw name before normalization. For manual/API transactions, this typically matches &#x60;payee&#x60;. May be null for older transactions. | [optional] 
 **CategoryId** | **NullableInt32** | Unique identifier of associated category set by the user or by a matched recurring item.&lt;br&gt; Category details can be obtained by passing the value of this property to the [Get A Single Category](../operations/getCategoryById) API | 
 **Notes** | **NullableString** | Any transaction notes set by the user or by a matched recurring item. This will match the value displayed in notes field on the transactions page in the GUI.  | 
 **Status** | **string** | Status of the transaction.  Will be one of the following values:  | 
@@ -199,6 +200,41 @@ and a boolean to check if the value has been set.
 SetPayee sets Payee field to given value.
 
 
+### GetOriginalName
+
+`func (o *ChildTransactionObject) GetOriginalName() string`
+
+GetOriginalName returns the OriginalName field if non-nil, zero value otherwise.
+
+### GetOriginalNameOk
+
+`func (o *ChildTransactionObject) GetOriginalNameOk() (*string, bool)`
+
+GetOriginalNameOk returns a tuple with the OriginalName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOriginalName
+
+`func (o *ChildTransactionObject) SetOriginalName(v string)`
+
+SetOriginalName sets OriginalName field to given value.
+
+### HasOriginalName
+
+`func (o *ChildTransactionObject) HasOriginalName() bool`
+
+HasOriginalName returns a boolean if a field has been set.
+
+### SetOriginalNameNil
+
+`func (o *ChildTransactionObject) SetOriginalNameNil(b bool)`
+
+ SetOriginalNameNil sets the value for OriginalName to be an explicit nil
+
+### UnsetOriginalName
+`func (o *ChildTransactionObject) UnsetOriginalName()`
+
+UnsetOriginalName ensures that no value is present for OriginalName, not even an explicit nil
 ### GetCategoryId
 
 `func (o *ChildTransactionObject) GetCategoryId() int32`

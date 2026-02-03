@@ -97,7 +97,7 @@ Name | Type | Description  | Notes
 **400** | Bad Request |  -  |
 **401** | Unauthorized. This error occurs when an invalid API token is passed to the request. |  -  |
 **429** | Too Many Requests. Retry your request after the number of seconds specified in the retry-after header. |  -  |
-**500** | Internal Server Error. Contact support. |  -  |
+**500** | Internal Server Error. Contact support |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -186,7 +186,7 @@ void (empty response body)
 **404** | Not Found |  -  |
 **422** | Unprocessable Entity |  -  |
 **429** | Too Many Requests. Retry your request after the number of seconds specified in the retry-after header. |  -  |
-**500** | Internal Server Error. Contact support. |  -  |
+**500** | Internal Server Error. Contact support |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -195,7 +195,7 @@ void (empty response body)
 
 Get all categories
 
-Retrieve a list of all categories associated with the user's account.
+Retrieve a list of all categories associated with the user's account
 
 ### Example
 
@@ -277,7 +277,7 @@ Name | Type | Description  | Notes
 **400** | Invalid request parameters |  -  |
 **401** | Unauthorized. This error occurs when an invalid API token is passed to the request. |  -  |
 **429** | Too Many Requests. Retry your request after the number of seconds specified in the retry-after header. |  -  |
-**500** | Internal Server Error. Contact support. |  -  |
+**500** | Internal Server Error. Contact support |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -286,7 +286,7 @@ Name | Type | Description  | Notes
 
 Get a single category
 
-Retrieve details of a specific category or category group by its ID.
+Retrieve details of a specific category or category group by its ID
 
 ### Example
 
@@ -362,12 +362,12 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**201** | Category Object with the requested category or category group. |  -  |
+**201** | Category Object with the requested category or category group |  -  |
 **400** | Bad Request |  -  |
 **401** | Unauthorized. This error occurs when an invalid API token is passed to the request. |  -  |
 **404** | Not Found |  -  |
 **429** | Too Many Requests. Retry your request after the number of seconds specified in the retry-after header. |  -  |
-**500** | Internal Server Error. Contact support. |  -  |
+**500** | Internal Server Error. Contact support |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -464,7 +464,7 @@ Name | Type | Description  | Notes
 **401** | Unauthorized. This error occurs when an invalid API token is passed to the request. |  -  |
 **404** | Not Found |  -  |
 **429** | Too Many Requests. Retry your request after the number of seconds specified in the retry-after header. |  -  |
-**500** | Internal Server Error. Contact support. |  -  |
+**500** | Internal Server Error. Contact support |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

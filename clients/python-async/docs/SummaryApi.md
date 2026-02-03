@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 Get summary
 
-Returns a summary of the budget activity for the specified date range.
+Returns a summary of the budget activity for the specified date range
 
 ### Example
 
@@ -51,9 +51,9 @@ configuration = lunchmoney.Configuration(
 async with lunchmoney.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = lunchmoney.SummaryApi(api_client)
-    start_date = '2025-07-01' # date | Start of date range in ISO 8601 date format (YYYY-MM-DD).
+    start_date = '2025-07-01' # date | Start of date range in ISO 8601 date format (YYYY-MM-DD)
     end_date = '2025-08-31' # date | End of date range in ISO 8601 date format (YYYY-MM-DD).
-    include_exclude_from_budgets = False # bool | Enable to include categories that have the 'Exclude from Budgets' flag set in the returned `categories` array. (optional) (default to False)
+    include_exclude_from_budgets = False # bool | Enable to include categories that have the 'Exclude from Budgets' flag set in the returned `categories` array (optional) (default to False)
     include_occurrences = False # bool | Enable to include an `occurrences` array for each category in an aligned response. Each array will include an object for each budget period that falls within the specified date range which includes details on the activity for the budget period. (optional) (default to False)
     include_past_budget_dates = False # bool | Enable to include the three budget occurrences prior to the start date in the `occurrences` array for each category in an aligned response. This property is ignored if `include_occurrences` is not also set to `true`. (optional) (default to False)
     include_totals = False # bool | Enable to include a top-level `totals` section that summarizes the inflow and outflow across all transactions for the specified date range. (optional) (default to False)
@@ -75,9 +75,9 @@ async with lunchmoney.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **start_date** | **date**| Start of date range in ISO 8601 date format (YYYY-MM-DD). | 
+ **start_date** | **date**| Start of date range in ISO 8601 date format (YYYY-MM-DD) | 
  **end_date** | **date**| End of date range in ISO 8601 date format (YYYY-MM-DD). | 
- **include_exclude_from_budgets** | **bool**| Enable to include categories that have the &#39;Exclude from Budgets&#39; flag set in the returned &#x60;categories&#x60; array. | [optional] [default to False]
+ **include_exclude_from_budgets** | **bool**| Enable to include categories that have the &#39;Exclude from Budgets&#39; flag set in the returned &#x60;categories&#x60; array | [optional] [default to False]
  **include_occurrences** | **bool**| Enable to include an &#x60;occurrences&#x60; array for each category in an aligned response. Each array will include an object for each budget period that falls within the specified date range which includes details on the activity for the budget period. | [optional] [default to False]
  **include_past_budget_dates** | **bool**| Enable to include the three budget occurrences prior to the start date in the &#x60;occurrences&#x60; array for each category in an aligned response. This property is ignored if &#x60;include_occurrences&#x60; is not also set to &#x60;true&#x60;. | [optional] [default to False]
  **include_totals** | **bool**| Enable to include a top-level &#x60;totals&#x60; section that summarizes the inflow and outflow across all transactions for the specified date range. | [optional] [default to False]
@@ -100,10 +100,10 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Budget summary for the requested range. |  -  |
+**200** | Budget summary for the requested range |  -  |
 **401** | Unauthorized. This error occurs when an invalid API token is passed to the request. |  -  |
 **429** | Too Many Requests. Retry your request after the number of seconds specified in the retry-after header. |  -  |
-**500** | Internal Server Error. Contact support. |  -  |
+**500** | Internal Server Error. Contact support |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

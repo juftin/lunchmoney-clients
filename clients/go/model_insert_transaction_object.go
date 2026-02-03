@@ -3,7 +3,7 @@ Lunch Money API - v2
 
 Welcome to the Lunch Money v2 API.  A working version of this API is now available through these docs, or directly at:  `https://api.lunchmoney.dev/v2`  <span class=\"red-text\"><strong>This is in alpha launch of a major API update. It is still subject to change during this alpha review period and bugs may still exist. Users are strongly encouraged to use the mock service or to create a test budget with example data as the first step to interacting with the v2 API.</strong></span> See the [Getting Started Guide](https://alpha.lunchmoney.dev/v2/getting-started) for more information on using a test budget.<br<br>  If you are new to the v2 API, you may wish to review the [v2 API Overview of Changes](https://alpha.lunchmoney.dev/v2/changelog).  ### Static Mock Server  You may also use these docs to explore the API using a static mock server endpoint.<p> This enables users to become familiar with the API without having to create an access token, and eliminates the possibility of modifying real data. <p> To access this endpoint select the second endpoint in the the \"Server\" dropdown to the right. When selected you should see \"Static Mock v2 Lunch Money API Server\".<br> When using this server, set your Bearer token to any string with 11 or more characters.  ### Migrating from V1  The v2 API is NOT backwards compatible with the v1 API. Developers are encouraged to review the [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) to understand the changes and plan their migration.  ### Acknowledgments  If you have been providing feedback on the API during our iterative design process, **THANK YOU**. We are happy to provide the opportunity to finally interact with the working API that was built based on your feedback.  ### Useful links: - [Getting Started](https://alpha.lunchmoney.dev/v2/getting-started) - [v2 API Changelog](https://alpha.lunchmoney.dev/v2/changelog) - [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://alpha.lunchmoney.dev/v2/rate-limits) - [Current v1 Lunch Money API Documentation](https://lunchmoney.dev) - [Awesome Lunch Money Projects](https://github.com/lunch-money/awesome-lunchmoney?tab=readme-ov-file)
 
-API version: 2.8.4
+API version: 2.8.5
 Contact: devsupport@lunchmoney.app
 */
 
@@ -27,13 +27,15 @@ type InsertTransactionObject struct {
 	Amount InsertTransactionObjectAmount `json:"amount"`
 	// Three-letter lowercase currency code of the transaction in ISO 4217 format. Must match one of the [supported currencies](https://alpha.lunchmoney.dev/v2/currencies). If not set defaults to the user account's primary currency.
 	Currency *CurrencyEnum `json:"currency,omitempty"`
-	// Name of payee for the transaction.
+	// Name of payee for the transaction
 	Payee *string `json:"payee,omitempty"`
+	// Original payee name. If not provided, defaults to `payee` value.
+	OriginalName NullableString `json:"original_name,omitempty"`
 	// The ID of the category associated with the transactions. If set, the category ID must exist for the user's account and it cannot be a category group.
 	CategoryId NullableInt32 `json:"category_id,omitempty"`
 	// Any transaction notes set by the user or by a matched recurring item. This will match the value displayed in notes field on the transactions page in the GUI. 
 	Notes NullableString `json:"notes,omitempty"`
-	// The Unique identifier for the associated manually managed account. If set, this must match an existing manual account id associated with the user's account. If not set, and `plaid_account_id` is also not set, no account is associated with the transaction and it will appear as a \"Cash Transaction\" in the Lunch Money GUI. It is an error if this, and `plaid_account_id` is also set on the same transaction.
+	// The unique identifier for the associated manually managed account If set, this must match an existing manual account id associated with the user's account. If not set, and `plaid_account_id` is also not set, no account is associated with the transaction and it will appear as a \"Cash Transaction\" in the Lunch Money GUI. It is an error if this, and `plaid_account_id` is also set on the same transaction.
 	ManualAccountId NullableInt32 `json:"manual_account_id,omitempty"`
 	// The Unique identifier for the associated plaid synced account. If set, this must match an existing plaid account id associated with the user's account. If not set, and `manual_account_id` is also not set, no account is associated with the transaction and it will appear as a \"Cash Transaction\" in the Lunch Money GUI. It is an error if this, and `manual_account_id` is also set on the same transaction. In addition the specified plaid account must have the \"Allow Modifications To Transactions\" property set (which is enabled by default), or the insert will fail.
 	PlaidAccountId NullableInt32 `json:"plaid_account_id,omitempty"`
@@ -180,6 +182,48 @@ func (o *InsertTransactionObject) HasPayee() bool {
 // SetPayee gets a reference to the given string and assigns it to the Payee field.
 func (o *InsertTransactionObject) SetPayee(v string) {
 	o.Payee = &v
+}
+
+// GetOriginalName returns the OriginalName field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *InsertTransactionObject) GetOriginalName() string {
+	if o == nil || IsNil(o.OriginalName.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.OriginalName.Get()
+}
+
+// GetOriginalNameOk returns a tuple with the OriginalName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *InsertTransactionObject) GetOriginalNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.OriginalName.Get(), o.OriginalName.IsSet()
+}
+
+// HasOriginalName returns a boolean if a field has been set.
+func (o *InsertTransactionObject) HasOriginalName() bool {
+	if o != nil && o.OriginalName.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetOriginalName gets a reference to the given NullableString and assigns it to the OriginalName field.
+func (o *InsertTransactionObject) SetOriginalName(v string) {
+	o.OriginalName.Set(&v)
+}
+// SetOriginalNameNil sets the value for OriginalName to be an explicit nil
+func (o *InsertTransactionObject) SetOriginalNameNil() {
+	o.OriginalName.Set(nil)
+}
+
+// UnsetOriginalName ensures that no value is present for OriginalName, not even an explicit nil
+func (o *InsertTransactionObject) UnsetOriginalName() {
+	o.OriginalName.Unset()
 }
 
 // GetCategoryId returns the CategoryId field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -548,6 +592,9 @@ func (o InsertTransactionObject) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Payee) {
 		toSerialize["payee"] = o.Payee
+	}
+	if o.OriginalName.IsSet() {
+		toSerialize["original_name"] = o.OriginalName.Get()
 	}
 	if o.CategoryId.IsSet() {
 		toSerialize["category_id"] = o.CategoryId.Get()

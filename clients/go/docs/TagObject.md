@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **int32** | Unique identifier for the tag. | 
-**Name** | **string** | Name of the tag. | 
-**Description** | **NullableString** | Description of the tag. | 
-**TextColor** | **NullableString** | The text color of the tag. | 
-**BackgroundColor** | **NullableString** | The background color of the tag. | 
+**Id** | **int32** | Unique identifier for the tag | 
+**Name** | **string** | Name of the tag | 
+**Description** | **NullableString** | Description of the tag | 
+**TextColor** | **NullableString** | The text color of the tag | 
+**BackgroundColor** | **NullableString** | The background color of the tag | 
 **UpdatedAt** | **time.Time** | The date and time of when the tag was last updated (in the ISO 8601 extended format). | 
 **CreatedAt** | **time.Time** | The date and time of when the tag was created (in the ISO 8601 extended format). | 
 **Archived** | **bool** | If &#x60;true&#x60;, the tag will not show up when creating or updating transactions in the Lunch Money app. **Can it be assigned via the API** | 

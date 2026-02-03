@@ -7,13 +7,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **str** | If set, the new name of the category. Must be between 1 and 100 characters. | [optional] 
 **description** | **str** | If set, the new description of the category. Must not exceed 200 characters. | [optional] 
-**text_color** | **str** | The text color of the tag. | [optional] 
-**background_color** | **str** | The background color of the tag. | [optional] 
-**archived** | **bool** | If set, will indicate if this category is archived. | [optional] 
-**id** | **int** | System-defined unique identifier for the category. Ignored if set. | [optional] 
+**text_color** | **str** | The text color of the tag | [optional] 
+**background_color** | **str** | The background color of the tag | [optional] 
+**archived** | **bool** | If set, will indicate if this category is archived | [optional] 
+**id** | **int** | System-defined unique identifier for the category. Ignored if set | [optional] 
 **updated_at** | **datetime** | System-set time the tag was last updated. Ignored if set | [optional] 
-**created_at** | **datetime** | System-set time the tag was created. Ignored if set. | [optional] 
-**archived_at** | **datetime** | System-set time the tag was archived. Ignored if set. | [optional] 
+**created_at** | **datetime** | System-set time the tag was created. Ignored if set | [optional] 
+**archived_at** | **datetime** | System-set time the tag was archived. Ignored if set | [optional] 
 
 ## Example
 

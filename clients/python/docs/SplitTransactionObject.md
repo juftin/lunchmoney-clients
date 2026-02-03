@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **payee** | **str** | The payee for the child transaction. Will inherit the original payee from the parent if not defined. | [optional] 
 **var_date** | **date** | Must be in ISO 8601 format (YYYY-MM-DD). Will inherit from the parent if not defined. | [optional] 
 **category_id** | **int** | Unique identifier for associated category_id. Category must already exist for the account. Will inherit category from the parent if not defined. | [optional] 
-**notes** | **str** | Will inherit notes from parent if not defined. | [optional] 
+**notes** | **str** | Will inherit notes from parent if not defined | [optional] 
 
 ## Example
 

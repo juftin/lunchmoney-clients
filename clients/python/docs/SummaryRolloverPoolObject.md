@@ -7,7 +7,7 @@ Summary of the current rollover pool balance and all previous adjustments.<br> O
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **budgeted_to_base** | **float** | Amount of funds, in the user&#39;s default currency, currently available to rollover. | 
-**all_adjustments** | [**List[SummaryRolloverPoolAdjustmentObject]**](SummaryRolloverPoolAdjustmentObject.md) | List of previous adjustments to the rollover pool. | 
+**all_adjustments** | [**List[SummaryRolloverPoolAdjustmentObject]**](SummaryRolloverPoolAdjustmentObject.md) | List of previous adjustments to the rollover pool | 
 
 ## Example
 

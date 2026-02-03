@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**OtherActivity** | Pointer to **float32** | Total amount, in the user&#39;s default currency, of non recurring activity for the given date range. | [optional] 
-**RecurringActivity** | Pointer to **float32** | Total amount, in the user&#39;s default currency, of recurring activity that has occurred for the given date range. | [optional] 
-**RecurringRemaining** | Pointer to **float32** | Total amount, in the user&#39;s default currency, of expected recurring activity that has not yet occurred. | [optional] 
-**Uncategorized** | Pointer to **float32** | Total amount, in the user&#39;s default currency, of non recurring activity coming from un-categorized transactions. | [optional] 
-**UncategorizedCount** | Pointer to **int32** | Number of un-categorized transactions for the given date range. | [optional] 
+**OtherActivity** | Pointer to **float32** | Total amount, in the user&#39;s default currency, of non recurring activity for the given date range | [optional] 
+**RecurringActivity** | Pointer to **float32** | Total amount, in the user&#39;s default currency, of recurring activity that has occurred for the given date range | [optional] 
+**RecurringRemaining** | Pointer to **float32** | Total amount, in the user&#39;s default currency, of expected recurring activity that has not yet occurred | [optional] 
+**Uncategorized** | Pointer to **float32** | Total amount, in the user&#39;s default currency, of non recurring activity coming from un-categorized transactions | [optional] 
+**UncategorizedCount** | Pointer to **int32** | Number of un-categorized transactions for the given date range | [optional] 
 **UncategorizedRecurring** | Pointer to **float32** | Total amount, in the user&#39;s default currency, of recurring activity coming from un-categorized transactions. | [optional] 
 
 ## Methods

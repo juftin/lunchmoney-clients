@@ -3,7 +3,7 @@ Lunch Money API - v2
 
 Welcome to the Lunch Money v2 API.  A working version of this API is now available through these docs, or directly at:  `https://api.lunchmoney.dev/v2`  <span class=\"red-text\"><strong>This is in alpha launch of a major API update. It is still subject to change during this alpha review period and bugs may still exist. Users are strongly encouraged to use the mock service or to create a test budget with example data as the first step to interacting with the v2 API.</strong></span> See the [Getting Started Guide](https://alpha.lunchmoney.dev/v2/getting-started) for more information on using a test budget.<br<br>  If you are new to the v2 API, you may wish to review the [v2 API Overview of Changes](https://alpha.lunchmoney.dev/v2/changelog).  ### Static Mock Server  You may also use these docs to explore the API using a static mock server endpoint.<p> This enables users to become familiar with the API without having to create an access token, and eliminates the possibility of modifying real data. <p> To access this endpoint select the second endpoint in the the \"Server\" dropdown to the right. When selected you should see \"Static Mock v2 Lunch Money API Server\".<br> When using this server, set your Bearer token to any string with 11 or more characters.  ### Migrating from V1  The v2 API is NOT backwards compatible with the v1 API. Developers are encouraged to review the [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) to understand the changes and plan their migration.  ### Acknowledgments  If you have been providing feedback on the API during our iterative design process, **THANK YOU**. We are happy to provide the opportunity to finally interact with the working API that was built based on your feedback.  ### Useful links: - [Getting Started](https://alpha.lunchmoney.dev/v2/getting-started) - [v2 API Changelog](https://alpha.lunchmoney.dev/v2/changelog) - [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://alpha.lunchmoney.dev/v2/rate-limits) - [Current v1 Lunch Money API Documentation](https://lunchmoney.dev) - [Awesome Lunch Money Projects](https://github.com/lunch-money/awesome-lunchmoney?tab=readme-ov-file)
 
-API version: 2.8.4
+API version: 2.8.5
 Contact: devsupport@lunchmoney.app
 */
 
@@ -21,37 +21,40 @@ var _ MappedNullable = &UpdateManualAccountRequestObject{}
 
 // UpdateManualAccountRequestObject struct for UpdateManualAccountRequestObject
 type UpdateManualAccountRequestObject struct {
-	// System defined unique identifier of this account. Ignored if set.
+	// System defined unique identifier of this account. Ignored if set
 	Id *int32 `json:"id,omitempty"`
-	// If set, the new name of the manual account.
+	// If set, the new name of the manual account
 	Name *string `json:"name,omitempty"`
-	// If set, the new type of the manual account.
+	// If set, the name of institution holding the account
+	InstitutionName NullableString `json:"institution_name,omitempty"`
+	// If set, the new display name for the manual account.<br> This must be unique for the user.
+	DisplayName NullableString `json:"display_name,omitempty"`
+	// If set, the new type of the manual account
 	Type *AccountTypeEnum `json:"type,omitempty"`
 	// If set, an optional account subtype. Examples include<br> - retirement - checking - savings - prepaid credit card
 	Subtype *string `json:"subtype,omitempty"`
-	// If set, an optional display name for the manual account.<br> This must be unique for the user.  If not set, it will be derived from the `institution_name` (if any) concatenated with the `name`.
-	DisplayName NullableString `json:"display_name,omitempty"`
 	Balance *UpdateManualAccountRequestObjectBalance `json:"balance,omitempty"`
-	// A new date for the `updated_at` property. May be set as a date, ie: YYYY-MM-DD, or date-time string in ISO 8601 extended format. This property is ignored if `balance` is not also set. If `balance` is set and this property is not set the current time is used.
-	BalanceAsOf NullableString `json:"balance_as_of,omitempty"`
-	// If set, the date this manual account was closed in YYYY-MM-DD format.
-	ClosedOn NullableString `json:"closed_on,omitempty"`
 	// If set, the new three-letter lowercase currency code of the manual account balance.
 	Currency *CurrencyEnum `json:"currency,omitempty"`
-	// If set, the name of institution holding the account.
-	InstitutionName NullableString `json:"institution_name,omitempty"`
-	// An optional user-defined ID for the manual account.
+	// A new date for the `updated_at` property. May be set as a date, ie: YYYY-MM-DD, or date-time string in ISO 8601 extended format. This property is ignored if `balance` is not also set. If `balance` is set and this property is not set the current time is used.
+	BalanceAsOf NullableString `json:"balance_as_of,omitempty"`
+	// If set, the status of the manual account. If set to `closed`, the the `closed_on_date` date will be set to the current date, unless it is also set.
+	Status *string `json:"status,omitempty"`
+	ClosedOn NullableUpdateManualAccountRequestObjectClosedOn `json:"closed_on,omitempty"`
+	// An optional user-defined ID for the manual account
 	ExternalId NullableString `json:"external_id,omitempty"`
 	// An optional JSON object that includes additional data related to this account. This must be a valid JSON object and, when stringified, must not exceed 4096 characters.
 	CustomMetadata map[string]interface{} `json:"custom_metadata,omitempty"`
-	// If set, transactions may not be assigned to this manual account.
+	// If set, transactions may not be assigned to this manual account
 	ExcludeFromTransactions *bool `json:"exclude_from_transactions,omitempty"`
-	// System defined balance converted to the user's primary currency. Ignored if set.  Use `balance` to update the balance in the account.
+	// System defined balance converted to the user's primary currency. Ignored if set. Use `balance` to update the balance in the account
 	ToBase *float32 `json:"to_base,omitempty"`
 	// System defined date/time the account was created in ISO 8601 extended format. Ignored if set.
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// System defined date/time the account was created in ISO 8601 extended format. Ignored if set.
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	// System defined name of the user who created the account. Ignored if set
+	CreatedByName *string `json:"created_by_name,omitempty"`
 }
 
 // NewUpdateManualAccountRequestObject instantiates a new UpdateManualAccountRequestObject object
@@ -135,6 +138,90 @@ func (o *UpdateManualAccountRequestObject) SetName(v string) {
 	o.Name = &v
 }
 
+// GetInstitutionName returns the InstitutionName field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *UpdateManualAccountRequestObject) GetInstitutionName() string {
+	if o == nil || IsNil(o.InstitutionName.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.InstitutionName.Get()
+}
+
+// GetInstitutionNameOk returns a tuple with the InstitutionName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *UpdateManualAccountRequestObject) GetInstitutionNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.InstitutionName.Get(), o.InstitutionName.IsSet()
+}
+
+// HasInstitutionName returns a boolean if a field has been set.
+func (o *UpdateManualAccountRequestObject) HasInstitutionName() bool {
+	if o != nil && o.InstitutionName.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetInstitutionName gets a reference to the given NullableString and assigns it to the InstitutionName field.
+func (o *UpdateManualAccountRequestObject) SetInstitutionName(v string) {
+	o.InstitutionName.Set(&v)
+}
+// SetInstitutionNameNil sets the value for InstitutionName to be an explicit nil
+func (o *UpdateManualAccountRequestObject) SetInstitutionNameNil() {
+	o.InstitutionName.Set(nil)
+}
+
+// UnsetInstitutionName ensures that no value is present for InstitutionName, not even an explicit nil
+func (o *UpdateManualAccountRequestObject) UnsetInstitutionName() {
+	o.InstitutionName.Unset()
+}
+
+// GetDisplayName returns the DisplayName field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *UpdateManualAccountRequestObject) GetDisplayName() string {
+	if o == nil || IsNil(o.DisplayName.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.DisplayName.Get()
+}
+
+// GetDisplayNameOk returns a tuple with the DisplayName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *UpdateManualAccountRequestObject) GetDisplayNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.DisplayName.Get(), o.DisplayName.IsSet()
+}
+
+// HasDisplayName returns a boolean if a field has been set.
+func (o *UpdateManualAccountRequestObject) HasDisplayName() bool {
+	if o != nil && o.DisplayName.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetDisplayName gets a reference to the given NullableString and assigns it to the DisplayName field.
+func (o *UpdateManualAccountRequestObject) SetDisplayName(v string) {
+	o.DisplayName.Set(&v)
+}
+// SetDisplayNameNil sets the value for DisplayName to be an explicit nil
+func (o *UpdateManualAccountRequestObject) SetDisplayNameNil() {
+	o.DisplayName.Set(nil)
+}
+
+// UnsetDisplayName ensures that no value is present for DisplayName, not even an explicit nil
+func (o *UpdateManualAccountRequestObject) UnsetDisplayName() {
+	o.DisplayName.Unset()
+}
+
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *UpdateManualAccountRequestObject) GetType() AccountTypeEnum {
 	if o == nil || IsNil(o.Type) {
@@ -199,48 +286,6 @@ func (o *UpdateManualAccountRequestObject) SetSubtype(v string) {
 	o.Subtype = &v
 }
 
-// GetDisplayName returns the DisplayName field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *UpdateManualAccountRequestObject) GetDisplayName() string {
-	if o == nil || IsNil(o.DisplayName.Get()) {
-		var ret string
-		return ret
-	}
-	return *o.DisplayName.Get()
-}
-
-// GetDisplayNameOk returns a tuple with the DisplayName field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *UpdateManualAccountRequestObject) GetDisplayNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.DisplayName.Get(), o.DisplayName.IsSet()
-}
-
-// HasDisplayName returns a boolean if a field has been set.
-func (o *UpdateManualAccountRequestObject) HasDisplayName() bool {
-	if o != nil && o.DisplayName.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetDisplayName gets a reference to the given NullableString and assigns it to the DisplayName field.
-func (o *UpdateManualAccountRequestObject) SetDisplayName(v string) {
-	o.DisplayName.Set(&v)
-}
-// SetDisplayNameNil sets the value for DisplayName to be an explicit nil
-func (o *UpdateManualAccountRequestObject) SetDisplayNameNil() {
-	o.DisplayName.Set(nil)
-}
-
-// UnsetDisplayName ensures that no value is present for DisplayName, not even an explicit nil
-func (o *UpdateManualAccountRequestObject) UnsetDisplayName() {
-	o.DisplayName.Unset()
-}
-
 // GetBalance returns the Balance field value if set, zero value otherwise.
 func (o *UpdateManualAccountRequestObject) GetBalance() UpdateManualAccountRequestObjectBalance {
 	if o == nil || IsNil(o.Balance) {
@@ -271,6 +316,38 @@ func (o *UpdateManualAccountRequestObject) HasBalance() bool {
 // SetBalance gets a reference to the given UpdateManualAccountRequestObjectBalance and assigns it to the Balance field.
 func (o *UpdateManualAccountRequestObject) SetBalance(v UpdateManualAccountRequestObjectBalance) {
 	o.Balance = &v
+}
+
+// GetCurrency returns the Currency field value if set, zero value otherwise.
+func (o *UpdateManualAccountRequestObject) GetCurrency() CurrencyEnum {
+	if o == nil || IsNil(o.Currency) {
+		var ret CurrencyEnum
+		return ret
+	}
+	return *o.Currency
+}
+
+// GetCurrencyOk returns a tuple with the Currency field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UpdateManualAccountRequestObject) GetCurrencyOk() (*CurrencyEnum, bool) {
+	if o == nil || IsNil(o.Currency) {
+		return nil, false
+	}
+	return o.Currency, true
+}
+
+// HasCurrency returns a boolean if a field has been set.
+func (o *UpdateManualAccountRequestObject) HasCurrency() bool {
+	if o != nil && !IsNil(o.Currency) {
+		return true
+	}
+
+	return false
+}
+
+// SetCurrency gets a reference to the given CurrencyEnum and assigns it to the Currency field.
+func (o *UpdateManualAccountRequestObject) SetCurrency(v CurrencyEnum) {
+	o.Currency = &v
 }
 
 // GetBalanceAsOf returns the BalanceAsOf field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -315,10 +392,42 @@ func (o *UpdateManualAccountRequestObject) UnsetBalanceAsOf() {
 	o.BalanceAsOf.Unset()
 }
 
-// GetClosedOn returns the ClosedOn field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *UpdateManualAccountRequestObject) GetClosedOn() string {
-	if o == nil || IsNil(o.ClosedOn.Get()) {
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *UpdateManualAccountRequestObject) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
 		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UpdateManualAccountRequestObject) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *UpdateManualAccountRequestObject) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *UpdateManualAccountRequestObject) SetStatus(v string) {
+	o.Status = &v
+}
+
+// GetClosedOn returns the ClosedOn field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *UpdateManualAccountRequestObject) GetClosedOn() UpdateManualAccountRequestObjectClosedOn {
+	if o == nil || IsNil(o.ClosedOn.Get()) {
+		var ret UpdateManualAccountRequestObjectClosedOn
 		return ret
 	}
 	return *o.ClosedOn.Get()
@@ -327,7 +436,7 @@ func (o *UpdateManualAccountRequestObject) GetClosedOn() string {
 // GetClosedOnOk returns a tuple with the ClosedOn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *UpdateManualAccountRequestObject) GetClosedOnOk() (*string, bool) {
+func (o *UpdateManualAccountRequestObject) GetClosedOnOk() (*UpdateManualAccountRequestObjectClosedOn, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -343,8 +452,8 @@ func (o *UpdateManualAccountRequestObject) HasClosedOn() bool {
 	return false
 }
 
-// SetClosedOn gets a reference to the given NullableString and assigns it to the ClosedOn field.
-func (o *UpdateManualAccountRequestObject) SetClosedOn(v string) {
+// SetClosedOn gets a reference to the given NullableUpdateManualAccountRequestObjectClosedOn and assigns it to the ClosedOn field.
+func (o *UpdateManualAccountRequestObject) SetClosedOn(v UpdateManualAccountRequestObjectClosedOn) {
 	o.ClosedOn.Set(&v)
 }
 // SetClosedOnNil sets the value for ClosedOn to be an explicit nil
@@ -355,80 +464,6 @@ func (o *UpdateManualAccountRequestObject) SetClosedOnNil() {
 // UnsetClosedOn ensures that no value is present for ClosedOn, not even an explicit nil
 func (o *UpdateManualAccountRequestObject) UnsetClosedOn() {
 	o.ClosedOn.Unset()
-}
-
-// GetCurrency returns the Currency field value if set, zero value otherwise.
-func (o *UpdateManualAccountRequestObject) GetCurrency() CurrencyEnum {
-	if o == nil || IsNil(o.Currency) {
-		var ret CurrencyEnum
-		return ret
-	}
-	return *o.Currency
-}
-
-// GetCurrencyOk returns a tuple with the Currency field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *UpdateManualAccountRequestObject) GetCurrencyOk() (*CurrencyEnum, bool) {
-	if o == nil || IsNil(o.Currency) {
-		return nil, false
-	}
-	return o.Currency, true
-}
-
-// HasCurrency returns a boolean if a field has been set.
-func (o *UpdateManualAccountRequestObject) HasCurrency() bool {
-	if o != nil && !IsNil(o.Currency) {
-		return true
-	}
-
-	return false
-}
-
-// SetCurrency gets a reference to the given CurrencyEnum and assigns it to the Currency field.
-func (o *UpdateManualAccountRequestObject) SetCurrency(v CurrencyEnum) {
-	o.Currency = &v
-}
-
-// GetInstitutionName returns the InstitutionName field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *UpdateManualAccountRequestObject) GetInstitutionName() string {
-	if o == nil || IsNil(o.InstitutionName.Get()) {
-		var ret string
-		return ret
-	}
-	return *o.InstitutionName.Get()
-}
-
-// GetInstitutionNameOk returns a tuple with the InstitutionName field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *UpdateManualAccountRequestObject) GetInstitutionNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.InstitutionName.Get(), o.InstitutionName.IsSet()
-}
-
-// HasInstitutionName returns a boolean if a field has been set.
-func (o *UpdateManualAccountRequestObject) HasInstitutionName() bool {
-	if o != nil && o.InstitutionName.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetInstitutionName gets a reference to the given NullableString and assigns it to the InstitutionName field.
-func (o *UpdateManualAccountRequestObject) SetInstitutionName(v string) {
-	o.InstitutionName.Set(&v)
-}
-// SetInstitutionNameNil sets the value for InstitutionName to be an explicit nil
-func (o *UpdateManualAccountRequestObject) SetInstitutionNameNil() {
-	o.InstitutionName.Set(nil)
-}
-
-// UnsetInstitutionName ensures that no value is present for InstitutionName, not even an explicit nil
-func (o *UpdateManualAccountRequestObject) UnsetInstitutionName() {
-	o.InstitutionName.Unset()
 }
 
 // GetExternalId returns the ExternalId field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -634,6 +669,38 @@ func (o *UpdateManualAccountRequestObject) SetUpdatedAt(v time.Time) {
 	o.UpdatedAt = &v
 }
 
+// GetCreatedByName returns the CreatedByName field value if set, zero value otherwise.
+func (o *UpdateManualAccountRequestObject) GetCreatedByName() string {
+	if o == nil || IsNil(o.CreatedByName) {
+		var ret string
+		return ret
+	}
+	return *o.CreatedByName
+}
+
+// GetCreatedByNameOk returns a tuple with the CreatedByName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UpdateManualAccountRequestObject) GetCreatedByNameOk() (*string, bool) {
+	if o == nil || IsNil(o.CreatedByName) {
+		return nil, false
+	}
+	return o.CreatedByName, true
+}
+
+// HasCreatedByName returns a boolean if a field has been set.
+func (o *UpdateManualAccountRequestObject) HasCreatedByName() bool {
+	if o != nil && !IsNil(o.CreatedByName) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatedByName gets a reference to the given string and assigns it to the CreatedByName field.
+func (o *UpdateManualAccountRequestObject) SetCreatedByName(v string) {
+	o.CreatedByName = &v
+}
+
 func (o UpdateManualAccountRequestObject) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -650,29 +717,32 @@ func (o UpdateManualAccountRequestObject) ToMap() (map[string]interface{}, error
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
+	if o.InstitutionName.IsSet() {
+		toSerialize["institution_name"] = o.InstitutionName.Get()
+	}
+	if o.DisplayName.IsSet() {
+		toSerialize["display_name"] = o.DisplayName.Get()
+	}
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 	if !IsNil(o.Subtype) {
 		toSerialize["subtype"] = o.Subtype
 	}
-	if o.DisplayName.IsSet() {
-		toSerialize["display_name"] = o.DisplayName.Get()
-	}
 	if !IsNil(o.Balance) {
 		toSerialize["balance"] = o.Balance
-	}
-	if o.BalanceAsOf.IsSet() {
-		toSerialize["balance_as_of"] = o.BalanceAsOf.Get()
-	}
-	if o.ClosedOn.IsSet() {
-		toSerialize["closed_on"] = o.ClosedOn.Get()
 	}
 	if !IsNil(o.Currency) {
 		toSerialize["currency"] = o.Currency
 	}
-	if o.InstitutionName.IsSet() {
-		toSerialize["institution_name"] = o.InstitutionName.Get()
+	if o.BalanceAsOf.IsSet() {
+		toSerialize["balance_as_of"] = o.BalanceAsOf.Get()
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if o.ClosedOn.IsSet() {
+		toSerialize["closed_on"] = o.ClosedOn.Get()
 	}
 	if o.ExternalId.IsSet() {
 		toSerialize["external_id"] = o.ExternalId.Get()
@@ -691,6 +761,9 @@ func (o UpdateManualAccountRequestObject) ToMap() (map[string]interface{}, error
 	}
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updated_at"] = o.UpdatedAt
+	}
+	if !IsNil(o.CreatedByName) {
+		toSerialize["created_by_name"] = o.CreatedByName
 	}
 	return toSerialize, nil
 }

@@ -7,10 +7,11 @@ Name | Type | Description | Notes
 **Date** | **string** | Date of transaction in ISO 8601 format | 
 **Amount** | [**InsertTransactionObjectAmount**](InsertTransactionObjectAmount.md) |  | 
 **Currency** | Pointer to [**CurrencyEnum**](CurrencyEnum.md) | Three-letter lowercase currency code of the transaction in ISO 4217 format. Must match one of the [supported currencies](https://alpha.lunchmoney.dev/v2/currencies). If not set defaults to the user account&#39;s primary currency. | [optional] 
-**Payee** | Pointer to **string** | Name of payee for the transaction. | [optional] 
+**Payee** | Pointer to **string** | Name of payee for the transaction | [optional] 
+**OriginalName** | Pointer to **NullableString** | Original payee name. If not provided, defaults to &#x60;payee&#x60; value. | [optional] 
 **CategoryId** | Pointer to **NullableInt32** | The ID of the category associated with the transactions. If set, the category ID must exist for the user&#39;s account and it cannot be a category group. | [optional] 
 **Notes** | Pointer to **NullableString** | Any transaction notes set by the user or by a matched recurring item. This will match the value displayed in notes field on the transactions page in the GUI.  | [optional] 
-**ManualAccountId** | Pointer to **NullableInt32** | The Unique identifier for the associated manually managed account. If set, this must match an existing manual account id associated with the user&#39;s account. If not set, and &#x60;plaid_account_id&#x60; is also not set, no account is associated with the transaction and it will appear as a \&quot;Cash Transaction\&quot; in the Lunch Money GUI. It is an error if this, and &#x60;plaid_account_id&#x60; is also set on the same transaction. | [optional] 
+**ManualAccountId** | Pointer to **NullableInt32** | The unique identifier for the associated manually managed account If set, this must match an existing manual account id associated with the user&#39;s account. If not set, and &#x60;plaid_account_id&#x60; is also not set, no account is associated with the transaction and it will appear as a \&quot;Cash Transaction\&quot; in the Lunch Money GUI. It is an error if this, and &#x60;plaid_account_id&#x60; is also set on the same transaction. | [optional] 
 **PlaidAccountId** | Pointer to **NullableInt32** | The Unique identifier for the associated plaid synced account. If set, this must match an existing plaid account id associated with the user&#39;s account. If not set, and &#x60;manual_account_id&#x60; is also not set, no account is associated with the transaction and it will appear as a \&quot;Cash Transaction\&quot; in the Lunch Money GUI. It is an error if this, and &#x60;manual_account_id&#x60; is also set on the same transaction. In addition the specified plaid account must have the \&quot;Allow Modifications To Transactions\&quot; property set (which is enabled by default), or the insert will fail. | [optional] 
 **RecurringId** | Pointer to **NullableInt32** | Unique identifier for associated recurring item. Recurring item must be associated with the same account. | [optional] 
 **Status** | Pointer to **string** | If set must be either &#x60;reviewed&#x60; or &#x60;unreviewed&#x60;. If not set, defaults to &#x60;unreviewed&#x60;. | [optional] 
@@ -127,6 +128,41 @@ SetPayee sets Payee field to given value.
 
 HasPayee returns a boolean if a field has been set.
 
+### GetOriginalName
+
+`func (o *InsertTransactionObject) GetOriginalName() string`
+
+GetOriginalName returns the OriginalName field if non-nil, zero value otherwise.
+
+### GetOriginalNameOk
+
+`func (o *InsertTransactionObject) GetOriginalNameOk() (*string, bool)`
+
+GetOriginalNameOk returns a tuple with the OriginalName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOriginalName
+
+`func (o *InsertTransactionObject) SetOriginalName(v string)`
+
+SetOriginalName sets OriginalName field to given value.
+
+### HasOriginalName
+
+`func (o *InsertTransactionObject) HasOriginalName() bool`
+
+HasOriginalName returns a boolean if a field has been set.
+
+### SetOriginalNameNil
+
+`func (o *InsertTransactionObject) SetOriginalNameNil(b bool)`
+
+ SetOriginalNameNil sets the value for OriginalName to be an explicit nil
+
+### UnsetOriginalName
+`func (o *InsertTransactionObject) UnsetOriginalName()`
+
+UnsetOriginalName ensures that no value is present for OriginalName, not even an explicit nil
 ### GetCategoryId
 
 `func (o *InsertTransactionObject) GetCategoryId() int32`

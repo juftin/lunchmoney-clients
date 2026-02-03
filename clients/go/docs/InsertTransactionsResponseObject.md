@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Transactions** | [**[]TransactionObject**](TransactionObject.md) | An array of the inserted transactions. | 
+**Transactions** | [**[]TransactionObject**](TransactionObject.md) | An array of the inserted transactions | 
 **SkippedDuplicates** | [**[]SkippedExistingExternalIdObject**](SkippedExistingExternalIdObject.md) | An array of the requested transactions that were duplicates of existing transactions and were not inserted. | 
 
 ## Methods

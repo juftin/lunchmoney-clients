@@ -90,7 +90,7 @@ This endpoint does not need any parameter.
 **400** | Bad Request |  -  |
 **401** | Unauthorized. This error occurs when an invalid API token is passed to the request. |  -  |
 **429** | Too Many Requests. Retry your request after the number of seconds specified in the retry-after header. |  -  |
-**500** | Internal Server Error. Contact support. |  -  |
+**500** | Internal Server Error. Contact support |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -99,7 +99,7 @@ This endpoint does not need any parameter.
 
 Get a single account that is synced via Plaid
 
-Retrieve the details of the plaid account with the specified ID.
+Retrieve the details of the plaid account with the specified ID
 
 ### Example
 
@@ -175,12 +175,12 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Plaid Account Object with the requested account. |  -  |
+**200** | Plaid Account Object with the requested account |  -  |
 **400** | Bad Request |  -  |
 **401** | Unauthorized. This error occurs when an invalid API token is passed to the request. |  -  |
 **404** | Not Found |  -  |
 **429** | Too Many Requests. Retry your request after the number of seconds specified in the retry-after header. |  -  |
-**500** | Internal Server Error. Contact support. |  -  |
+**500** | Internal Server Error. Contact support |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -229,7 +229,7 @@ configuration = lunchmoney.Configuration(
 async with lunchmoney.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = lunchmoney.PlaidAccountsApi(api_client)
-    start_date = '2013-10-20' # date | Denotes the beginning of the time period to fetch transactions for. If omitted, the most recent transactions will be returned. <br> Required if end_date exists. <br> (optional)
+    start_date = '2013-10-20' # date | Denotes the beginning of the time period to fetch transactions for If omitted, the most recent transactions will be returned. <br> Required if end_date exists. <br> (optional)
     end_date = '2013-10-20' # date | Denotes the end of the time period you'd like to get transactions for. Required if start_date exists.  (optional)
     id = 119807 # int | Specific ID of a plaid account to fetch. If not set the endpoint will trigger a fetch for all eligible accounts. (optional)
 
@@ -247,7 +247,7 @@ async with lunchmoney.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **start_date** | **date**| Denotes the beginning of the time period to fetch transactions for. If omitted, the most recent transactions will be returned. &lt;br&gt; Required if end_date exists. &lt;br&gt; | [optional] 
+ **start_date** | **date**| Denotes the beginning of the time period to fetch transactions for If omitted, the most recent transactions will be returned. &lt;br&gt; Required if end_date exists. &lt;br&gt; | [optional] 
  **end_date** | **date**| Denotes the end of the time period you&#39;d like to get transactions for. Required if start_date exists.  | [optional] 
  **id** | **int**| Specific ID of a plaid account to fetch. If not set the endpoint will trigger a fetch for all eligible accounts. | [optional] 
 
@@ -273,7 +273,7 @@ void (empty response body)
 **401** | Unauthorized. This error occurs when an invalid API token is passed to the request. |  -  |
 **425** | Too Early |  -  |
 **429** | Too Many Requests. Retry your request after the number of seconds specified in the retry-after header. |  -  |
-**500** | Internal Server Error. Contact support. |  -  |
+**500** | Internal Server Error. Contact support |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
