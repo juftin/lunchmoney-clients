@@ -181,6 +181,4 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
-test/test_create_manual_account_request_object_closed_on.py
-test/test_update_manual_account_request_object_closed_on.py
 tox.ini
