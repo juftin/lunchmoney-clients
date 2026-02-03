@@ -16,6 +16,8 @@ jobs:
     release:
         runs-on: ubuntu-latest
         environment: release
+        outputs:
+            release_sha: ${{ steps.release-sha.outputs.sha }}
         steps:
             - name: checkout
               uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
@@ -37,6 +39,9 @@ jobs:
                   GIT_AUTHOR_EMAIL: github-actions[bot]@users.noreply.github.com
                   GIT_COMMITTER_NAME: github-actions[bot]
                   GIT_COMMITTER_EMAIL: github-actions[bot]@users.noreply.github.com
+            - name: release-sha
+              id: release-sha
+              run: echo "sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
     docs:
         needs: release
         runs-on: ubuntu-latest
@@ -48,15 +53,18 @@ jobs:
             - name: checkout
               uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
               with:
-                  ref: ${{ github.sha }}
+                  ref: ${{ needs.release.outputs.release_sha || github.sha }}
             - name: spec
               run: cp openapi.yaml docs/openapi.yaml
             - name: configure-page
+              if: success()
               uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5.0.0
             - name: upload-pages-artifact
+              if: success()
               uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4.0.0
               with:
                   path: docs
             - name: deploy-pages
+              if: success()
               id: deployment
               uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4.0.5
