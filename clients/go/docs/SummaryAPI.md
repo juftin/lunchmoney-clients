@@ -30,9 +30,9 @@ import (
 )
 
 func main() {
-	startDate := time.Now() // string | Start of date range in ISO 8601 date format (YYYY-MM-DD).
+	startDate := time.Now() // string | Start of date range in ISO 8601 date format (YYYY-MM-DD)
 	endDate := time.Now() // string | End of date range in ISO 8601 date format (YYYY-MM-DD).
-	includeExcludeFromBudgets := true // bool | Enable to include categories that have the 'Exclude from Budgets' flag set in the returned `categories` array. (optional) (default to false)
+	includeExcludeFromBudgets := true // bool | Enable to include categories that have the 'Exclude from Budgets' flag set in the returned `categories` array (optional) (default to false)
 	includeOccurrences := true // bool | Enable to include an `occurrences` array for each category in an aligned response. Each array will include an object for each budget period that falls within the specified date range which includes details on the activity for the budget period. (optional) (default to false)
 	includePastBudgetDates := true // bool | Enable to include the three budget occurrences prior to the start date in the `occurrences` array for each category in an aligned response. This property is ignored if `include_occurrences` is not also set to `true`. (optional) (default to false)
 	includeTotals := true // bool | Enable to include a top-level `totals` section that summarizes the inflow and outflow across all transactions for the specified date range. (optional) (default to false)
@@ -61,9 +61,9 @@ Other parameters are passed through a pointer to a apiGetBudgetSummaryRequest st
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **startDate** | **string** | Start of date range in ISO 8601 date format (YYYY-MM-DD). | 
+ **startDate** | **string** | Start of date range in ISO 8601 date format (YYYY-MM-DD) | 
  **endDate** | **string** | End of date range in ISO 8601 date format (YYYY-MM-DD). | 
- **includeExcludeFromBudgets** | **bool** | Enable to include categories that have the &#39;Exclude from Budgets&#39; flag set in the returned &#x60;categories&#x60; array. | [default to false]
+ **includeExcludeFromBudgets** | **bool** | Enable to include categories that have the &#39;Exclude from Budgets&#39; flag set in the returned &#x60;categories&#x60; array | [default to false]
  **includeOccurrences** | **bool** | Enable to include an &#x60;occurrences&#x60; array for each category in an aligned response. Each array will include an object for each budget period that falls within the specified date range which includes details on the activity for the budget period. | [default to false]
  **includePastBudgetDates** | **bool** | Enable to include the three budget occurrences prior to the start date in the &#x60;occurrences&#x60; array for each category in an aligned response. This property is ignored if &#x60;include_occurrences&#x60; is not also set to &#x60;true&#x60;. | [default to false]
  **includeTotals** | **bool** | Enable to include a top-level &#x60;totals&#x60; section that summarizes the inflow and outflow across all transactions for the specified date range. | [default to false]

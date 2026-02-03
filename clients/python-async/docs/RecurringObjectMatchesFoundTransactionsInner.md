@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**var_date** | **date** | The date for a matching transaction within the specified range. | [optional] 
-**transaction_id** | **int** | The ID of a matching transaction within the specified range. | [optional] 
+**var_date** | **date** | The date for a matching transaction within the specified range | [optional] 
+**transaction_id** | **int** | The ID of a matching transaction within the specified range | [optional] 
 
 ## Example
 

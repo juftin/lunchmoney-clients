@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | The name of the new tag. Must be between 1 and 100 characters. Must not match the name of any existing tags. | 
-**Description** | Pointer to **NullableString** | The description of the tag. Must not exceed 200 characters. | [optional] 
-**TextColor** | Pointer to **NullableString** | The text color of the tag. | [optional] 
-**BackgroundColor** | Pointer to **NullableString** | The background color of the tag. | [optional] 
+**Description** | Pointer to **NullableString** | The description of the tag. Must not exceed 200 characters | [optional] 
+**TextColor** | Pointer to **NullableString** | The text color of the tag | [optional] 
+**BackgroundColor** | Pointer to **NullableString** | The background color of the tag | [optional] 
 **Archived** | Pointer to **bool** | If &#x60;true&#x60;, the tag is archived and not displayed in relevant areas of the Lunch Money app. | [optional] [default to false]
 
 ## Methods

@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **ToBase** | **float64** | The amount converted to the user&#39;s primary currency. If the multi-currency feature is not being used, to_base and amount will be the same. Positive values indicate a debit transaction, negative values indicate a credit transaction. | 
 **RecurringId** | **NullableInt32** | The unique identifier of the associated recurring item that this transaction matched. | 
 **Payee** | **string** | Name of payee set by the user, the financial institution, or by a matched recurring item. This will match the value displayed in payee field on the transactions page in the GUI.  | 
+**OriginalName** | Pointer to **NullableString** | Original payee name from the source (financial institution, CSV, etc.). For Plaid transactions, this is the raw name before normalization. For manual/API transactions, this typically matches &#x60;payee&#x60;. May be null for older transactions. | [optional] 
 **CategoryId** | **NullableInt32** | Unique identifier of associated category set by the user or by a matched recurring_item.&lt;br&gt; Category details can be obtained by passing the value of this property to the [Get A Single Category](../operations/getCategoryById) API | 
 **PlaidAccountId** | **NullableInt32** | The unique identifier of the plaid account associated with this transaction. This will always be null if this transaction is associated with a manual account or if this transaction has no associated account and appears as a \&quot;Cash Transaction\&quot; in the Lunch Money GUI. | 
 **ManualAccountId** | **NullableInt32** | The unique identifier of the manual account associated with this transaction. This will always be null if this transaction is associated with a synced account or if this transaction has no associated account and appears as a \&quot;Cash Transaction\&quot; in the Lunch Money GUI. | 
@@ -28,7 +29,7 @@ Name | Type | Description | Notes
 **Children** | Pointer to [**[]ChildTransactionObject**](ChildTransactionObject.md) | Exists only for transactions which are the parent of a split transaction or for transaction groups. It will not exist in the response unless the &#x60;include_children&#x60; query parameter is set to &#x60;true&#x60;.&lt;br&gt; For parents of split transactions, it contains a list of the associated transactions that it was split into. For transaction groups, it contains the transactions that were grouped together. Examine the &#x60;is_split_parent&#x60; and &#x60;is_group_parent&#x60; properties to determine which of these it is. | [optional] 
 **PlaidMetadata** | Pointer to **map[string]interface{}** | If requested, the transaction&#39;s plaid_metadata that came when this transaction was obtained. This will be a json object, but the schema is variable. This is only present when the &#x60;include_metadata&#x60; query parameter is set to true. | [optional] 
 **CustomMetadata** | Pointer to **map[string]interface{}** | If requested, the transaction&#39;s custom_metadata that was included when the transaction was inserted via the API. This will be a json object, but the schema is variable. This is only present when the &#x60;include_metadata&#x60; query parameter is set to true. | [optional] 
-**Files** | Pointer to [**[]TransactionAttachmentObject**](TransactionAttachmentObject.md) | A list of objects that describe any attachments to the Transactions. This is only present when the &#x60;include_files&#x60; query parameter is set to true. | [optional] 
+**Files** | Pointer to [**[]TransactionAttachmentObject**](TransactionAttachmentObject.md) | A list of objects that describe any attachments to the Transactions This is only present when the &#x60;include_files&#x60; query parameter is set to true. | [optional] 
 **Source** | **NullableString** | Source of the transaction: - &#x60;api&#x60;: Transaction was added by a call to the [POST /transactions](../operations/createTransaction) API - &#x60;csv&#x60;: Transaction was added via a CSV Import - &#x60;manual&#x60;: Transaction was created via the \&quot;Add to Cash\&quot; button on the Transactions page - &#x60;merge&#x60;: Transactions were originally in an account that was merged into another account - &#x60;plaid&#x60;: Transaction came from a Financial Institution synced via Plaid - &#x60;recurring&#x60;: Transaction was created from the Recurring page - &#x60;rule&#x60;: Transaction was created by a rule to split a transaction - &#x60;split&#x60;: Transaction was created by splitting another transaction - &#x60;user&#x60;: This is a legacy value and is replaced by either csv or manual  | 
 
 ## Methods
@@ -200,6 +201,41 @@ and a boolean to check if the value has been set.
 SetPayee sets Payee field to given value.
 
 
+### GetOriginalName
+
+`func (o *TransactionObject) GetOriginalName() string`
+
+GetOriginalName returns the OriginalName field if non-nil, zero value otherwise.
+
+### GetOriginalNameOk
+
+`func (o *TransactionObject) GetOriginalNameOk() (*string, bool)`
+
+GetOriginalNameOk returns a tuple with the OriginalName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOriginalName
+
+`func (o *TransactionObject) SetOriginalName(v string)`
+
+SetOriginalName sets OriginalName field to given value.
+
+### HasOriginalName
+
+`func (o *TransactionObject) HasOriginalName() bool`
+
+HasOriginalName returns a boolean if a field has been set.
+
+### SetOriginalNameNil
+
+`func (o *TransactionObject) SetOriginalNameNil(b bool)`
+
+ SetOriginalNameNil sets the value for OriginalName to be an explicit nil
+
+### UnsetOriginalName
+`func (o *TransactionObject) UnsetOriginalName()`
+
+UnsetOriginalName ensures that no value is present for OriginalName, not even an explicit nil
 ### GetCategoryId
 
 `func (o *TransactionObject) GetCategoryId() int32`

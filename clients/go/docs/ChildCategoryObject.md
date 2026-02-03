@@ -4,26 +4,26 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **int32** | A system defined unique identifier for the category. | 
-**Name** | **string** | The name of the category. | 
-**Description** | **NullableString** | The description of the category or &#x60;null&#x60; if not set. | 
+**Id** | **int32** | A system defined unique identifier for the category | 
+**Name** | **string** | The name of the category | 
+**Description** | **NullableString** | The description of the category or &#x60;null&#x60; if not set | 
 **IsIncome** | **bool** | If true, the transactions in this category will be treated as income. Inherited from Category Group. | 
 **ExcludeFromBudget** | **bool** | If true, the transactions in this category will be excluded from the budget. Inherited from Category Group. | 
 **ExcludeFromTotals** | **bool** | If true, the transactions in this category will be excluded from totals. Inherited from Category Group. | 
 **UpdatedAt** | **time.Time** | The date and time of when the category was last updated (in the ISO 8601 extended format). | 
 **CreatedAt** | **time.Time** | The date and time of when the category was created (in the ISO 8601 extended format). | 
 **GroupId** | **NullableInt64** | The ID of the category group this category belongs to or &#x60;null&#x60; if the category doesn&#39;t belong to a group, or is itself a category group. | 
-**IsGroup** | **bool** | Will always be false for a category that is part of category group. | 
+**IsGroup** | **bool** | Will always be false for a category that is part of category group | 
 **Archived** | **bool** | If true, the category is archived and not displayed in relevant areas of the Lunch Money app. | 
 **ArchivedAt** | **NullableTime** | The date and time of when the category was last archived (in the ISO 8601 extended format). | 
 **Order** | **NullableInt32** | An index specifying the position in which the category is displayed on the categories page in the Lunch Money GUI. For categories within a category group the order is relative to the other categories within the group.&lt;br&gt; API. | 
-**Collapsed** | Pointer to **NullableBool** | If &#x60;true&#x60;, the category is collapsed in the Lunch Money GUI. | [optional] 
+**Collapsed** | **bool** | Always &#x60;false&#x60; for a child category. Child categories cannot be collapsed. | 
 
 ## Methods
 
 ### NewChildCategoryObject
 
-`func NewChildCategoryObject(id int32, name string, description NullableString, isIncome bool, excludeFromBudget bool, excludeFromTotals bool, updatedAt time.Time, createdAt time.Time, groupId NullableInt64, isGroup bool, archived bool, archivedAt NullableTime, order NullableInt32, ) *ChildCategoryObject`
+`func NewChildCategoryObject(id int32, name string, description NullableString, isIncome bool, excludeFromBudget bool, excludeFromTotals bool, updatedAt time.Time, createdAt time.Time, groupId NullableInt64, isGroup bool, archived bool, archivedAt NullableTime, order NullableInt32, collapsed bool, ) *ChildCategoryObject`
 
 NewChildCategoryObject instantiates a new ChildCategoryObject object
 This constructor will assign default values to properties that have it defined,
@@ -357,22 +357,7 @@ and a boolean to check if the value has been set.
 
 SetCollapsed sets Collapsed field to given value.
 
-### HasCollapsed
 
-`func (o *ChildCategoryObject) HasCollapsed() bool`
-
-HasCollapsed returns a boolean if a field has been set.
-
-### SetCollapsedNil
-
-`func (o *ChildCategoryObject) SetCollapsedNil(b bool)`
-
- SetCollapsedNil sets the value for Collapsed to be an explicit nil
-
-### UnsetCollapsed
-`func (o *ChildCategoryObject) UnsetCollapsed()`
-
-UnsetCollapsed ensures that no value is present for Collapsed, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

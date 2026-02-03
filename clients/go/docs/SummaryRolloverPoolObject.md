@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **BudgetedToBase** | **float32** | Amount of funds, in the user&#39;s default currency, currently available to rollover. | 
-**AllAdjustments** | [**[]SummaryRolloverPoolAdjustmentObject**](SummaryRolloverPoolAdjustmentObject.md) | List of previous adjustments to the rollover pool. | 
+**AllAdjustments** | [**[]SummaryRolloverPoolAdjustmentObject**](SummaryRolloverPoolAdjustmentObject.md) | List of previous adjustments to the rollover pool | 
 
 ## Methods
 

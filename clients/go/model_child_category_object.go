@@ -3,7 +3,7 @@ Lunch Money API - v2
 
 Welcome to the Lunch Money v2 API.  A working version of this API is now available through these docs, or directly at:  `https://api.lunchmoney.dev/v2`  <span class=\"red-text\"><strong>This is in alpha launch of a major API update. It is still subject to change during this alpha review period and bugs may still exist. Users are strongly encouraged to use the mock service or to create a test budget with example data as the first step to interacting with the v2 API.</strong></span> See the [Getting Started Guide](https://alpha.lunchmoney.dev/v2/getting-started) for more information on using a test budget.<br<br>  If you are new to the v2 API, you may wish to review the [v2 API Overview of Changes](https://alpha.lunchmoney.dev/v2/changelog).  ### Static Mock Server  You may also use these docs to explore the API using a static mock server endpoint.<p> This enables users to become familiar with the API without having to create an access token, and eliminates the possibility of modifying real data. <p> To access this endpoint select the second endpoint in the the \"Server\" dropdown to the right. When selected you should see \"Static Mock v2 Lunch Money API Server\".<br> When using this server, set your Bearer token to any string with 11 or more characters.  ### Migrating from V1  The v2 API is NOT backwards compatible with the v1 API. Developers are encouraged to review the [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) to understand the changes and plan their migration.  ### Acknowledgments  If you have been providing feedback on the API during our iterative design process, **THANK YOU**. We are happy to provide the opportunity to finally interact with the working API that was built based on your feedback.  ### Useful links: - [Getting Started](https://alpha.lunchmoney.dev/v2/getting-started) - [v2 API Changelog](https://alpha.lunchmoney.dev/v2/changelog) - [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://alpha.lunchmoney.dev/v2/rate-limits) - [Current v1 Lunch Money API Documentation](https://lunchmoney.dev) - [Awesome Lunch Money Projects](https://github.com/lunch-money/awesome-lunchmoney?tab=readme-ov-file)
 
-API version: 2.8.4
+API version: 2.8.5
 Contact: devsupport@lunchmoney.app
 */
 
@@ -23,11 +23,11 @@ var _ MappedNullable = &ChildCategoryObject{}
 
 // ChildCategoryObject struct for ChildCategoryObject
 type ChildCategoryObject struct {
-	// A system defined unique identifier for the category.
+	// A system defined unique identifier for the category
 	Id int32 `json:"id"`
-	// The name of the category.
+	// The name of the category
 	Name string `json:"name"`
-	// The description of the category or `null` if not set.
+	// The description of the category or `null` if not set
 	Description NullableString `json:"description"`
 	// If true, the transactions in this category will be treated as income. Inherited from Category Group.
 	IsIncome bool `json:"is_income"`
@@ -41,7 +41,7 @@ type ChildCategoryObject struct {
 	CreatedAt time.Time `json:"created_at"`
 	// The ID of the category group this category belongs to or `null` if the category doesn't belong to a group, or is itself a category group.
 	GroupId NullableInt64 `json:"group_id"`
-	// Will always be false for a category that is part of category group.
+	// Will always be false for a category that is part of category group
 	IsGroup bool `json:"is_group"`
 	// If true, the category is archived and not displayed in relevant areas of the Lunch Money app.
 	Archived bool `json:"archived"`
@@ -49,8 +49,8 @@ type ChildCategoryObject struct {
 	ArchivedAt NullableTime `json:"archived_at"`
 	// An index specifying the position in which the category is displayed on the categories page in the Lunch Money GUI. For categories within a category group the order is relative to the other categories within the group.<br> API.
 	Order NullableInt32 `json:"order"`
-	// If `true`, the category is collapsed in the Lunch Money GUI.
-	Collapsed NullableBool `json:"collapsed,omitempty"`
+	// Always `false` for a child category. Child categories cannot be collapsed.
+	Collapsed bool `json:"collapsed"`
 }
 
 type _ChildCategoryObject ChildCategoryObject
@@ -59,7 +59,7 @@ type _ChildCategoryObject ChildCategoryObject
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewChildCategoryObject(id int32, name string, description NullableString, isIncome bool, excludeFromBudget bool, excludeFromTotals bool, updatedAt time.Time, createdAt time.Time, groupId NullableInt64, isGroup bool, archived bool, archivedAt NullableTime, order NullableInt32) *ChildCategoryObject {
+func NewChildCategoryObject(id int32, name string, description NullableString, isIncome bool, excludeFromBudget bool, excludeFromTotals bool, updatedAt time.Time, createdAt time.Time, groupId NullableInt64, isGroup bool, archived bool, archivedAt NullableTime, order NullableInt32, collapsed bool) *ChildCategoryObject {
 	this := ChildCategoryObject{}
 	this.Id = id
 	this.Name = name
@@ -74,6 +74,7 @@ func NewChildCategoryObject(id int32, name string, description NullableString, i
 	this.Archived = archived
 	this.ArchivedAt = archivedAt
 	this.Order = order
+	this.Collapsed = collapsed
 	return &this
 }
 
@@ -405,46 +406,28 @@ func (o *ChildCategoryObject) SetOrder(v int32) {
 	o.Order.Set(&v)
 }
 
-// GetCollapsed returns the Collapsed field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetCollapsed returns the Collapsed field value
 func (o *ChildCategoryObject) GetCollapsed() bool {
-	if o == nil || IsNil(o.Collapsed.Get()) {
+	if o == nil {
 		var ret bool
 		return ret
 	}
-	return *o.Collapsed.Get()
+
+	return o.Collapsed
 }
 
-// GetCollapsedOk returns a tuple with the Collapsed field value if set, nil otherwise
+// GetCollapsedOk returns a tuple with the Collapsed field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ChildCategoryObject) GetCollapsedOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.Collapsed.Get(), o.Collapsed.IsSet()
+	return &o.Collapsed, true
 }
 
-// HasCollapsed returns a boolean if a field has been set.
-func (o *ChildCategoryObject) HasCollapsed() bool {
-	if o != nil && o.Collapsed.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetCollapsed gets a reference to the given NullableBool and assigns it to the Collapsed field.
+// SetCollapsed sets field value
 func (o *ChildCategoryObject) SetCollapsed(v bool) {
-	o.Collapsed.Set(&v)
-}
-// SetCollapsedNil sets the value for Collapsed to be an explicit nil
-func (o *ChildCategoryObject) SetCollapsedNil() {
-	o.Collapsed.Set(nil)
-}
-
-// UnsetCollapsed ensures that no value is present for Collapsed, not even an explicit nil
-func (o *ChildCategoryObject) UnsetCollapsed() {
-	o.Collapsed.Unset()
+	o.Collapsed = v
 }
 
 func (o ChildCategoryObject) MarshalJSON() ([]byte, error) {
@@ -470,9 +453,7 @@ func (o ChildCategoryObject) ToMap() (map[string]interface{}, error) {
 	toSerialize["archived"] = o.Archived
 	toSerialize["archived_at"] = o.ArchivedAt.Get()
 	toSerialize["order"] = o.Order.Get()
-	if o.Collapsed.IsSet() {
-		toSerialize["collapsed"] = o.Collapsed.Get()
-	}
+	toSerialize["collapsed"] = o.Collapsed
 	return toSerialize, nil
 }
 
@@ -494,6 +475,7 @@ func (o *ChildCategoryObject) UnmarshalJSON(data []byte) (err error) {
 		"archived",
 		"archived_at",
 		"order",
+		"collapsed",
 	}
 
 	allProperties := make(map[string]interface{})

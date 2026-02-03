@@ -5,14 +5,16 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **int32** | The unique identifier of this account | 
+**PlaidItemId** | **NullableString** | The unique identifier of the Plaid connection that this account belongs to. Accounts with the same plaid_item_id usually belong to the same institution. | 
 **DateLinked** | **string** | Date account was first linked in ISO 8601 format | 
+**LinkedByName** | **string** | The name of the user who linked the account | 
 **Name** | **string** | Name of the account. This field is set by Plaid and cannot be altered. | 
 **DisplayName** | **NullableString** | Optional display name for the account set by the user. If not set, it will return a concatenated string of institution and account name. | 
 **Type** | **string** | Primary type of the account, such as &#x60;credit&#x60;, &#x60;depository&#x60;, etc. This field is set by Plaid and cannot be altered. | 
 **Subtype** | **string** | Optional account subtype. This field is set by Plaid and cannot be altered. | 
 **Mask** | **string** | Mask (last 3 to 4 digits of account) of account. This field is set by Plaid and cannot be altered. | 
 **InstitutionName** | **string** | Name of institution holding the account. This field is set by Plaid and cannot be altered. | 
-**Status** | **string** | Denotes the current status of the account within Lunch Money. Must be one of&lt;br&gt; - &#x60;active&#x60;: Account is active and in good state&lt;br&gt; - &#x60;inactive&#x60;: Account marked inactive from user. Transaction imports and balance updates will not occur for this account.&lt;br&gt; - &#x60;relink&#x60;: Account needs to be relinked with Plaid.&lt;br&gt; - &#x60;syncing&#x60;: Account is awaiting first import of transactions. &lt;br&gt; - &#x60;not found&#x60;: Account cannot be found with Plaid&lt;br&gt; - &#x60;not supported&#x60;: Account is not supported with Plaid&lt;br&gt; - &#x60;error&#x60;: Account is in error with Plaid.&lt;br&gt; | 
+**Status** | **string** | Denotes the current status of the account within Lunch Money. Must be one of&lt;br&gt; - active: Account is actively syncing transactions and/or balance&lt;br&gt; - inactive: Account marked inactive from user. Transaction imports and balance updates will not occur for this account.&lt;br&gt; - closed: Account is marked as closed&lt;br&gt; - deactivated: Account is marked deactivated during setup. The user must click &#x60;Add/Remove Accounts From This Bank&#x60; and manually re-select this account to activate it.&#39;&lt;br&gt; - not found: Account was once linked but can no longer be found with Plaid.&lt;br&gt; - not supported: Account is not supported by Plaid.&lt;br&gt; - relink: Account (and others with the same connection) need to be relinked with Plaid.&lt;br&gt; - syncing: Account is awaiting the first import of transactions.&lt;br&gt; - revoked: Account connection has been revoked by Plaid and syncing is no longer possible. A new connection needs to be set up again.&lt;br&gt; - error: Account (and others with the same connection) is in error with Plaid and requires intervention to re-activate it.&lt;br&gt; | 
 **AllowTransactionModifications** | **bool** | If &#x60;false&#x60;, transactions imported for this synced account can have their properties (such as amount and account) be modified by the user. This option is managed in the web app. | 
 **Limit** | **NullableFloat32** | Optional credit limit of the account. This field is set by Plaid and cannot be altered | 
 **Balance** | **string** | Current balance of the account in numeric format to 4 decimal places. This field is set by Plaid and cannot be altered. | 
@@ -28,7 +30,7 @@ Name | Type | Description | Notes
 
 ### NewPlaidAccountObject
 
-`func NewPlaidAccountObject(id int32, dateLinked string, name string, displayName NullableString, type_ string, subtype string, mask string, institutionName string, status string, allowTransactionModifications bool, limit NullableFloat32, balance string, currency string, toBase float32, balanceLastUpdate NullableTime, importStartDate NullableString, lastImport NullableTime, lastFetch NullableTime, plaidLastSuccessfulUpdate NullableTime, ) *PlaidAccountObject`
+`func NewPlaidAccountObject(id int32, plaidItemId NullableString, dateLinked string, linkedByName string, name string, displayName NullableString, type_ string, subtype string, mask string, institutionName string, status string, allowTransactionModifications bool, limit NullableFloat32, balance string, currency string, toBase float32, balanceLastUpdate NullableTime, importStartDate NullableString, lastImport NullableTime, lastFetch NullableTime, plaidLastSuccessfulUpdate NullableTime, ) *PlaidAccountObject`
 
 NewPlaidAccountObject instantiates a new PlaidAccountObject object
 This constructor will assign default values to properties that have it defined,
@@ -63,6 +65,36 @@ and a boolean to check if the value has been set.
 SetId sets Id field to given value.
 
 
+### GetPlaidItemId
+
+`func (o *PlaidAccountObject) GetPlaidItemId() string`
+
+GetPlaidItemId returns the PlaidItemId field if non-nil, zero value otherwise.
+
+### GetPlaidItemIdOk
+
+`func (o *PlaidAccountObject) GetPlaidItemIdOk() (*string, bool)`
+
+GetPlaidItemIdOk returns a tuple with the PlaidItemId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPlaidItemId
+
+`func (o *PlaidAccountObject) SetPlaidItemId(v string)`
+
+SetPlaidItemId sets PlaidItemId field to given value.
+
+
+### SetPlaidItemIdNil
+
+`func (o *PlaidAccountObject) SetPlaidItemIdNil(b bool)`
+
+ SetPlaidItemIdNil sets the value for PlaidItemId to be an explicit nil
+
+### UnsetPlaidItemId
+`func (o *PlaidAccountObject) UnsetPlaidItemId()`
+
+UnsetPlaidItemId ensures that no value is present for PlaidItemId, not even an explicit nil
 ### GetDateLinked
 
 `func (o *PlaidAccountObject) GetDateLinked() string`
@@ -81,6 +113,26 @@ and a boolean to check if the value has been set.
 `func (o *PlaidAccountObject) SetDateLinked(v string)`
 
 SetDateLinked sets DateLinked field to given value.
+
+
+### GetLinkedByName
+
+`func (o *PlaidAccountObject) GetLinkedByName() string`
+
+GetLinkedByName returns the LinkedByName field if non-nil, zero value otherwise.
+
+### GetLinkedByNameOk
+
+`func (o *PlaidAccountObject) GetLinkedByNameOk() (*string, bool)`
+
+GetLinkedByNameOk returns a tuple with the LinkedByName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLinkedByName
+
+`func (o *PlaidAccountObject) SetLinkedByName(v string)`
+
+SetLinkedByName sets LinkedByName field to given value.
 
 
 ### GetName

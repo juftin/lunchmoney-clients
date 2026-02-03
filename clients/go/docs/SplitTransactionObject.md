@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Payee** | Pointer to **string** | The payee for the child transaction. Will inherit the original payee from the parent if not defined. | [optional] 
 **Date** | Pointer to **string** | Must be in ISO 8601 format (YYYY-MM-DD). Will inherit from the parent if not defined. | [optional] 
 **CategoryId** | Pointer to **int32** | Unique identifier for associated category_id. Category must already exist for the account. Will inherit category from the parent if not defined. | [optional] 
-**Notes** | Pointer to **string** | Will inherit notes from parent if not defined. | [optional] 
+**Notes** | Pointer to **string** | Will inherit notes from parent if not defined | [optional] 
 
 ## Methods
 

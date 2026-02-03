@@ -3,7 +3,7 @@ Lunch Money API - v2
 
 Welcome to the Lunch Money v2 API.  A working version of this API is now available through these docs, or directly at:  `https://api.lunchmoney.dev/v2`  <span class=\"red-text\"><strong>This is in alpha launch of a major API update. It is still subject to change during this alpha review period and bugs may still exist. Users are strongly encouraged to use the mock service or to create a test budget with example data as the first step to interacting with the v2 API.</strong></span> See the [Getting Started Guide](https://alpha.lunchmoney.dev/v2/getting-started) for more information on using a test budget.<br<br>  If you are new to the v2 API, you may wish to review the [v2 API Overview of Changes](https://alpha.lunchmoney.dev/v2/changelog).  ### Static Mock Server  You may also use these docs to explore the API using a static mock server endpoint.<p> This enables users to become familiar with the API without having to create an access token, and eliminates the possibility of modifying real data. <p> To access this endpoint select the second endpoint in the the \"Server\" dropdown to the right. When selected you should see \"Static Mock v2 Lunch Money API Server\".<br> When using this server, set your Bearer token to any string with 11 or more characters.  ### Migrating from V1  The v2 API is NOT backwards compatible with the v1 API. Developers are encouraged to review the [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) to understand the changes and plan their migration.  ### Acknowledgments  If you have been providing feedback on the API during our iterative design process, **THANK YOU**. We are happy to provide the opportunity to finally interact with the working API that was built based on your feedback.  ### Useful links: - [Getting Started](https://alpha.lunchmoney.dev/v2/getting-started) - [v2 API Changelog](https://alpha.lunchmoney.dev/v2/changelog) - [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://alpha.lunchmoney.dev/v2/rate-limits) - [Current v1 Lunch Money API Documentation](https://lunchmoney.dev) - [Awesome Lunch Money Projects](https://github.com/lunch-money/awesome-lunchmoney?tab=readme-ov-file)
 
-API version: 2.8.4
+API version: 2.8.5
 Contact: devsupport@lunchmoney.app
 */
 
@@ -37,6 +37,8 @@ type TransactionObject struct {
 	RecurringId NullableInt32 `json:"recurring_id"`
 	// Name of payee set by the user, the financial institution, or by a matched recurring item. This will match the value displayed in payee field on the transactions page in the GUI. 
 	Payee string `json:"payee"`
+	// Original payee name from the source (financial institution, CSV, etc.). For Plaid transactions, this is the raw name before normalization. For manual/API transactions, this typically matches `payee`. May be null for older transactions.
+	OriginalName NullableString `json:"original_name,omitempty"`
 	// Unique identifier of associated category set by the user or by a matched recurring_item.<br> Category details can be obtained by passing the value of this property to the [Get A Single Category](../operations/getCategoryById) API
 	CategoryId NullableInt32 `json:"category_id"`
 	// The unique identifier of the plaid account associated with this transaction. This will always be null if this transaction is associated with a manual account or if this transaction has no associated account and appears as a \"Cash Transaction\" in the Lunch Money GUI.
@@ -71,7 +73,7 @@ type TransactionObject struct {
 	PlaidMetadata map[string]interface{} `json:"plaid_metadata,omitempty"`
 	// If requested, the transaction's custom_metadata that was included when the transaction was inserted via the API. This will be a json object, but the schema is variable. This is only present when the `include_metadata` query parameter is set to true.
 	CustomMetadata map[string]interface{} `json:"custom_metadata,omitempty"`
-	// A list of objects that describe any attachments to the Transactions. This is only present when the `include_files` query parameter is set to true.
+	// A list of objects that describe any attachments to the Transactions This is only present when the `include_files` query parameter is set to true.
 	Files []TransactionAttachmentObject `json:"files,omitempty"`
 	// Source of the transaction: - `api`: Transaction was added by a call to the [POST /transactions](../operations/createTransaction) API - `csv`: Transaction was added via a CSV Import - `manual`: Transaction was created via the \"Add to Cash\" button on the Transactions page - `merge`: Transactions were originally in an account that was merged into another account - `plaid`: Transaction came from a Financial Institution synced via Plaid - `recurring`: Transaction was created from the Recurring page - `rule`: Transaction was created by a rule to split a transaction - `split`: Transaction was created by splitting another transaction - `user`: This is a legacy value and is replaced by either csv or manual 
 	Source NullableString `json:"source"`
@@ -285,6 +287,48 @@ func (o *TransactionObject) GetPayeeOk() (*string, bool) {
 // SetPayee sets field value
 func (o *TransactionObject) SetPayee(v string) {
 	o.Payee = v
+}
+
+// GetOriginalName returns the OriginalName field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *TransactionObject) GetOriginalName() string {
+	if o == nil || IsNil(o.OriginalName.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.OriginalName.Get()
+}
+
+// GetOriginalNameOk returns a tuple with the OriginalName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *TransactionObject) GetOriginalNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.OriginalName.Get(), o.OriginalName.IsSet()
+}
+
+// HasOriginalName returns a boolean if a field has been set.
+func (o *TransactionObject) HasOriginalName() bool {
+	if o != nil && o.OriginalName.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetOriginalName gets a reference to the given NullableString and assigns it to the OriginalName field.
+func (o *TransactionObject) SetOriginalName(v string) {
+	o.OriginalName.Set(&v)
+}
+// SetOriginalNameNil sets the value for OriginalName to be an explicit nil
+func (o *TransactionObject) SetOriginalNameNil() {
+	o.OriginalName.Set(nil)
+}
+
+// UnsetOriginalName ensures that no value is present for OriginalName, not even an explicit nil
+func (o *TransactionObject) UnsetOriginalName() {
+	o.OriginalName.Unset()
 }
 
 // GetCategoryId returns the CategoryId field value
@@ -818,6 +862,9 @@ func (o TransactionObject) ToMap() (map[string]interface{}, error) {
 	toSerialize["to_base"] = o.ToBase
 	toSerialize["recurring_id"] = o.RecurringId.Get()
 	toSerialize["payee"] = o.Payee
+	if o.OriginalName.IsSet() {
+		toSerialize["original_name"] = o.OriginalName.Get()
+	}
 	toSerialize["category_id"] = o.CategoryId.Get()
 	toSerialize["plaid_account_id"] = o.PlaidAccountId.Get()
 	toSerialize["manual_account_id"] = o.ManualAccountId.Get()

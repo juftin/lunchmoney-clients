@@ -6,15 +6,15 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **StartDate** | **NullableString** | The beginning of the date range for matching transactions. If &#x60;null&#x60;, any transactions before end_date may be considered. | 
 **EndDate** | **NullableString** | The end of the date range for matching transactions. If &#x60;null&#x60;, any transactions after start_date may be considered. | 
-**Granularity** | **string** | The unit of time used to define the cadence of the recurring item. | 
-**Quantity** | **int32** | The number of granularity units between each recurrence. | 
+**Granularity** | **string** | The unit of time used to define the cadence of the recurring item | 
+**Quantity** | **int32** | The number of granularity units between each recurrence | 
 **AnchorDate** | **string** | The date used in conjunction with the &#x60;quantity&#x60; and &#x60;granularity&#x60; properties to calculate expected occurrences of recurring transactions. | 
 **Payee** | **NullableString** | If set, represents the original transaction payee name that triggered this recurring item&#39;s creation. | 
 **Amount** | **string** | The expected amount for a transaction that will match this recurring item. For recurring items that have a flexible amount this is the average of the specified min and max amounts. | 
 **ToBase** | **float32** | The amount converted to the user&#39;s primary currency | 
-**Currency** | **string** | Three-letter lowercase currency code of the recurring item. | 
-**PlaidAccountId** | **NullableInt64** | The Plaid account ID associated with the recurring item, if any. | 
-**ManualAccountId** | **NullableInt64** | The manual account ID associated with the recurring item, if any. | 
+**Currency** | **string** | Three-letter lowercase currency code of the recurring item | 
+**PlaidAccountId** | **NullableInt64** | The Plaid account ID associated with the recurring item, if any | 
+**ManualAccountId** | **NullableInt64** | The manual account ID associated with the recurring item, if any | 
 
 ## Methods
 

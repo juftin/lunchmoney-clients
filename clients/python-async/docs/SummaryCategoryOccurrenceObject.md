@@ -6,14 +6,14 @@ Per period budget activity for the each budget period within the given date rang
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**in_range** | **bool** | true if this occurrence is within the given date range. | 
-**start_date** | **date** | The start date of the budget period. | 
-**end_date** | **date** | The end date of the budget period. | 
-**other_activity** | **float** | Total non recurring activity, in the user&#39;s default currency, for the category within the given date range. The total activity for the category is the sum of this and the recurring_activity. | 
+**in_range** | **bool** | true if this occurrence is within the given date range | 
+**start_date** | **date** | The start date of the budget period | 
+**end_date** | **date** | The end date of the budget period | 
+**other_activity** | **float** | Total non recurring activity, in the user&#39;s default currency, for the category within the given date range. The total activity for the category is the sum of this and the recurring_activity | 
 **recurring_activity** | **float** | Total recurring activity, in the user&#39;s default currency, for the category within the given date range. The total activity for the category is the sum of this and the other_activity. | 
 **budgeted** | **float** | Total budgeted amount, in the user&#39;s default currency, for the category within the given date range, or null if the category is not budgeted. | 
-**budgeted_amount** | **str** | Total budgeted amount in the budgeted currency for the category within the given date or null if the category is not budgeted. | 
-**budgeted_currency** | [**CurrencyEnum**](CurrencyEnum.md) | Currency of the budgeted amount. | 
+**budgeted_amount** | **str** | Total budgeted amount in the budgeted currency for the category within the given date or null if the category is not budgeted | 
+**budgeted_currency** | [**CurrencyEnum**](CurrencyEnum.md) | Currency of the budgeted amount | 
 **notes** | **str** | Any notes added in the Web UI for the budget period. | 
 
 ## Example

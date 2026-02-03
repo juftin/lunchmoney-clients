@@ -42,12 +42,13 @@ info:
     license:
         name: Apache 2.0
         url: http://www.apache.org/licenses/LICENSE-2.0.html
-    version: 2.8.4
+    version: 2.8.5
 
 servers:
     - url: https://api.lunchmoney.dev/v2
       description: v2 Lunch Money API Server - modifies real data!
-    - url: https://mock.lunchmoney.dev/v2
+    # - url: https://mock.lunchmoney.dev/v2
+    - url: https://alpha.lunchmoney.dev/v2
       description: Static Mock v2 Lunch Money API Server
 
 tags:
@@ -156,17 +157,17 @@ components:
                     type: integer
                     format: int32
                     nullable: false
-                    description: A system defined unique identifier for the category.
+                    description: A system defined unique identifier for the category
                 name:
                     type: string
                     nullable: false
-                    description: The name of the category.
+                    description: The name of the category
                     minLength: 1
                     maxLength: 100
                 description:
                     type: string
                     nullable: true
-                    description: The description of the category or `null` if not set.
+                    description: The description of the category or `null` if not set
                     maxLength: 200
                 is_income:
                     type: boolean
@@ -208,7 +209,7 @@ components:
                         group.
                 is_group:
                     type: boolean
-                    description: If `true`, the category is created as a category group.
+                    description: If `true`, the category is created as a category group
                 children:
                     type: array
                     items:
@@ -247,7 +248,7 @@ components:
                     type: boolean
                     nullable: false
                     default: false
-                    description: If `true`, the category is collapsed in the Lunch Money GUI.
+                    description: If `true`, the category is collapsed in the Lunch Money GUI
             required:
                 - id
                 - name
@@ -276,17 +277,17 @@ components:
                     type: integer
                     format: int32
                     nullable: false
-                    description: A system defined unique identifier for the category.
+                    description: A system defined unique identifier for the category
                 name:
                     type: string
                     nullable: false
-                    description: The name of the category.
+                    description: The name of the category
                     minLength: 1
                     maxLength: 100
                 description:
                     type: string
                     nullable: true
-                    description: The description of the category or `null` if not set.
+                    description: The description of the category or `null` if not set
                     maxLength: 200
                 is_income:
                     type: boolean
@@ -332,7 +333,7 @@ components:
                     type: boolean
                     enum:
                         - false
-                    description: Will always be false for a category that is part of category group.
+                    description: Will always be false for a category that is part of category group
                 archived:
                     type: boolean
                     description:
@@ -356,8 +357,8 @@ components:
                         API.
                 collapsed:
                     type: boolean
-                    nullable: true
-                    description: If `true`, the category is collapsed in the Lunch Money GUI.
+                    nullable: false
+                    description: Always `false` for a child category. Child categories cannot be collapsed.
             required:
                 - id
                 - name
@@ -372,6 +373,7 @@ components:
                 - archived
                 - archived_at
                 - order
+                - collapsed
 
         # The request object for POST /categories
         # Prevent user from submitting any system created fields in a POST request
@@ -422,7 +424,7 @@ components:
                     type: boolean
                     nullable: false
                     default: false
-                    description: If `true`, the category is created as a category group.
+                    description: If `true`, the category is created as a category group
                 group_id:
                     type: integer
                     format: int64
@@ -472,7 +474,8 @@ components:
                 collapsed:
                     type: boolean
                     nullable: true
-                    description: If `true`, the category is collapsed in the Lunch Money GUI.<br>While this property can be set via the API it is generally set by the user in the Lunch Money GUI.
+                    description: >-
+                        If `true`, the category group is collapsed in the Lunch Money GUI. This property can only be set to `true` for category groups (`is_group: true`). While this property can be set via the API, it is generally set by the user in the Lunch Money GUI.
             required:
                 - name
 
@@ -519,7 +522,7 @@ components:
                     x-updatable: true
                 archived:
                     type: boolean
-                    description: If set, will indicate if this category is archived.
+                    description: If set, will indicate if this category is archived
                     x-updatable: true
                 group_id:
                     type: integer
@@ -576,12 +579,13 @@ components:
                 collapsed:
                     type: boolean
                     nullable: true
-                    description: If `true`, the category is collapsed in the Lunch Money GUI.<br>While this property can be set via the API it is generally set by the user in the Lunch Money GUI.
+                    description: >-
+                        If `true`, the category group is collapsed in the Lunch Money GUI. This property can only be set to `true` for category groups (`is_group: true`). While this property can be set via the API, it is generally set by the user in the Lunch Money GUI.
                     x-updatable: true
                 id:
                     type: integer
                     format: int64
-                    description: System defined unique identifier for the category. Ignored if set.
+                    description: System defined unique identifier for the category. Ignored if set
                     x-updatable: false
                 archived_at:
                     type: string
@@ -694,6 +698,12 @@ components:
                         Name of payee set by the user, the financial institution, or by
                         a matched recurring item. This will match the value
                         displayed in payee field on the transactions page in the GUI.
+                    minLength: 0
+                    maxLength: 140
+                original_name:
+                    type: string
+                    nullable: true
+                    description: Original payee name from the source (financial institution, CSV, etc.). For Plaid transactions, this is the raw name before normalization. For manual/API transactions, this typically matches `payee`. May be null for older transactions.
                     minLength: 0
                     maxLength: 140
                 category_id:
@@ -869,7 +879,7 @@ components:
                     type: array
                     nullable: false
                     description:
-                        A list of objects that describe any attachments to the Transactions.
+                        A list of objects that describe any attachments to the Transactions
                         This is only present when the `include_files` query parameter is set to true.
                     items:
                         $ref: "#/components/schemas/transactionAttachmentObject"
@@ -955,7 +965,7 @@ components:
                     type: string
                     description:
                         Amount of the transaction in numeric format to 4 decimal places.
-                        Positive values indicate a debit transaction, negative values indicate a credit transaction.
+                        Positive values indicate a debit transaction, negative values indicate a credit transaction
                 currency:
                     description:
                         Three-letter lowercase currency code of the transaction in ISO 4217
@@ -982,6 +992,12 @@ components:
                         Name of payee set by the user, the financial institution, or by
                         a matched recurring item. This will match the value
                         displayed in payee field on the transactions page in the GUI.
+                    minLength: 0
+                    maxLength: 140
+                original_name:
+                    type: string
+                    nullable: true
+                    description: Original payee name from the source (financial institution, CSV, etc.). For Plaid transactions, this is the raw name before normalization. For manual/API transactions, this typically matches `payee`. May be null for older transactions.
                     minLength: 0
                     maxLength: 140
                 category_id:
@@ -1236,7 +1252,13 @@ components:
                         - $ref: "#/components/schemas/currencyEnum"
                 payee:
                     type: string
-                    description: Name of payee for the transaction.
+                    description: Name of payee for the transaction
+                    minLength: 0
+                    maxLength: 140
+                original_name:
+                    type: string
+                    nullable: true
+                    description: Original payee name. If not provided, defaults to `payee` value.
                     minLength: 0
                     maxLength: 140
                 category_id:
@@ -1261,7 +1283,7 @@ components:
                     format: int32
                     nullable: true
                     description:
-                        The Unique identifier for the associated manually managed account.
+                        The unique identifier for the associated manually managed account
                         If set, this must match an existing manual account id associated
                         with the user's account. If not set, and `plaid_account_id` is also
                         not set, no account is associated with the transaction and it will
@@ -1340,7 +1362,7 @@ components:
                 id:
                     type: integer
                     format: int64
-                    description: System defined unique identifier of this transaction. Ignored if set.
+                    description: System defined unique identifier of this transaction. Ignored if set
                     x-updatable: false
                 date:
                     type: string
@@ -1385,6 +1407,13 @@ components:
                     minLength: 0
                     maxLength: 140
                     x-updatable: true
+                original_name:
+                    type: string
+                    nullable: true
+                    description: Original payee name. Cannot be changed. Ignored if set.
+                    minLength: 0
+                    maxLength: 140
+                    x-updatable: false
                 category_id:
                     type: integer
                     format: int32
@@ -1465,7 +1494,7 @@ components:
                 custom_metadata:
                     type: object
                     nullable: true
-                    description: User defined JSON data that can be set or cleared via the API.
+                    description: User defined JSON data that can be set or cleared via the API
                     x-updatable: true
                 status:
                     type: string
@@ -1491,18 +1520,18 @@ components:
                     x-updatable: false
                 is_pending:
                     type: boolean
-                    description: System defined flag set for pending transactions. Ignored if set.
+                    description: System defined flag set for pending transactions. Ignored if set
                     x-updatable: false
                 plaid_metadata:
                     type: object
                     nullable: true
-                    description: System set metadata from a Plaid account sync. Ignored if set.
+                    description: System set metadata from a Plaid account sync. Ignored if set
                     x-updatable: false
                 created_at:
                     type: string
                     format: date-time
                     description:
-                        System defined date and time of when the transaction was created.
+                        System defined date and time of when the transaction was created
                         Ignored if set.
                     x-updatable: false
                 updated_at:
@@ -1515,7 +1544,7 @@ components:
                 is_split_parent:
                     type: boolean
                     description:
-                        System defined boolean indicating if this transaction was split.
+                        System defined boolean indicating if this transaction was split
                         To split or unsplit a transaction use the
                         `/transactions/split` endpoint. Ignored if set.
                     x-updatable: false
@@ -1605,7 +1634,7 @@ components:
                 notes:
                     type: string
                     maxLength: 350
-                    description: Will inherit notes from parent if not defined.
+                    description: Will inherit notes from parent if not defined
             required:
                 - amount
 
@@ -1648,7 +1677,7 @@ components:
                         duplicates.
                 request_transaction:
                     type: object
-                    description: The requested transaction that was skipped.
+                    description: The requested transaction that was skipped
                     allOf:
                         - $ref: "#/components/schemas/insertTransactionObject"
 
@@ -1659,7 +1688,7 @@ components:
             description: The object returned from a successful POST /transactions request
             properties:
                 transactions:
-                    description: An array of the inserted transactions.
+                    description: An array of the inserted transactions
                     items:
                         $ref: "#/components/schemas/transactionObject"
                     type: array
@@ -1721,6 +1750,16 @@ components:
                     description: Name of the account
                     minLength: 1
                     maxLength: 45
+                institution_name:
+                    type: string
+                    nullable: true
+                    minLength: 1
+                    maxLength: 50
+                    description: Name of institution holding the account
+                display_name:
+                    type: string
+                    nullable: true
+                    description: Optional display name for the account as set by the user or derived from the `institution_name` and `name` if not explicitly set.
                 type:
                     description: Primary type of the account
                     allOf:
@@ -1733,14 +1772,10 @@ components:
                         checking - savings - prepaid credit card
                     minLength: 1
                     maxLength: 100
-                display_name:
-                    type: string
-                    nullable: true
-                    description: Optional display name for the account set by the user
                 balance:
                     type: string
                     pattern: ^-?\d+(\.\d{1,4})?$
-                    description: Current balance of the account in numeric format to 4 decimal places.
+                    description: Current balance of the account in numeric format to 4 decimal places
                 currency:
                     type: string
                     minLength: 3
@@ -1753,19 +1788,19 @@ components:
                     type: string
                     format: date-time
                     description: Date balance was last updated in ISO 8601 extended format, can be in date or date-time format
+                status:
+                    type: string
+                    description: The status of the account
+                    enum:
+                        - active
+                        - closed
                 closed_on:
                     type: string
                     format: date
                     nullable: true
                     description:
-                        The date this account was closed. Will be null if the account has
-                        not been marked as closed
-                institution_name:
-                    type: string
-                    nullable: true
-                    minLength: 1
-                    maxLength: 50
-                    description: Name of institution holding the account
+                        The date this account was closed in YYYY-MM-DD format. Will be null if the account has
+                        not been marked as closed.
                 external_id:
                     type: string
                     nullable: true
@@ -1775,7 +1810,7 @@ components:
                 custom_metadata:
                     type: object
                     nullable: true
-                    description: User defined JSON data that can be set or cleared via the API.
+                    description: User defined JSON data that can be set or cleared via the API
                     additionalProperties: true
                 exclude_from_transactions:
                     type: boolean
@@ -1783,6 +1818,9 @@ components:
                     description:
                         If true, this account will not show up as an option for assignment
                         when creating transactions manually
+                created_by_name:
+                    type: string
+                    description: The name of the user who created the account
                 created_at:
                     type: string
                     format: date-time
@@ -1805,8 +1843,10 @@ components:
                 - institution_name
                 - external_id
                 - exclude_from_transactions
+                - created_by_name
                 - created_at
                 - updated_at
+                - status
 
         # The object that may be submitted to POST /manual_accounts
         createManualAccountRequestObject:
@@ -1820,8 +1860,20 @@ components:
                     minLength: 1
                     maxLength: 45
                     example: My Savings Account
+                institution_name:
+                    type: string
+                    example: Bank of the West
+                    description: Name of institution holding the manual account
+                    minLength: 1
+                    maxLength: 50
+                display_name:
+                    type: string
+                    description:
+                        Display name of the manual account as set by user or derived from the `institution_name` and `name` if not explicitly set.<br>
+                        This must be unique for the budgeting account.
+                    example: Savings
                 type:
-                    description: The type of manual account.
+                    description: The type of manual account
                     allOf:
                         - $ref: "#/components/schemas/accountTypeEnum"
                 subtype:
@@ -1832,11 +1884,6 @@ components:
                     minLength: 1
                     maxLength: 100
                     example: prepaid credit card
-                display_name:
-                    type: string
-                    description: Display name of the manual account as set by user.<br>
-                        This must be unique for the budgeting account.  If not set, it will be derived from the `institution_name` (if any) plus `name`.
-                    example: Savings
                 balance:
                     oneOf:
                         - type: number
@@ -1855,24 +1902,28 @@ components:
                         - format: date
                     example: "2024-09-15"
                     description: Date/time the balance of the manual account was last updated in ISO 8601 extended format
-                closed_on:
-                    type: string
-                    format: date
-                    nullable: true
-                    example: "2024-10-01"
-                    description: The date this manual account was closed in YYYY-MM-DD format.
                 currency:
                     description:
                         Three-letter lowercase currency code of the transaction in ISO 4217
                         format
                     allOf:
                         - $ref: "#/components/schemas/currencyEnum"
-                institution_name:
+                status:
                     type: string
-                    example: Bank of the West
-                    description: Name of institution holding the manual account
-                    minLength: 1
-                    maxLength: 50
+                    description: The status of the account
+                    enum:
+                        - active
+                        - closed
+                    default: active
+                closed_on:
+                    oneOf:
+                        - type: string
+                          format: date
+                        - type: string
+                          format: date-time
+                    nullable: true
+                    example: "2024-10-01"
+                    description: The date this manual account was closed in YYYY-MM-DD format. If set, `status` must also be set to `closed`.
                 external_id:
                     type: string
                     nullable: true
@@ -1889,7 +1940,7 @@ components:
                     additionalProperties: true
                 exclude_from_transactions:
                     type: boolean
-                    description: If `true`, transactions may not be assigned to this manual account.
+                    description: If `true`, transactions may not be assigned to this manual account
                     default: false
             required:
                 - name
@@ -1905,16 +1956,30 @@ components:
                 id:
                     type: integer
                     format: int32
-                    description: System defined unique identifier of this account. Ignored if set.
+                    description: System defined unique identifier of this account. Ignored if set
                     x-updatable: false
                 name:
                     type: string
-                    description: If set, the new name of the manual account.
+                    description: If set, the new name of the manual account
                     minLength: 1
                     maxLength: 45
                     x-updatable: true
+                institution_name:
+                    type: string
+                    nullable: true
+                    description: If set, the name of institution holding the account
+                    minLength: 1
+                    maxLength: 50
+                    x-updatable: true
+                display_name:
+                    type: string
+                    nullable: true
+                    description:
+                        If set, the new display name for the manual account.<br>
+                        This must be unique for the user.
+                    x-updatable: true
                 type:
-                    description: If set, the new type of the manual account.
+                    description: If set, the new type of the manual account
                     x-updatable: true
                     allOf:
                         - $ref: "#/components/schemas/accountTypeEnum"
@@ -1925,13 +1990,6 @@ components:
                         retirement - checking - savings - prepaid credit card
                     minLength: 1
                     maxLength: 100
-                    x-updatable: true
-                display_name:
-                    type: string
-                    nullable: true
-                    description:
-                        If set, an optional display name for the manual account.<br>
-                        This must be unique for the user.  If not set, it will be derived from the `institution_name` (if any) concatenated with the `name`.
                     x-updatable: true
                 balance:
                     oneOf:
@@ -1945,6 +2003,13 @@ components:
                         the manual account as a number or string. Do not include any special
                         characters aside from a decimal point.
                     x-updatable: true
+                currency:
+                    description:
+                        If set, the new three-letter lowercase currency code of the manual account
+                        balance.
+                    x-updatable: true
+                    allOf:
+                        - $ref: "#/components/schemas/currencyEnum"
                 balance_as_of:
                     type: string
                     oneOf:
@@ -1955,32 +2020,28 @@ components:
                         This property is ignored if `balance` is not also set. If `balance` is set and this property is
                         not set the current time is used."
                     x-updatable: true
+                status:
+                    type: string
+                    description: If set, the status of the manual account. If set to `closed`, the the `closed_on_date` date will be set to the current date, unless it is also set.
+                    enum:
+                        - active
+                        - closed
+                    x-updatable: true
                 closed_on:
-                    type: string
-                    format: date
                     nullable: true
-                    description: If set, the date this manual account was closed in YYYY-MM-DD format.
-                    x-updatable: true
-                currency:
-                    description:
-                        If set, the new three-letter lowercase currency code of the manual account
-                        balance.
-                    x-updatable: true
-                    allOf:
-                        - $ref: "#/components/schemas/currencyEnum"
-                institution_name:
-                    type: string
-                    nullable: true
-                    description: If set, the name of institution holding the account.
-                    minLength: 1
-                    maxLength: 50
+                    oneOf:
+                        - type: string
+                          format: date
+                        - type: string
+                          format: date-time
+                    description: If set, the date this manual account was closed in YYYY-MM-DD format. If updating an account that is not already closed, `status` must also be set to `closed`.
                     x-updatable: true
                 external_id:
                     type: string
                     nullable: true
                     minLength: 0
                     maxLength: 75
-                    description: An optional user-defined ID for the manual account.
+                    description: An optional user-defined ID for the manual account
                     x-updatable: true
                 custom_metadata:
                     type: object
@@ -1993,11 +2054,11 @@ components:
                     x-updatable: true
                 exclude_from_transactions:
                     type: boolean
-                    description: If set, transactions may not be assigned to this manual account.
+                    description: If set, transactions may not be assigned to this manual account
                     x-updatable: true
                 to_base:
                     type: number
-                    description: System defined balance converted to the user's primary currency. Ignored if set.  Use `balance` to update the balance in the account.
+                    description: System defined balance converted to the user's primary currency. Ignored if set. Use `balance` to update the balance in the account
                     x-updatable: false
                 created_at:
                     type: string
@@ -2013,6 +2074,10 @@ components:
                         System defined date/time the account was created in ISO 8601
                         extended format. Ignored if set.
                     x-updatable: false
+                created_by_name:
+                    type: string
+                    description: System defined name of the user who created the account. Ignored if set
+                    x-updatable: false
 
         # The object containing information about a Plaid account
         plaidAccountObject:
@@ -2024,10 +2089,20 @@ components:
                     type: integer
                     format: int32
                     description: The unique identifier of this account
+                plaid_item_id:
+                    type: string
+                    nullable: true
+                    minLength: 0
+                    maxLength: 255
+                    description: The unique identifier of the Plaid connection that this account belongs to. Accounts with the same plaid_item_id usually belong to the same institution.
                 date_linked:
                     type: string
                     format: date
                     description: Date account was first linked in ISO 8601 format
+                linked_by_name:
+                    type: string
+                    nullable: false
+                    description: The name of the user who linked the account
                 name:
                     type: string
                     description:
@@ -2064,20 +2139,27 @@ components:
                     type: string
                     description:
                         "Denotes the current status of the account within Lunch Money. Must
-                        be one of<br> - `active`: Account is active and in good state<br> -
-                        `inactive`: Account marked inactive from user. Transaction imports and balance updates will not occur for this account.<br> - `relink`: Account
-                        needs to be relinked with Plaid.<br> - `syncing`: Account is
-                        awaiting first import of transactions. <br> - `not found`: Account
-                        cannot be found with Plaid<br> - `not supported`: Account is not
-                        supported with Plaid<br> - `error`: Account is in error with
-                        Plaid.<br>"
+                        be one of<br>
+                        - active: Account is actively syncing transactions and/or balance<br>
+                        - inactive: Account marked inactive from user. Transaction imports and balance updates will not occur for this account.<br>
+                        - closed: Account is marked as closed<br>
+                        - deactivated: Account is marked deactivated during setup. The user must click `Add/Remove Accounts From This Bank` and manually re-select this account to activate it.'<br>
+                        - not found: Account was once linked but can no longer be found with Plaid.<br>
+                        - not supported: Account is not supported by Plaid.<br>
+                        - relink: Account (and others with the same connection) need to be relinked with Plaid.<br>
+                        - syncing: Account is awaiting the first import of transactions.<br>
+                        - revoked: Account connection has been revoked by Plaid and syncing is no longer possible. A new connection needs to be set up again.<br>
+                        - error: Account (and others with the same connection) is in error with Plaid and requires intervention to re-activate it.<br>"
                     enum:
                         - active
                         - inactive
-                        - relink
-                        - syncing
+                        - closed
+                        - deactivated
                         - not found
                         - not supported
+                        - relink
+                        - syncing
+                        - revoked
                         - error
                 allow_transaction_modifications:
                     type: boolean
@@ -2141,7 +2223,9 @@ components:
                         regardless of whether any new data was available in the update.
             required:
                 - id
+                - plaid_item_id
                 - date_linked
+                - linked_by_name
                 - name
                 - display_name
                 - type
@@ -2168,22 +2252,22 @@ components:
                 id:
                     type: integer
                     format: int32
-                    description: Unique identifier for the tag.
+                    description: Unique identifier for the tag
                 name:
                     type: string
-                    description: Name of the tag.
+                    description: Name of the tag
                 description:
                     type: string
                     nullable: true
-                    description: Description of the tag.
+                    description: Description of the tag
                 text_color:
                     type: string
                     nullable: true
-                    description: The text color of the tag.
+                    description: The text color of the tag
                 background_color:
                     type: string
                     nullable: true
-                    description: The background color of the tag.
+                    description: The background color of the tag
                 updated_at:
                     type: string
                     format: date-time
@@ -2240,16 +2324,16 @@ components:
                     type: string
                     nullable: true
                     default: null
-                    description: The description of the tag. Must not exceed 200 characters.
+                    description: The description of the tag. Must not exceed 200 characters
                     maxLength: 200
                 text_color:
                     type: string
                     nullable: true
-                    description: The text color of the tag.
+                    description: The text color of the tag
                 background_color:
                     type: string
                     nullable: true
-                    description: The background color of the tag.
+                    description: The background color of the tag
                 archived:
                     type: boolean
                     default: false
@@ -2285,21 +2369,21 @@ components:
                 text_color:
                     type: string
                     nullable: true
-                    description: The text color of the tag.
+                    description: The text color of the tag
                     x-updatable: true
                 background_color:
                     type: string
                     nullable: true
-                    description: The background color of the tag.
+                    description: The background color of the tag
                     x-updatable: true
                 archived:
                     type: boolean
-                    description: If set, will indicate if this category is archived.
+                    description: If set, will indicate if this category is archived
                     x-updatable: true
                 id:
                     type: integer
                     format: int32
-                    description: System-defined unique identifier for the category. Ignored if set.
+                    description: System-defined unique identifier for the category. Ignored if set
                     x-updatable: false
                 updated_at:
                     type: string
@@ -2311,13 +2395,13 @@ components:
                     type: string
                     format: date-time
                     nullable: false
-                    description: System-set time the tag was created. Ignored if set.
+                    description: System-set time the tag was created. Ignored if set
                     x-updatable: false
                 archived_at:
                     type: string
                     format: date-time
                     nullable: true
-                    description: System-set time the tag was archived. Ignored if set.
+                    description: System-set time the tag was archived. Ignored if set
                     x-updatable: false
 
         # The object returned when a DELETE /tag/:id request
@@ -2357,7 +2441,7 @@ components:
                 description:
                     type: string
                     nullable: true
-                    description: An optional description of this recurring item.
+                    description: An optional description of this recurring item
                 status:
                     type: string
                     description:
@@ -2369,7 +2453,7 @@ components:
                         - reviewed
                 transaction_criteria:
                     type: object
-                    description: The set of properties used to identify matching transactions.
+                    description: The set of properties used to identify matching transactions
                     properties:
                         start_date:
                             type: string
@@ -2387,7 +2471,7 @@ components:
                                 transactions after start_date may be considered.
                         granularity:
                             type: string
-                            description: The unit of time used to define the cadence of the recurring item.
+                            description: The unit of time used to define the cadence of the recurring item
                             enum:
                                 - day
                                 - week
@@ -2395,7 +2479,7 @@ components:
                                 - year
                         quantity:
                             type: integer
-                            description: The number of granularity units between each recurrence.
+                            description: The number of granularity units between each recurrence
                         anchor_date:
                             type: string
                             format: date
@@ -2423,17 +2507,17 @@ components:
                         currency:
                             type: string
                             nullable: false
-                            description: Three-letter lowercase currency code of the recurring item.
+                            description: Three-letter lowercase currency code of the recurring item
                         plaid_account_id:
                             type: integer
                             format: int64
                             nullable: true
-                            description: The Plaid account ID associated with the recurring item, if any.
+                            description: The Plaid account ID associated with the recurring item, if any
                         manual_account_id:
                             type: integer
                             format: int64
                             nullable: true
-                            description: The manual account ID associated with the recurring item, if any.
+                            description: The manual account ID associated with the recurring item, if any
                     required:
                         - start_date
                         - end_date
@@ -2448,7 +2532,7 @@ components:
                         - manual_account_id
                 overrides:
                     type: object
-                    description: The values that will be applied to matching transactions.
+                    description: The values that will be applied to matching transactions
                     properties:
                         payee:
                             type: string
@@ -2498,17 +2582,17 @@ components:
                                 transactions is expected.
                         found_transactions:
                             type: array
-                            description: A list with the dates and IDs of matching transactions.
+                            description: A list with the dates and IDs of matching transactions
                             items:
                                 type: object
                                 properties:
                                     date:
                                         type: string
                                         format: date
-                                        description: The date for a matching transaction within the specified range.
+                                        description: The date for a matching transaction within the specified range
                                     transaction_id:
                                         type: integer
-                                        description: The ID of a matching transaction within the specified range.
+                                        description: The ID of a matching transaction within the specified range
                         missing_transaction_dates:
                             type: array
                             items:
@@ -2520,17 +2604,17 @@ components:
                 created_by:
                     type: integer
                     nullable: false
-                    description: The ID of the user who created the recurring item.
+                    description: The ID of the user who created the recurring item
                 created_at:
                     type: string
                     format: date-time
                     nullable: false
-                    description: Date/time the recurring item was created in ISO 8601 extended format.
+                    description: Date/time the recurring item was created in ISO 8601 extended format
                 updated_at:
                     type: string
                     format: date-time
                     nullable: false
-                    description: Date/time the recurring item was updated in ISO 8601 extended format.
+                    description: Date/time the recurring item was updated in ISO 8601 extended format
                 source:
                     type: string
                     description: >
@@ -2994,19 +3078,19 @@ components:
             x-internal: true # Don't display in schemas section of docs
             properties:
                 other_activity:
-                    description: Total amount, in the user's default currency, of non recurring activity for the given date range.
+                    description: Total amount, in the user's default currency, of non recurring activity for the given date range
                     type: number
                 recurring_activity:
-                    description: Total amount, in the user's default currency, of recurring activity that has occurred for the given date range.
+                    description: Total amount, in the user's default currency, of recurring activity that has occurred for the given date range
                     type: number
                 recurring_remaining:
-                    description: Total amount, in the user's default currency, of expected recurring activity that has not yet occurred.
+                    description: Total amount, in the user's default currency, of expected recurring activity that has not yet occurred
                     type: number
                 uncategorized:
-                    description: Total amount, in the user's default currency, of non recurring activity coming from un-categorized transactions.
+                    description: Total amount, in the user's default currency, of non recurring activity coming from un-categorized transactions
                     type: number
                 uncategorized_count:
-                    description: Number of un-categorized transactions for the given date range.
+                    description: Number of un-categorized transactions for the given date range
                     type: integer
                 uncategorized_recurring:
                     description: "Total amount, in the user's default currency, of recurring activity coming from un-categorized transactions."
@@ -3200,20 +3284,20 @@ components:
                 This is only returned if the query parameter `include_occurrences` is set to `true`."
             properties:
                 in_range:
-                    description: true if this occurrence is within the given date range.
+                    description: true if this occurrence is within the given date range
                     type: boolean
                 start_date:
-                    description: The start date of the budget period.
+                    description: The start date of the budget period
                     type: string
                     format: date
                 end_date:
-                    description: The end date of the budget period.
+                    description: The end date of the budget period
                     type: string
                     format: date
                 other_activity:
                     description:
                         Total non recurring activity, in the user's default currency, for the category within the given date range.
-                        The total activity for the category is the sum of this and the recurring_activity.
+                        The total activity for the category is the sum of this and the recurring_activity
                     type: number
                 recurring_activity:
                     description:
@@ -3225,11 +3309,11 @@ components:
                     type: number
                     nullable: true
                 budgeted_amount:
-                    description: Total budgeted amount in the budgeted currency for the category within the given date or null if the category is not budgeted.
+                    description: Total budgeted amount in the budgeted currency for the category within the given date or null if the category is not budgeted
                     type: string
                     nullable: true
                 budgeted_currency:
-                    description: Currency of the budgeted amount.
+                    description: Currency of the budgeted amount
                     nullable: true
                     allOf:
                         - $ref: "#/components/schemas/currencyEnum"
@@ -3288,7 +3372,7 @@ components:
                     description: "Amount of funds, in the user's default currency, currently available to rollover."
                     type: number
                 all_adjustments:
-                    description: List of previous adjustments to the rollover pool.
+                    description: List of previous adjustments to the rollover pool
                     type: array
                     items:
                         $ref: "#/components/schemas/summaryRolloverPoolAdjustmentObject"
@@ -3323,7 +3407,7 @@ components:
                         errors:
                             - errMsg: Too many requests, please try again later.
         serverError:
-            description: Internal Server Error. Contact support.
+            description: Internal Server Error. Contact support
             content:
                 application/json:
                     schema:
@@ -3366,7 +3450,7 @@ paths:
             parameters: []
             responses:
                 "200":
-                    description: The User Object associated with the authorized token.
+                    description: The User Object associated with the authorized token
                     content:
                         application/json:
                             schema:
@@ -3390,12 +3474,12 @@ paths:
             tags:
                 - summary
             summary: Get summary
-            description: Returns a summary of the budget activity for the specified date range.
+            description: Returns a summary of the budget activity for the specified date range
             operationId: getBudgetSummary
             parameters:
                 - in: query
                   name: start_date
-                  description: Start of date range in ISO 8601 date format (YYYY-MM-DD).
+                  description: Start of date range in ISO 8601 date format (YYYY-MM-DD)
                   required: true
                   schema:
                       type: string
@@ -3427,7 +3511,7 @@ paths:
                           value: "2025-08-27"
                 - in: query
                   name: include_exclude_from_budgets
-                  description: Enable to include categories that have the 'Exclude from Budgets' flag set in the returned `categories` array.
+                  description: Enable to include categories that have the 'Exclude from Budgets' flag set in the returned `categories` array
                   required: false
                   schema:
                       type: boolean
@@ -3462,7 +3546,7 @@ paths:
                       default: false
             responses:
                 "200":
-                    description: Budget summary for the requested range.
+                    description: Budget summary for the requested range
                     content:
                         application/json:
                             schema:
@@ -3883,7 +3967,7 @@ paths:
             tags:
                 - categories
             summary: Get all categories
-            description: Retrieve a list of all categories associated with the user's account.
+            description: Retrieve a list of all categories associated with the user's account
             operationId: getAllCategories
             parameters:
                 - name: format
@@ -4236,7 +4320,7 @@ paths:
             tags:
                 - categories
             summary: Get a single category
-            description: Retrieve details of a specific category or category group by its ID.
+            description: Retrieve details of a specific category or category group by its ID
             operationId: getCategoryById
             parameters:
                 - name: id
@@ -4258,7 +4342,7 @@ paths:
                           value: 543210
             responses:
                 "201":
-                    description: Category Object with the requested category or category group.
+                    description: Category Object with the requested category or category group
                     content:
                         application/json:
                             schema:
@@ -4627,32 +4711,36 @@ paths:
                                 manual_accounts:
                                     - id: 119807
                                       name: Individual Brokerage
+                                      institution_name: Fidelity
+                                      display_name: null
                                       type: investment
                                       subtype: brokerage
-                                      display_name: null
                                       balance: "41211.8000"
-                                      balance_as_of: "2025-06-25T17:00:04.000Z"
-                                      closed_on: null
                                       currency: usd
                                       to_base: 41211.8
-                                      institution_name: Fidelity
+                                      balance_as_of: "2025-06-25T17:00:04.000Z"
+                                      status: active
+                                      closed_on: null
                                       external_id: null
                                       exclude_from_transactions: false
+                                      created_by_name: User 1
                                       created_at: "2025-06-25T17:00:04.414Z"
                                       updated_at: "2025-06-26T19:03:38.312Z"
                                     - id: 119909
                                       name: Euro Travel Card
+                                      institution_name: WeBank
+                                      display_name: null
                                       type: credit
                                       subtype: credit card
-                                      display_name: null
                                       balance: "1004.8000"
-                                      balance_as_of: "2023-06-25T17:00:04.000Z"
-                                      closed_on: null
                                       currency: usd
                                       to_base: 1004.8
-                                      institution_name: WeBank
+                                      balance_as_of: "2023-06-25T17:00:04.000Z"
+                                      status: active
+                                      closed_on: null
                                       external_id: null
                                       exclude_from_transactions: false
+                                      created_by_name: User 1
                                       created_at: "2025-06-25T17:00:04.414Z"
                                       updated_at: "2025-06-26T19:03:38.312Z"
                 "400":
@@ -4680,7 +4768,7 @@ paths:
             tags:
                 - manual_accounts
             summary: Create a manual account
-            description: Creates a new manually-managed account.
+            description: Creates a new manually-managed account
             operationId: createManualAccount
             requestBody:
                 required: true
@@ -4734,34 +4822,38 @@ paths:
                                     value:
                                         id: 119999
                                         name: API created Account
+                                        institution_name: null
                                         display_name: null
                                         type: cash
                                         subtype: null
                                         balance: "100"
-                                        balance_as_of: "2024-10-06T18:55:08.599Z"
-                                        closed_on: null
                                         currency: usd
                                         to_base: 100
-                                        institution_name: null
+                                        balance_as_of: "2024-10-06T18:55:08.599Z"
+                                        status: active
+                                        closed_on: null
                                         external_id: null
                                         exclude_from_transactions: false
+                                        created_by_name: User 1
                                         created_at: "2024-10-06T18:55:08.599Z"
                                         updated_at: "2024-10-06T18:55:08.599Z"
                                 complete request response:
                                     value:
                                         id: 119999
                                         name: API created loan
+                                        institution_name: Bank of America
                                         display_name: Car loan
                                         type: vehicle
                                         subtype: loan
                                         balance: "9999.99"
-                                        balance_as_of: "2024-10-06T18:55:08.599Z"
-                                        closed_on: null
                                         currency: usd
                                         to_base: 9999.99
-                                        institution_name: Bank of America
+                                        balance_as_of: "2024-10-06T18:55:08.599Z"
+                                        status: active
+                                        closed_on: null
                                         external_id: null
                                         exclude_from_transactions: false
+                                        created_by_name: User 1
                                         created_at: "2024-10-06T18:57:12.029Z"
                                         updated_at: "2024-10-06T18:57:12.029Z"
                 "400":
@@ -4809,7 +4901,7 @@ paths:
             tags:
                 - manual_accounts
             summary: Get a single manual account
-            description: Retrieve the details of the manual account with the specified ID.
+            description: Retrieve the details of the manual account with the specified ID
             operationId: getManualAccountById
             parameters:
                 - name: id
@@ -4828,7 +4920,7 @@ paths:
                           value: 9999999999999
             responses:
                 "200":
-                    description: Manual Account Object with the requested account.
+                    description: Manual Account Object with the requested account
                     content:
                         application/json:
                             schema:
@@ -4836,17 +4928,19 @@ paths:
                             example:
                                 id: 119807
                                 name: Individual Brokerage
+                                institution_name: Fidelity
+                                display_name: null
                                 type: investment
                                 subtype: brokerage
-                                display_name: null
                                 balance: "41211.8000"
-                                balance_as_of: "2025-06-25T17:00:04.000Z"
-                                closed_on: null
                                 currency: usd
                                 to_base: 41211.8
-                                institution_name: Fidelity
+                                balance_as_of: "2025-06-25T17:00:04.000Z"
+                                status: active
+                                closed_on: null
                                 external_id: null
                                 exclude_from_transactions: false
+                                created_by_name: User 1
                                 created_at: "2025-06-25T17:00:04.414Z"
                                 updated_at: "2025-06-26T19:03:38.312Z"
                 "400":
@@ -4952,34 +5046,38 @@ paths:
                                     value:
                                         id: 119807
                                         name: Individual Brokerage
+                                        institution_name: Fidelity
+                                        display_name: null
                                         type: investment
                                         subtype: brokerage
-                                        display_name: null
                                         balance: "41211.8000"
-                                        balance_as_of: "2025-06-25T17:00:04.000Z"
-                                        closed_on: null
                                         currency: usd
                                         to_base: 41211.8
+                                        balance_as_of: "2025-06-25T17:00:04.000Z"
+                                        status: active
+                                        closed_on: null
                                         external_id: null
-                                        institution_name: Fidelity
                                         exclude_from_transactions: false
+                                        created_by_name: User 1
                                         created_at: "2025-06-25T17:00:04.414Z"
                                         updated_at: "2025-06-26T19:03:38.312Z"
                                 closed account:
                                     value:
                                         id: 119807
                                         name: Individual Brokerage
+                                        institution_name: Fidelity
+                                        display_name: null
                                         type: investment
                                         subtype: brokerage
-                                        display_name: null
                                         balance: "41211.8000"
-                                        balance_as_of: "2025-06-25T17:00:04.000Z"
-                                        closed_on: "2024-10-06"
                                         currency: usd
                                         to_base: 41211.8
+                                        balance_as_of: "2025-06-25T17:00:04.000Z"
+                                        status: closed
+                                        closed_on: "2024-10-06"
                                         external_id: null
-                                        institution_name: Fidelity
                                         exclude_from_transactions: true
+                                        created_by_name: User 1
                                         created_at: "2025-06-25T17:00:04.414Z"
                                         updated_at: "2024-10-06T19:03:09.506Z"
                 "400":
@@ -5105,7 +5203,9 @@ paths:
                             example:
                                 plaid_accounts:
                                     - id: 119804
+                                      plaid_item_id: "aB2cD3eF4gH5iJ6kL7mN8oP9qR0sT1uV2wX3yZ4"
                                       date_linked: "2020-01-28"
+                                      linked_by_name: User 1
                                       name: 401k
                                       display_name: ""
                                       type: brokerage
@@ -5118,13 +5218,15 @@ paths:
                                       balance: "12345.6700"
                                       currency: usd
                                       to_base: 12345.67
-                                      balance_last_update: "2020-01-27T01:38:11.862Z"
+                                      balance_last_update: "2025-01-27T01:38:11.862Z"
                                       import_start_date: "2023-01-01"
-                                      last_import: "2019-09-04T12:57:09.190Z"
-                                      last_fetch: "2020-01-28T01:38:11.862Z"
-                                      plaid_last_successful_update: "2020-01-27T01:38:11.862Z"
+                                      last_import: "2025-01-24T12:57:09.190Z"
+                                      last_fetch: "2025-01-28T01:38:11.862Z"
+                                      plaid_last_successful_update: "2025-01-27T01:38:11.862Z"
                                     - id: 119805
+                                      plaid_item_id: "xY9zW8vU7tS6rQ5pO4nM3lK2jI1hG0fE9dC8bA7"
                                       date_linked: "2020-01-28"
+                                      linked_by_name: User 1
                                       name: Freedom
                                       display_name: Penny's Visa
                                       type: credit
@@ -5137,13 +5239,15 @@ paths:
                                       balance: "0.0000"
                                       currency: usd
                                       to_base: 0
-                                      balance_last_update: "2023-01-27T01:38:07.460Z"
+                                      balance_last_update: "2025-01-27T01:38:07.460Z"
                                       import_start_date: "2023-01-01"
-                                      last_import: "2023-01-24T12:57:03.250Z"
-                                      last_fetch: "2023-01-28T01:38:11.862Z"
-                                      plaid_last_successful_update: "2023-01-27T01:38:11.862Z"
-                                    - id: 119806
+                                      last_import: "2025-01-24T12:57:03.250Z"
+                                      last_fetch: "2025-01-28T01:38:11.862Z"
+                                      plaid_last_successful_update: "2025-01-27T01:38:11.862Z"
+                                    - id: 119807
+                                      plaid_item_id: "mK8nL9oP0qR1sT2uV3wX4yZ5aB6cD7eF8gH9iJ0"
                                       date_linked: "2020-01-28"
+                                      linked_by_name: User 1
                                       name: Checking
                                       display_name: Penny's Checking
                                       type: cash
@@ -5156,11 +5260,11 @@ paths:
                                       balance: "5498.2800"
                                       currency: usd
                                       to_base: 5498.28
-                                      balance_last_update: "2023-01-27T01:38:07.460Z"
+                                      balance_last_update: "2025-01-27T01:38:07.460Z"
                                       import_start_date: "2023-01-01"
-                                      last_import: "2023-01-24T12:57:03.250Z"
-                                      last_fetch: "2023-01-28T01:38:11.862Z"
-                                      plaid_last_successful_update: "2023-01-27T01:38:11.862Z"
+                                      last_import: "2025-01-24T12:57:03.250Z"
+                                      last_fetch: "2025-01-28T01:38:11.862Z"
+                                      plaid_last_successful_update: "2025-01-27T01:38:11.862Z"
                 "400":
                     description: Bad Request
                     content:
@@ -5187,7 +5291,7 @@ paths:
             tags:
                 - plaid_accounts
             summary: Get a single account that is synced via Plaid
-            description: Retrieve the details of the plaid account with the specified ID.
+            description: Retrieve the details of the plaid account with the specified ID
             operationId: getPlaidAccountById
             parameters:
                 - name: id
@@ -5206,14 +5310,16 @@ paths:
                           value: 9999999999999
             responses:
                 "200":
-                    description: Plaid Account Object with the requested account.
+                    description: Plaid Account Object with the requested account
                     content:
                         application/json:
                             schema:
                                 $ref: "#/components/schemas/plaidAccountObject"
                             example:
                                 id: 119805
+                                plaid_item_id: "xY9zW8vU7tS6rQ5pO4nM3lK2jI1hG0fE9dC8bA7"
                                 date_linked: "2020-01-28"
+                                linked_by_name: User 1
                                 name: Freedom
                                 display_name: Penny's Visa
                                 type: credit
@@ -5226,11 +5332,11 @@ paths:
                                 balance: "0.0000"
                                 currency: usd
                                 to_base: 0
-                                balance_last_update: "2023-01-27T01:38:07.460Z"
+                                balance_last_update: "2025-01-27T01:38:07.460Z"
                                 import_start_date: "2023-01-01"
-                                last_import: "2023-01-24T12:57:03.250Z"
-                                last_fetch: "2023-01-28T01:38:11.862Z"
-                                plaid_last_successful_update: "2023-01-27T01:38:11.862Z"
+                                last_import: "2025-01-24T12:57:03.250Z"
+                                last_fetch: "2025-01-28T01:38:11.862Z"
+                                plaid_last_successful_update: "2025-01-27T01:38:11.862Z"
                 "400":
                     description: Bad Request
                     content:
@@ -5291,7 +5397,7 @@ paths:
                       type: string
                       format: date
                   description:
-                      Denotes the beginning of the time period to fetch transactions for.
+                      Denotes the beginning of the time period to fetch transactions for
                       If omitted, the most recent transactions will be returned. <br>
                       Required if end_date exists. <br>
                 - name: end_date
@@ -5380,7 +5486,7 @@ paths:
                       type: string
                       format: date
                   description:
-                      Denotes the beginning of the time period to fetch transactions for.
+                      Denotes the beginning of the time period to fetch transactions for
                       If omitted, the most recent transactions will be returned. See
                       `limit`. Required if end_date exists. <br>
                 - name: end_date
@@ -5637,6 +5743,7 @@ paths:
                                               to_base: 1250.84
                                               recurring_id: 994069
                                               payee: Paycheck
+                                              original_name: DIRECT DEPOSIT PAYROLL
                                               category_id: 88
                                               notes: null
                                               status: reviewed
@@ -5660,6 +5767,7 @@ paths:
                                               to_base: 21.98
                                               recurring_id: null
                                               payee: Noodle House
+                                              original_name: NOODLE HOUSE RESTAURANT #5678
                                               category_id: null
                                               notes: null
                                               status: unreviewed
@@ -5683,6 +5791,7 @@ paths:
                                               to_base: -847.22
                                               recurring_id: null
                                               payee: Credit Card Payment
+                                              original_name: CHASE CREDIT CARD PAYMENT
                                               category_id: 82
                                               is_pending: false
                                               status: reviewed
@@ -5705,6 +5814,7 @@ paths:
                                               to_base: 250
                                               recurring_id: null
                                               payee: Fidelity
+                                              original_name: Fidelity
                                               category_id: 82
                                               notes: Transfer from Checking to Fidelity
                                               status: reviewed
@@ -5732,6 +5842,7 @@ paths:
                                               to_base: 1250.84
                                               recurring_id: 994069
                                               payee: Paycheck
+                                              original_name: DIRECT DEPOSIT PAYROLL
                                               category_id: 88
                                               notes: null
                                               status: reviewed
@@ -5755,6 +5866,7 @@ paths:
                                               to_base: 1250.84
                                               recurring_id: 994069
                                               payee: Paycheck
+                                              original_name: DIRECT DEPOSIT PAYROLL
                                               category_id: 88
                                               notes: null
                                               status: reviewed
@@ -5783,6 +5895,7 @@ paths:
                                               to_base: 1250.84
                                               recurring_id: 994069
                                               payee: Paycheck
+                                              original_name: DIRECT DEPOSIT PAYROLL
                                               category_id: 88
                                               notes: null
                                               status: reviewed
@@ -5806,6 +5919,7 @@ paths:
                                               to_base: 21.98
                                               recurring_id: null
                                               payee: Noodle House
+                                              original_name: NOODLE HOUSE RESTAURANT #5678
                                               category_id: null
                                               notes: null
                                               status: unreviewed
@@ -6827,6 +6941,7 @@ paths:
                                         to_base: 21.98
                                         recurring_id: null
                                         payee: Noodle House
+                                        original_name: NOODLE HOUSE RESTAURANT #5678
                                         category_id: null
                                         notes: null
                                         status: unreviewed
@@ -6851,6 +6966,7 @@ paths:
                                         to_base: 1250.84
                                         recurring_id: 994069
                                         payee: Paycheck
+                                        original_name: DIRECT DEPOSIT PAYROLL
                                         category_id: null
                                         notes: null
                                         status: pending
@@ -6888,6 +7004,7 @@ paths:
                                         to_base: 25.69
                                         recurring_id: null
                                         payee: Valero
+                                        original_name: Valero
                                         category_id: 315174
                                         notes: Net Gas for roadtrip
                                         status: reviewed
@@ -6912,6 +7029,7 @@ paths:
                                               to_base: 25
                                               recurring_id: null
                                               payee: Me
+                                              original_name: Me
                                               category_id: 315174
                                               notes: Gas repay from Tim for roadtrip
                                               status: reviewed

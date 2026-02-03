@@ -6,18 +6,20 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **int32** | The unique identifier of this account | 
 **Name** | **string** | Name of the account | 
+**InstitutionName** | **NullableString** | Name of institution holding the account | 
+**DisplayName** | **NullableString** | Optional display name for the account as set by the user or derived from the &#x60;institution_name&#x60; and &#x60;name&#x60; if not explicitly set. | 
 **Type** | [**AccountTypeEnum**](AccountTypeEnum.md) | Primary type of the account | 
 **Subtype** | **NullableString** | Optional account subtype. Examples include&lt;br&gt; - retirement - checking - savings - prepaid credit card | 
-**DisplayName** | **NullableString** | Optional display name for the account set by the user | 
-**Balance** | **string** | Current balance of the account in numeric format to 4 decimal places. | 
+**Balance** | **string** | Current balance of the account in numeric format to 4 decimal places | 
 **Currency** | **string** | Three-letter lowercase currency code of the account balance | 
 **ToBase** | **float32** | The balance converted to the user&#39;s primary currency | 
 **BalanceAsOf** | **time.Time** | Date balance was last updated in ISO 8601 extended format, can be in date or date-time format | 
-**ClosedOn** | **NullableString** | The date this account was closed. Will be null if the account has not been marked as closed | 
-**InstitutionName** | **NullableString** | Name of institution holding the account | 
+**Status** | **string** | The status of the account | 
+**ClosedOn** | **NullableString** | The date this account was closed in YYYY-MM-DD format. Will be null if the account has not been marked as closed. | 
 **ExternalId** | **NullableString** | An optional external_id that may be set or updated via the API | 
-**CustomMetadata** | Pointer to **map[string]interface{}** | User defined JSON data that can be set or cleared via the API. | [optional] 
+**CustomMetadata** | Pointer to **map[string]interface{}** | User defined JSON data that can be set or cleared via the API | [optional] 
 **ExcludeFromTransactions** | **bool** | If true, this account will not show up as an option for assignment when creating transactions manually | [default to false]
+**CreatedByName** | **string** | The name of the user who created the account | 
 **CreatedAt** | **time.Time** | Date/time the account was created in ISO 8601 extended format | 
 **UpdatedAt** | **time.Time** | Date/time the account was created in ISO 8601 extended format | 
 
@@ -25,7 +27,7 @@ Name | Type | Description | Notes
 
 ### NewManualAccountObject
 
-`func NewManualAccountObject(id int32, name string, type_ AccountTypeEnum, subtype NullableString, displayName NullableString, balance string, currency string, toBase float32, balanceAsOf time.Time, closedOn NullableString, institutionName NullableString, externalId NullableString, excludeFromTransactions bool, createdAt time.Time, updatedAt time.Time, ) *ManualAccountObject`
+`func NewManualAccountObject(id int32, name string, institutionName NullableString, displayName NullableString, type_ AccountTypeEnum, subtype NullableString, balance string, currency string, toBase float32, balanceAsOf time.Time, status string, closedOn NullableString, externalId NullableString, excludeFromTransactions bool, createdByName string, createdAt time.Time, updatedAt time.Time, ) *ManualAccountObject`
 
 NewManualAccountObject instantiates a new ManualAccountObject object
 This constructor will assign default values to properties that have it defined,
@@ -80,6 +82,66 @@ and a boolean to check if the value has been set.
 SetName sets Name field to given value.
 
 
+### GetInstitutionName
+
+`func (o *ManualAccountObject) GetInstitutionName() string`
+
+GetInstitutionName returns the InstitutionName field if non-nil, zero value otherwise.
+
+### GetInstitutionNameOk
+
+`func (o *ManualAccountObject) GetInstitutionNameOk() (*string, bool)`
+
+GetInstitutionNameOk returns a tuple with the InstitutionName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetInstitutionName
+
+`func (o *ManualAccountObject) SetInstitutionName(v string)`
+
+SetInstitutionName sets InstitutionName field to given value.
+
+
+### SetInstitutionNameNil
+
+`func (o *ManualAccountObject) SetInstitutionNameNil(b bool)`
+
+ SetInstitutionNameNil sets the value for InstitutionName to be an explicit nil
+
+### UnsetInstitutionName
+`func (o *ManualAccountObject) UnsetInstitutionName()`
+
+UnsetInstitutionName ensures that no value is present for InstitutionName, not even an explicit nil
+### GetDisplayName
+
+`func (o *ManualAccountObject) GetDisplayName() string`
+
+GetDisplayName returns the DisplayName field if non-nil, zero value otherwise.
+
+### GetDisplayNameOk
+
+`func (o *ManualAccountObject) GetDisplayNameOk() (*string, bool)`
+
+GetDisplayNameOk returns a tuple with the DisplayName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDisplayName
+
+`func (o *ManualAccountObject) SetDisplayName(v string)`
+
+SetDisplayName sets DisplayName field to given value.
+
+
+### SetDisplayNameNil
+
+`func (o *ManualAccountObject) SetDisplayNameNil(b bool)`
+
+ SetDisplayNameNil sets the value for DisplayName to be an explicit nil
+
+### UnsetDisplayName
+`func (o *ManualAccountObject) UnsetDisplayName()`
+
+UnsetDisplayName ensures that no value is present for DisplayName, not even an explicit nil
 ### GetType
 
 `func (o *ManualAccountObject) GetType() AccountTypeEnum`
@@ -130,36 +192,6 @@ SetSubtype sets Subtype field to given value.
 `func (o *ManualAccountObject) UnsetSubtype()`
 
 UnsetSubtype ensures that no value is present for Subtype, not even an explicit nil
-### GetDisplayName
-
-`func (o *ManualAccountObject) GetDisplayName() string`
-
-GetDisplayName returns the DisplayName field if non-nil, zero value otherwise.
-
-### GetDisplayNameOk
-
-`func (o *ManualAccountObject) GetDisplayNameOk() (*string, bool)`
-
-GetDisplayNameOk returns a tuple with the DisplayName field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDisplayName
-
-`func (o *ManualAccountObject) SetDisplayName(v string)`
-
-SetDisplayName sets DisplayName field to given value.
-
-
-### SetDisplayNameNil
-
-`func (o *ManualAccountObject) SetDisplayNameNil(b bool)`
-
- SetDisplayNameNil sets the value for DisplayName to be an explicit nil
-
-### UnsetDisplayName
-`func (o *ManualAccountObject) UnsetDisplayName()`
-
-UnsetDisplayName ensures that no value is present for DisplayName, not even an explicit nil
 ### GetBalance
 
 `func (o *ManualAccountObject) GetBalance() string`
@@ -240,6 +272,26 @@ and a boolean to check if the value has been set.
 SetBalanceAsOf sets BalanceAsOf field to given value.
 
 
+### GetStatus
+
+`func (o *ManualAccountObject) GetStatus() string`
+
+GetStatus returns the Status field if non-nil, zero value otherwise.
+
+### GetStatusOk
+
+`func (o *ManualAccountObject) GetStatusOk() (*string, bool)`
+
+GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStatus
+
+`func (o *ManualAccountObject) SetStatus(v string)`
+
+SetStatus sets Status field to given value.
+
+
 ### GetClosedOn
 
 `func (o *ManualAccountObject) GetClosedOn() string`
@@ -270,36 +322,6 @@ SetClosedOn sets ClosedOn field to given value.
 `func (o *ManualAccountObject) UnsetClosedOn()`
 
 UnsetClosedOn ensures that no value is present for ClosedOn, not even an explicit nil
-### GetInstitutionName
-
-`func (o *ManualAccountObject) GetInstitutionName() string`
-
-GetInstitutionName returns the InstitutionName field if non-nil, zero value otherwise.
-
-### GetInstitutionNameOk
-
-`func (o *ManualAccountObject) GetInstitutionNameOk() (*string, bool)`
-
-GetInstitutionNameOk returns a tuple with the InstitutionName field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetInstitutionName
-
-`func (o *ManualAccountObject) SetInstitutionName(v string)`
-
-SetInstitutionName sets InstitutionName field to given value.
-
-
-### SetInstitutionNameNil
-
-`func (o *ManualAccountObject) SetInstitutionNameNil(b bool)`
-
- SetInstitutionNameNil sets the value for InstitutionName to be an explicit nil
-
-### UnsetInstitutionName
-`func (o *ManualAccountObject) UnsetInstitutionName()`
-
-UnsetInstitutionName ensures that no value is present for InstitutionName, not even an explicit nil
 ### GetExternalId
 
 `func (o *ManualAccountObject) GetExternalId() string`
@@ -383,6 +405,26 @@ and a boolean to check if the value has been set.
 `func (o *ManualAccountObject) SetExcludeFromTransactions(v bool)`
 
 SetExcludeFromTransactions sets ExcludeFromTransactions field to given value.
+
+
+### GetCreatedByName
+
+`func (o *ManualAccountObject) GetCreatedByName() string`
+
+GetCreatedByName returns the CreatedByName field if non-nil, zero value otherwise.
+
+### GetCreatedByNameOk
+
+`func (o *ManualAccountObject) GetCreatedByNameOk() (*string, bool)`
+
+GetCreatedByNameOk returns a tuple with the CreatedByName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreatedByName
+
+`func (o *ManualAccountObject) SetCreatedByName(v string)`
+
+SetCreatedByName sets CreatedByName field to given value.
 
 
 ### GetCreatedAt

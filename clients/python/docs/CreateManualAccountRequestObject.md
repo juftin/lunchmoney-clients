@@ -6,17 +6,18 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **str** | Name of the manual account | 
-**type** | [**AccountTypeEnum**](AccountTypeEnum.md) | The type of manual account. | 
+**institution_name** | **str** | Name of institution holding the manual account | [optional] 
+**display_name** | **str** | Display name of the manual account as set by user or derived from the &#x60;institution_name&#x60; and &#x60;name&#x60; if not explicitly set.&lt;br&gt; This must be unique for the budgeting account. | [optional] 
+**type** | [**AccountTypeEnum**](AccountTypeEnum.md) | The type of manual account | 
 **subtype** | **str** | An optional manual account subtype. Examples include&lt;br&gt; - retirement - checking - savings - prepaid credit card | [optional] 
-**display_name** | **str** | Display name of the manual account as set by user.&lt;br&gt; This must be unique for the budgeting account.  If not set, it will be derived from the &#x60;institution_name&#x60; (if any) plus &#x60;name&#x60;. | [optional] 
 **balance** | [**CreateManualAccountRequestObjectBalance**](CreateManualAccountRequestObjectBalance.md) |  | 
 **balance_as_of** | **str** | Date/time the balance of the manual account was last updated in ISO 8601 extended format | [optional] 
-**closed_on** | **date** | The date this manual account was closed in YYYY-MM-DD format. | [optional] 
 **currency** | [**CurrencyEnum**](CurrencyEnum.md) | Three-letter lowercase currency code of the transaction in ISO 4217 format | [optional] 
-**institution_name** | **str** | Name of institution holding the manual account | [optional] 
+**status** | **str** | The status of the account | [optional] [default to 'active']
+**closed_on** | [**CreateManualAccountRequestObjectClosedOn**](CreateManualAccountRequestObjectClosedOn.md) |  | [optional] 
 **external_id** | **str** | An optional user-defined ID for the manual account | [optional] 
 **custom_metadata** | **Dict[str, object]** | An optional JSON object that includes additional data related to this account. This must be a valid JSON object and, when stringified, must not exceed 4096 characters. | [optional] 
-**exclude_from_transactions** | **bool** | If &#x60;true&#x60;, transactions may not be assigned to this manual account. | [optional] [default to False]
+**exclude_from_transactions** | **bool** | If &#x60;true&#x60;, transactions may not be assigned to this manual account | [optional] [default to False]
 
 ## Example
 

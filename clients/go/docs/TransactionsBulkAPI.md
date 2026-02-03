@@ -164,7 +164,7 @@ import (
 )
 
 func main() {
-	startDate := time.Now() // string | Denotes the beginning of the time period to fetch transactions for. If omitted, the most recent transactions will be returned. See `limit`. Required if end_date exists. <br> (optional)
+	startDate := time.Now() // string | Denotes the beginning of the time period to fetch transactions for If omitted, the most recent transactions will be returned. See `limit`. Required if end_date exists. <br> (optional)
 	endDate := time.Now() // string | Denotes the end of the time period you'd like to get transactions for. Required if start_date exists.  (optional)
 	createdSince := openapiclient.getAllTransactions_created_since_parameter{String: new(string)} // GetAllTransactionsCreatedSinceParameter | Filter transactions to those created after the specified timestamp. Accepts either a date (YYYY-MM-DD) or ISO 8601 datetime string. Date-only values are interpreted as midnight UTC (00:00:00Z). (optional)
 	updatedSince := openapiclient.getAllTransactions_created_since_parameter{String: new(string)} // GetAllTransactionsCreatedSinceParameter | Filter transactions to those updated after the specified timestamp. Accepts either a date (YYYY-MM-DD) or ISO 8601 datetime string. Date-only values are interpreted as midnight UTC (00:00:00Z). (optional)
@@ -208,7 +208,7 @@ Other parameters are passed through a pointer to a apiGetAllTransactionsRequest 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **startDate** | **string** | Denotes the beginning of the time period to fetch transactions for. If omitted, the most recent transactions will be returned. See &#x60;limit&#x60;. Required if end_date exists. &lt;br&gt; | 
+ **startDate** | **string** | Denotes the beginning of the time period to fetch transactions for If omitted, the most recent transactions will be returned. See &#x60;limit&#x60;. Required if end_date exists. &lt;br&gt; | 
  **endDate** | **string** | Denotes the end of the time period you&#39;d like to get transactions for. Required if start_date exists.  | 
  **createdSince** | [**GetAllTransactionsCreatedSinceParameter**](GetAllTransactionsCreatedSinceParameter.md) | Filter transactions to those created after the specified timestamp. Accepts either a date (YYYY-MM-DD) or ISO 8601 datetime string. Date-only values are interpreted as midnight UTC (00:00:00Z). | 
  **updatedSince** | [**GetAllTransactionsCreatedSinceParameter**](GetAllTransactionsCreatedSinceParameter.md) | Filter transactions to those updated after the specified timestamp. Accepts either a date (YYYY-MM-DD) or ISO 8601 datetime string. Date-only values are interpreted as midnight UTC (00:00:00Z). | 

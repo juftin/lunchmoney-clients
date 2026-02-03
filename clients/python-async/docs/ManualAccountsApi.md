@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 Create a manual account
 
-Creates a new manually-managed account.
+Creates a new manually-managed account
 
 ### Example
 
@@ -97,7 +97,7 @@ Name | Type | Description  | Notes
 **400** | Invalid request body |  -  |
 **401** | Unauthorized. This error occurs when an invalid API token is passed to the request. |  -  |
 **429** | Too Many Requests. Retry your request after the number of seconds specified in the retry-after header. |  -  |
-**500** | Internal Server Error. Contact support. |  -  |
+**500** | Internal Server Error. Contact support |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -187,7 +187,7 @@ void (empty response body)
 **401** | Unauthorized. This error occurs when an invalid API token is passed to the request. |  -  |
 **404** | Not Found |  -  |
 **429** | Too Many Requests. Retry your request after the number of seconds specified in the retry-after header. |  -  |
-**500** | Internal Server Error. Contact support. |  -  |
+**500** | Internal Server Error. Contact support |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -272,7 +272,7 @@ This endpoint does not need any parameter.
 **400** | Bad Request |  -  |
 **401** | Unauthorized. This error occurs when an invalid API token is passed to the request. |  -  |
 **429** | Too Many Requests. Retry your request after the number of seconds specified in the retry-after header. |  -  |
-**500** | Internal Server Error. Contact support. |  -  |
+**500** | Internal Server Error. Contact support |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -281,7 +281,7 @@ This endpoint does not need any parameter.
 
 Get a single manual account
 
-Retrieve the details of the manual account with the specified ID.
+Retrieve the details of the manual account with the specified ID
 
 ### Example
 
@@ -357,12 +357,12 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Manual Account Object with the requested account. |  -  |
+**200** | Manual Account Object with the requested account |  -  |
 **400** | Bad Request |  -  |
 **401** | Unauthorized. This error occurs when an invalid API token is passed to the request. |  -  |
 **404** | Not Found |  -  |
 **429** | Too Many Requests. Retry your request after the number of seconds specified in the retry-after header. |  -  |
-**500** | Internal Server Error. Contact support. |  -  |
+**500** | Internal Server Error. Contact support |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -457,7 +457,7 @@ Name | Type | Description  | Notes
 **401** | Unauthorized. This error occurs when an invalid API token is passed to the request. |  -  |
 **404** | Not Found |  -  |
 **429** | Too Many Requests. Retry your request after the number of seconds specified in the retry-after header. |  -  |
-**500** | Internal Server Error. Contact support. |  -  |
+**500** | Internal Server Error. Contact support |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

@@ -29,6 +29,7 @@ docs/CreateCategoryRequestObject.md
 docs/CreateCategoryRequestObjectChildrenInner.md
 docs/CreateManualAccountRequestObject.md
 docs/CreateManualAccountRequestObjectBalance.md
+docs/CreateManualAccountRequestObjectClosedOn.md
 docs/CreateNewTransactionsRequest.md
 docs/CreateTagRequestObject.md
 docs/CurrencyEnum.md
@@ -89,6 +90,7 @@ docs/TransactionsSplitAPI.md
 docs/UpdateCategoryRequestObject.md
 docs/UpdateManualAccountRequestObject.md
 docs/UpdateManualAccountRequestObjectBalance.md
+docs/UpdateManualAccountRequestObjectClosedOn.md
 docs/UpdateTagRequestObject.md
 docs/UpdateTransactionObject.md
 docs/UpdateTransactionObjectAmount.md
@@ -110,6 +112,7 @@ model_create_category_request_object.go
 model_create_category_request_object_children_inner.go
 model_create_manual_account_request_object.go
 model_create_manual_account_request_object_balance.go
+model_create_manual_account_request_object_closed_on.go
 model_create_new_transactions_request.go
 model_create_tag_request_object.go
 model_currency_enum.go
@@ -159,6 +162,7 @@ model_transaction_object.go
 model_update_category_request_object.go
 model_update_manual_account_request_object.go
 model_update_manual_account_request_object_balance.go
+model_update_manual_account_request_object_closed_on.go
 model_update_tag_request_object.go
 model_update_transaction_object.go
 model_update_transaction_object_amount.go
