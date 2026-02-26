@@ -545,7 +545,7 @@ conf = lunchmoney.Configuration(
                "OS: {env}\n"\
                "Python Version: {pyversion}\n"\
                "Version of the API: 2.9.0\n"\
-               "SDK Package Version: 2.20.0".\
+               "SDK Package Version: 2.21.0".\
                format(env=sys.platform, pyversion=sys.version)
 
     def get_host_settings(self) -> List[HostSetting]:

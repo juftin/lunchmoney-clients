@@ -189,15 +189,4 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
-test/test_budget_invalid_period_error_object.py
-test/test_budget_object.py
-test/test_budget_settings_response_object.py
-test/test_budget_upsert_response_object.py
-test/test_budgets_api.py
-test/test_summary_category_object.py
-test/test_summary_category_totals_object.py
-test/test_summary_response_object.py
-test/test_upsert_budget400_response.py
-test/test_upsert_budget_request_object.py
-test/test_upsert_budget_request_object_amount.py
 tox.ini
