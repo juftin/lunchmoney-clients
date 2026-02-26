@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Date** | Pointer to **string** | The date for a matching transaction within the specified range | [optional] 
-**TransactionId** | Pointer to **int32** | The ID of a matching transaction within the specified range | [optional] 
+**Date** | Pointer to **string** | The date for a matching transaction within the specified range. | [optional] 
+**TransactionId** | Pointer to **int32** | The ID of a matching transaction within the specified range. | [optional] 
 
 ## Methods
 

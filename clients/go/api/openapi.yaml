@@ -10,25 +10,25 @@ info:
     `https://api.lunchmoney.dev/v2`
 
     <span class="red-text"><strong>This is in alpha launch of a major API update. It is still subject to change during this alpha review
-    period and bugs may still exist. Users are strongly encouraged to use the mock service or to create a test budget with example data as the first step to interacting with the v2 API.</strong></span>
-    See the [Getting Started Guide](https://alpha.lunchmoney.dev/v2/getting-started) for more information on using a test budget.<br<br>
+    period and bugs may still exist. We strongly encourage users to use the mock service or create a test budget with sample data as the first step to interacting with the v2 API.</strong></span>
+    See the [Getting Started Guide](https://alpha.lunchmoney.dev/v2/getting-started) for more information on using a test budget.<p>
 
     If you are new to the v2 API, you may wish to review the [v2 API Overview of Changes](https://alpha.lunchmoney.dev/v2/changelog).
 
     ### Static Mock Server
 
     You may also use these docs to explore the API using a static mock server endpoint.<p>
-    This enables users to become familiar with the API without having to create an access token, and eliminates the possibility of modifying real data. <p>
-    To access this endpoint select the second endpoint in the the "Server" dropdown to the right. When selected you should see "Static Mock v2 Lunch Money API Server".<br>
+    This will allow you to become familiar with the API without having to create an access token, and eliminates the possibility of changing real data. <p>
+    To access this endpoint, select the second endpoint in the "Server" dropdown to the right. When selected, you should see "Static Mock v2 Lunch Money API Server".<br>
     When using this server, set your Bearer token to any string with 11 or more characters.
 
     ### Migrating from V1
 
-    The v2 API is NOT backwards compatible with the v1 API. Developers are encouraged to review the [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) to understand the changes and plan their migration.
+    The v2 API is NOT backwards compatible with the v1 API. We encourage developers to review the [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) to understand the changes and plan their migration.
 
     ### Acknowledgments
 
-    If you have been providing feedback on the API during our iterative design process, **THANK YOU**. We are happy to provide the opportunity to finally interact with the working API that was built based on your feedback.
+    If you have provided feedback on the API during our ongoing design process, **THANK YOU**. We are thrilled that you can finally interact with the working API we built based on your feedback.
 
     ### Useful links:
     - [Getting Started](https://alpha.lunchmoney.dev/v2/getting-started)
@@ -42,48 +42,48 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   termsOfService: https://lunchmoney.dev/#current-status
   title: Lunch Money API - v2
-  version: 2.8.5
+  version: 2.9.0
 servers:
-- description: v2 Lunch Money API Server - modifies real data!
+- description: v2 Lunch Money API Server - changes will affect real data!
   url: https://api.lunchmoney.dev/v2
-- description: Static Mock v2 Lunch Money API Server
-  url: https://alpha.lunchmoney.dev/v2
+- description: Static mock version of the v2 Lunch Money API Server
+  url: https://mock.lunchmoney.dev/v2
 security:
 - bearerSecurity: []
 - cookieAuth: []
 tags:
-- description: Access details and settings about the current user and account
+- description: View details and settings for the current user and account
   name: me
-- description: Access to categories
+- description: Work with categories
   externalDocs:
     description: Learn more about categories
     url: https://support.lunchmoney.app/setup/categories
   name: categories
-- description: Access to manual accounts (formerly called assets)
+- description: Work with manually managed accounts (formerly called assets)
   externalDocs:
     description: Learn more about manual accounts
     url: https://support.lunchmoney.app/setup/linked-accounts#how-are-manually-managed-account-balances-updated
   name: manual_accounts
-- description: Access to accounts synced via Plaid
+- description: Work with accounts synced through Plaid
   externalDocs:
     description: Learn more about synced accounts
     url: https://support.lunchmoney.app/setup/linked-accounts#how-often-should-i-expect-new-transactions-to-get-imported
   name: plaid_accounts
-- description: Access to recurring items
+- description: Work with recurring items
   externalDocs:
     url: https://support.lunchmoney.app/finances/recurring-items
   name: recurring_items
-- description: Access to tags
+- description: Work with tags
   externalDocs:
     description: Learn more about tags
     url: https://support.lunchmoney.app/setup/tags
   name: tags
-- description: Access to transactions
+- description: Work with transactions
   externalDocs:
     description: Learn more about transactions
     url: https://support.lunchmoney.app/finances/transactions
   name: transactions
-- description: Bulk Access to transactions
+- description: Perform bulk actions on transactions
   externalDocs:
     description: Learn more about transactions
     url: https://support.lunchmoney.app/finances/transactions
@@ -98,12 +98,18 @@ tags:
     description: Learn more about transactions
     url: https://support.lunchmoney.app/finances/transactions
   name: transactions (split)
-- description: Manage transaction file attachments
+- description: Manage files attached to transactions
   externalDocs:
     description: Learn more about transactions
     url: https://support.lunchmoney.app/finances/transactions
   name: transactions (files)
-- description: Access to a summary of the user's budget
+- description: "View settings and modify budget amounts.<p> Use the [/summary](#tag/summary)\
+    \ endpoint to view the budget details performance."
+  externalDocs:
+    description: Learn more about budgets
+    url: https://support.lunchmoney.app/finances/budgets
+  name: budgets
+- description: View a summary of the user's budget
   name: summary
 paths:
   /me:
@@ -126,7 +132,7 @@ paths:
                 api_key_label: Side project dev key
               schema:
                 $ref: "#/components/schemas/userObject"
-          description: The User Object associated with the authorized token
+          description: The User Object associated with the authorized token.
         "401":
           content:
             application/json:
@@ -159,17 +165,18 @@ paths:
                     minutes.
               schema:
                 $ref: "#/components/schemas/errorResponseObject"
-          description: Internal Server Error. Contact support
+          description: Internal Server Error. Contact support.
       summary: Get current user
       tags:
       - me
   /summary:
     get:
-      description: Returns a summary of the budget activity for the specified date
-        range
+      description: "Retrieves a summary of the user's budget. Use this endpoint to\
+        \ access budget configuration details and performance for a specified date\
+        \ range.<p> Use the [/budgets](#tag/budgets) endpoint to manage budget objects."
       operationId: getBudgetSummary
       parameters:
-      - description: Start of date range in ISO 8601 date format (YYYY-MM-DD)
+      - description: Start of date range in ISO 8601 date format (YYYY-MM-DD).
         examples:
           aligned monthly:
             description: First day of month for aligned budget periods
@@ -206,7 +213,7 @@ paths:
           type: string
         style: form
       - description: Enable to include categories that have the 'Exclude from Budgets'
-          flag set in the returned `categories` array
+          flag set in the returned `categories` array.
         explode: true
         in: query
         name: include_exclude_from_budgets
@@ -676,8 +683,8 @@ paths:
                           currency: usd
                           to_base: 80.0
               schema:
-                $ref: "#/components/schemas/getBudgetSummary_200_response"
-          description: Budget summary for the requested range
+                $ref: "#/components/schemas/summaryResponseObject"
+          description: Summary of the user's budget for the specified date range.
         "401":
           content:
             application/json:
@@ -710,13 +717,13 @@ paths:
                     minutes.
               schema:
                 $ref: "#/components/schemas/errorResponseObject"
-          description: Internal Server Error. Contact support
+          description: Internal Server Error. Contact support.
       summary: Get summary
       tags:
       - summary
   /categories:
     get:
-      description: Retrieve a list of all categories associated with the user's account
+      description: Retrieve a list of all categories associated with the user's account.
       operationId: getAllCategories
       parameters:
       - description: "If `nested`, returns top-level categories (either category groups\
@@ -980,7 +987,7 @@ paths:
                     minutes.
               schema:
                 $ref: "#/components/schemas/errorResponseObject"
-          description: Internal Server Error. Contact support
+          description: Internal Server Error. Contact support.
       summary: Get all categories
       tags:
       - categories
@@ -1114,7 +1121,7 @@ paths:
                     minutes.
               schema:
                 $ref: "#/components/schemas/errorResponseObject"
-          description: Internal Server Error. Contact support
+          description: Internal Server Error. Contact support.
       summary: Create a new category or category group
       tags:
       - categories
@@ -1230,13 +1237,13 @@ paths:
                     minutes.
               schema:
                 $ref: "#/components/schemas/errorResponseObject"
-          description: Internal Server Error. Contact support
+          description: Internal Server Error. Contact support.
       summary: Delete a category or category group
       tags:
       - categories
     get:
       description: Retrieve details of a specific category or category group by its
-        ID
+        ID.
       operationId: getCategoryById
       parameters:
       - description: ID of the category to retrieve
@@ -1326,7 +1333,7 @@ paths:
                       collapsed: false
               schema:
                 $ref: "#/components/schemas/categoryObject"
-          description: Category Object with the requested category or category group
+          description: Category Object with the requested category or category group.
         "400":
           content:
             application/json:
@@ -1384,7 +1391,7 @@ paths:
                     minutes.
               schema:
                 $ref: "#/components/schemas/errorResponseObject"
-          description: Internal Server Error. Contact support
+          description: Internal Server Error. Contact support.
       summary: Get a single category
       tags:
       - categories
@@ -1565,7 +1572,7 @@ paths:
                     minutes.
               schema:
                 $ref: "#/components/schemas/errorResponseObject"
-          description: Internal Server Error. Contact support
+          description: Internal Server Error. Contact support.
       summary: Update an existing category or category group
       tags:
       - categories
@@ -1664,12 +1671,12 @@ paths:
                     minutes.
               schema:
                 $ref: "#/components/schemas/errorResponseObject"
-          description: Internal Server Error. Contact support
+          description: Internal Server Error. Contact support.
       summary: Get all manual accounts
       tags:
       - manual_accounts
     post:
-      description: Creates a new manually-managed account
+      description: Create a new manually-managed account.
       operationId: createManualAccount
       requestBody:
         content:
@@ -1826,7 +1833,7 @@ paths:
                     minutes.
               schema:
                 $ref: "#/components/schemas/errorResponseObject"
-          description: Internal Server Error. Contact support
+          description: Internal Server Error. Contact support.
       summary: Create a manual account
       tags:
       - manual_accounts
@@ -1920,12 +1927,12 @@ paths:
                     minutes.
               schema:
                 $ref: "#/components/schemas/errorResponseObject"
-          description: Internal Server Error. Contact support
+          description: Internal Server Error. Contact support.
       summary: Delete a manual account
       tags:
       - manual_accounts
     get:
-      description: Retrieve the details of the manual account with the specified ID
+      description: Retrieve the details of the manual account with the specified ID.
       operationId: getManualAccountById
       parameters:
       - description: ID of the manual account to retrieve
@@ -2024,7 +2031,7 @@ paths:
                     minutes.
               schema:
                 $ref: "#/components/schemas/errorResponseObject"
-          description: Internal Server Error. Contact support
+          description: Internal Server Error. Contact support.
       summary: Get a single manual account
       tags:
       - manual_accounts
@@ -2197,7 +2204,7 @@ paths:
                     minutes.
               schema:
                 $ref: "#/components/schemas/errorResponseObject"
-          description: Internal Server Error. Contact support
+          description: Internal Server Error. Contact support.
       summary: Update an existing manual account
       tags:
       - manual_accounts
@@ -2325,13 +2332,13 @@ paths:
                     minutes.
               schema:
                 $ref: "#/components/schemas/errorResponseObject"
-          description: Internal Server Error. Contact support
+          description: Internal Server Error. Contact support.
       summary: Get all accounts synced via Plaid
       tags:
       - plaid_accounts
   /plaid_accounts/{id}:
     get:
-      description: Retrieve the details of the plaid account with the specified ID
+      description: Retrieve the details of the plaid account with the specified ID.
       operationId: getPlaidAccountById
       parameters:
       - description: ID of the plaid account to retrieve
@@ -2378,7 +2385,7 @@ paths:
                 plaid_last_successful_update: 2025-01-27T01:38:11.862Z
               schema:
                 $ref: "#/components/schemas/plaidAccountObject"
-          description: Plaid Account Object with the requested account
+          description: Plaid Account Object with the requested account.
         "400":
           content:
             application/json:
@@ -2436,7 +2443,7 @@ paths:
                     minutes.
               schema:
                 $ref: "#/components/schemas/errorResponseObject"
-          description: Internal Server Error. Contact support
+          description: Internal Server Error. Contact support.
       summary: Get a single account that is synced via Plaid
       tags:
       - plaid_accounts
@@ -2449,7 +2456,7 @@ paths:
       operationId: triggerPlaidAccountFetch
       parameters:
       - description: "Denotes the beginning of the time period to fetch transactions\
-          \ for If omitted, the most recent transactions will be returned. <br> Required\
+          \ for. If omitted, the most recent transactions will be returned. <br> Required\
           \ if end_date exists. <br>"
         explode: true
         in: query
@@ -2557,17 +2564,17 @@ paths:
                     minutes.
               schema:
                 $ref: "#/components/schemas/errorResponseObject"
-          description: Internal Server Error. Contact support
+          description: Internal Server Error. Contact support.
       summary: Trigger Fetch from Plaid
       tags:
       - plaid_accounts
   /transactions:
     delete:
       description: |-
-        Deletes the transaction with the IDs specified in the request body.<br>
-        If any of the specified transactions are a split transaction or a split parent, or if any are a grouped transactions or part of a transaction group, the request will fail with a suggestion on how to unsplit or ungroup the transaction(s) prior to deletion. This will also fail if any of the specified transaction IDs do not exist.<br>
-        Otherwise, the specified transactions are deleted.<br><br>
-        **Use with caution. This action is not reversible!**
+        Deletes the transaction with the IDs specified in the request body.<p>
+        If any of the specified transactions are a split transaction or a split parent, or if any are a grouped transactions or part of a transaction group, the request will fail with a suggestion on how to unsplit or ungroup the transaction(s) prior to deletion. This will also fail if any of the specified transaction IDs do not exist.<p>
+        Otherwise, the specified transactions are deleted.<p>
+        <span class="red-text"><strong>Use with caution. This action is not reversible!</strong></span>
       operationId: deleteTransactions
       requestBody:
         content:
@@ -2670,7 +2677,7 @@ paths:
                     minutes.
               schema:
                 $ref: "#/components/schemas/errorResponseObject"
-          description: Internal Server Error. Contact support
+          description: Internal Server Error. Contact support.
       summary: Bulk delete existing transactions
       tags:
       - transactions (bulk)
@@ -2681,7 +2688,7 @@ paths:
       operationId: getAllTransactions
       parameters:
       - description: "Denotes the beginning of the time period to fetch transactions\
-          \ for If omitted, the most recent transactions will be returned. See `limit`.\
+          \ for. If omitted, the most recent transactions will be returned. See `limit`.\
           \ Required if end_date exists. <br>"
         explode: true
         in: query
@@ -3201,15 +3208,15 @@ paths:
                     minutes.
               schema:
                 $ref: "#/components/schemas/errorResponseObject"
-          description: Internal Server Error. Contact support
+          description: Internal Server Error. Contact support.
       summary: Get all transactions
       tags:
       - transactions (bulk)
     post:
       description: |-
-        Use this endpoint to add transactions to a budget.<br><br>
-        The request body for this endpoint must include a list of transactions with at least one transaction and not more than 500 transactions to insert.<br><br>
-        The successful request to this endpoint will return a response body which will include two arrays: <br> - `transactions`: A list of transactions that were successfully inserted.<br> - `skipped_duplicates`: A list of transactions that were duplicates of existing transactions and were not inserted.
+        Use this endpoint to add transactions to a budget.<p>
+        The request body for this endpoint must include a list of transactions with at least one transaction and not more than 500 transactions to insert.<p>
+        The successful request to this endpoint will return a response body which will include two arrays:<br> - `transactions`: A list of transactions that were successfully inserted.<br> - `skipped_duplicates`: A list of transactions that were duplicates of existing transactions and were not inserted.
       operationId: createNewTransactions
       requestBody:
         content:
@@ -3629,7 +3636,7 @@ paths:
                     minutes.
               schema:
                 $ref: "#/components/schemas/errorResponseObject"
-          description: Internal Server Error. Contact support
+          description: Internal Server Error. Contact support.
       summary: Insert one or more transactions.
       tags:
       - transactions (bulk)
@@ -4001,16 +4008,16 @@ paths:
                     minutes.
               schema:
                 $ref: "#/components/schemas/errorResponseObject"
-          description: Internal Server Error. Contact support
+          description: Internal Server Error. Contact support.
       summary: Update multiple transactions
       tags:
       - transactions (bulk)
   /transactions/{id}:
     delete:
       description: |-
-        Deletes the transaction with the ID specified on the path.<br>
-        If the specified transaction is a split transaction or a split parent, or if it is a grouped transactions or part of a transaction group, the request will fail with a suggestion on how to unsplit or ungroup the transaction(s) prior to deletion. Otherwise, the specified transaction is deleted. <br>
-        This action is not reversible!
+        Deletes the transaction with the ID specified on the path.<p>
+        If the specified transaction is a split transaction or a split parent, or if it is a grouped transactions or part of a transaction group, the request will fail with a suggestion on how to unsplit or ungroup the transaction(s) prior to deletion. Otherwise, the specified transaction is deleted. <p>
+        <span class="red-text"><strong>Use with caution. This action is not reversible!</strong></span>
       operationId: deleteTransactionById
       parameters:
       - description: ID of the transaction to delete
@@ -4078,7 +4085,7 @@ paths:
                     minutes.
               schema:
                 $ref: "#/components/schemas/errorResponseObject"
-          description: Internal Server Error. Contact support
+          description: Internal Server Error. Contact support.
       summary: Delete a transaction
       tags:
       - transactions
@@ -4344,7 +4351,7 @@ paths:
                     minutes.
               schema:
                 $ref: "#/components/schemas/errorResponseObject"
-          description: Internal Server Error. Contact support
+          description: Internal Server Error. Contact support.
       summary: Get a single transaction
       tags:
       - transactions
@@ -4504,7 +4511,7 @@ paths:
                     minutes.
               schema:
                 $ref: "#/components/schemas/errorResponseObject"
-          description: Internal Server Error. Contact support
+          description: Internal Server Error. Contact support.
       summary: Update an existing transaction
       tags:
       - transactions
@@ -4779,7 +4786,7 @@ paths:
                     minutes.
               schema:
                 $ref: "#/components/schemas/errorResponseObject"
-          description: Internal Server Error. Contact support
+          description: Internal Server Error. Contact support.
       summary: Create a transaction group
       tags:
       - transactions (group)
@@ -4854,7 +4861,7 @@ paths:
                     minutes.
               schema:
                 $ref: "#/components/schemas/errorResponseObject"
-          description: Internal Server Error. Contact support
+          description: Internal Server Error. Contact support.
       summary: Delete a transaction group
       tags:
       - transactions (group)
@@ -4927,7 +4934,7 @@ paths:
                     minutes.
               schema:
                 $ref: "#/components/schemas/errorResponseObject"
-          description: Internal Server Error. Contact support
+          description: Internal Server Error. Contact support.
       summary: Unsplit a previously split transactions
       tags:
       - transactions (split)
@@ -5142,7 +5149,7 @@ paths:
                     minutes.
               schema:
                 $ref: "#/components/schemas/errorResponseObject"
-          description: Internal Server Error. Contact support
+          description: Internal Server Error. Contact support.
       summary: Split a transaction
       tags:
       - transactions (split)
@@ -5429,7 +5436,7 @@ paths:
                     minutes.
               schema:
                 $ref: "#/components/schemas/errorResponseObject"
-          description: Internal Server Error. Contact support
+          description: Internal Server Error. Contact support.
       summary: Get All Tags
       tags:
       - tags
@@ -5522,7 +5529,7 @@ paths:
                     minutes.
               schema:
                 $ref: "#/components/schemas/errorResponseObject"
-          description: Internal Server Error. Contact support
+          description: Internal Server Error. Contact support.
       summary: Create a new tag
       tags:
       - tags
@@ -5617,7 +5624,7 @@ paths:
                     minutes.
               schema:
                 $ref: "#/components/schemas/errorResponseObject"
-          description: Internal Server Error. Contact support
+          description: Internal Server Error. Contact support.
       summary: Delete a tag
       tags:
       - tags
@@ -5715,7 +5722,7 @@ paths:
                     minutes.
               schema:
                 $ref: "#/components/schemas/errorResponseObject"
-          description: Internal Server Error. Contact support
+          description: Internal Server Error. Contact support.
       summary: Get a single tag
       tags:
       - tags
@@ -5846,7 +5853,7 @@ paths:
                     minutes.
               schema:
                 $ref: "#/components/schemas/errorResponseObject"
-          description: Internal Server Error. Contact support
+          description: Internal Server Error. Contact support.
       summary: Update an existing tag
       tags:
       - tags
@@ -5866,7 +5873,7 @@ paths:
           format: date
           type: string
         style: form
-      - description: 'Denotes the end of the the range used to populate the `matching`
+      - description: 'Denotes the end of the range used to populate the `matching`
           object in the recurring items. Required if start_date exists. '
         explode: true
         in: query
@@ -6018,7 +6025,7 @@ paths:
                     minutes.
               schema:
                 $ref: "#/components/schemas/errorResponseObject"
-          description: Internal Server Error. Contact support
+          description: Internal Server Error. Contact support.
       summary: Get all recurring items
       tags:
       - recurring_items
@@ -6055,7 +6062,7 @@ paths:
           format: date
           type: string
         style: form
-      - description: 'Denotes the end of the the range used to populate the `matching`
+      - description: 'Denotes the end of the range used to populate the `matching`
           object in the recurring items. Required if start_date exists. '
         explode: true
         in: query
@@ -6163,10 +6170,248 @@ paths:
                     minutes.
               schema:
                 $ref: "#/components/schemas/errorResponseObject"
-          description: Internal Server Error. Contact support
+          description: Internal Server Error. Contact support.
       summary: Get a single recurring item
       tags:
       - recurring_items
+  /budgets/settings:
+    get:
+      description: Returns the budget-related settings for the user's account.
+      operationId: getBudgetSettings
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/budgetSettingsResponseObject"
+          description: Budget settings for the account
+        "401":
+          content:
+            application/json:
+              example:
+                message: Unauthorized
+                errors:
+                - errMsg: Access token does not exist.
+              schema:
+                $ref: "#/components/schemas/errorResponseObject"
+          description: Unauthorized. This error occurs when an invalid API token is
+            passed to the request.
+        "429":
+          content:
+            application/json:
+              example:
+                message: Too Many Requests
+                errors:
+                - errMsg: "Too many requests, please try again later."
+              schema:
+                $ref: "#/components/schemas/errorResponseObject"
+          description: Too Many Requests. Retry your request after the number of seconds
+            specified in the retry-after header.
+        "500":
+          content:
+            application/json:
+              example:
+                message: Internal Server Error
+                errors:
+                - errMsg: Currently in maintenance mode. Please try again in a few
+                    minutes.
+              schema:
+                $ref: "#/components/schemas/errorResponseObject"
+          description: Internal Server Error. Contact support.
+      summary: Get budget settings
+      tags:
+      - budgets
+  /budgets:
+    delete:
+      description: "Removes the budget for the given category and period. If there\
+        \ already is no budget set for that period, the request still succeeds (idempotent).<p>\
+        \ Note that `start_date` **must** be a valid budget period start for the account\
+        \ (based on the account's budget period settings). If an invalid `start_date`\
+        \ is provided, the request will fail with an error that indicates what the\
+        \ previous and next valid start dates are.<p> Use the [budgets/settings](#tag/budgets/GET/budgets/settings)\
+        \ endpoint to view the account's budget settings.<br> To view existing budgets\
+        \ details use the [summary](#tag/summary) endpoint."
+      operationId: deleteBudget
+      parameters:
+      - description: Category ID of the budget to delete
+        explode: true
+        in: query
+        name: category_id
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: form
+      - description: Start date of the budget period in ISO 8601 date format (YYYY-MM-DD)
+        explode: true
+        in: query
+        name: start_date
+        required: true
+        schema:
+          format: date
+          type: string
+        style: form
+      responses:
+        "204":
+          description: Budget deleted (or no budget existed for the given category
+            and period)
+        "400":
+          content:
+            application/json:
+              examples:
+                invalid period:
+                  summary: Bad Category ID
+                  value:
+                    message: Invalid Request
+                    errors:
+                    - errMsg: The requested start date is not a valid budget period
+                        start for this account.
+                      requested_start_date: 2025-01-15
+                      previous_valid_start_date: 2025-01-01
+                      next_valid_start_date: 2025-02-01
+                validation error:
+                  summary: Invalid request body
+                  value:
+                    message: Invalid Request Body
+                    errors:
+                    - errMsg: Category ID does not exist
+              schema:
+                $ref: "#/components/schemas/upsertBudget_400_response"
+          description: "Bad Request (invalid period start, invalid category, or validation\
+            \ failure)"
+        "401":
+          content:
+            application/json:
+              example:
+                message: Unauthorized
+                errors:
+                - errMsg: Access token does not exist.
+              schema:
+                $ref: "#/components/schemas/errorResponseObject"
+          description: Unauthorized. This error occurs when an invalid API token is
+            passed to the request.
+        "429":
+          content:
+            application/json:
+              example:
+                message: Too Many Requests
+                errors:
+                - errMsg: "Too many requests, please try again later."
+              schema:
+                $ref: "#/components/schemas/errorResponseObject"
+          description: Too Many Requests. Retry your request after the number of seconds
+            specified in the retry-after header.
+        "500":
+          content:
+            application/json:
+              example:
+                message: Internal Server Error
+                errors:
+                - errMsg: Currently in maintenance mode. Please try again in a few
+                    minutes.
+              schema:
+                $ref: "#/components/schemas/errorResponseObject"
+          description: Internal Server Error. Contact support.
+      summary: Delete budget
+      tags:
+      - budgets
+    put:
+      description: |-
+        Create or update a budget for a category and period.<p>
+        If a budget already exists for the specified `start_date` and `category_id`, the `amount` (and optional `currency` and `notes`) are updated; otherwise a new budget entry is created.<p>
+
+        Note that `start_date` **must** be a valid budget period start for the account (based on the account's
+        budget period settings). If an invalid `start_date` is provided, the request will fail with an error that indicates what the previous and next valid start dates are.<p>
+
+        Use the [budgets/settings](#tag/budgets/GET/budgets/settings) endpoint to view the account's budget settings.<br>
+        To view existing budgets details use the [summary](#tag/summary) endpoint.
+      operationId: upsertBudget
+      requestBody:
+        content:
+          application/json:
+            example:
+              start_date: 2025-01-01
+              category_id: 315177
+              amount: 500
+              currency: usd
+              notes: Monthly groceries
+            schema:
+              $ref: "#/components/schemas/upsertBudgetRequestObject"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                category_id: 315177
+                start_date: 2025-01-01
+                amount: 500
+                currency: usd
+                to_base: 500.0
+                notes: Monthly groceries
+              schema:
+                $ref: "#/components/schemas/budgetUpsertResponseObject"
+          description: Budget upserted successfully
+        "400":
+          content:
+            application/json:
+              examples:
+                invalid period:
+                  summary: Start date not a valid budget period start
+                  value:
+                    message: Invalid Request
+                    errors:
+                    - errMsg: The requested start date is not a valid budget period
+                        start for this account.
+                      requested_start_date: 2025-01-15
+                      previous_valid_start_date: 2025-01-01
+                      next_valid_start_date: 2025-02-01
+                validation error:
+                  summary: Bad Category ID
+                  value:
+                    message: Invalid Request Body
+                    errors:
+                    - errMsg: Category ID does not exist
+              schema:
+                $ref: "#/components/schemas/upsertBudget_400_response"
+          description: "Bad Request (invalid period start, invalid category, or validation\
+            \ failure)"
+        "401":
+          content:
+            application/json:
+              example:
+                message: Unauthorized
+                errors:
+                - errMsg: Access token does not exist.
+              schema:
+                $ref: "#/components/schemas/errorResponseObject"
+          description: Unauthorized. This error occurs when an invalid API token is
+            passed to the request.
+        "429":
+          content:
+            application/json:
+              example:
+                message: Too Many Requests
+                errors:
+                - errMsg: "Too many requests, please try again later."
+              schema:
+                $ref: "#/components/schemas/errorResponseObject"
+          description: Too Many Requests. Retry your request after the number of seconds
+            specified in the retry-after header.
+        "500":
+          content:
+            application/json:
+              example:
+                message: Internal Server Error
+                errors:
+                - errMsg: Currently in maintenance mode. Please try again in a few
+                    minutes.
+              schema:
+                $ref: "#/components/schemas/errorResponseObject"
+          description: Internal Server Error. Contact support.
+      summary: Upsert budget
+      tags:
+      - budgets
 components:
   responses:
     unauthorizedToken:
@@ -6200,7 +6445,7 @@ components:
             - errMsg: Currently in maintenance mode. Please try again in a few minutes.
           schema:
             $ref: "#/components/schemas/errorResponseObject"
-      description: Internal Server Error. Contact support
+      description: Internal Server Error. Contact support.
   schemas:
     userObject:
       additionalProperties: false
@@ -6214,29 +6459,29 @@ components:
         email: email
       properties:
         name:
-          description: User's name
+          description: The user's name
           type: string
         email:
-          description: User's email
+          description: The user's email
           type: string
         id:
-          description: Unique identifier for user
+          description: Unique ID for the user
           format: int32
           type: integer
         account_id:
-          description: Unique identifier for the associated budgeting account
+          description: Unique ID for the linked budgeting account
           format: int64
           type: integer
         budget_name:
-          description: Name of the associated budgeting account
+          description: Name of the linked budgeting account
           type: string
         primary_currency:
           allOf:
           - $ref: "#/components/schemas/currencyEnum"
-          description: Primary currency from user's settings
+          description: Primary currency set in the user's settings
         api_key_label:
-          description: User-defined label of the developer API key used. Returns null
-            if nothing has been set.
+          description: Label assigned by the user to the API key being used. Returns
+            null if no label is set
           nullable: true
           type: string
       required:
@@ -6247,6 +6492,7 @@ components:
       - id
       - name
       - primary_currency
+      title: user object (returned by /me)
       type: object
     categoryObject:
       additionalProperties: false
@@ -6296,18 +6542,18 @@ components:
         order: 2
       properties:
         id:
-          description: A system defined unique identifier for the category
+          description: System defined unique ID for the category
           format: int32
           nullable: false
           type: integer
         name:
-          description: The name of the category
+          description: The name of the category.
           maxLength: 100
           minLength: 1
           nullable: false
           type: string
         description:
-          description: The description of the category or `null` if not set
+          description: The description of the category or `null` if not set.
           maxLength: 200
           nullable: true
           type: string
@@ -6348,7 +6594,7 @@ components:
           nullable: true
           type: integer
         is_group:
-          description: "If `true`, the category is created as a category group"
+          description: "If `true`, the category is created as a category group."
           type: boolean
         children:
           description: "For category groups, this will populate with details about\
@@ -6380,7 +6626,7 @@ components:
           type: integer
         collapsed:
           default: false
-          description: "If `true`, the category is collapsed in the Lunch Money GUI"
+          description: "If `true`, the category is collapsed in the Lunch Money GUI."
           nullable: false
           type: boolean
       required:
@@ -6419,18 +6665,18 @@ components:
         order: 5
       properties:
         id:
-          description: A system defined unique identifier for the category
+          description: A system defined unique identifier for the category.
           format: int32
           nullable: false
           type: integer
         name:
-          description: The name of the category
+          description: The name of the category.
           maxLength: 100
           minLength: 1
           nullable: false
           type: string
         description:
-          description: The description of the category or `null` if not set
+          description: The description of the category or `null` if not set.
           maxLength: 200
           nullable: true
           type: string
@@ -6469,7 +6715,7 @@ components:
           type: integer
         is_group:
           description: Will always be false for a category that is part of category
-            group
+            group.
           type: boolean
         archived:
           description: "If true, the category is archived and not displayed in relevant\
@@ -6489,14 +6735,12 @@ components:
           nullable: true
           type: integer
         collapsed:
-          description: Always `false` for a child category. Child categories cannot
-            be collapsed.
-          nullable: false
+          description: "If `true`, the category is collapsed in the Lunch Money GUI."
+          nullable: true
           type: boolean
       required:
       - archived
       - archived_at
-      - collapsed
       - created_at
       - description
       - exclude_from_budget
@@ -6549,7 +6793,7 @@ components:
           type: boolean
         is_group:
           default: false
-          description: "If `true`, the category is created as a category group"
+          description: "If `true`, the category is created as a category group."
           nullable: false
           type: boolean
         group_id:
@@ -6587,10 +6831,9 @@ components:
           nullable: true
           type: integer
         collapsed:
-          description: "If `true`, the category group is collapsed in the Lunch Money\
-            \ GUI. This property can only be set to `true` for category groups (`is_group:\
-            \ true`). While this property can be set via the API, it is generally\
-            \ set by the user in the Lunch Money GUI."
+          description: "If `true`, the category is collapsed in the Lunch Money GUI.<br>While\
+            \ this property can be set via the API it is generally set by the user\
+            \ in the Lunch Money GUI."
           nullable: true
           type: boolean
       required:
@@ -6637,7 +6880,7 @@ components:
           type: boolean
           x-updatable: true
         archived:
-          description: "If set, will indicate if this category is archived"
+          description: "If set, will indicate if this category is archived."
           type: boolean
           x-updatable: true
         group_id:
@@ -6682,16 +6925,15 @@ components:
           type: integer
           x-updatable: true
         collapsed:
-          description: "If `true`, the category group is collapsed in the Lunch Money\
-            \ GUI. This property can only be set to `true` for category groups (`is_group:\
-            \ true`). While this property can be set via the API, it is generally\
-            \ set by the user in the Lunch Money GUI."
+          description: "If `true`, the category is collapsed in the Lunch Money GUI.<br>While\
+            \ this property can be set via the API it is generally set by the user\
+            \ in the Lunch Money GUI."
           nullable: true
           type: boolean
           x-updatable: true
         id:
           description: System defined unique identifier for the category. Ignored
-            if set
+            if set.
           format: int64
           type: integer
           x-updatable: false
@@ -6737,6 +6979,778 @@ components:
       required:
       - category_name
       - dependents
+      type: object
+    manualAccountObject:
+      additionalProperties: false
+      description: An object containing information about a manual account
+      example:
+        balance_as_of: 2000-01-23T04:56:07.000+00:00
+        created_at: 2000-01-23T04:56:07.000+00:00
+        external_id: external_id
+        display_name: display_name
+        type: ""
+        created_by_name: created_by_name
+        institution_name: institution_name
+        custom_metadata:
+          key: ""
+        exclude_from_transactions: false
+        to_base: 6.027456183070403
+        balance: balance
+        updated_at: 2000-01-23T04:56:07.000+00:00
+        subtype: subtype
+        closed_on: 2000-01-23
+        name: name
+        currency: currency
+        id: 0
+        status: active
+      properties:
+        id:
+          description: The unique identifier of this account
+          format: int32
+          type: integer
+        name:
+          description: Name of the account
+          maxLength: 45
+          minLength: 1
+          type: string
+        institution_name:
+          description: Name of institution holding the account
+          maxLength: 50
+          minLength: 1
+          nullable: true
+          type: string
+        display_name:
+          description: Optional display name for the account as set by the user or
+            derived from the `institution_name` and `name` if not explicitly set.
+          nullable: true
+          type: string
+        type:
+          allOf:
+          - $ref: "#/components/schemas/accountTypeEnum"
+          description: Primary type of the account
+        subtype:
+          description: Optional account subtype. Examples include<br> - retirement
+            - checking - savings - prepaid credit card
+          maxLength: 100
+          minLength: 1
+          nullable: true
+          type: string
+        balance:
+          description: Current balance of the account in numeric format to 4 decimal
+            places
+          pattern: "^-?\\d+(\\.\\d{1,4})?$"
+          type: string
+        currency:
+          description: Three-letter lowercase currency code of the account balance
+          maxLength: 3
+          minLength: 3
+          type: string
+        to_base:
+          description: The balance converted to the user's primary currency
+          type: number
+        balance_as_of:
+          description: "Date balance was last updated in ISO 8601 extended format,\
+            \ can be in date or date-time format"
+          format: date-time
+          type: string
+        status:
+          description: The status of the account
+          enum:
+          - active
+          - closed
+          type: string
+        closed_on:
+          description: The date this account was closed in YYYY-MM-DD format. Will
+            be null if the account has not been marked as closed.
+          format: date
+          nullable: true
+          type: string
+        external_id:
+          description: An optional external_id that may be set or updated via the
+            API
+          maxLength: 75
+          minLength: 0
+          nullable: true
+          type: string
+        custom_metadata:
+          additionalProperties: true
+          description: User defined JSON data that can be set or cleared via the API
+          nullable: true
+          type: object
+        exclude_from_transactions:
+          default: false
+          description: "If true, this account will not show up as an option for assignment\
+            \ when creating transactions manually"
+          type: boolean
+        created_by_name:
+          description: The name of the user who created the account
+          type: string
+        created_at:
+          description: Date/time the account was created in ISO 8601 extended format
+          format: date-time
+          type: string
+        updated_at:
+          description: Date/time the account was created in ISO 8601 extended format
+          format: date-time
+          type: string
+      required:
+      - balance
+      - balance_as_of
+      - closed_on
+      - created_at
+      - created_by_name
+      - currency
+      - display_name
+      - exclude_from_transactions
+      - external_id
+      - id
+      - institution_name
+      - name
+      - status
+      - subtype
+      - to_base
+      - type
+      - updated_at
+      title: manual account object
+      type: object
+    createManualAccountRequestObject:
+      additionalProperties: false
+      properties:
+        name:
+          description: Name of the manual account
+          example: My Savings Account
+          maxLength: 45
+          minLength: 1
+          type: string
+        institution_name:
+          description: Name of institution holding the manual account
+          example: Bank of the West
+          maxLength: 50
+          minLength: 1
+          type: string
+        display_name:
+          description: Display name of the manual account as set by user or derived
+            from the `institution_name` and `name` if not explicitly set.<br> This
+            must be unique for the budgeting account.
+          example: Savings
+          type: string
+        type:
+          allOf:
+          - $ref: "#/components/schemas/accountTypeEnum"
+          description: The type of manual account
+        subtype:
+          description: An optional manual account subtype. Examples include<br> -
+            retirement - checking - savings - prepaid credit card
+          example: prepaid credit card
+          maxLength: 100
+          minLength: 1
+          type: string
+        balance:
+          $ref: "#/components/schemas/createManualAccountRequestObject_balance"
+        balance_as_of:
+          description: Date/time the balance of the manual account was last updated
+            in ISO 8601 extended format
+          example: 2024-09-15
+          nullable: true
+          type: string
+        currency:
+          allOf:
+          - $ref: "#/components/schemas/currencyEnum"
+          description: Three-letter lowercase currency code of the transaction in
+            ISO 4217 format
+        status:
+          default: active
+          description: The status of the account
+          enum:
+          - active
+          - closed
+          type: string
+        closed_on:
+          $ref: "#/components/schemas/createManualAccountRequestObject_closed_on"
+        external_id:
+          description: An optional user-defined ID for the manual account
+          maxLength: 75
+          minLength: 0
+          nullable: true
+          type: string
+        custom_metadata:
+          additionalProperties: true
+          description: "An optional JSON object that includes additional data related\
+            \ to this account. This must be a valid JSON object and, when stringified,\
+            \ must not exceed 4096 characters."
+          nullable: true
+          type: object
+        exclude_from_transactions:
+          default: false
+          description: "If `true`, transactions may not be assigned to this manual\
+            \ account"
+          type: boolean
+      required:
+      - balance
+      - name
+      - type
+      type: object
+    updateManualAccountRequestObject:
+      additionalProperties: false
+      properties:
+        id:
+          description: System defined unique identifier of this account. Ignored if
+            set
+          format: int32
+          type: integer
+          x-updatable: false
+        name:
+          description: "If set, the new name of the manual account"
+          maxLength: 45
+          minLength: 1
+          type: string
+          x-updatable: true
+        institution_name:
+          description: "If set, the name of institution holding the account"
+          maxLength: 50
+          minLength: 1
+          nullable: true
+          type: string
+          x-updatable: true
+        display_name:
+          description: "If set, the new display name for the manual account.<br> This\
+            \ must be unique for the user."
+          nullable: true
+          type: string
+          x-updatable: true
+        type:
+          allOf:
+          - $ref: "#/components/schemas/accountTypeEnum"
+          description: "If set, the new type of the manual account"
+          x-updatable: true
+        subtype:
+          description: "If set, an optional account subtype. Examples include<br>\
+            \ - retirement - checking - savings - prepaid credit card"
+          maxLength: 100
+          minLength: 1
+          type: string
+          x-updatable: true
+        balance:
+          $ref: "#/components/schemas/updateManualAccountRequestObject_balance"
+        currency:
+          allOf:
+          - $ref: "#/components/schemas/currencyEnum"
+          description: "If set, the new three-letter lowercase currency code of the\
+            \ manual account balance."
+          x-updatable: true
+        balance_as_of:
+          description: "A new date for the `updated_at` property. May be set as a\
+            \ date, ie: YYYY-MM-DD, or date-time string in ISO 8601 extended format.\
+            \ This property is ignored if `balance` is not also set. If `balance`\
+            \ is set and this property is not set the current time is used."
+          nullable: true
+          type: string
+          x-updatable: true
+        status:
+          description: "If set, the status of the manual account. If set to `closed`,\
+            \ the `closed_on_date` date will be set to the current date, unless it\
+            \ is also set."
+          enum:
+          - active
+          - closed
+          type: string
+          x-updatable: true
+        closed_on:
+          $ref: "#/components/schemas/updateManualAccountRequestObject_closed_on"
+        external_id:
+          description: An optional user-defined ID for the manual account
+          maxLength: 75
+          minLength: 0
+          nullable: true
+          type: string
+          x-updatable: true
+        custom_metadata:
+          additionalProperties: true
+          description: "An optional JSON object that includes additional data related\
+            \ to this account. This must be a valid JSON object and, when stringified,\
+            \ must not exceed 4096 characters."
+          nullable: true
+          type: object
+          x-updatable: true
+        exclude_from_transactions:
+          description: "If set, transactions may not be assigned to this manual account"
+          type: boolean
+          x-updatable: true
+        to_base:
+          description: System defined balance converted to the user's primary currency.
+            Ignored if set. Use `balance` to update the balance in the account
+          type: number
+          x-updatable: false
+        created_at:
+          description: System defined date/time the account was created in ISO 8601
+            extended format. Ignored if set.
+          format: date-time
+          type: string
+          x-updatable: false
+        updated_at:
+          description: System defined date/time the account was created in ISO 8601
+            extended format. Ignored if set.
+          format: date-time
+          type: string
+          x-updatable: false
+        created_by_name:
+          description: System defined name of the user who created the account. Ignored
+            if set
+          type: string
+          x-updatable: false
+      type: object
+    plaidAccountObject:
+      additionalProperties: false
+      description: An object containing information about an account synced via Plaid
+      example:
+        linked_by_name: linked_by_name
+        last_import: 2000-01-23T04:56:07.000+00:00
+        display_name: display_name
+        type: type
+        plaid_last_successful_update: 2000-01-23T04:56:07.000+00:00
+        institution_name: institution_name
+        to_base: 1.4658129805029452
+        balance_last_update: 2000-01-23T04:56:07.000+00:00
+        plaid_item_id: plaid_item_id
+        date_linked: 2000-01-23
+        balance: balance
+        subtype: subtype
+        name: name
+        limit: 6.027456183070403
+        currency: currency
+        id: 0
+        last_fetch: 2000-01-23T04:56:07.000+00:00
+        allow_transaction_modifications: true
+        mask: mask
+        status: active
+        import_start_date: 2000-01-23
+      properties:
+        id:
+          description: The unique identifier of this account
+          format: int32
+          type: integer
+        plaid_item_id:
+          description: The unique identifier of the Plaid connection that this account
+            belongs to. Accounts with the same plaid_item_id usually belong to the
+            same institution.
+          maxLength: 255
+          minLength: 0
+          nullable: true
+          type: string
+        date_linked:
+          description: Date account was first linked in ISO 8601 format
+          format: date
+          type: string
+        linked_by_name:
+          description: The name of the user who linked the account
+          nullable: false
+          type: string
+        name:
+          description: Name of the account. This field is set by Plaid and cannot
+            be altered.
+          type: string
+        display_name:
+          description: "Optional display name for the account set by the user. If\
+            \ not set, it will return a concatenated string of institution and account\
+            \ name."
+          nullable: true
+          type: string
+        type:
+          description: "Primary type of the account, such as `credit`, `depository`,\
+            \ etc. This field is set by Plaid and cannot be altered."
+          type: string
+        subtype:
+          description: Optional account subtype. This field is set by Plaid and cannot
+            be altered.
+          type: string
+        mask:
+          description: Mask (last 3 to 4 digits of account) of account. This field
+            is set by Plaid and cannot be altered.
+          type: string
+        institution_name:
+          description: Name of institution holding the account. This field is set
+            by Plaid and cannot be altered.
+          type: string
+        status:
+          description: "Denotes the current status of the account within Lunch Money.\
+            \ Must be one of<br> - active: Account is actively syncing transactions\
+            \ and/or balance<br> - inactive: Account marked inactive from user. Transaction\
+            \ imports and balance updates will not occur for this account.<br> - closed:\
+            \ Account is marked as closed<br> - deactivated: Account is marked deactivated\
+            \ during setup. The user must click `Add/Remove Accounts From This Bank`\
+            \ and manually re-select this account to activate it.'<br> - not found:\
+            \ Account was once linked but can no longer be found with Plaid.<br> -\
+            \ not supported: Account is not supported by Plaid.<br> - relink: Account\
+            \ (and others with the same connection) need to be relinked with Plaid.<br>\
+            \ - syncing: Account is awaiting the first import of transactions.<br>\
+            \ - revoked: Account connection has been revoked by Plaid and syncing\
+            \ is no longer possible. A new connection needs to be set up again.<br>\
+            \ - error: Account (and others with the same connection) is in error with\
+            \ Plaid and requires intervention to re-activate it.<br>"
+          enum:
+          - active
+          - inactive
+          - closed
+          - deactivated
+          - not found
+          - not supported
+          - relink
+          - syncing
+          - revoked
+          - error
+          type: string
+        allow_transaction_modifications:
+          description: "If `false`, transactions imported for this synced account\
+            \ can have their properties (such as amount and account) be modified by\
+            \ the user. This option is managed in the web app."
+          type: boolean
+        limit:
+          description: Optional credit limit of the account. This field is set by
+            Plaid and cannot be altered
+          nullable: true
+          type: number
+        balance:
+          description: Current balance of the account in numeric format to 4 decimal
+            places. This field is set by Plaid and cannot be altered.
+          type: string
+        currency:
+          description: Three-letter lowercase currency code of the account balance
+          maxLength: 3
+          minLength: 3
+          type: string
+        to_base:
+          description: The account balance converted to the user's primary currency
+          type: number
+        balance_last_update:
+          description: Date balance was last updated in ISO 8601 extended format.
+            This field is set by Plaid and cannot be altered.
+          format: date-time
+          nullable: true
+          type: string
+        import_start_date:
+          description: Date of earliest date allowed for importing transactions. Transactions
+            earlier than this date are not imported.
+          format: date
+          nullable: true
+          type: string
+        last_import:
+          description: Timestamp in ISO 8601 extended format of the last time Lunch
+            Money imported new data from Plaid for this account.
+          format: date-time
+          nullable: true
+          type: string
+        last_fetch:
+          description: Timestamp in ISO 8601 extended format of the last successful
+            request from Lunch Money for updated data or timestamps from Plaid in
+            ISO 8601 extended format (not necessarily date of last successful import)
+          format: date-time
+          nullable: true
+          type: string
+        plaid_last_successful_update:
+          description: "Timestamp in ISO 8601 extended format of the last time Plaid\
+            \ successfully connected with institution for new transaction updates,\
+            \ regardless of whether any new data was available in the update."
+          format: date-time
+          nullable: true
+          type: string
+      required:
+      - allow_transaction_modifications
+      - balance
+      - balance_last_update
+      - currency
+      - date_linked
+      - display_name
+      - id
+      - import_start_date
+      - institution_name
+      - last_fetch
+      - last_import
+      - limit
+      - linked_by_name
+      - mask
+      - name
+      - plaid_item_id
+      - plaid_last_successful_update
+      - status
+      - subtype
+      - to_base
+      - type
+      title: plaid account object
+      type: object
+    recurringObject:
+      example:
+        updated_at: 2000-01-23T04:56:07.000+00:00
+        description: description
+        created_at: 2000-01-23T04:56:07.000+00:00
+        transaction_criteria:
+          end_date: 2000-01-23
+          payee: payee
+          to_base: 1.4658129805029452
+          amount: amount
+          quantity: 6
+          anchor_date: 2000-01-23
+          granularity: day
+          plaid_account_id: 5
+          manual_account_id: 5
+          currency: currency
+          start_date: 2000-01-23
+        id: 0
+        overrides:
+          payee: payee
+          notes: notes
+          category_id: 2
+        source: manual
+        matches:
+          found_transactions:
+          - date: 2000-01-23
+            transaction_id: 7
+          - date: 2000-01-23
+            transaction_id: 7
+          request_start_date: 2000-01-23
+          request_end_date: 2000-01-23
+          expected_occurrence_dates:
+          - 2000-01-23
+          - 2000-01-23
+          missing_transaction_dates:
+          - 2000-01-23
+          - 2000-01-23
+        created_by: 9
+        status: suggested
+      properties:
+        id:
+          description: The unique identifier of this recurring item
+          format: int32
+          type: integer
+        description:
+          description: An optional description of this recurring item.
+          nullable: true
+          type: string
+        status:
+          description: "The status of this recurring item. `suggested` recurring items\
+            \ are generated by Lunch Money, but only `reviewed` recurring items will\
+            \ be applied to matching transactions."
+          enum:
+          - suggested
+          - reviewed
+          type: string
+        transaction_criteria:
+          $ref: "#/components/schemas/recurringObject_transaction_criteria"
+        overrides:
+          $ref: "#/components/schemas/recurringObject_overrides"
+        matches:
+          $ref: "#/components/schemas/recurringObject_matches"
+        created_by:
+          description: The ID of the user who created the recurring item.
+          nullable: false
+          type: integer
+        created_at:
+          description: Date/time the recurring item was created in ISO 8601 extended
+            format.
+          format: date-time
+          nullable: false
+          type: string
+        updated_at:
+          description: Date/time the recurring item was updated in ISO 8601 extended
+            format.
+          format: date-time
+          nullable: false
+          type: string
+        source:
+          description: |
+            This can be one of four values:
+            - `manual`: User created this recurring item manually from the Recurring Items page
+            - `transaction`: User created this by converting a transaction from the Transactions page
+            - `system`: Recurring item was created by the system on transaction import
+            - `null`: Some older recurring items may not have a source.
+          enum:
+          - manual
+          - transaction
+          - system
+          type: string
+      required:
+      - created_at
+      - created_by
+      - description
+      - id
+      - matches
+      - overrides
+      - source
+      - status
+      - transaction_criteria
+      - updated_at
+      title: recurring item object
+      type: object
+    tagObject:
+      additionalProperties: false
+      example:
+        archived: true
+        background_color: background_color
+        updated_at: 2000-01-23T04:56:07.000+00:00
+        archived_at: 2000-01-23T04:56:07.000+00:00
+        name: name
+        description: description
+        created_at: 2000-01-23T04:56:07.000+00:00
+        id: 0
+        text_color: text_color
+      properties:
+        id:
+          description: Unique identifier for the tag.
+          format: int32
+          type: integer
+        name:
+          description: Name of the tag.
+          type: string
+        description:
+          description: Description of the tag.
+          nullable: true
+          type: string
+        text_color:
+          description: The text color of the tag.
+          nullable: true
+          type: string
+        background_color:
+          description: The background color of the tag.
+          nullable: true
+          type: string
+        updated_at:
+          description: The date and time of when the tag was last updated (in the
+            ISO 8601 extended format).
+          format: date-time
+          nullable: false
+          type: string
+        created_at:
+          description: The date and time of when the tag was created (in the ISO 8601
+            extended format).
+          format: date-time
+          nullable: false
+          type: string
+        archived:
+          description: "If `true`, the tag will not show up when creating or updating\
+            \ transactions in the Lunch Money app. **Can it be assigned via the API**"
+          type: boolean
+        archived_at:
+          description: The date and time of when the tag was last archived or `null`
+            if not archived
+          format: date-time
+          nullable: true
+          type: string
+      required:
+      - archived
+      - archived_at
+      - background_color
+      - created_at
+      - description
+      - id
+      - name
+      - text_color
+      - updated_at
+      title: tag object
+      type: object
+    createTagRequestObject:
+      additionalProperties: false
+      properties:
+        name:
+          description: |-
+            The name of the new tag. Must be between 1 and 100 characters.
+            Must not match the name of any existing tags.
+          maxLength: 100
+          minLength: 1
+          nullable: false
+          type: string
+        description:
+          description: The description of the tag. Must not exceed 200 characters.
+          maxLength: 200
+          nullable: true
+          type: string
+        text_color:
+          description: The text color of the tag.
+          nullable: true
+          type: string
+        background_color:
+          description: The background color of the tag.
+          nullable: true
+          type: string
+        archived:
+          default: false
+          description: "If `true`, the tag is archived and not displayed in relevant\
+            \ areas of the Lunch Money app."
+          type: boolean
+      required:
+      - name
+      type: object
+    updateTagRequestObject:
+      additionalProperties: false
+      properties:
+        name:
+          description: "If set, the new name of the category. Must be between 1 and\
+            \ 100 characters."
+          maxLength: 100
+          minLength: 1
+          nullable: false
+          type: string
+          x-updatable: true
+        description:
+          description: "If set, the new description of the category. Must not exceed\
+            \ 200 characters."
+          maxLength: 200
+          nullable: true
+          type: string
+          x-updatable: true
+        text_color:
+          description: The text color of the tag.
+          nullable: true
+          type: string
+          x-updatable: true
+        background_color:
+          description: The background color of the tag.
+          nullable: true
+          type: string
+          x-updatable: true
+        archived:
+          description: "If set, will indicate if this category is archived."
+          type: boolean
+          x-updatable: true
+        id:
+          description: System-defined unique identifier for the category. Ignored
+            if set.
+          format: int32
+          type: integer
+          x-updatable: false
+        updated_at:
+          description: System-set time the tag was last updated. Ignored if set
+          format: date-time
+          nullable: false
+          type: string
+          x-updatable: false
+        created_at:
+          description: System-set time the tag was created. Ignored if set.
+          format: date-time
+          nullable: false
+          type: string
+          x-updatable: false
+        archived_at:
+          description: System-set time the tag was archived. Ignored if set.
+          format: date-time
+          nullable: true
+          type: string
+          x-updatable: false
+      type: object
+    deleteTagResponseWithDependencies:
+      additionalProperties: false
+      example:
+        tag_name: tag_name
+        dependents:
+          rules: 0
+          transactions: 6
+      properties:
+        tag_name:
+          description: The name of the tag
+          type: string
+        dependents:
+          $ref: "#/components/schemas/deleteTagResponseWithDependencies_dependents"
+      required:
+      - dependents
+      - tag_name
       type: object
     transactionObject:
       additionalProperties: false
@@ -7054,7 +8068,7 @@ components:
           nullable: true
           type: object
         files:
-          description: A list of objects that describe any attachments to the Transactions
+          description: A list of objects that describe any attachments to the Transactions.
             This is only present when the `include_files` query parameter is set to
             true.
           items:
@@ -7107,6 +8121,7 @@ components:
       - tag_ids
       - to_base
       - updated_at
+      title: transaction object
       type: object
     childTransactionObject:
       additionalProperties: false
@@ -7165,7 +8180,7 @@ components:
         amount:
           description: "Amount of the transaction in numeric format to 4 decimal places.\
             \ Positive values indicate a debit transaction, negative values indicate\
-            \ a credit transaction"
+            \ a credit transaction."
           type: string
         currency:
           allOf:
@@ -7426,8 +8441,8 @@ components:
           nullable: true
           type: string
         manual_account_id:
-          description: "The unique identifier for the associated manually managed\
-            \ account If set, this must match an existing manual account id associated\
+          description: "The Unique identifier for the associated manually managed\
+            \ account. If set, this must match an existing manual account id associated\
             \ with the user's account. If not set, and `plaid_account_id` is also\
             \ not set, no account is associated with the transaction and it will appear\
             \ as a \"Cash Transaction\" in the Lunch Money GUI. It is an error if\
@@ -7496,7 +8511,7 @@ components:
       properties:
         id:
           description: System defined unique identifier of this transaction. Ignored
-            if set
+            if set.
           format: int64
           type: integer
           x-updatable: false
@@ -7607,7 +8622,7 @@ components:
           type: string
           x-updatable: true
         custom_metadata:
-          description: User defined JSON data that can be set or cleared via the API
+          description: User defined JSON data that can be set or cleared via the API.
           nullable: true
           type: object
           x-updatable: true
@@ -7629,16 +8644,16 @@ components:
           x-updatable: false
         is_pending:
           description: System defined flag set for pending transactions. Ignored if
-            set
+            set.
           type: boolean
           x-updatable: false
         plaid_metadata:
-          description: System set metadata from a Plaid account sync. Ignored if set
+          description: System set metadata from a Plaid account sync. Ignored if set.
           nullable: true
           type: object
           x-updatable: false
         created_at:
-          description: System defined date and time of when the transaction was created
+          description: System defined date and time of when the transaction was created.
             Ignored if set.
           format: date-time
           type: string
@@ -7650,7 +8665,7 @@ components:
           type: string
           x-updatable: false
         is_split_parent:
-          description: System defined boolean indicating if this transaction was split
+          description: System defined boolean indicating if this transaction was split.
             To split or unsplit a transaction use the `/transactions/split` endpoint.
             Ignored if set.
           type: boolean
@@ -7726,8 +8741,15 @@ components:
             not defined.
           format: int32
           type: integer
+        tag_ids:
+          description: The IDs of any tags to apply to this split child transaction.
+            Each ID must match an existing tag.
+          items:
+            format: int32
+            type: integer
+          type: array
         notes:
-          description: Will inherit notes from parent if not defined
+          description: Will inherit notes from parent if not defined.
           maxLength: 350
           type: string
       required:
@@ -7765,7 +8787,7 @@ components:
         request_transaction:
           allOf:
           - $ref: "#/components/schemas/insertTransactionObject"
-          description: The requested transaction that was skipped
+          description: The requested transaction that was skipped.
           type: object
       type: object
     insertTransactionsResponseObject:
@@ -8038,7 +9060,7 @@ components:
           is_pending: true
       properties:
         transactions:
-          description: An array of the inserted transactions
+          description: An array of the inserted transactions.
           items:
             $ref: "#/components/schemas/transactionObject"
           type: array
@@ -8089,776 +9111,759 @@ components:
             format
           format: date-time
           type: string
+      title: transaction attachment object
       type: object
-    manualAccountObject:
+    budgetObject:
       additionalProperties: false
-      description: An object containing information about a manual account
-      example:
-        balance_as_of: 2000-01-23T04:56:07.000+00:00
-        created_at: 2000-01-23T04:56:07.000+00:00
-        external_id: external_id
-        display_name: display_name
-        type: ""
-        created_by_name: created_by_name
-        institution_name: institution_name
-        custom_metadata:
-          key: ""
-        exclude_from_transactions: false
-        to_base: 6.027456183070403
-        balance: balance
-        updated_at: 2000-01-23T04:56:07.000+00:00
-        subtype: subtype
-        closed_on: 2000-01-23
-        name: name
-        currency: currency
-        id: 0
-        status: active
+      description: "A budget object represents a budgeted amount for a specific category\
+        \ and budget period. Each budget entry is tied to a specific time period defined\
+        \ by its `start_date`. The budget object includes information about the budget\
+        \ amount, currency, period settings, and how future periods will be automatically\
+        \ calculated."
       properties:
         id:
-          description: The unique identifier of this account
+          description: System created unique identifier for the budget entry.
+          format: int64
+          type: integer
+        category_id:
+          description: The ID of the category this budget applies to.
           format: int32
           type: integer
-        name:
-          description: Name of the account
-          maxLength: 45
-          minLength: 1
-          type: string
-        institution_name:
-          description: Name of institution holding the account
-          maxLength: 50
-          minLength: 1
-          nullable: true
-          type: string
-        display_name:
-          description: Optional display name for the account as set by the user or
-            derived from the `institution_name` and `name` if not explicitly set.
-          nullable: true
-          type: string
-        type:
-          allOf:
-          - $ref: "#/components/schemas/accountTypeEnum"
-          description: Primary type of the account
-        subtype:
-          description: Optional account subtype. Examples include<br> - retirement
-            - checking - savings - prepaid credit card
-          maxLength: 100
-          minLength: 1
-          nullable: true
-          type: string
-        balance:
-          description: Current balance of the account in numeric format to 4 decimal
-            places
-          pattern: "^-?\\d+(\\.\\d{1,4})?$"
-          type: string
-        currency:
-          description: Three-letter lowercase currency code of the account balance
-          maxLength: 3
-          minLength: 3
-          type: string
-        to_base:
-          description: The balance converted to the user's primary currency
+        amount:
+          description: The budgeted amount for this period.
+          format: double
           type: number
-        balance_as_of:
-          description: "Date balance was last updated in ISO 8601 extended format,\
-            \ can be in date or date-time format"
-          format: date-time
-          type: string
-        status:
-          description: The status of the account
-          enum:
-          - active
-          - closed
-          type: string
-        closed_on:
-          description: The date this account was closed in YYYY-MM-DD format. Will
-            be null if the account has not been marked as closed.
-          format: date
-          nullable: true
-          type: string
-        external_id:
-          description: An optional external_id that may be set or updated via the
-            API
-          maxLength: 75
-          minLength: 0
-          nullable: true
-          type: string
-        custom_metadata:
-          additionalProperties: true
-          description: User defined JSON data that can be set or cleared via the API
-          nullable: true
-          type: object
-        exclude_from_transactions:
-          default: false
-          description: "If true, this account will not show up as an option for assignment\
-            \ when creating transactions manually"
-          type: boolean
-        created_by_name:
-          description: The name of the user who created the account
-          type: string
-        created_at:
-          description: Date/time the account was created in ISO 8601 extended format
-          format: date-time
-          type: string
-        updated_at:
-          description: Date/time the account was created in ISO 8601 extended format
-          format: date-time
-          type: string
-      required:
-      - balance
-      - balance_as_of
-      - closed_on
-      - created_at
-      - created_by_name
-      - currency
-      - display_name
-      - exclude_from_transactions
-      - external_id
-      - id
-      - institution_name
-      - name
-      - status
-      - subtype
-      - to_base
-      - type
-      - updated_at
-      type: object
-    createManualAccountRequestObject:
-      additionalProperties: false
-      properties:
-        name:
-          description: Name of the manual account
-          example: My Savings Account
-          maxLength: 45
-          minLength: 1
-          type: string
-        institution_name:
-          description: Name of institution holding the manual account
-          example: Bank of the West
-          maxLength: 50
-          minLength: 1
-          type: string
-        display_name:
-          description: Display name of the manual account as set by user or derived
-            from the `institution_name` and `name` if not explicitly set.<br> This
-            must be unique for the budgeting account.
-          example: Savings
-          type: string
-        type:
-          allOf:
-          - $ref: "#/components/schemas/accountTypeEnum"
-          description: The type of manual account
-        subtype:
-          description: An optional manual account subtype. Examples include<br> -
-            retirement - checking - savings - prepaid credit card
-          example: prepaid credit card
-          maxLength: 100
-          minLength: 1
-          type: string
-        balance:
-          $ref: "#/components/schemas/createManualAccountRequestObject_balance"
-        balance_as_of:
-          description: Date/time the balance of the manual account was last updated
-            in ISO 8601 extended format
-          example: 2024-09-15
-          nullable: true
-          type: string
         currency:
           allOf:
           - $ref: "#/components/schemas/currencyEnum"
-          description: Three-letter lowercase currency code of the transaction in
-            ISO 4217 format
-        status:
-          default: active
-          description: The status of the account
+          description: The currency of the budgeted amount in ISO 4217 format.
+        start_date:
+          description: The start date of the budget period in ISO 8601 format (YYYY-MM-DD).
+            This represents the beginning of the period for which this budget applies.
+          format: date
+          type: string
+        next_start_date:
+          description: "The calculated start date of the next budget period based\
+            \ on the category's period settings (granularity, quantity, and anchor_date).\
+            \ This is useful for determining when the next budget period begins."
+          format: date
+          readOnly: true
+          type: string
+        notes:
+          description: Optional notes associated with this budget period.
+          nullable: true
+          type: string
+        auto_budget_type:
+          description: The budget preset type that determines how future periods will
+            be automatically calculated. `nothing` means no automatic calculation
+            (budgets must be set manually for each period). `fixed` uses a fixed amount
+            for all future periods. `spend` uses the previous period's spending amount.
+            `budget` uses the previous period's budgeted amount.
           enum:
-          - active
-          - closed
+          - nothing
+          - fixed
+          - spend
+          - budget
+          readOnly: true
           type: string
-        closed_on:
-          $ref: "#/components/schemas/createManualAccountRequestObject_closed_on"
-        external_id:
-          description: An optional user-defined ID for the manual account
-          maxLength: 75
-          minLength: 0
+        auto_budget_amount:
+          description: "If `auto_budget_type` is `fixed`, this is the fixed amount\
+            \ that will be used for future periods."
+          format: double
           nullable: true
-          type: string
-        custom_metadata:
-          additionalProperties: true
-          description: "An optional JSON object that includes additional data related\
-            \ to this account. This must be a valid JSON object and, when stringified,\
-            \ must not exceed 4096 characters."
-          nullable: true
-          type: object
-        exclude_from_transactions:
-          default: false
-          description: "If `true`, transactions may not be assigned to this manual\
-            \ account"
-          type: boolean
-      required:
-      - balance
-      - name
-      - type
-      type: object
-    updateManualAccountRequestObject:
-      additionalProperties: false
-      properties:
-        id:
-          description: System defined unique identifier of this account. Ignored if
-            set
-          format: int32
-          type: integer
-          x-updatable: false
-        name:
-          description: "If set, the new name of the manual account"
-          maxLength: 45
-          minLength: 1
-          type: string
-          x-updatable: true
-        institution_name:
-          description: "If set, the name of institution holding the account"
-          maxLength: 50
-          minLength: 1
-          nullable: true
-          type: string
-          x-updatable: true
-        display_name:
-          description: "If set, the new display name for the manual account.<br> This\
-            \ must be unique for the user."
-          nullable: true
-          type: string
-          x-updatable: true
-        type:
-          allOf:
-          - $ref: "#/components/schemas/accountTypeEnum"
-          description: "If set, the new type of the manual account"
-          x-updatable: true
-        subtype:
-          description: "If set, an optional account subtype. Examples include<br>\
-            \ - retirement - checking - savings - prepaid credit card"
-          maxLength: 100
-          minLength: 1
-          type: string
-          x-updatable: true
-        balance:
-          $ref: "#/components/schemas/updateManualAccountRequestObject_balance"
-        currency:
+          readOnly: true
+          type: number
+        auto_budget_currency:
           allOf:
           - $ref: "#/components/schemas/currencyEnum"
-          description: "If set, the new three-letter lowercase currency code of the\
-            \ manual account balance."
-          x-updatable: true
-        balance_as_of:
-          description: "A new date for the `updated_at` property. May be set as a\
-            \ date, ie: YYYY-MM-DD, or date-time string in ISO 8601 extended format.\
-            \ This property is ignored if `balance` is not also set. If `balance`\
-            \ is set and this property is not set the current time is used."
+          description: "If `auto_budget_type` is `fixed`, this is the currency of\
+            \ the fixed amount."
           nullable: true
-          type: string
-          x-updatable: true
-        status:
-          description: "If set, the status of the manual account. If set to `closed`,\
-            \ the the `closed_on_date` date will be set to the current date, unless\
-            \ it is also set."
+          readOnly: true
+        rollover_option:
+          description: The rollover setting for this category. `same category` means
+            unspent funds roll over to the next period for this category. `available
+            funds` means unspent funds are added to the available funds pool. `null`
+            means rollover is disabled.
           enum:
-          - active
-          - closed
-          type: string
-          x-updatable: true
-        closed_on:
-          $ref: "#/components/schemas/updateManualAccountRequestObject_closed_on"
-        external_id:
-          description: An optional user-defined ID for the manual account
-          maxLength: 75
-          minLength: 0
+          - same category
+          - available funds
           nullable: true
+          readOnly: true
           type: string
-          x-updatable: true
-        custom_metadata:
-          additionalProperties: true
-          description: "An optional JSON object that includes additional data related\
-            \ to this account. This must be a valid JSON object and, when stringified,\
-            \ must not exceed 4096 characters."
-          nullable: true
-          type: object
-          x-updatable: true
-        exclude_from_transactions:
-          description: "If set, transactions may not be assigned to this manual account"
+        granularity:
+          description: "The granularity of the budget period (e.g., monthly, weekly,\
+            \ twice a month). This is determined by the category's custom budget settings\
+            \ or the account's default budget period settings."
+          enum:
+          - month
+          - week
+          - twice a month
+          readOnly: true
+          type: string
+        quantity:
+          description: "The quantity of granularity units that make up each budget\
+            \ period. For example, if granularity is `week` and quantity is `2`, each\
+            \ budget period is 2 weeks."
+          format: int32
+          readOnly: true
+          type: integer
+        is_group:
+          description: "Whether the category is a category group. Category groups\
+            \ can have their own budgets that apply to all subcategories, or subcategories\
+            \ can have individual budgets."
+          readOnly: true
           type: boolean
-          x-updatable: true
-        to_base:
-          description: System defined balance converted to the user's primary currency.
-            Ignored if set. Use `balance` to update the balance in the account
-          type: number
-          x-updatable: false
+        group_id:
+          description: "If this budget is for a subcategory, this is the ID of the\
+            \ parent category group. `null` if this is not a subcategory."
+          format: int32
+          nullable: true
+          readOnly: true
+          type: integer
         created_at:
-          description: System defined date/time the account was created in ISO 8601
-            extended format. Ignored if set.
+          description: The date and time when this budget entry was created (in ISO
+            8601 extended format).
           format: date-time
-          type: string
-          x-updatable: false
-        updated_at:
-          description: System defined date/time the account was created in ISO 8601
-            extended format. Ignored if set.
-          format: date-time
-          type: string
-          x-updatable: false
-        created_by_name:
-          description: System defined name of the user who created the account. Ignored
-            if set
-          type: string
-          x-updatable: false
-      type: object
-    plaidAccountObject:
-      additionalProperties: false
-      description: An object containing information about an account synced via Plaid
-      example:
-        linked_by_name: linked_by_name
-        last_import: 2000-01-23T04:56:07.000+00:00
-        display_name: display_name
-        type: type
-        plaid_last_successful_update: 2000-01-23T04:56:07.000+00:00
-        institution_name: institution_name
-        to_base: 1.4658129805029452
-        balance_last_update: 2000-01-23T04:56:07.000+00:00
-        plaid_item_id: plaid_item_id
-        date_linked: 2000-01-23
-        balance: balance
-        subtype: subtype
-        name: name
-        limit: 6.027456183070403
-        currency: currency
-        id: 0
-        last_fetch: 2000-01-23T04:56:07.000+00:00
-        allow_transaction_modifications: true
-        mask: mask
-        status: active
-        import_start_date: 2000-01-23
-      properties:
-        id:
-          description: The unique identifier of this account
-          format: int32
-          type: integer
-        plaid_item_id:
-          description: The unique identifier of the Plaid connection that this account
-            belongs to. Accounts with the same plaid_item_id usually belong to the
-            same institution.
-          maxLength: 255
-          minLength: 0
-          nullable: true
-          type: string
-        date_linked:
-          description: Date account was first linked in ISO 8601 format
-          format: date
-          type: string
-        linked_by_name:
-          description: The name of the user who linked the account
-          nullable: false
-          type: string
-        name:
-          description: Name of the account. This field is set by Plaid and cannot
-            be altered.
-          type: string
-        display_name:
-          description: "Optional display name for the account set by the user. If\
-            \ not set, it will return a concatenated string of institution and account\
-            \ name."
-          nullable: true
-          type: string
-        type:
-          description: "Primary type of the account, such as `credit`, `depository`,\
-            \ etc. This field is set by Plaid and cannot be altered."
-          type: string
-        subtype:
-          description: Optional account subtype. This field is set by Plaid and cannot
-            be altered.
-          type: string
-        mask:
-          description: Mask (last 3 to 4 digits of account) of account. This field
-            is set by Plaid and cannot be altered.
-          type: string
-        institution_name:
-          description: Name of institution holding the account. This field is set
-            by Plaid and cannot be altered.
-          type: string
-        status:
-          description: "Denotes the current status of the account within Lunch Money.\
-            \ Must be one of<br> - active: Account is actively syncing transactions\
-            \ and/or balance<br> - inactive: Account marked inactive from user. Transaction\
-            \ imports and balance updates will not occur for this account.<br> - closed:\
-            \ Account is marked as closed<br> - deactivated: Account is marked deactivated\
-            \ during setup. The user must click `Add/Remove Accounts From This Bank`\
-            \ and manually re-select this account to activate it.'<br> - not found:\
-            \ Account was once linked but can no longer be found with Plaid.<br> -\
-            \ not supported: Account is not supported by Plaid.<br> - relink: Account\
-            \ (and others with the same connection) need to be relinked with Plaid.<br>\
-            \ - syncing: Account is awaiting the first import of transactions.<br>\
-            \ - revoked: Account connection has been revoked by Plaid and syncing\
-            \ is no longer possible. A new connection needs to be set up again.<br>\
-            \ - error: Account (and others with the same connection) is in error with\
-            \ Plaid and requires intervention to re-activate it.<br>"
-          enum:
-          - active
-          - inactive
-          - closed
-          - deactivated
-          - not found
-          - not supported
-          - relink
-          - syncing
-          - revoked
-          - error
-          type: string
-        allow_transaction_modifications:
-          description: "If `false`, transactions imported for this synced account\
-            \ can have their properties (such as amount and account) be modified by\
-            \ the user. This option is managed in the web app."
-          type: boolean
-        limit:
-          description: Optional credit limit of the account. This field is set by
-            Plaid and cannot be altered
-          nullable: true
-          type: number
-        balance:
-          description: Current balance of the account in numeric format to 4 decimal
-            places. This field is set by Plaid and cannot be altered.
-          type: string
-        currency:
-          description: Three-letter lowercase currency code of the account balance
-          maxLength: 3
-          minLength: 3
-          type: string
-        to_base:
-          description: The account balance converted to the user's primary currency
-          type: number
-        balance_last_update:
-          description: Date balance was last updated in ISO 8601 extended format.
-            This field is set by Plaid and cannot be altered.
-          format: date-time
-          nullable: true
-          type: string
-        import_start_date:
-          description: Date of earliest date allowed for importing transactions. Transactions
-            earlier than this date are not imported.
-          format: date
-          nullable: true
-          type: string
-        last_import:
-          description: Timestamp in ISO 8601 extended format of the last time Lunch
-            Money imported new data from Plaid for this account.
-          format: date-time
-          nullable: true
-          type: string
-        last_fetch:
-          description: Timestamp in ISO 8601 extended format of the last successful
-            request from Lunch Money for updated data or timestamps from Plaid in
-            ISO 8601 extended format (not necessarily date of last successful import)
-          format: date-time
-          nullable: true
-          type: string
-        plaid_last_successful_update:
-          description: "Timestamp in ISO 8601 extended format of the last time Plaid\
-            \ successfully connected with institution for new transaction updates,\
-            \ regardless of whether any new data was available in the update."
-          format: date-time
-          nullable: true
-          type: string
-      required:
-      - allow_transaction_modifications
-      - balance
-      - balance_last_update
-      - currency
-      - date_linked
-      - display_name
-      - id
-      - import_start_date
-      - institution_name
-      - last_fetch
-      - last_import
-      - limit
-      - linked_by_name
-      - mask
-      - name
-      - plaid_item_id
-      - plaid_last_successful_update
-      - status
-      - subtype
-      - to_base
-      - type
-      type: object
-    tagObject:
-      additionalProperties: false
-      example:
-        archived: true
-        background_color: background_color
-        updated_at: 2000-01-23T04:56:07.000+00:00
-        archived_at: 2000-01-23T04:56:07.000+00:00
-        name: name
-        description: description
-        created_at: 2000-01-23T04:56:07.000+00:00
-        id: 0
-        text_color: text_color
-      properties:
-        id:
-          description: Unique identifier for the tag
-          format: int32
-          type: integer
-        name:
-          description: Name of the tag
-          type: string
-        description:
-          description: Description of the tag
-          nullable: true
-          type: string
-        text_color:
-          description: The text color of the tag
-          nullable: true
-          type: string
-        background_color:
-          description: The background color of the tag
-          nullable: true
           type: string
         updated_at:
-          description: The date and time of when the tag was last updated (in the
+          description: The date and time when this budget entry was last updated (in
             ISO 8601 extended format).
           format: date-time
-          nullable: false
           type: string
-        created_at:
-          description: The date and time of when the tag was created (in the ISO 8601
-            extended format).
-          format: date-time
-          nullable: false
+      required:
+      - amount
+      - auto_budget_type
+      - category_id
+      - created_at
+      - currency
+      - granularity
+      - id
+      - is_group
+      - next_start_date
+      - quantity
+      - start_date
+      - updated_at
+      title: budget object
+      type: object
+    upsertBudgetRequestObject:
+      additionalProperties: false
+      properties:
+        start_date:
+          description: Start date of the budget period in ISO 8601 date format (YYYY-MM-DD).
+            Must be a valid budget period start for the account.
+          format: date
           type: string
-        archived:
-          description: "If `true`, the tag will not show up when creating or updating\
-            \ transactions in the Lunch Money app. **Can it be assigned via the API**"
-          type: boolean
-        archived_at:
-          description: The date and time of when the tag was last archived or `null`
-            if not archived
-          format: date-time
+        category_id:
+          description: Category ID for the budget
+          format: int32
+          type: integer
+        amount:
+          $ref: "#/components/schemas/upsertBudgetRequestObject_amount"
+        currency:
+          allOf:
+          - $ref: "#/components/schemas/currencyEnum"
+          description: "Three-letter currency code. If omitted, the primary currency\
+            \ for the user's account is used."
+        notes:
+          description: Optional notes for the budget period
+          maxLength: 350
+          minLength: 0
           nullable: true
           type: string
       required:
-      - archived
-      - archived_at
-      - background_color
-      - created_at
-      - description
-      - id
-      - name
-      - text_color
-      - updated_at
+      - amount
+      - category_id
+      - start_date
       type: object
-    createTagRequestObject:
-      additionalProperties: false
+    budgetUpsertResponseObject:
+      example:
+        to_base: 6.0274563
+        amount: amount
+        notes: notes
+        category_id: 0
+        currency: currency
+        start_date: 2000-01-23
       properties:
-        name:
-          description: |-
-            The name of the new tag. Must be between 1 and 100 characters.
-            Must not match the name of any existing tags.
-          maxLength: 100
-          minLength: 1
-          nullable: false
+        category_id:
+          description: Category ID
+          format: int32
+          type: integer
+        start_date:
+          description: Start date of the budget period
+          format: date
           type: string
-        description:
-          description: The description of the tag. Must not exceed 200 characters
-          maxLength: 200
+        amount:
+          description: Budget amount in the stored currency (string for consistency
+            with other amount fields in the API)
+          type: string
+        currency:
+          description: Currency code for the budget
+          type: string
+        to_base:
+          description: Amount converted to the user's primary currency
+          format: float
+          type: number
+        notes:
+          description: Notes for the budget period
           nullable: true
           type: string
-        text_color:
-          description: The text color of the tag
-          nullable: true
+      type: object
+    budgetSettingsResponseObject:
+      additionalProperties: false
+      description: Budget period and display settings
+      example:
+        budget_period_anchor_date: 2000-01-23
+        budget_rollover_left_to_budget: false
+        budget_use_last_day_of_month: false
+        budget_period_granularity: day
+        budget_hide_no_activity: false
+        budget_period_quantity: 0.8008281904610115
+        budget_income_option: max
+      properties:
+        budget_period_granularity:
+          description: Budget period granularity
+          enum:
+          - day
+          - week
+          - month
+          - year
+          - twice a month
           type: string
-        background_color:
-          description: The background color of the tag
-          nullable: true
+        budget_period_quantity:
+          description: The number of `granularity` units that make up a single budgeting
+            period.
+          format: double
+          type: number
+        budget_period_anchor_date:
+          description: The date from which the budgeting period is calculated. All
+            future (and past) periods are derived by applying `quantity` × `granularity`
+            forward and backward from this date.
+          format: date
           type: string
-        archived:
+        budget_hide_no_activity:
           default: false
-          description: "If `true`, the tag is archived and not displayed in relevant\
-            \ areas of the Lunch Money app."
+          description: The display preference for hiding categories in budget view
+            that have no activity and no budgeted value
+          type: boolean
+        budget_use_last_day_of_month:
+          default: false
+          description: The display preference for using the last day of the month
+            as the period end for monthly periods
+          type: boolean
+        budget_income_option:
+          description: Determines which income value is used as the base when calculating
+            available funds for a budgeting period
+          enum:
+          - max
+          - budgeted
+          - activity
+          type: string
+        budget_rollover_left_to_budget:
+          default: false
+          description: Determines whether the remaining unallocated funds (“Left to
+            Budget”) at the end of a budgeting period are carried forward to the next
+            period
           type: boolean
       required:
-      - name
+      - budget_hide_no_activity
+      - budget_income_option
+      - budget_period_anchor_date
+      - budget_period_granularity
+      - budget_period_quantity
+      - budget_rollover_left_to_budget
+      - budget_use_last_day_of_month
       type: object
-    updateTagRequestObject:
+    summaryResponseObject:
       additionalProperties: false
+      description: Budget summary for the requested range
+      example:
+        rollover_pool:
+          budgeted_to_base: 4.145608029883936
+          all_adjustments:
+          - date: 2000-01-23
+            to_base: 7.386281948385884
+            amount: amount
+            in_range: true
+            currency: ""
+          - date: 2000-01-23
+            to_base: 7.386281948385884
+            amount: amount
+            in_range: true
+            currency: ""
+        aligned: true
+        categories:
+        - occurrences:
+          - end_date: 2000-01-23
+            budgeted_currency: ""
+            notes: notes
+            recurring_activity: 3.616076749251911
+            budgeted_amount: budgeted_amount
+            in_range: true
+            other_activity: 9.301444243932576
+            start_date: 2000-01-23
+            budgeted: 2.027123023002322
+          - end_date: 2000-01-23
+            budgeted_currency: ""
+            notes: notes
+            recurring_activity: 3.616076749251911
+            budgeted_amount: budgeted_amount
+            in_range: true
+            other_activity: 9.301444243932576
+            start_date: 2000-01-23
+            budgeted: 2.027123023002322
+          rollover_pool:
+            budgeted_to_base: 4.145608029883936
+            all_adjustments:
+            - date: 2000-01-23
+              to_base: 7.386281948385884
+              amount: amount
+              in_range: true
+              currency: ""
+            - date: 2000-01-23
+              to_base: 7.386281948385884
+              amount: amount
+              in_range: true
+              currency: ""
+          category_id: 0
+          totals:
+            recurring_expected: 7.061401241503109
+            recurring_activity: 1.4658129805029452
+            recurring_remaining: 2.3021358869347655
+            available: 5.637376656633329
+            other_activity: 6.027456183070403
+            budgeted: 5.962133916683182
+        - occurrences:
+          - end_date: 2000-01-23
+            budgeted_currency: ""
+            notes: notes
+            recurring_activity: 3.616076749251911
+            budgeted_amount: budgeted_amount
+            in_range: true
+            other_activity: 9.301444243932576
+            start_date: 2000-01-23
+            budgeted: 2.027123023002322
+          - end_date: 2000-01-23
+            budgeted_currency: ""
+            notes: notes
+            recurring_activity: 3.616076749251911
+            budgeted_amount: budgeted_amount
+            in_range: true
+            other_activity: 9.301444243932576
+            start_date: 2000-01-23
+            budgeted: 2.027123023002322
+          rollover_pool:
+            budgeted_to_base: 4.145608029883936
+            all_adjustments:
+            - date: 2000-01-23
+              to_base: 7.386281948385884
+              amount: amount
+              in_range: true
+              currency: ""
+            - date: 2000-01-23
+              to_base: 7.386281948385884
+              amount: amount
+              in_range: true
+              currency: ""
+          category_id: 0
+          totals:
+            recurring_expected: 7.061401241503109
+            recurring_activity: 1.4658129805029452
+            recurring_remaining: 2.3021358869347655
+            available: 5.637376656633329
+            other_activity: 6.027456183070403
+            budgeted: 5.962133916683182
+        totals:
+          outflow:
+            recurring_expected: 6.84685269835264
+            recurring_activity: 1.0246457001441578
+            recurring_remaining: 1.4894159098541704
+            other_activity: 1.2315135367772556
+            uncategorized: 7.457744773683766
+            uncategorized_recurring: 4.965218492984954
+            uncategorized_count: 1
+          inflow:
+            recurring_expected: 6.84685269835264
+            recurring_activity: 1.0246457001441578
+            recurring_remaining: 1.4894159098541704
+            other_activity: 1.2315135367772556
+            uncategorized: 7.457744773683766
+            uncategorized_recurring: 4.965218492984954
+            uncategorized_count: 1
       properties:
-        name:
-          description: "If set, the new name of the category. Must be between 1 and\
-            \ 100 characters."
-          maxLength: 100
-          minLength: 1
-          nullable: false
-          type: string
-          x-updatable: true
-        description:
-          description: "If set, the new description of the category. Must not exceed\
-            \ 200 characters."
-          maxLength: 200
-          nullable: true
-          type: string
-          x-updatable: true
-        text_color:
-          description: The text color of the tag
-          nullable: true
-          type: string
-          x-updatable: true
-        background_color:
-          description: The background color of the tag
-          nullable: true
-          type: string
-          x-updatable: true
-        archived:
-          description: "If set, will indicate if this category is archived"
+        aligned:
+          description: "`true` if start_date and end_date are aligned with the user's\
+            \ budget period setting; `false` otherwise.<p> When the response is not\
+            \ aligned, category `totals` will not include values for the `budgeted`\
+            \ and `available` properties, so aligned responses are usually preferred.<p>\
+            \ If unsure how to set an aligned date range, set a range of at least\
+            \ one month and set the `include_occurrences` parameter to `true`. Then\
+            \ examine the objects in the `occurrences` array for the first category\
+            \ to find start and end dates that will produce aligned responses.  Setting\
+            \ `include_past_budget_dates` to `true` will add the three budget periods\
+            \ prior to the range in the `occurrences` array."
           type: boolean
-          x-updatable: true
-        id:
-          description: System-defined unique identifier for the category. Ignored
-            if set
-          format: int32
+        categories:
+          items:
+            $ref: "#/components/schemas/summaryCategoryObject"
+          type: array
+        totals:
+          $ref: "#/components/schemas/summaryTotalsObject"
+        rollover_pool:
+          $ref: "#/components/schemas/summaryRolloverPoolObject"
+      required:
+      - aligned
+      - categories
+      title: summary object
+      type: object
+    summaryTotalsObject:
+      additionalProperties: false
+      description: Total inflow and outflow for the given date range.  This object
+        is returned when the query parameter `include_totals` is set to `true`.
+      example:
+        outflow:
+          recurring_expected: 6.84685269835264
+          recurring_activity: 1.0246457001441578
+          recurring_remaining: 1.4894159098541704
+          other_activity: 1.2315135367772556
+          uncategorized: 7.457744773683766
+          uncategorized_recurring: 4.965218492984954
+          uncategorized_count: 1
+        inflow:
+          recurring_expected: 6.84685269835264
+          recurring_activity: 1.0246457001441578
+          recurring_remaining: 1.4894159098541704
+          other_activity: 1.2315135367772556
+          uncategorized: 7.457744773683766
+          uncategorized_recurring: 4.965218492984954
+          uncategorized_count: 1
+      properties:
+        inflow:
+          $ref: "#/components/schemas/summaryTotalsBreakdownObject"
+        outflow:
+          $ref: "#/components/schemas/summaryTotalsBreakdownObject"
+      type: object
+    summaryTotalsBreakdownObject:
+      additionalProperties: false
+      example:
+        recurring_expected: 6.84685269835264
+        recurring_activity: 1.0246457001441578
+        recurring_remaining: 1.4894159098541704
+        other_activity: 1.2315135367772556
+        uncategorized: 7.457744773683766
+        uncategorized_recurring: 4.965218492984954
+        uncategorized_count: 1
+      properties:
+        other_activity:
+          description: "Total amount, in the user's default currency, of non recurring\
+            \ activity for the given date range"
+          type: number
+        recurring_activity:
+          description: "Total amount, in the user's default currency, of recurring\
+            \ activity that has occurred for the given date range"
+          type: number
+        recurring_remaining:
+          description: "Total amount, in the user's default currency, of expected\
+            \ recurring activity that has not yet occurred"
+          type: number
+        recurring_expected:
+          description: "Total amount, in the user's default currency, of expected\
+            \ recurring activity for the given date range"
+          type: number
+        uncategorized:
+          description: "Total amount, in the user's default currency, of non recurring\
+            \ activity coming from un-categorized transactions"
+          type: number
+        uncategorized_count:
+          description: Number of un-categorized transactions for the given date range
           type: integer
-          x-updatable: false
-        updated_at:
-          description: System-set time the tag was last updated. Ignored if set
-          format: date-time
-          nullable: false
-          type: string
-          x-updatable: false
-        created_at:
-          description: System-set time the tag was created. Ignored if set
-          format: date-time
-          nullable: false
-          type: string
-          x-updatable: false
-        archived_at:
-          description: System-set time the tag was archived. Ignored if set
-          format: date-time
-          nullable: true
-          type: string
-          x-updatable: false
+        uncategorized_recurring:
+          description: "Total amount, in the user's default currency, of recurring\
+            \ activity coming from un-categorized transactions."
+          type: number
       type: object
-    deleteTagResponseWithDependencies:
+    summaryCategoryObject:
       additionalProperties: false
+      description: List of each category's budget configuration and activity for the
+        date range.
       example:
-        tag_name: tag_name
-        dependents:
-          rules: 0
-          transactions: 6
-      properties:
-        tag_name:
-          description: The name of the tag
-          type: string
-        dependents:
-          $ref: "#/components/schemas/deleteTagResponseWithDependencies_dependents"
-      required:
-      - dependents
-      - tag_name
-      type: object
-    recurringObject:
-      example:
-        updated_at: 2000-01-23T04:56:07.000+00:00
-        description: description
-        created_at: 2000-01-23T04:56:07.000+00:00
-        transaction_criteria:
-          end_date: 2000-01-23
-          payee: payee
-          to_base: 1.4658129805029452
-          amount: amount
-          quantity: 6
-          anchor_date: 2000-01-23
-          granularity: day
-          plaid_account_id: 5
-          manual_account_id: 5
-          currency: currency
-          start_date: 2000-01-23
-        id: 0
-        overrides:
-          payee: payee
+        occurrences:
+        - end_date: 2000-01-23
+          budgeted_currency: ""
           notes: notes
-          category_id: 2
-        source: manual
-        matches:
-          found_transactions:
+          recurring_activity: 3.616076749251911
+          budgeted_amount: budgeted_amount
+          in_range: true
+          other_activity: 9.301444243932576
+          start_date: 2000-01-23
+          budgeted: 2.027123023002322
+        - end_date: 2000-01-23
+          budgeted_currency: ""
+          notes: notes
+          recurring_activity: 3.616076749251911
+          budgeted_amount: budgeted_amount
+          in_range: true
+          other_activity: 9.301444243932576
+          start_date: 2000-01-23
+          budgeted: 2.027123023002322
+        rollover_pool:
+          budgeted_to_base: 4.145608029883936
+          all_adjustments:
           - date: 2000-01-23
-            transaction_id: 7
+            to_base: 7.386281948385884
+            amount: amount
+            in_range: true
+            currency: ""
           - date: 2000-01-23
-            transaction_id: 7
-          request_start_date: 2000-01-23
-          request_end_date: 2000-01-23
-          expected_occurrence_dates:
-          - 2000-01-23
-          - 2000-01-23
-          missing_transaction_dates:
-          - 2000-01-23
-          - 2000-01-23
-        created_by: 9
-        status: suggested
+            to_base: 7.386281948385884
+            amount: amount
+            in_range: true
+            currency: ""
+        category_id: 0
+        totals:
+          recurring_expected: 7.061401241503109
+          recurring_activity: 1.4658129805029452
+          recurring_remaining: 2.3021358869347655
+          available: 5.637376656633329
+          other_activity: 6.027456183070403
+          budgeted: 5.962133916683182
       properties:
-        id:
-          description: The unique identifier of this recurring item
-          format: int32
+        category_id:
+          description: ID of the category associated with the totals.
           type: integer
-        description:
-          description: An optional description of this recurring item
+        totals:
+          $ref: "#/components/schemas/summaryCategoryTotalsObject"
+        occurrences:
+          description: "A list of objects describing the budget activity for each\
+            \ period within the range. This property is only present when `include_occurrences`\
+            \ is true.<p> For aligned ranges, there is one occurrence for each budget\
+            \ period in the range; for non-aligned, only periods fully contained in\
+            \ the range are included.<p> If `include_past_budget_dates` is also `true`,\
+            \ the three budget periods prior to the range are also included."
+          items:
+            $ref: "#/components/schemas/summaryCategoryOccurrenceObject"
+          type: array
+        rollover_pool:
+          $ref: "#/components/schemas/summaryRolloverPoolObject"
+      required:
+      - category_id
+      - totals
+      type: object
+    summaryRolloverPoolAdjustmentObject:
+      additionalProperties: false
+      description: The date and adjusted balance of the rollover pool at the time
+        of the adjustment.
+      example:
+        date: 2000-01-23
+        to_base: 7.386281948385884
+        amount: amount
+        in_range: true
+        currency: ""
+      properties:
+        in_range:
+          description: true if this rollover pool adjustment is for a budget period
+            that falls within the given date range.
+          type: boolean
+        date:
+          description: Date the adjustment was made.
+          format: date
+          type: string
+        amount:
+          description: "Amount of the rollover pool, in the budgets currency, at the\
+            \ time of the adjustment."
+          type: string
+        currency:
+          allOf:
+          - $ref: "#/components/schemas/currencyEnum"
+          description: Currency of the rollover pool at the time of the adjustment.
+        to_base:
+          description: "Amount of the rollover pool, in the user's default currency,\
+            \ at the time of the adjustment."
+          type: number
+      required:
+      - amount
+      - currency
+      - date
+      - in_range
+      - to_base
+      type: object
+    summaryCategoryTotalsObject:
+      additionalProperties: false
+      description: Total activity for the given category within the given date range
+        which is aligned with budget period setting.
+      example:
+        recurring_expected: 7.061401241503109
+        recurring_activity: 1.4658129805029452
+        recurring_remaining: 2.3021358869347655
+        available: 5.637376656633329
+        other_activity: 6.027456183070403
+        budgeted: 5.962133916683182
+      properties:
+        other_activity:
+          description: "Total non recurring activity, in the user's default currency,\
+            \ for the category within the given date range.<br> The total activity\
+            \ for the category is the sum of this and the recurring_activity."
+          type: number
+        recurring_activity:
+          description: "Total recurring activity, in the user's default currency,\
+            \ for the category within the given date range.<br> The total activity\
+            \ for the category is the sum of this and the other_activity."
+          type: number
+        budgeted:
+          description: "Total budgeted amount, in the user's default currency, for\
+            \ the category within the given date range or null if the category is\
+            \ not budgeted. This property will not be present in a non-aligned response."
+          nullable: true
+          type: number
+        available:
+          description: "Total amount of funds available, in the user's default currency,\
+            \ for the category within the given date range. This property will not\
+            \ be present in a non-aligned response."
+          nullable: true
+          type: number
+        recurring_remaining:
+          description: "Total expected recurring activity, in the user's default currency,\
+            \ that has not yet occurred for the category within the given date range."
+          type: number
+        recurring_expected:
+          description: Total expected recurring activity for the category within the
+            given date range.
+          type: number
+      required:
+      - other_activity
+      - recurring_activity
+      - recurring_expected
+      - recurring_remaining
+      type: object
+    summaryCategoryOccurrenceObject:
+      additionalProperties: false
+      description: ""
+      example:
+        end_date: 2000-01-23
+        budgeted_currency: ""
+        notes: notes
+        recurring_activity: 3.616076749251911
+        budgeted_amount: budgeted_amount
+        in_range: true
+        other_activity: 9.301444243932576
+        start_date: 2000-01-23
+        budgeted: 2.027123023002322
+      properties:
+        in_range:
+          description: "`true` if this occurrence is within the given date range,\
+            \ `false` if it was included because the `include_past_budget_periods`\
+            \ parameter was set to `true`."
+          type: boolean
+        start_date:
+          description: The start date of the budget period
+          format: date
+          type: string
+        end_date:
+          description: The end date of the budget period
+          format: date
+          type: string
+        other_activity:
+          description: "Total non recurring activity, in the user's default currency,\
+            \ for the budget period. The total activity for this category in the period\
+            \ is the sum of this and the recurring_activity."
+          type: number
+        recurring_activity:
+          description: "Total recurring activity, in the user's default currency,\
+            \ for the budget period. The total activity for this category in the budget\
+            \ period is the sum of this and the other_activity."
+          type: number
+        budgeted:
+          description: "Total budgeted amount, in the user's primary currency, for\
+            \ the period, or `null` if no budget was set."
+          nullable: true
+          type: number
+        budgeted_amount:
+          description: "Total budgeted amount, in the budgeted currency, for the category\
+            \ within the period, or `null` if no budget was set."
           nullable: true
           type: string
-        status:
-          description: "The status of this recurring item. `suggested` recurring items\
-            \ are generated by Lunch Money, but only `reviewed` recurring items will\
-            \ be applied to matching transactions."
-          enum:
-          - suggested
-          - reviewed
-          type: string
-        transaction_criteria:
-          $ref: "#/components/schemas/recurringObject_transaction_criteria"
-        overrides:
-          $ref: "#/components/schemas/recurringObject_overrides"
-        matches:
-          $ref: "#/components/schemas/recurringObject_matches"
-        created_by:
-          description: The ID of the user who created the recurring item
-          nullable: false
-          type: integer
-        created_at:
-          description: Date/time the recurring item was created in ISO 8601 extended
-            format
-          format: date-time
-          nullable: false
-          type: string
-        updated_at:
-          description: Date/time the recurring item was updated in ISO 8601 extended
-            format
-          format: date-time
-          nullable: false
-          type: string
-        source:
-          description: |
-            This can be one of four values:
-            - `manual`: User created this recurring item manually from the Recurring Items page
-            - `transaction`: User created this by converting a transaction from the Transactions page
-            - `system`: Recurring item was created by the system on transaction import
-            - `null`: Some older recurring items may not have a source.
-          enum:
-          - manual
-          - transaction
-          - system
+        budgeted_currency:
+          allOf:
+          - $ref: "#/components/schemas/currencyEnum"
+          description: Currency of the budgeted amount
+          nullable: true
+        notes:
+          description: Any notes set for the budget period.
+          nullable: true
           type: string
       required:
-      - created_at
-      - created_by
-      - description
-      - id
-      - matches
-      - overrides
-      - source
-      - status
-      - transaction_criteria
-      - updated_at
+      - budgeted
+      - budgeted_amount
+      - budgeted_currency
+      - end_date
+      - in_range
+      - notes
+      - other_activity
+      - recurring_activity
+      - start_date
+      type: object
+    summaryRecurringTransactionObject:
+      additionalProperties: false
+      description: A single transaction associated with a recurring item. I don't
+        think we will expose this in the summary since it's gettable by querying the
+        recurring_id
+      properties:
+        date:
+          format: date
+          type: string
+        category_id:
+          type: integer
+        payee:
+          type: string
+        to_base:
+          type: number
+        amount:
+          type: string
+        currency:
+          allOf:
+          - $ref: "#/components/schemas/currencyEnum"
+      required:
+      - amount
+      - category_id
+      - currency
+      - date
+      - payee
+      - to_base
+      type: object
+    summaryRolloverPoolObject:
+      additionalProperties: false
+      description: Summary of the current rollover pool balance and all previous adjustments.<br>
+        Only present if the `include_rollover_pool` query parameter is set to `true`.
+      example:
+        budgeted_to_base: 4.145608029883936
+        all_adjustments:
+        - date: 2000-01-23
+          to_base: 7.386281948385884
+          amount: amount
+          in_range: true
+          currency: ""
+        - date: 2000-01-23
+          to_base: 7.386281948385884
+          amount: amount
+          in_range: true
+          currency: ""
+      properties:
+        budgeted_to_base:
+          description: "Amount of funds, in the user's default currency, currently\
+            \ available to rollover."
+          type: number
+        all_adjustments:
+          description: List of previous adjustments to the rollover pool
+          items:
+            $ref: "#/components/schemas/summaryRolloverPoolAdjustmentObject"
+          type: array
+      required:
+      - all_adjustments
+      - budgeted_to_base
       type: object
     errorResponseObject:
+      description: The object returned will any 4XX error response. Each response
+        is guaranteed to have a `message` and at least one `error` object.
       example:
         message: message
         errors:
@@ -8866,15 +9871,59 @@ components:
         - errMsg: errMsg
       properties:
         message:
-          description: overall error message
+          description: "High level error type, for example 'Not Found' or 'Request\
+            \ Validation Failure'"
           type: string
         errors:
+          description: "An list of objects that describe the errors encountered while\
+            \ processing the request.<br> If multiple errors were encountered, the\
+            \ list will contain multiple objects.<br> Each `error` object is guaranteed\
+            \ to have an `errMsg`, but it may also contain other error specific properties."
           items:
             $ref: "#/components/schemas/errorResponseObject_errors_inner"
           type: array
       required:
       - errors
       - message
+      title: error response object
+      type: object
+    budgetInvalidPeriodErrorObject:
+      additionalProperties: false
+      description: Returned when the requested start_date is not a valid budget period
+        start for the account.
+      example:
+        next_valid_start_date: 2000-01-23
+        previous_valid_start_date: 2000-01-23
+        errMsg: errMsg
+        requested_start_date: 2000-01-23
+        message: message
+      properties:
+        message:
+          description: Overall error message (e.g. Invalid Request)
+          type: string
+        requested_start_date:
+          description: The start_date value that was rejected
+          format: date
+          type: string
+        previous_valid_start_date:
+          description: The previous valid budget period start date before the requested
+            date
+          format: date
+          nullable: true
+          type: string
+        next_valid_start_date:
+          description: The next valid budget period start date after the requested
+            date
+          format: date
+          nullable: true
+          type: string
+        errMsg:
+          description: Human-readable error message
+          type: string
+      required:
+      - errMsg
+      - message
+      - requested_start_date
       type: object
     accountTypeEnum:
       enum:
@@ -8888,6 +9937,7 @@ components:
       - other asset
       - real estate
       - vehicle
+      title: manual account type enum
       type: string
     currencyEnum:
       enum:
@@ -9053,521 +10103,8 @@ components:
       - zar
       - zmw
       - zwl
+      title: currency enum
       type: string
-    alignedSummaryResponseObject:
-      additionalProperties: false
-      example:
-        totals:
-          outflow:
-            recurring_activity: 6.027456183070403
-            recurring_remaining: 1.4658129805029452
-            other_activity: 0.8008281904610115
-            uncategorized: 5.962133916683182
-            uncategorized_recurring: 2.3021358869347655
-            uncategorized_count: 5
-          inflow:
-            recurring_activity: 6.027456183070403
-            recurring_remaining: 1.4658129805029452
-            other_activity: 0.8008281904610115
-            uncategorized: 5.962133916683182
-            uncategorized_recurring: 2.3021358869347655
-            uncategorized_count: 5
-        aligned: true
-        categories:
-        - occurrences:
-          - end_date: 2000-01-23
-            budgeted_currency: ""
-            notes: notes
-            recurring_activity: 1.4894159098541704
-            budgeted_amount: budgeted_amount
-            in_range: true
-            other_activity: 1.0246457001441578
-            start_date: 2000-01-23
-            budgeted: 6.84685269835264
-          - end_date: 2000-01-23
-            budgeted_currency: ""
-            notes: notes
-            recurring_activity: 1.4894159098541704
-            budgeted_amount: budgeted_amount
-            in_range: true
-            other_activity: 1.0246457001441578
-            start_date: 2000-01-23
-            budgeted: 6.84685269835264
-          rollover_pool:
-            budgeted_to_base: 7.457744773683766
-            all_adjustments:
-            - date: 2000-01-23
-              to_base: 1.1730742509559433
-              amount: amount
-              in_range: true
-              currency: ""
-            - date: 2000-01-23
-              to_base: 1.1730742509559433
-              amount: amount
-              in_range: true
-              currency: ""
-          category_id: 7
-          totals:
-            recurring_expected: 1.2315135367772556
-            recurring_activity: 3.616076749251911
-            recurring_remaining: 7.386281948385884
-            available: 4.145608029883936
-            other_activity: 9.301444243932576
-            budgeted: 2.027123023002322
-        - occurrences:
-          - end_date: 2000-01-23
-            budgeted_currency: ""
-            notes: notes
-            recurring_activity: 1.4894159098541704
-            budgeted_amount: budgeted_amount
-            in_range: true
-            other_activity: 1.0246457001441578
-            start_date: 2000-01-23
-            budgeted: 6.84685269835264
-          - end_date: 2000-01-23
-            budgeted_currency: ""
-            notes: notes
-            recurring_activity: 1.4894159098541704
-            budgeted_amount: budgeted_amount
-            in_range: true
-            other_activity: 1.0246457001441578
-            start_date: 2000-01-23
-            budgeted: 6.84685269835264
-          rollover_pool:
-            budgeted_to_base: 7.457744773683766
-            all_adjustments:
-            - date: 2000-01-23
-              to_base: 1.1730742509559433
-              amount: amount
-              in_range: true
-              currency: ""
-            - date: 2000-01-23
-              to_base: 1.1730742509559433
-              amount: amount
-              in_range: true
-              currency: ""
-          category_id: 7
-          totals:
-            recurring_expected: 1.2315135367772556
-            recurring_activity: 3.616076749251911
-            recurring_remaining: 7.386281948385884
-            available: 4.145608029883936
-            other_activity: 9.301444243932576
-            budgeted: 2.027123023002322
-      properties:
-        totals:
-          $ref: "#/components/schemas/summaryTotalsObject"
-        aligned:
-          description: '`true` if start_date and end_date are aligned with budget
-            period setting'
-          type: boolean
-        categories:
-          items:
-            $ref: "#/components/schemas/alignedSummaryCategoryObject"
-          type: array
-      required:
-      - aligned
-      - categories
-      title: aligned summary response object
-      type: object
-    nonAlignedSummaryResponseObject:
-      additionalProperties: false
-      properties:
-        totals:
-          $ref: "#/components/schemas/summaryTotalsObject"
-        aligned:
-          description: '`true` if start_date and end_date are aligned with budget
-            period setting'
-          type: boolean
-        categories:
-          items:
-            $ref: "#/components/schemas/nonAlignedSummaryCategoryObject"
-          type: array
-      required:
-      - aligned
-      - categories
-      title: non-aligned summary response object
-      type: object
-    summaryTotalsObject:
-      additionalProperties: false
-      description: Total inflow and outflow for the given date range.  This object
-        is returned when the query parameter `include_totals` is set to `true`.
-      example:
-        outflow:
-          recurring_activity: 6.027456183070403
-          recurring_remaining: 1.4658129805029452
-          other_activity: 0.8008281904610115
-          uncategorized: 5.962133916683182
-          uncategorized_recurring: 2.3021358869347655
-          uncategorized_count: 5
-        inflow:
-          recurring_activity: 6.027456183070403
-          recurring_remaining: 1.4658129805029452
-          other_activity: 0.8008281904610115
-          uncategorized: 5.962133916683182
-          uncategorized_recurring: 2.3021358869347655
-          uncategorized_count: 5
-      properties:
-        inflow:
-          $ref: "#/components/schemas/summaryTotalsBreakdownObject"
-        outflow:
-          $ref: "#/components/schemas/summaryTotalsBreakdownObject"
-      type: object
-    summaryTotalsBreakdownObject:
-      additionalProperties: false
-      example:
-        recurring_activity: 6.027456183070403
-        recurring_remaining: 1.4658129805029452
-        other_activity: 0.8008281904610115
-        uncategorized: 5.962133916683182
-        uncategorized_recurring: 2.3021358869347655
-        uncategorized_count: 5
-      properties:
-        other_activity:
-          description: "Total amount, in the user's default currency, of non recurring\
-            \ activity for the given date range"
-          type: number
-        recurring_activity:
-          description: "Total amount, in the user's default currency, of recurring\
-            \ activity that has occurred for the given date range"
-          type: number
-        recurring_remaining:
-          description: "Total amount, in the user's default currency, of expected\
-            \ recurring activity that has not yet occurred"
-          type: number
-        uncategorized:
-          description: "Total amount, in the user's default currency, of non recurring\
-            \ activity coming from un-categorized transactions"
-          type: number
-        uncategorized_count:
-          description: Number of un-categorized transactions for the given date range
-          type: integer
-        uncategorized_recurring:
-          description: "Total amount, in the user's default currency, of recurring\
-            \ activity coming from un-categorized transactions."
-          type: number
-      type: object
-    alignedSummaryCategoryObject:
-      additionalProperties: false
-      description: List of each category's budget configuration and activity for the
-        given date range.
-      example:
-        occurrences:
-        - end_date: 2000-01-23
-          budgeted_currency: ""
-          notes: notes
-          recurring_activity: 1.4894159098541704
-          budgeted_amount: budgeted_amount
-          in_range: true
-          other_activity: 1.0246457001441578
-          start_date: 2000-01-23
-          budgeted: 6.84685269835264
-        - end_date: 2000-01-23
-          budgeted_currency: ""
-          notes: notes
-          recurring_activity: 1.4894159098541704
-          budgeted_amount: budgeted_amount
-          in_range: true
-          other_activity: 1.0246457001441578
-          start_date: 2000-01-23
-          budgeted: 6.84685269835264
-        rollover_pool:
-          budgeted_to_base: 7.457744773683766
-          all_adjustments:
-          - date: 2000-01-23
-            to_base: 1.1730742509559433
-            amount: amount
-            in_range: true
-            currency: ""
-          - date: 2000-01-23
-            to_base: 1.1730742509559433
-            amount: amount
-            in_range: true
-            currency: ""
-        category_id: 7
-        totals:
-          recurring_expected: 1.2315135367772556
-          recurring_activity: 3.616076749251911
-          recurring_remaining: 7.386281948385884
-          available: 4.145608029883936
-          other_activity: 9.301444243932576
-          budgeted: 2.027123023002322
-      properties:
-        category_id:
-          description: ID of the category associated with the totals.
-          type: integer
-        totals:
-          $ref: "#/components/schemas/alignedCategoryTotalsObject"
-        occurrences:
-          items:
-            $ref: "#/components/schemas/summaryCategoryOccurrenceObject"
-          type: array
-        rollover_pool:
-          $ref: "#/components/schemas/summaryRolloverPoolObject"
-      required:
-      - category_id
-      - totals
-      type: object
-    nonAlignedSummaryCategoryObject:
-      additionalProperties: false
-      description: List of each category's budget configuration and activity for the
-        given date range.<br> Does not include occurrences since the start_date and
-        end_date are not aligned with budget period setting.
-      properties:
-        category_id:
-          description: ID of the category associated with the totals.
-          type: integer
-        totals:
-          $ref: "#/components/schemas/nonAlignedCategoryTotalsObject"
-      required:
-      - category_id
-      - totals
-      type: object
-    summaryRolloverPoolAdjustmentObject:
-      additionalProperties: false
-      description: The date and adjusted balance of the rollover pool at the time
-        of the adjustment.
-      example:
-        date: 2000-01-23
-        to_base: 1.1730742509559433
-        amount: amount
-        in_range: true
-        currency: ""
-      properties:
-        in_range:
-          description: true if this rollover pool adjustment is for a budget period
-            that falls within the given date range.
-          type: boolean
-        date:
-          format: date
-          type: string
-        amount:
-          description: Amount of the rollover pool at the time of the adjustment.
-          type: string
-        currency:
-          allOf:
-          - $ref: "#/components/schemas/currencyEnum"
-          description: Currency of the rollover pool at the time of the adjustment.
-        to_base:
-          description: Amount of the rollover pool converted to the user's default
-            currency.
-          type: number
-      required:
-      - amount
-      - currency
-      - date
-      - in_range
-      - to_base
-      type: object
-    alignedCategoryTotalsObject:
-      additionalProperties: false
-      description: Total activity for the given category within the given date range
-        which is aligned with budget period setting.
-      example:
-        recurring_expected: 1.2315135367772556
-        recurring_activity: 3.616076749251911
-        recurring_remaining: 7.386281948385884
-        available: 4.145608029883936
-        other_activity: 9.301444243932576
-        budgeted: 2.027123023002322
-      properties:
-        other_activity:
-          description: "Total non recurring activity, in the user's default currency,\
-            \ for the category within the given date range.<br> The total activity\
-            \ for the category is the sum of this and the recurring_activity."
-          type: number
-        recurring_activity:
-          description: "Total recurring activity, in the user's default currency,\
-            \ for the category within the given date range.<br> The total activity\
-            \ for the category is the sum of this and the other_activity."
-          type: number
-        budgeted:
-          description: "Total budgeted amount, in the user's default currency, for\
-            \ the category within the given date range or null if the category is\
-            \ not budgeted."
-          nullable: true
-          type: number
-        available:
-          description: "Total amount of funds available, in the user's default currency,\
-            \ for the category within the given date range."
-          nullable: true
-          type: number
-        recurring_remaining:
-          description: "Total expected recurring activity, in the user's default currency,\
-            \ that has not yet occurred for the category within the given date range."
-          type: number
-        recurring_expected:
-          description: Total expected recurring activity for the category within the
-            given date range.
-          type: number
-      required:
-      - available
-      - budgeted
-      - other_activity
-      - recurring_activity
-      - recurring_expected
-      - recurring_remaining
-      type: object
-    nonAlignedCategoryTotalsObject:
-      additionalProperties: false
-      description: Total activity for the given category within the given date range
-        which is not aligned with budget period setting.
-      properties:
-        other_activity:
-          description: "Total non recurring activity, in the user's default currency,\
-            \ for the category within the given date range.<br> The total activity\
-            \ for the category is the sum of this and the recurring_activity."
-          type: number
-        recurring_activity:
-          description: "Total recurring activity, in the user's default currency,\
-            \ for the category within the given date range.<br> The total activity\
-            \ for the category is the sum of this and the other_activity."
-          type: number
-        recurring_remaining:
-          description: "Total expected recurring activity, in the user's default currency,\
-            \ that has not yet occurred for the category within the given date range."
-          type: number
-        recurring_expected:
-          description: Total expected recurring activity for the category within the
-            given date range.
-          type: number
-      required:
-      - other_activity
-      - recurring_activity
-      - recurring_expected
-      - recurring_remaining
-      type: object
-    summaryCategoryOccurrenceObject:
-      additionalProperties: false
-      description: Per period budget activity for the each budget period within the
-        given date range.<br> This is only returned if the query parameter `include_occurrences`
-        is set to `true`.
-      example:
-        end_date: 2000-01-23
-        budgeted_currency: ""
-        notes: notes
-        recurring_activity: 1.4894159098541704
-        budgeted_amount: budgeted_amount
-        in_range: true
-        other_activity: 1.0246457001441578
-        start_date: 2000-01-23
-        budgeted: 6.84685269835264
-      properties:
-        in_range:
-          description: true if this occurrence is within the given date range
-          type: boolean
-        start_date:
-          description: The start date of the budget period
-          format: date
-          type: string
-        end_date:
-          description: The end date of the budget period
-          format: date
-          type: string
-        other_activity:
-          description: "Total non recurring activity, in the user's default currency,\
-            \ for the category within the given date range. The total activity for\
-            \ the category is the sum of this and the recurring_activity"
-          type: number
-        recurring_activity:
-          description: "Total recurring activity, in the user's default currency,\
-            \ for the category within the given date range. The total activity for\
-            \ the category is the sum of this and the other_activity."
-          type: number
-        budgeted:
-          description: "Total budgeted amount, in the user's default currency, for\
-            \ the category within the given date range, or null if the category is\
-            \ not budgeted."
-          nullable: true
-          type: number
-        budgeted_amount:
-          description: Total budgeted amount in the budgeted currency for the category
-            within the given date or null if the category is not budgeted
-          nullable: true
-          type: string
-        budgeted_currency:
-          allOf:
-          - $ref: "#/components/schemas/currencyEnum"
-          description: Currency of the budgeted amount
-          nullable: true
-        notes:
-          description: Any notes added in the Web UI for the budget period.
-          nullable: true
-          type: string
-      required:
-      - budgeted
-      - budgeted_amount
-      - budgeted_currency
-      - end_date
-      - in_range
-      - notes
-      - other_activity
-      - recurring_activity
-      - start_date
-      type: object
-    summaryRecurringTransactionObject:
-      additionalProperties: false
-      description: A single transaction associated with a recurring item. I don't
-        think we will expose this in the summary since it's gettable by querying the
-        recurring_id
-      properties:
-        date:
-          format: date
-          type: string
-        category_id:
-          type: integer
-        payee:
-          type: string
-        to_base:
-          type: number
-        amount:
-          type: string
-        currency:
-          allOf:
-          - $ref: "#/components/schemas/currencyEnum"
-      required:
-      - amount
-      - category_id
-      - currency
-      - date
-      - payee
-      - to_base
-      type: object
-    summaryRolloverPoolObject:
-      additionalProperties: false
-      description: Summary of the current rollover pool balance and all previous adjustments.<br>
-        Only present if the `include_rollover_pool` query parameter is set to `true`.
-      example:
-        budgeted_to_base: 7.457744773683766
-        all_adjustments:
-        - date: 2000-01-23
-          to_base: 1.1730742509559433
-          amount: amount
-          in_range: true
-          currency: ""
-        - date: 2000-01-23
-          to_base: 1.1730742509559433
-          amount: amount
-          in_range: true
-          currency: ""
-      properties:
-        budgeted_to_base:
-          description: "Amount of funds, in the user's default currency, currently\
-            \ available to rollover."
-          type: number
-        all_adjustments:
-          description: List of previous adjustments to the rollover pool
-          items:
-            $ref: "#/components/schemas/summaryRolloverPoolAdjustmentObject"
-          type: array
-      required:
-      - all_adjustments
-      - budgeted_to_base
-      type: object
-    getBudgetSummary_200_response:
-      oneOf:
-      - $ref: "#/components/schemas/alignedSummaryResponseObject"
-      - $ref: "#/components/schemas/nonAlignedSummaryResponseObject"
     getAllCategories_200_response:
       example:
         categories:
@@ -10584,6 +11121,10 @@ components:
             $ref: "#/components/schemas/recurringObject"
           type: array
       type: object
+    upsertBudget_400_response:
+      oneOf:
+      - $ref: "#/components/schemas/budgetInvalidPeriodErrorObject"
+      - $ref: "#/components/schemas/errorResponseObject"
     createCategoryRequestObject_children_inner:
       oneOf:
       - description: ID of an existing category.
@@ -10627,35 +11168,6 @@ components:
       - recurring
       - transactions
       type: object
-    insertTransactionObject_amount:
-      description: "Numeric value of amount without currency symbol. i.e. $4.25 should\
-        \ be denoted as 4.25. May be a string or a number in double format. Positive\
-        \ values indicate a debit transaction, negative values indicate a credit transaction."
-      oneOf:
-      - format: double
-        type: number
-      - pattern: "^-?\\d+(\\.\\d{1,4})?$"
-        type: string
-    updateTransactionObject_amount:
-      description: "Numeric value of amount without currency symbol. i.e. $4.25 should\
-        \ be denoted as 4.25. May be a string or a number in double format. Positive\
-        \ values indicate a debit transaction, negative values indicate a credit transaction.\
-        \ <br> May not be updated on transactions that belong to a synced account\
-        \ with the \"Allow Modifications to Transactions\" property disabled."
-      oneOf:
-      - format: double
-        type: number
-      - pattern: "^-?\\d+(\\.\\d{1,4})?$"
-        type: string
-      x-updatable: true
-    splitTransactionObject_amount:
-      description: Individual amount of split. Currency will inherit from parent transaction.
-        All amounts must sum up to parent transaction amount.
-      oneOf:
-      - format: double
-        type: number
-      - pattern: "^-?\\d+(\\.\\d{1,4})?$"
-        type: string
     createManualAccountRequestObject_balance:
       description: "Numeric value of the current balance, up to four decimal places,\
         \ of the account as a number or string. Do not include any special characters\
@@ -10698,23 +11210,8 @@ components:
       - format: date-time
         type: string
       x-updatable: true
-    deleteTagResponseWithDependencies_dependents:
-      example:
-        rules: 0
-        transactions: 6
-      properties:
-        rules:
-          description: The number of rules depending on the tag
-          type: integer
-        transactions:
-          description: The number of transactions with the tag
-          type: integer
-      required:
-      - rules
-      - transactions
-      type: object
     recurringObject_transaction_criteria:
-      description: The set of properties used to identify matching transactions
+      description: The set of properties used to identify matching transactions.
       example:
         end_date: 2000-01-23
         payee: payee
@@ -10742,7 +11239,7 @@ components:
           type: string
         granularity:
           description: The unit of time used to define the cadence of the recurring
-            item
+            item.
           enum:
           - day
           - week
@@ -10750,7 +11247,7 @@ components:
           - year
           type: string
         quantity:
-          description: The number of granularity units between each recurrence
+          description: The number of granularity units between each recurrence.
           type: integer
         anchor_date:
           description: The date used in conjunction with the `quantity` and `granularity`
@@ -10773,18 +11270,18 @@ components:
           description: The amount converted to the user's primary currency
           type: number
         currency:
-          description: Three-letter lowercase currency code of the recurring item
+          description: Three-letter lowercase currency code of the recurring item.
           nullable: false
           type: string
         plaid_account_id:
           description: "The Plaid account ID associated with the recurring item, if\
-            \ any"
+            \ any."
           format: int64
           nullable: true
           type: integer
         manual_account_id:
           description: "The manual account ID associated with the recurring item,\
-            \ if any"
+            \ if any."
           format: int64
           nullable: true
           type: integer
@@ -10802,7 +11299,7 @@ components:
       - to_base
       type: object
     recurringObject_overrides:
-      description: The values that will be applied to matching transactions
+      description: The values that will be applied to matching transactions.
       example:
         payee: payee
         notes: notes
@@ -10830,11 +11327,11 @@ components:
         transaction_id: 7
       properties:
         date:
-          description: The date for a matching transaction within the specified range
+          description: The date for a matching transaction within the specified range.
           format: date
           type: string
         transaction_id:
-          description: The ID of a matching transaction within the specified range
+          description: The ID of a matching transaction within the specified range.
           type: integer
       type: object
     recurringObject_matches:
@@ -10874,7 +11371,7 @@ components:
             type: string
           type: array
         found_transactions:
-          description: A list with the dates and IDs of matching transactions
+          description: A list with the dates and IDs of matching transactions.
           items:
             $ref: "#/components/schemas/recurringObject_matches_found_transactions_inner"
           type: array
@@ -10886,13 +11383,65 @@ components:
             type: string
           type: array
       type: object
+    deleteTagResponseWithDependencies_dependents:
+      example:
+        rules: 0
+        transactions: 6
+      properties:
+        rules:
+          description: The number of rules depending on the tag
+          type: integer
+        transactions:
+          description: The number of transactions with the tag
+          type: integer
+      required:
+      - rules
+      - transactions
+      type: object
+    insertTransactionObject_amount:
+      description: "Numeric value of amount without currency symbol. i.e. $4.25 should\
+        \ be denoted as 4.25. May be a string or a number in double format. Positive\
+        \ values indicate a debit transaction, negative values indicate a credit transaction."
+      oneOf:
+      - format: double
+        type: number
+      - pattern: "^-?\\d+(\\.\\d{1,4})?$"
+        type: string
+    updateTransactionObject_amount:
+      description: "Numeric value of amount without currency symbol. i.e. $4.25 should\
+        \ be denoted as 4.25. May be a string or a number in double format. Positive\
+        \ values indicate a debit transaction, negative values indicate a credit transaction.\
+        \ <br> May not be updated on transactions that belong to a synced account\
+        \ with the \"Allow Modifications to Transactions\" property disabled."
+      oneOf:
+      - format: double
+        type: number
+      - pattern: "^-?\\d+(\\.\\d{1,4})?$"
+        type: string
+      x-updatable: true
+    splitTransactionObject_amount:
+      description: Individual amount of split. Currency will inherit from parent transaction.
+        All amounts must sum up to parent transaction amount.
+      oneOf:
+      - format: double
+        type: number
+      - pattern: "^-?\\d+(\\.\\d{1,4})?$"
+        type: string
+    upsertBudgetRequestObject_amount:
+      description: Budget amount. May be a string or a number in double format.
+      oneOf:
+      - format: double
+        type: number
+      - pattern: "^-?\\d+(\\.\\d{1,4})?$"
+        type: string
     errorResponseObject_errors_inner:
       additionalProperties: true
       example:
         errMsg: errMsg
       properties:
         errMsg:
-          description: Human-readable error message
+          description: A message to help the developer determine the problem with
+            the request.
           type: string
       required:
       - errMsg

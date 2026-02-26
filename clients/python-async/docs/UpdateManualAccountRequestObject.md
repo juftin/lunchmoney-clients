@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **balance** | [**UpdateManualAccountRequestObjectBalance**](UpdateManualAccountRequestObjectBalance.md) |  | [optional] 
 **currency** | [**CurrencyEnum**](CurrencyEnum.md) | If set, the new three-letter lowercase currency code of the manual account balance. | [optional] 
 **balance_as_of** | **str** | A new date for the &#x60;updated_at&#x60; property. May be set as a date, ie: YYYY-MM-DD, or date-time string in ISO 8601 extended format. This property is ignored if &#x60;balance&#x60; is not also set. If &#x60;balance&#x60; is set and this property is not set the current time is used. | [optional] 
-**status** | **str** | If set, the status of the manual account. If set to &#x60;closed&#x60;, the the &#x60;closed_on_date&#x60; date will be set to the current date, unless it is also set. | [optional] 
+**status** | **str** | If set, the status of the manual account. If set to &#x60;closed&#x60;, the &#x60;closed_on_date&#x60; date will be set to the current date, unless it is also set. | [optional] 
 **closed_on** | [**UpdateManualAccountRequestObjectClosedOn**](UpdateManualAccountRequestObjectClosedOn.md) |  | [optional] 
 **external_id** | **str** | An optional user-defined ID for the manual account | [optional] 
 **custom_metadata** | **Dict[str, object]** | An optional JSON object that includes additional data related to this account. This must be a valid JSON object and, when stringified, must not exceed 4096 characters. | [optional] 

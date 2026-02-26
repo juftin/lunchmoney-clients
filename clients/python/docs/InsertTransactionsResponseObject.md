@@ -6,7 +6,7 @@ The object returned from a successful POST /transactions request
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**transactions** | [**List[TransactionObject]**](TransactionObject.md) | An array of the inserted transactions | 
+**transactions** | [**List[TransactionObject]**](TransactionObject.md) | An array of the inserted transactions. | 
 **skipped_duplicates** | [**List[SkippedExistingExternalIdObject]**](SkippedExistingExternalIdObject.md) | An array of the requested transactions that were duplicates of existing transactions and were not inserted. | 
 
 ## Example

@@ -1,9 +1,9 @@
 /*
 Lunch Money API - v2
 
-Welcome to the Lunch Money v2 API.  A working version of this API is now available through these docs, or directly at:  `https://api.lunchmoney.dev/v2`  <span class=\"red-text\"><strong>This is in alpha launch of a major API update. It is still subject to change during this alpha review period and bugs may still exist. Users are strongly encouraged to use the mock service or to create a test budget with example data as the first step to interacting with the v2 API.</strong></span> See the [Getting Started Guide](https://alpha.lunchmoney.dev/v2/getting-started) for more information on using a test budget.<br<br>  If you are new to the v2 API, you may wish to review the [v2 API Overview of Changes](https://alpha.lunchmoney.dev/v2/changelog).  ### Static Mock Server  You may also use these docs to explore the API using a static mock server endpoint.<p> This enables users to become familiar with the API without having to create an access token, and eliminates the possibility of modifying real data. <p> To access this endpoint select the second endpoint in the the \"Server\" dropdown to the right. When selected you should see \"Static Mock v2 Lunch Money API Server\".<br> When using this server, set your Bearer token to any string with 11 or more characters.  ### Migrating from V1  The v2 API is NOT backwards compatible with the v1 API. Developers are encouraged to review the [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) to understand the changes and plan their migration.  ### Acknowledgments  If you have been providing feedback on the API during our iterative design process, **THANK YOU**. We are happy to provide the opportunity to finally interact with the working API that was built based on your feedback.  ### Useful links: - [Getting Started](https://alpha.lunchmoney.dev/v2/getting-started) - [v2 API Changelog](https://alpha.lunchmoney.dev/v2/changelog) - [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://alpha.lunchmoney.dev/v2/rate-limits) - [Current v1 Lunch Money API Documentation](https://lunchmoney.dev) - [Awesome Lunch Money Projects](https://github.com/lunch-money/awesome-lunchmoney?tab=readme-ov-file)
+Welcome to the Lunch Money v2 API.  A working version of this API is now available through these docs, or directly at:  `https://api.lunchmoney.dev/v2`  <span class=\"red-text\"><strong>This is in alpha launch of a major API update. It is still subject to change during this alpha review period and bugs may still exist. We strongly encourage users to use the mock service or create a test budget with sample data as the first step to interacting with the v2 API.</strong></span> See the [Getting Started Guide](https://alpha.lunchmoney.dev/v2/getting-started) for more information on using a test budget.<p>  If you are new to the v2 API, you may wish to review the [v2 API Overview of Changes](https://alpha.lunchmoney.dev/v2/changelog).  ### Static Mock Server  You may also use these docs to explore the API using a static mock server endpoint.<p> This will allow you to become familiar with the API without having to create an access token, and eliminates the possibility of changing real data. <p> To access this endpoint, select the second endpoint in the \"Server\" dropdown to the right. When selected, you should see \"Static Mock v2 Lunch Money API Server\".<br> When using this server, set your Bearer token to any string with 11 or more characters.  ### Migrating from V1  The v2 API is NOT backwards compatible with the v1 API. We encourage developers to review the [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) to understand the changes and plan their migration.  ### Acknowledgments  If you have provided feedback on the API during our ongoing design process, **THANK YOU**. We are thrilled that you can finally interact with the working API we built based on your feedback.  ### Useful links: - [Getting Started](https://alpha.lunchmoney.dev/v2/getting-started) - [v2 API Changelog](https://alpha.lunchmoney.dev/v2/changelog) - [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://alpha.lunchmoney.dev/v2/rate-limits) - [Current v1 Lunch Money API Documentation](https://lunchmoney.dev) - [Awesome Lunch Money Projects](https://github.com/lunch-money/awesome-lunchmoney?tab=readme-ov-file)
 
-API version: 2.8.5
+API version: 2.9.0
 Contact: devsupport@lunchmoney.app
 */
 
@@ -21,7 +21,7 @@ var _ MappedNullable = &UpdateTransactionObject{}
 
 // UpdateTransactionObject struct for UpdateTransactionObject
 type UpdateTransactionObject struct {
-	// System defined unique identifier of this transaction. Ignored if set
+	// System defined unique identifier of this transaction. Ignored if set.
 	Id *int64 `json:"id,omitempty"`
 	// Date of transaction in ISO 8601 format
 	Date *string `json:"date,omitempty"`
@@ -48,21 +48,21 @@ type UpdateTransactionObject struct {
 	AdditionalTagIds []int32 `json:"additional_tag_ids,omitempty"`
 	// A user-defined external ID for the transaction. The update will fail if the transaction does not also have a `manual_account_id` or if there is already an existing transaction with the same `manual_account_id`/`external_id` combination.
 	ExternalId NullableString `json:"external_id,omitempty"`
-	// User defined JSON data that can be set or cleared via the API
+	// User defined JSON data that can be set or cleared via the API.
 	CustomMetadata map[string]interface{} `json:"custom_metadata,omitempty"`
 	// Status of the transaction, may be one of: - `reviewed`: User has reviewed the transaction, or it was automatically marked as reviewed due to reviewed recurring_item logic - `unreviewed`: User has not reviewed the transaction and it does not match any reviewed recurring_items. 
 	Status *string `json:"status,omitempty"`
 	// System defined amount of this transaction in the user's primary currency. Ignored if set. Use `amount` to update the amount in the transaction.
 	ToBase *float64 `json:"to_base,omitempty"`
-	// System defined flag set for pending transactions. Ignored if set
+	// System defined flag set for pending transactions. Ignored if set.
 	IsPending *bool `json:"is_pending,omitempty"`
-	// System set metadata from a Plaid account sync. Ignored if set
+	// System set metadata from a Plaid account sync. Ignored if set.
 	PlaidMetadata map[string]interface{} `json:"plaid_metadata,omitempty"`
-	// System defined date and time of when the transaction was created Ignored if set.
+	// System defined date and time of when the transaction was created. Ignored if set.
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// System defined date and time of when the transaction was last updated. Ignored if set.
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
-	// System defined boolean indicating if this transaction was split To split or unsplit a transaction use the `/transactions/split` endpoint. Ignored if set.
+	// System defined boolean indicating if this transaction was split. To split or unsplit a transaction use the `/transactions/split` endpoint. Ignored if set.
 	IsSplitParent *bool `json:"is_split_parent,omitempty"`
 	// An array of child transactions that exists when a transaction has been split or if the transaction is a group. Split
 	Children []ChildTransactionObject `json:"children,omitempty"`

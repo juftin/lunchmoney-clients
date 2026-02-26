@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **int64** | System created unique identifier for transaction | 
 **Date** | **string** | Date of transaction in ISO 8601 format | 
-**Amount** | **string** | Amount of the transaction in numeric format to 4 decimal places. Positive values indicate a debit transaction, negative values indicate a credit transaction | 
+**Amount** | **string** | Amount of the transaction in numeric format to 4 decimal places. Positive values indicate a debit transaction, negative values indicate a credit transaction. | 
 **Currency** | [**CurrencyEnum**](CurrencyEnum.md) | Three-letter lowercase currency code of the transaction in ISO 4217 format | 
 **ToBase** | **float64** | The amount converted to the user&#39;s primary currency. If the transaction currency is the same as the user&#39;s primary currency, to_base and amount will be the same. Positive values indicate a debit transaction, negative values indicate a credit transaction. | 
 **RecurringId** | **NullableInt32** | The unique identifier of the associated recurring item that this transaction matched. | 

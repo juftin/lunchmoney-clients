@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ErrMsg** | **string** | Human-readable error message | 
+**ErrMsg** | **string** | A message to help the developer determine the problem with the request. | 
 
 ## Methods
 

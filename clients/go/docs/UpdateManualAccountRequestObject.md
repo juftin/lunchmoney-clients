@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **Balance** | Pointer to [**UpdateManualAccountRequestObjectBalance**](UpdateManualAccountRequestObjectBalance.md) |  | [optional] 
 **Currency** | Pointer to [**CurrencyEnum**](CurrencyEnum.md) | If set, the new three-letter lowercase currency code of the manual account balance. | [optional] 
 **BalanceAsOf** | Pointer to **NullableString** | A new date for the &#x60;updated_at&#x60; property. May be set as a date, ie: YYYY-MM-DD, or date-time string in ISO 8601 extended format. This property is ignored if &#x60;balance&#x60; is not also set. If &#x60;balance&#x60; is set and this property is not set the current time is used. | [optional] 
-**Status** | Pointer to **string** | If set, the status of the manual account. If set to &#x60;closed&#x60;, the the &#x60;closed_on_date&#x60; date will be set to the current date, unless it is also set. | [optional] 
+**Status** | Pointer to **string** | If set, the status of the manual account. If set to &#x60;closed&#x60;, the &#x60;closed_on_date&#x60; date will be set to the current date, unless it is also set. | [optional] 
 **ClosedOn** | Pointer to [**NullableUpdateManualAccountRequestObjectClosedOn**](UpdateManualAccountRequestObjectClosedOn.md) |  | [optional] 
 **ExternalId** | Pointer to **NullableString** | An optional user-defined ID for the manual account | [optional] 
 **CustomMetadata** | Pointer to **map[string]interface{}** | An optional JSON object that includes additional data related to this account. This must be a valid JSON object and, when stringified, must not exceed 4096 characters. | [optional] 

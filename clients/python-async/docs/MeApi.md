@@ -84,10 +84,10 @@ This endpoint does not need any parameter.
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | The User Object associated with the authorized token |  -  |
+**200** | The User Object associated with the authorized token. |  -  |
 **401** | Unauthorized. This error occurs when an invalid API token is passed to the request. |  -  |
 **429** | Too Many Requests. Retry your request after the number of seconds specified in the retry-after header. |  -  |
-**500** | Internal Server Error. Contact support |  -  |
+**500** | Internal Server Error. Contact support. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **other_activity** | **float** | Total amount, in the user&#39;s default currency, of non recurring activity for the given date range | [optional] 
 **recurring_activity** | **float** | Total amount, in the user&#39;s default currency, of recurring activity that has occurred for the given date range | [optional] 
 **recurring_remaining** | **float** | Total amount, in the user&#39;s default currency, of expected recurring activity that has not yet occurred | [optional] 
+**recurring_expected** | **float** | Total amount, in the user&#39;s default currency, of expected recurring activity for the given date range | [optional] 
 **uncategorized** | **float** | Total amount, in the user&#39;s default currency, of non recurring activity coming from un-categorized transactions | [optional] 
 **uncategorized_count** | **int** | Number of un-categorized transactions for the given date range | [optional] 
 **uncategorized_recurring** | **float** | Total amount, in the user&#39;s default currency, of recurring activity coming from un-categorized transactions. | [optional] 

@@ -15,9 +15,9 @@ Method | HTTP request | Description
 
 Insert one or more transactions.
 
-Use this endpoint to add transactions to a budget.<br><br>
-The request body for this endpoint must include a list of transactions with at least one transaction and not more than 500 transactions to insert.<br><br>
-The successful request to this endpoint will return a response body which will include two arrays: <br> - `transactions`: A list of transactions that were successfully inserted.<br> - `skipped_duplicates`: A list of transactions that were duplicates of existing transactions and were not inserted.
+Use this endpoint to add transactions to a budget.<p>
+The request body for this endpoint must include a list of transactions with at least one transaction and not more than 500 transactions to insert.<p>
+The successful request to this endpoint will return a response body which will include two arrays:<br> - `transactions`: A list of transactions that were successfully inserted.<br> - `skipped_duplicates`: A list of transactions that were duplicates of existing transactions and were not inserted.
 
 ### Example
 
@@ -98,7 +98,7 @@ Name | Type | Description  | Notes
 **400** | Bad Request |  -  |
 **401** | Unauthorized. This error occurs when an invalid API token is passed to the request. |  -  |
 **429** | Too Many Requests. Retry your request after the number of seconds specified in the retry-after header. |  -  |
-**500** | Internal Server Error. Contact support |  -  |
+**500** | Internal Server Error. Contact support. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -107,10 +107,10 @@ Name | Type | Description  | Notes
 
 Bulk delete existing transactions
 
-Deletes the transaction with the IDs specified in the request body.<br>
-If any of the specified transactions are a split transaction or a split parent, or if any are a grouped transactions or part of a transaction group, the request will fail with a suggestion on how to unsplit or ungroup the transaction(s) prior to deletion. This will also fail if any of the specified transaction IDs do not exist.<br>
-Otherwise, the specified transactions are deleted.<br><br>
-**Use with caution. This action is not reversible!**
+Deletes the transaction with the IDs specified in the request body.<p>
+If any of the specified transactions are a split transaction or a split parent, or if any are a grouped transactions or part of a transaction group, the request will fail with a suggestion on how to unsplit or ungroup the transaction(s) prior to deletion. This will also fail if any of the specified transaction IDs do not exist.<p>
+Otherwise, the specified transactions are deleted.<p>
+<span class="red-text"><strong>Use with caution. This action is not reversible!</strong></span>
 
 ### Example
 
@@ -189,7 +189,7 @@ void (empty response body)
 **401** | Unauthorized. This error occurs when an invalid API token is passed to the request. |  -  |
 **404** | Not Found |  -  |
 **429** | Too Many Requests. Retry your request after the number of seconds specified in the retry-after header. |  -  |
-**500** | Internal Server Error. Contact support |  -  |
+**500** | Internal Server Error. Contact support. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -237,7 +237,7 @@ configuration = lunchmoney.Configuration(
 with lunchmoney.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = lunchmoney.TransactionsBulkApi(api_client)
-    start_date = '2013-10-20' # date | Denotes the beginning of the time period to fetch transactions for If omitted, the most recent transactions will be returned. See `limit`. Required if end_date exists. <br> (optional)
+    start_date = '2013-10-20' # date | Denotes the beginning of the time period to fetch transactions for. If omitted, the most recent transactions will be returned. See `limit`. Required if end_date exists. <br> (optional)
     end_date = '2013-10-20' # date | Denotes the end of the time period you'd like to get transactions for. Required if start_date exists.  (optional)
     created_since = lunchmoney.GetAllTransactionsCreatedSinceParameter() # GetAllTransactionsCreatedSinceParameter | Filter transactions to those created after the specified timestamp. Accepts either a date (YYYY-MM-DD) or ISO 8601 datetime string. Date-only values are interpreted as midnight UTC (00:00:00Z). (optional)
     updated_since = lunchmoney.GetAllTransactionsCreatedSinceParameter() # GetAllTransactionsCreatedSinceParameter | Filter transactions to those updated after the specified timestamp. Accepts either a date (YYYY-MM-DD) or ISO 8601 datetime string. Date-only values are interpreted as midnight UTC (00:00:00Z). (optional)
@@ -274,7 +274,7 @@ with lunchmoney.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **start_date** | **date**| Denotes the beginning of the time period to fetch transactions for If omitted, the most recent transactions will be returned. See &#x60;limit&#x60;. Required if end_date exists. &lt;br&gt; | [optional] 
+ **start_date** | **date**| Denotes the beginning of the time period to fetch transactions for. If omitted, the most recent transactions will be returned. See &#x60;limit&#x60;. Required if end_date exists. &lt;br&gt; | [optional] 
  **end_date** | **date**| Denotes the end of the time period you&#39;d like to get transactions for. Required if start_date exists.  | [optional] 
  **created_since** | [**GetAllTransactionsCreatedSinceParameter**](.md)| Filter transactions to those created after the specified timestamp. Accepts either a date (YYYY-MM-DD) or ISO 8601 datetime string. Date-only values are interpreted as midnight UTC (00:00:00Z). | [optional] 
  **updated_since** | [**GetAllTransactionsCreatedSinceParameter**](.md)| Filter transactions to those updated after the specified timestamp. Accepts either a date (YYYY-MM-DD) or ISO 8601 datetime string. Date-only values are interpreted as midnight UTC (00:00:00Z). | [optional] 
@@ -316,7 +316,7 @@ Name | Type | Description  | Notes
 **400** | Invalid request parameters |  -  |
 **401** | Unauthorized. This error occurs when an invalid API token is passed to the request. |  -  |
 **429** | Too Many Requests. Retry your request after the number of seconds specified in the retry-after header. |  -  |
-**500** | Internal Server Error. Contact support |  -  |
+**500** | Internal Server Error. Contact support. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -410,7 +410,7 @@ Name | Type | Description  | Notes
 **400** | Bad Request |  -  |
 **401** | Unauthorized. This error occurs when an invalid API token is passed to the request. |  -  |
 **429** | Too Many Requests. Retry your request after the number of seconds specified in the retry-after header. |  -  |
-**500** | Internal Server Error. Contact support |  -  |
+**500** | Internal Server Error. Contact support. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** | User&#39;s name | 
-**Email** | **string** | User&#39;s email | 
-**Id** | **int32** | Unique identifier for user | 
-**AccountId** | **int64** | Unique identifier for the associated budgeting account | 
-**BudgetName** | **string** | Name of the associated budgeting account | 
-**PrimaryCurrency** | [**CurrencyEnum**](CurrencyEnum.md) | Primary currency from user&#39;s settings | 
-**ApiKeyLabel** | **NullableString** | User-defined label of the developer API key used. Returns null if nothing has been set. | 
+**Name** | **string** | The user&#39;s name | 
+**Email** | **string** | The user&#39;s email | 
+**Id** | **int32** | Unique ID for the user | 
+**AccountId** | **int64** | Unique ID for the linked budgeting account | 
+**BudgetName** | **string** | Name of the linked budgeting account | 
+**PrimaryCurrency** | [**CurrencyEnum**](CurrencyEnum.md) | Primary currency set in the user&#39;s settings | 
+**ApiKeyLabel** | **NullableString** | Label assigned by the user to the API key being used. Returns null if no label is set | 
 
 ## Methods
 

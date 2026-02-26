@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **RequestStartDate** | Pointer to **string** | The beginning of the date range that this request used to find matching transactions. | [optional] 
 **RequestEndDate** | Pointer to **string** | The beginning of the date range that this request used to find matching transactions. | [optional] 
 **ExpectedOccurrenceDates** | Pointer to **[]string** | A list of dates within the specified range where a recurring transactions is expected. | [optional] 
-**FoundTransactions** | Pointer to [**[]RecurringObjectMatchesFoundTransactionsInner**](RecurringObjectMatchesFoundTransactionsInner.md) | A list with the dates and IDs of matching transactions | [optional] 
+**FoundTransactions** | Pointer to [**[]RecurringObjectMatchesFoundTransactionsInner**](RecurringObjectMatchesFoundTransactionsInner.md) | A list with the dates and IDs of matching transactions. | [optional] 
 **MissingTransactionDates** | Pointer to **[]string** | A list of dates within the range of where a recurring transaction was expected but none was found. | [optional] 
 
 ## Methods

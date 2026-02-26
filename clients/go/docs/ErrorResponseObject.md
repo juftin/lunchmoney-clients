@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Message** | **string** | overall error message | 
-**Errors** | [**[]ErrorResponseObjectErrorsInner**](ErrorResponseObjectErrorsInner.md) |  | 
+**Message** | **string** | High level error type, for example &#39;Not Found&#39; or &#39;Request Validation Failure&#39; | 
+**Errors** | [**[]ErrorResponseObjectErrorsInner**](ErrorResponseObjectErrorsInner.md) | An list of objects that describe the errors encountered while processing the request.&lt;br&gt; If multiple errors were encountered, the list will contain multiple objects.&lt;br&gt; Each &#x60;error&#x60; object is guaranteed to have an &#x60;errMsg&#x60;, but it may also contain other error specific properties. | 
 
 ## Methods
 

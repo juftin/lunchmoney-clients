@@ -53,7 +53,7 @@ async with lunchmoney.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = lunchmoney.RecurringItemsApi(api_client)
     start_date = '2013-10-20' # date | Denotes the beginning of the range used to populate the `matching` object in the recurring items. If omitted, the current month will be used as the range.<br> Required if end_date exists. (optional)
-    end_date = '2013-10-20' # date | Denotes the end of the the range used to populate the `matching` object in the recurring items. Required if start_date exists.  (optional)
+    end_date = '2013-10-20' # date | Denotes the end of the range used to populate the `matching` object in the recurring items. Required if start_date exists.  (optional)
     include_suggested = True # bool |  (optional)
 
     try:
@@ -73,7 +73,7 @@ async with lunchmoney.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **start_date** | **date**| Denotes the beginning of the range used to populate the &#x60;matching&#x60; object in the recurring items. If omitted, the current month will be used as the range.&lt;br&gt; Required if end_date exists. | [optional] 
- **end_date** | **date**| Denotes the end of the the range used to populate the &#x60;matching&#x60; object in the recurring items. Required if start_date exists.  | [optional] 
+ **end_date** | **date**| Denotes the end of the range used to populate the &#x60;matching&#x60; object in the recurring items. Required if start_date exists.  | [optional] 
  **include_suggested** | **bool**|  | [optional] 
 
 ### Return type
@@ -98,7 +98,7 @@ Name | Type | Description  | Notes
 **401** | Unauthorized. This error occurs when an invalid API token is passed to the request. |  -  |
 **404** | Not Found |  -  |
 **429** | Too Many Requests. Retry your request after the number of seconds specified in the retry-after header. |  -  |
-**500** | Internal Server Error. Contact support |  -  |
+**500** | Internal Server Error. Contact support. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -148,7 +148,7 @@ async with lunchmoney.ApiClient(configuration) as api_client:
     api_instance = lunchmoney.RecurringItemsApi(api_client)
     id = 994069 # int | ID of the recurring item to retrieve
     start_date = '2013-10-20' # date | Denotes the beginning of the range used to populate the `matching` object in the recurring items. If omitted, the current month will be used as the range.<br> Required if end_date exists. (optional)
-    end_date = '2013-10-20' # date | Denotes the end of the the range used to populate the `matching` object in the recurring items. Required if start_date exists.  (optional)
+    end_date = '2013-10-20' # date | Denotes the end of the range used to populate the `matching` object in the recurring items. Required if start_date exists.  (optional)
 
     try:
         # Get a single recurring item
@@ -168,7 +168,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| ID of the recurring item to retrieve | 
  **start_date** | **date**| Denotes the beginning of the range used to populate the &#x60;matching&#x60; object in the recurring items. If omitted, the current month will be used as the range.&lt;br&gt; Required if end_date exists. | [optional] 
- **end_date** | **date**| Denotes the end of the the range used to populate the &#x60;matching&#x60; object in the recurring items. Required if start_date exists.  | [optional] 
+ **end_date** | **date**| Denotes the end of the range used to populate the &#x60;matching&#x60; object in the recurring items. Required if start_date exists.  | [optional] 
 
 ### Return type
 
@@ -192,7 +192,7 @@ Name | Type | Description  | Notes
 **401** | Unauthorized. This error occurs when an invalid API token is passed to the request. |  -  |
 **404** | Not Found |  -  |
 **429** | Too Many Requests. Retry your request after the number of seconds specified in the retry-after header. |  -  |
-**500** | Internal Server Error. Contact support |  -  |
+**500** | Internal Server Error. Contact support. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

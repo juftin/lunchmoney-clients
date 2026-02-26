@@ -5,13 +5,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **str** | User&#39;s name | 
-**email** | **str** | User&#39;s email | 
-**id** | **int** | Unique identifier for user | 
-**account_id** | **int** | Unique identifier for the associated budgeting account | 
-**budget_name** | **str** | Name of the associated budgeting account | 
-**primary_currency** | [**CurrencyEnum**](CurrencyEnum.md) | Primary currency from user&#39;s settings | 
-**api_key_label** | **str** | User-defined label of the developer API key used. Returns null if nothing has been set. | 
+**name** | **str** | The user&#39;s name | 
+**email** | **str** | The user&#39;s email | 
+**id** | **int** | Unique ID for the user | 
+**account_id** | **int** | Unique ID for the linked budgeting account | 
+**budget_name** | **str** | Name of the linked budgeting account | 
+**primary_currency** | [**CurrencyEnum**](CurrencyEnum.md) | Primary currency set in the user&#39;s settings | 
+**api_key_label** | **str** | Label assigned by the user to the API key being used. Returns null if no label is set | 
 
 ## Example
 

@@ -1,6 +1,6 @@
 # RecurringObjectOverrides
 
-The values that will be applied to matching transactions
+The values that will be applied to matching transactions.
 
 ## Properties
 

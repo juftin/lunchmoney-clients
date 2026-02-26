@@ -6,9 +6,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **str** | The name of the new tag. Must be between 1 and 100 characters. Must not match the name of any existing tags. | 
-**description** | **str** | The description of the tag. Must not exceed 200 characters | [optional] 
-**text_color** | **str** | The text color of the tag | [optional] 
-**background_color** | **str** | The background color of the tag | [optional] 
+**description** | **str** | The description of the tag. Must not exceed 200 characters. | [optional] 
+**text_color** | **str** | The text color of the tag. | [optional] 
+**background_color** | **str** | The background color of the tag. | [optional] 
 **archived** | **bool** | If &#x60;true&#x60;, the tag is archived and not displayed in relevant areas of the Lunch Money app. | [optional] [default to False]
 
 ## Example
