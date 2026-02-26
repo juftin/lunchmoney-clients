@@ -1,9 +1,9 @@
 /*
 Lunch Money API - v2
 
-Welcome to the Lunch Money v2 API.  A working version of this API is now available through these docs, or directly at:  `https://api.lunchmoney.dev/v2`  <span class=\"red-text\"><strong>This is in alpha launch of a major API update. It is still subject to change during this alpha review period and bugs may still exist. Users are strongly encouraged to use the mock service or to create a test budget with example data as the first step to interacting with the v2 API.</strong></span> See the [Getting Started Guide](https://alpha.lunchmoney.dev/v2/getting-started) for more information on using a test budget.<br<br>  If you are new to the v2 API, you may wish to review the [v2 API Overview of Changes](https://alpha.lunchmoney.dev/v2/changelog).  ### Static Mock Server  You may also use these docs to explore the API using a static mock server endpoint.<p> This enables users to become familiar with the API without having to create an access token, and eliminates the possibility of modifying real data. <p> To access this endpoint select the second endpoint in the the \"Server\" dropdown to the right. When selected you should see \"Static Mock v2 Lunch Money API Server\".<br> When using this server, set your Bearer token to any string with 11 or more characters.  ### Migrating from V1  The v2 API is NOT backwards compatible with the v1 API. Developers are encouraged to review the [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) to understand the changes and plan their migration.  ### Acknowledgments  If you have been providing feedback on the API during our iterative design process, **THANK YOU**. We are happy to provide the opportunity to finally interact with the working API that was built based on your feedback.  ### Useful links: - [Getting Started](https://alpha.lunchmoney.dev/v2/getting-started) - [v2 API Changelog](https://alpha.lunchmoney.dev/v2/changelog) - [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://alpha.lunchmoney.dev/v2/rate-limits) - [Current v1 Lunch Money API Documentation](https://lunchmoney.dev) - [Awesome Lunch Money Projects](https://github.com/lunch-money/awesome-lunchmoney?tab=readme-ov-file)
+Welcome to the Lunch Money v2 API.  A working version of this API is now available through these docs, or directly at:  `https://api.lunchmoney.dev/v2`  <span class=\"red-text\"><strong>This is in alpha launch of a major API update. It is still subject to change during this alpha review period and bugs may still exist. We strongly encourage users to use the mock service or create a test budget with sample data as the first step to interacting with the v2 API.</strong></span> See the [Getting Started Guide](https://alpha.lunchmoney.dev/v2/getting-started) for more information on using a test budget.<p>  If you are new to the v2 API, you may wish to review the [v2 API Overview of Changes](https://alpha.lunchmoney.dev/v2/changelog).  ### Static Mock Server  You may also use these docs to explore the API using a static mock server endpoint.<p> This will allow you to become familiar with the API without having to create an access token, and eliminates the possibility of changing real data. <p> To access this endpoint, select the second endpoint in the \"Server\" dropdown to the right. When selected, you should see \"Static Mock v2 Lunch Money API Server\".<br> When using this server, set your Bearer token to any string with 11 or more characters.  ### Migrating from V1  The v2 API is NOT backwards compatible with the v1 API. We encourage developers to review the [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) to understand the changes and plan their migration.  ### Acknowledgments  If you have provided feedback on the API during our ongoing design process, **THANK YOU**. We are thrilled that you can finally interact with the working API we built based on your feedback.  ### Useful links: - [Getting Started](https://alpha.lunchmoney.dev/v2/getting-started) - [v2 API Changelog](https://alpha.lunchmoney.dev/v2/changelog) - [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://alpha.lunchmoney.dev/v2/rate-limits) - [Current v1 Lunch Money API Documentation](https://lunchmoney.dev) - [Awesome Lunch Money Projects](https://github.com/lunch-money/awesome-lunchmoney?tab=readme-ov-file)
 
-API version: 2.8.5
+API version: 2.9.0
 Contact: devsupport@lunchmoney.app
 */
 
@@ -29,7 +29,9 @@ type SplitTransactionObject struct {
 	Date *string `json:"date,omitempty"`
 	// Unique identifier for associated category_id. Category must already exist for the account. Will inherit category from the parent if not defined.
 	CategoryId *int32 `json:"category_id,omitempty"`
-	// Will inherit notes from parent if not defined
+	// The IDs of any tags to apply to this split child transaction. Each ID must match an existing tag.
+	TagIds []int32 `json:"tag_ids,omitempty"`
+	// Will inherit notes from parent if not defined.
 	Notes *string `json:"notes,omitempty"`
 }
 
@@ -173,6 +175,38 @@ func (o *SplitTransactionObject) SetCategoryId(v int32) {
 	o.CategoryId = &v
 }
 
+// GetTagIds returns the TagIds field value if set, zero value otherwise.
+func (o *SplitTransactionObject) GetTagIds() []int32 {
+	if o == nil || IsNil(o.TagIds) {
+		var ret []int32
+		return ret
+	}
+	return o.TagIds
+}
+
+// GetTagIdsOk returns a tuple with the TagIds field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SplitTransactionObject) GetTagIdsOk() ([]int32, bool) {
+	if o == nil || IsNil(o.TagIds) {
+		return nil, false
+	}
+	return o.TagIds, true
+}
+
+// HasTagIds returns a boolean if a field has been set.
+func (o *SplitTransactionObject) HasTagIds() bool {
+	if o != nil && !IsNil(o.TagIds) {
+		return true
+	}
+
+	return false
+}
+
+// SetTagIds gets a reference to the given []int32 and assigns it to the TagIds field.
+func (o *SplitTransactionObject) SetTagIds(v []int32) {
+	o.TagIds = v
+}
+
 // GetNotes returns the Notes field value if set, zero value otherwise.
 func (o *SplitTransactionObject) GetNotes() string {
 	if o == nil || IsNil(o.Notes) {
@@ -224,6 +258,9 @@ func (o SplitTransactionObject) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.CategoryId) {
 		toSerialize["category_id"] = o.CategoryId
+	}
+	if !IsNil(o.TagIds) {
+		toSerialize["tag_ids"] = o.TagIds
 	}
 	if !IsNil(o.Notes) {
 		toSerialize["notes"] = o.Notes

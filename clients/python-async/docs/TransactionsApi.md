@@ -14,9 +14,9 @@ Method | HTTP request | Description
 
 Delete a transaction
 
-Deletes the transaction with the ID specified on the path.<br>
-If the specified transaction is a split transaction or a split parent, or if it is a grouped transactions or part of a transaction group, the request will fail with a suggestion on how to unsplit or ungroup the transaction(s) prior to deletion. Otherwise, the specified transaction is deleted. <br>
-This action is not reversible!
+Deletes the transaction with the ID specified on the path.<p>
+If the specified transaction is a split transaction or a split parent, or if it is a grouped transactions or part of a transaction group, the request will fail with a suggestion on how to unsplit or ungroup the transaction(s) prior to deletion. Otherwise, the specified transaction is deleted. <p>
+<span class="red-text"><strong>Use with caution. This action is not reversible!</strong></span>
 
 ### Example
 
@@ -93,7 +93,7 @@ void (empty response body)
 **401** | Unauthorized. This error occurs when an invalid API token is passed to the request. |  -  |
 **404** | Not Found |  -  |
 **429** | Too Many Requests. Retry your request after the number of seconds specified in the retry-after header. |  -  |
-**500** | Internal Server Error. Contact support |  -  |
+**500** | Internal Server Error. Contact support. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -191,7 +191,7 @@ Name | Type | Description  | Notes
 **401** | Unauthorized. This error occurs when an invalid API token is passed to the request. |  -  |
 **404** | Not Found |  -  |
 **429** | Too Many Requests. Retry your request after the number of seconds specified in the retry-after header. |  -  |
-**500** | Internal Server Error. Contact support |  -  |
+**500** | Internal Server Error. Contact support. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -289,7 +289,7 @@ Name | Type | Description  | Notes
 **401** | Unauthorized. This error occurs when an invalid API token is passed to the request. |  -  |
 **404** | Not Found |  -  |
 **429** | Too Many Requests. Retry your request after the number of seconds specified in the retry-after header. |  -  |
-**500** | Internal Server Error. Contact support |  -  |
+**500** | Internal Server Error. Contact support. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

@@ -1,6 +1,7 @@
 # flake8: noqa
 
 # import apis into api package
+from lunchmoney.api.budgets_api import BudgetsApi
 from lunchmoney.api.categories_api import CategoriesApi
 from lunchmoney.api.manual_accounts_api import ManualAccountsApi
 from lunchmoney.api.me_api import MeApi

@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**InRange** | **bool** | true if this occurrence is within the given date range | 
+**InRange** | **bool** | &#x60;true&#x60; if this occurrence is within the given date range, &#x60;false&#x60; if it was included because the &#x60;include_past_budget_periods&#x60; parameter was set to &#x60;true&#x60;. | 
 **StartDate** | **string** | The start date of the budget period | 
 **EndDate** | **string** | The end date of the budget period | 
-**OtherActivity** | **float32** | Total non recurring activity, in the user&#39;s default currency, for the category within the given date range. The total activity for the category is the sum of this and the recurring_activity | 
-**RecurringActivity** | **float32** | Total recurring activity, in the user&#39;s default currency, for the category within the given date range. The total activity for the category is the sum of this and the other_activity. | 
-**Budgeted** | **NullableFloat32** | Total budgeted amount, in the user&#39;s default currency, for the category within the given date range, or null if the category is not budgeted. | 
-**BudgetedAmount** | **NullableString** | Total budgeted amount in the budgeted currency for the category within the given date or null if the category is not budgeted | 
+**OtherActivity** | **float32** | Total non recurring activity, in the user&#39;s default currency, for the budget period. The total activity for this category in the period is the sum of this and the recurring_activity. | 
+**RecurringActivity** | **float32** | Total recurring activity, in the user&#39;s default currency, for the budget period. The total activity for this category in the budget period is the sum of this and the other_activity. | 
+**Budgeted** | **NullableFloat32** | Total budgeted amount, in the user&#39;s primary currency, for the period, or &#x60;null&#x60; if no budget was set. | 
+**BudgetedAmount** | **NullableString** | Total budgeted amount, in the budgeted currency, for the category within the period, or &#x60;null&#x60; if no budget was set. | 
 **BudgetedCurrency** | [**NullableCurrencyEnum**](CurrencyEnum.md) | Currency of the budgeted amount | 
-**Notes** | **NullableString** | Any notes added in the Web UI for the budget period. | 
+**Notes** | **NullableString** | Any notes set for the budget period. | 
 
 ## Methods
 

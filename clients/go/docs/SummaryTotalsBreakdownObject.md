@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **OtherActivity** | Pointer to **float32** | Total amount, in the user&#39;s default currency, of non recurring activity for the given date range | [optional] 
 **RecurringActivity** | Pointer to **float32** | Total amount, in the user&#39;s default currency, of recurring activity that has occurred for the given date range | [optional] 
 **RecurringRemaining** | Pointer to **float32** | Total amount, in the user&#39;s default currency, of expected recurring activity that has not yet occurred | [optional] 
+**RecurringExpected** | Pointer to **float32** | Total amount, in the user&#39;s default currency, of expected recurring activity for the given date range | [optional] 
 **Uncategorized** | Pointer to **float32** | Total amount, in the user&#39;s default currency, of non recurring activity coming from un-categorized transactions | [optional] 
 **UncategorizedCount** | Pointer to **int32** | Number of un-categorized transactions for the given date range | [optional] 
 **UncategorizedRecurring** | Pointer to **float32** | Total amount, in the user&#39;s default currency, of recurring activity coming from un-categorized transactions. | [optional] 
@@ -104,6 +105,31 @@ SetRecurringRemaining sets RecurringRemaining field to given value.
 `func (o *SummaryTotalsBreakdownObject) HasRecurringRemaining() bool`
 
 HasRecurringRemaining returns a boolean if a field has been set.
+
+### GetRecurringExpected
+
+`func (o *SummaryTotalsBreakdownObject) GetRecurringExpected() float32`
+
+GetRecurringExpected returns the RecurringExpected field if non-nil, zero value otherwise.
+
+### GetRecurringExpectedOk
+
+`func (o *SummaryTotalsBreakdownObject) GetRecurringExpectedOk() (*float32, bool)`
+
+GetRecurringExpectedOk returns a tuple with the RecurringExpected field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRecurringExpected
+
+`func (o *SummaryTotalsBreakdownObject) SetRecurringExpected(v float32)`
+
+SetRecurringExpected sets RecurringExpected field to given value.
+
+### HasRecurringExpected
+
+`func (o *SummaryTotalsBreakdownObject) HasRecurringExpected() bool`
+
+HasRecurringExpected returns a boolean if a field has been set.
 
 ### GetUncategorized
 

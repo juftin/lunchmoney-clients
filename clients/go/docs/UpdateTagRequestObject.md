@@ -6,13 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | Pointer to **string** | If set, the new name of the category. Must be between 1 and 100 characters. | [optional] 
 **Description** | Pointer to **NullableString** | If set, the new description of the category. Must not exceed 200 characters. | [optional] 
-**TextColor** | Pointer to **NullableString** | The text color of the tag | [optional] 
-**BackgroundColor** | Pointer to **NullableString** | The background color of the tag | [optional] 
-**Archived** | Pointer to **bool** | If set, will indicate if this category is archived | [optional] 
-**Id** | Pointer to **int32** | System-defined unique identifier for the category. Ignored if set | [optional] 
+**TextColor** | Pointer to **NullableString** | The text color of the tag. | [optional] 
+**BackgroundColor** | Pointer to **NullableString** | The background color of the tag. | [optional] 
+**Archived** | Pointer to **bool** | If set, will indicate if this category is archived. | [optional] 
+**Id** | Pointer to **int32** | System-defined unique identifier for the category. Ignored if set. | [optional] 
 **UpdatedAt** | Pointer to **time.Time** | System-set time the tag was last updated. Ignored if set | [optional] 
-**CreatedAt** | Pointer to **time.Time** | System-set time the tag was created. Ignored if set | [optional] 
-**ArchivedAt** | Pointer to **NullableTime** | System-set time the tag was archived. Ignored if set | [optional] 
+**CreatedAt** | Pointer to **time.Time** | System-set time the tag was created. Ignored if set. | [optional] 
+**ArchivedAt** | Pointer to **NullableTime** | System-set time the tag was archived. Ignored if set. | [optional] 
 
 ## Methods
 

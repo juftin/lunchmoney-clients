@@ -8,7 +8,8 @@ Name | Type | Description | Notes
 **Payee** | Pointer to **string** | The payee for the child transaction. Will inherit the original payee from the parent if not defined. | [optional] 
 **Date** | Pointer to **string** | Must be in ISO 8601 format (YYYY-MM-DD). Will inherit from the parent if not defined. | [optional] 
 **CategoryId** | Pointer to **int32** | Unique identifier for associated category_id. Category must already exist for the account. Will inherit category from the parent if not defined. | [optional] 
-**Notes** | Pointer to **string** | Will inherit notes from parent if not defined | [optional] 
+**TagIds** | Pointer to **[]int32** | The IDs of any tags to apply to this split child transaction. Each ID must match an existing tag. | [optional] 
+**Notes** | Pointer to **string** | Will inherit notes from parent if not defined. | [optional] 
 
 ## Methods
 
@@ -123,6 +124,31 @@ SetCategoryId sets CategoryId field to given value.
 `func (o *SplitTransactionObject) HasCategoryId() bool`
 
 HasCategoryId returns a boolean if a field has been set.
+
+### GetTagIds
+
+`func (o *SplitTransactionObject) GetTagIds() []int32`
+
+GetTagIds returns the TagIds field if non-nil, zero value otherwise.
+
+### GetTagIdsOk
+
+`func (o *SplitTransactionObject) GetTagIdsOk() (*[]int32, bool)`
+
+GetTagIdsOk returns a tuple with the TagIds field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTagIds
+
+`func (o *SplitTransactionObject) SetTagIds(v []int32)`
+
+SetTagIds sets TagIds field to given value.
+
+### HasTagIds
+
+`func (o *SplitTransactionObject) HasTagIds() bool`
+
+HasTagIds returns a boolean if a field has been set.
 
 ### GetNotes
 

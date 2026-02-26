@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **int64** | System defined unique identifier of this transaction. Ignored if set | [optional] 
+**Id** | Pointer to **int64** | System defined unique identifier of this transaction. Ignored if set. | [optional] 
 **Date** | Pointer to **string** | Date of transaction in ISO 8601 format | [optional] 
 **Amount** | Pointer to [**UpdateTransactionObjectAmount**](UpdateTransactionObjectAmount.md) |  | [optional] 
 **Currency** | Pointer to [**CurrencyEnum**](CurrencyEnum.md) | Three-letter lowercase currency code of the transaction in ISO 4217 format.&lt;br&gt; May not be updated on transactions that belong to a synced account with the \&quot;Allow Modifications to Transactions\&quot; property disabled. | [optional] 
@@ -18,14 +18,14 @@ Name | Type | Description | Notes
 **TagIds** | Pointer to **[]int32** | A list of tag_ids for the tags associated with this transaction. If set, this property will overwrite any existing tags. Use &#x60;additional_tag_ids&#x60; to add tags to the existing transaction&#39;s tags. Set this to an empty array to remove all tags from a transaction. If set &#x60;additional_tag_ids&#x60; may not be set. | [optional] 
 **AdditionalTagIds** | Pointer to **[]int32** | A list of tag_ids for the tags associated with this transaction. If set, the tags listed in this property be added to any existing transaction tags. Use &#x60;tag_ids&#x60; to overwrite or clear transaction tags. If set &#x60;tag_ids&#x60; may not be set. | [optional] 
 **ExternalId** | Pointer to **NullableString** | A user-defined external ID for the transaction. The update will fail if the transaction does not also have a &#x60;manual_account_id&#x60; or if there is already an existing transaction with the same &#x60;manual_account_id&#x60;/&#x60;external_id&#x60; combination. | [optional] 
-**CustomMetadata** | Pointer to **map[string]interface{}** | User defined JSON data that can be set or cleared via the API | [optional] 
+**CustomMetadata** | Pointer to **map[string]interface{}** | User defined JSON data that can be set or cleared via the API. | [optional] 
 **Status** | Pointer to **string** | Status of the transaction, may be one of: - &#x60;reviewed&#x60;: User has reviewed the transaction, or it was automatically marked as reviewed due to reviewed recurring_item logic - &#x60;unreviewed&#x60;: User has not reviewed the transaction and it does not match any reviewed recurring_items.  | [optional] 
 **ToBase** | Pointer to **float64** | System defined amount of this transaction in the user&#39;s primary currency. Ignored if set. Use &#x60;amount&#x60; to update the amount in the transaction. | [optional] 
-**IsPending** | Pointer to **bool** | System defined flag set for pending transactions. Ignored if set | [optional] 
-**PlaidMetadata** | Pointer to **map[string]interface{}** | System set metadata from a Plaid account sync. Ignored if set | [optional] 
-**CreatedAt** | Pointer to **time.Time** | System defined date and time of when the transaction was created Ignored if set. | [optional] 
+**IsPending** | Pointer to **bool** | System defined flag set for pending transactions. Ignored if set. | [optional] 
+**PlaidMetadata** | Pointer to **map[string]interface{}** | System set metadata from a Plaid account sync. Ignored if set. | [optional] 
+**CreatedAt** | Pointer to **time.Time** | System defined date and time of when the transaction was created. Ignored if set. | [optional] 
 **UpdatedAt** | Pointer to **time.Time** | System defined date and time of when the transaction was last updated. Ignored if set. | [optional] 
-**IsSplitParent** | Pointer to **bool** | System defined boolean indicating if this transaction was split To split or unsplit a transaction use the &#x60;/transactions/split&#x60; endpoint. Ignored if set. | [optional] 
+**IsSplitParent** | Pointer to **bool** | System defined boolean indicating if this transaction was split. To split or unsplit a transaction use the &#x60;/transactions/split&#x60; endpoint. Ignored if set. | [optional] 
 **Children** | Pointer to [**[]ChildTransactionObject**](ChildTransactionObject.md) | An array of child transactions that exists when a transaction has been split or if the transaction is a group. Split | [optional] 
 **SplitParentId** | Pointer to **NullableInt64** | A transaction ID if this is a split transaction. Split transactions may not be modified this API. Use the &#x60;transactions/split&#x60; endpoint instead. Ignored if set. | [optional] 
 **IsGroupParent** | Pointer to **bool** | System defined boolean indicating if this transaction represents a group of transactions. Grouped transactions may not be modified with this API. Use the &#x60;transactions/group&#x60; endpoint instead. Ignored if set. | [optional] 

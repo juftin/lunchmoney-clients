@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**err_msg** | **str** | Human-readable error message | 
+**err_msg** | **str** | A message to help the developer determine the problem with the request. | 
 
 ## Example
 

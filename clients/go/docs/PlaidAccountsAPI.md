@@ -163,7 +163,7 @@ import (
 )
 
 func main() {
-	startDate := time.Now() // string | Denotes the beginning of the time period to fetch transactions for If omitted, the most recent transactions will be returned. <br> Required if end_date exists. <br> (optional)
+	startDate := time.Now() // string | Denotes the beginning of the time period to fetch transactions for. If omitted, the most recent transactions will be returned. <br> Required if end_date exists. <br> (optional)
 	endDate := time.Now() // string | Denotes the end of the time period you'd like to get transactions for. Required if start_date exists.  (optional)
 	id := int32(119807) // int32 | Specific ID of a plaid account to fetch. If not set the endpoint will trigger a fetch for all eligible accounts. (optional)
 
@@ -188,7 +188,7 @@ Other parameters are passed through a pointer to a apiTriggerPlaidAccountFetchRe
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **startDate** | **string** | Denotes the beginning of the time period to fetch transactions for If omitted, the most recent transactions will be returned. &lt;br&gt; Required if end_date exists. &lt;br&gt; | 
+ **startDate** | **string** | Denotes the beginning of the time period to fetch transactions for. If omitted, the most recent transactions will be returned. &lt;br&gt; Required if end_date exists. &lt;br&gt; | 
  **endDate** | **string** | Denotes the end of the time period you&#39;d like to get transactions for. Required if start_date exists.  | 
  **id** | **int32** | Specific ID of a plaid account to fetch. If not set the endpoint will trigger a fetch for all eligible accounts. | 
 
