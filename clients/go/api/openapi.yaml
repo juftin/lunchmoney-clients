@@ -1183,7 +1183,7 @@ paths:
               example:
                 message: Not Found
                 errors:
-                - errMsg: There is no category with the id:'543210'`
+                - errMsg: "There is no category with the id: 543210."
               schema:
                 $ref: "#/components/schemas/errorResponseObject"
           description: Not Found
@@ -1366,7 +1366,7 @@ paths:
               example:
                 message: Not Found
                 errors:
-                - errMsg: There is no category with the id:'543210'`
+                - errMsg: "There is no category with the id: 543210."
               schema:
                 $ref: "#/components/schemas/errorResponseObject"
           description: Not Found
@@ -1547,7 +1547,7 @@ paths:
               example:
                 message: Not Found
                 errors:
-                - errMsg: There is no category with the id:'543210'`
+                - errMsg: "There is no category with the id: 543210."
               schema:
                 $ref: "#/components/schemas/errorResponseObject"
           description: Not Found
@@ -1902,7 +1902,7 @@ paths:
               example:
                 message: Not Found
                 errors:
-                - errMsg: There is no manual account with the id:'543210'`
+                - errMsg: "There is no manual account with the id: 543210."
               schema:
                 $ref: "#/components/schemas/errorResponseObject"
           description: Not Found
@@ -2179,7 +2179,7 @@ paths:
               example:
                 message: Not Found
                 errors:
-                - errMsg: There is no manual account with the id:'543210'`
+                - errMsg: "There is no manual account with the id: 543210."
               schema:
                 $ref: "#/components/schemas/errorResponseObject"
           description: Not Found
@@ -3566,7 +3566,7 @@ paths:
               examples:
                 invalid ids in new transactions:
                   value:
-                    message: Invalid Request Body
+                    message: Request Validation Failure
                     errors:
                     - errMsg: "transactions[0] manual account ID does not exist: 9999999"
                       transaction_index: 0
@@ -3585,7 +3585,7 @@ paths:
                       recurring_id: 88888888
                 duplicate external_ids within request:
                   value:
-                    message: Invalid Request Body
+                    message: Request Validation Failure
                     errors:
                     - errMsg: Duplicate External IDs found in the request body
                       error: Duplicate External ID
@@ -3860,7 +3860,7 @@ paths:
               examples:
                 invalid ids in id list:
                   value:
-                    message: Invalid Request Body
+                    message: Request Validation Failure
                     errors:
                     - errMsg: "transactions[0] manual account ID does not exist: 999999999"
                       transaction_index: 0
@@ -3879,7 +3879,7 @@ paths:
                       recurring_id: 888888888
                 update with errors:
                   value:
-                    message: Invalid Request Body
+                    message: Request Validation Failure
                     errors:
                     - errMsg: "There is no transaction with the id: 9999999"
                       error: Invalid Transaction ID
@@ -3943,7 +3943,7 @@ paths:
                       locked_property: amount
                 duplicate external_ids within request:
                   value:
-                    message: Invalid Request Body
+                    message: Request Validation Failure
                     errors:
                     - errMsg: Duplicate External IDs found in the request body
                       error: Duplicate External ID
@@ -3961,7 +3961,7 @@ paths:
                       - 3
                 invalid ids:
                   value:
-                    message: Invalid Request Body
+                    message: Request Validation Failure
                     errors:
                     - errMsg: "There is no transaction with the id: 1"
                       error: Invalid Transaction ID
@@ -4060,7 +4060,7 @@ paths:
               example:
                 message: Not Found
                 errors:
-                - errMsg: There is no transaction with the id:'543210'`
+                - errMsg: "There is no transaction with the id: 543210."
               schema:
                 $ref: "#/components/schemas/errorResponseObject"
           description: Not Found
@@ -4326,7 +4326,7 @@ paths:
               example:
                 message: Not Found
                 errors:
-                - errMsg: There is no transaction with the id:'543210'`
+                - errMsg: "There is no transaction with the id: 543210."
               schema:
                 $ref: "#/components/schemas/errorResponseObject"
           description: Not Found
@@ -4486,7 +4486,7 @@ paths:
               example:
                 message: Not Found
                 errors:
-                - errMsg: There is no transaction with the id:'543210'`
+                - errMsg: "There is no transaction with the id: 543210."
               schema:
                 $ref: "#/components/schemas/errorResponseObject"
           description: Not Found
@@ -5067,30 +5067,34 @@ paths:
               examples:
                 bad math:
                   value:
-                    message: Invalid Request Body
+                    message: Request Validation Failure
                     errors:
-                    - errMsg: Sums of split transactions do not add up to the original
-                        transaction amount!
+                    - errMsg: Sum of split transactions do not add up to the original
+                        transaction amount.
                 split recurring:
                   value:
-                    message: Invalid Request Body
+                    message: Request Validation Failure
                     errors:
-                    - errMsg: You cannot split a recurring transaction!
+                    - errMsg: You cannot split a recurring transaction.
+                      id: 2112150655
                 split group:
                   value:
-                    message: Invalid Request Body
+                    message: Request Validation Failure
                     errors:
-                    - errMsg: You cannot split a grouped transaction!
+                    - errMsg: You cannot split a group transaction. Ungroup it before
+                        splitting.
                 split split:
                   value:
-                    message: Invalid Request Body
+                    message: Request Validation Failure
                     errors:
-                    - errMsg: You cannot split an already split transaction!"
+                    - errMsg: You cannot split an already split transaction. Unsplit
+                        it before splitting again.
                 missing amount in child transaction:
                   value:
                     message: Invalid Request Body
                     errors:
-                    - errMsg: "child_transactions[0] amount is required."
+                    - errMsg: "child_transactions[0] is missing required property\
+                        \ 'amount' in request body."
                       child_transactions_index: 0
                       error: Missing required property
                       invalid_property: amount
@@ -5588,7 +5592,7 @@ paths:
               example:
                 message: Not Found
                 errors:
-                - errMsg: There is no tag with the id:'543210'`
+                - errMsg: "There is no tag with the id: 543210."
               schema:
                 $ref: "#/components/schemas/errorResponseObject"
           description: Not Found
@@ -5804,10 +5808,10 @@ paths:
           content:
             application/json:
               example:
-                message: Invalid Request Body
+                message: Request Validation Failure
                 errors:
                 - errMsg: "A request to update a tag must include at least one of\
-                    \ the following properties: name, description, archived"
+                    \ the following properties: name, description, archived."
               schema:
                 $ref: "#/components/schemas/errorResponseObject"
           description: Bad Request
@@ -5828,7 +5832,7 @@ paths:
               example:
                 message: Not Found
                 errors:
-                - errMsg: There is no tag with the id:'543210'`
+                - errMsg: "There is no tag with the id: 543210."
               schema:
                 $ref: "#/components/schemas/errorResponseObject"
           description: Not Found
