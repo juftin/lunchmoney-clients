@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 **order** | **int** | An index specifying the position in which the category is displayed on the categories page in the Lunch Money GUI. For categories within a category group the order is relative to the other categories within the group.&lt;br&gt;While this property can be set via the API it is generally set by the user in the Lunch Money GUI. API. | [optional] 
 **collapsed** | **bool** | If &#x60;true&#x60;, the category is collapsed in the Lunch Money GUI.&lt;br&gt;While this property can be set via the API it is generally set by the user in the Lunch Money GUI. | [optional] 
 **id** | **int** | System defined unique identifier for the category. Ignored if set. | [optional] 
-**archived_at** | **str** | System set date and time of when the category was last archived (in the ISO 8601 extended format). Ignored if set. | [optional] 
+**archived_at** | **datetime** | If set, updates the archived timestamp for the category. Provide an ISO 8601 extended datetime or &#x60;null&#x60; to clear it. | [optional] 
 **updated_at** | **datetime** | System set date and time of when the category was last updated (in the ISO 8601 extended format). Ignored if set. | [optional] 
 **created_at** | **datetime** | System set date and time of when the category was created (in the ISO 8601 extended format). Ignored if set. (in the ISO 8601 extended format). Ignored if set. | [optional] 
 

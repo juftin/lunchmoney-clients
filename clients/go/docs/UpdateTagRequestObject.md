@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **Id** | Pointer to **int32** | System-defined unique identifier for the category. Ignored if set. | [optional] 
 **UpdatedAt** | Pointer to **time.Time** | System-set time the tag was last updated. Ignored if set | [optional] 
 **CreatedAt** | Pointer to **time.Time** | System-set time the tag was created. Ignored if set. | [optional] 
-**ArchivedAt** | Pointer to **NullableTime** | System-set time the tag was archived. Ignored if set. | [optional] 
+**ArchivedAt** | Pointer to **NullableTime** | If set, updates the archived timestamp for the tag. Provide an ISO 8601 extended datetime or &#x60;null&#x60; to clear it. | [optional] 
 
 ## Methods
 

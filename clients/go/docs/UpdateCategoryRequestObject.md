@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **Order** | Pointer to **NullableInt32** | An index specifying the position in which the category is displayed on the categories page in the Lunch Money GUI. For categories within a category group the order is relative to the other categories within the group.&lt;br&gt;While this property can be set via the API it is generally set by the user in the Lunch Money GUI. API. | [optional] 
 **Collapsed** | Pointer to **NullableBool** | If &#x60;true&#x60;, the category is collapsed in the Lunch Money GUI.&lt;br&gt;While this property can be set via the API it is generally set by the user in the Lunch Money GUI. | [optional] 
 **Id** | Pointer to **int64** | System defined unique identifier for the category. Ignored if set. | [optional] 
-**ArchivedAt** | Pointer to **NullableString** | System set date and time of when the category was last archived (in the ISO 8601 extended format). Ignored if set. | [optional] 
+**ArchivedAt** | Pointer to **NullableTime** | If set, updates the archived timestamp for the category. Provide an ISO 8601 extended datetime or &#x60;null&#x60; to clear it. | [optional] 
 **UpdatedAt** | Pointer to **time.Time** | System set date and time of when the category was last updated (in the ISO 8601 extended format). Ignored if set. | [optional] 
 **CreatedAt** | Pointer to **time.Time** | System set date and time of when the category was created (in the ISO 8601 extended format). Ignored if set. (in the ISO 8601 extended format). Ignored if set. | [optional] 
 
@@ -391,20 +391,20 @@ HasId returns a boolean if a field has been set.
 
 ### GetArchivedAt
 
-`func (o *UpdateCategoryRequestObject) GetArchivedAt() string`
+`func (o *UpdateCategoryRequestObject) GetArchivedAt() time.Time`
 
 GetArchivedAt returns the ArchivedAt field if non-nil, zero value otherwise.
 
 ### GetArchivedAtOk
 
-`func (o *UpdateCategoryRequestObject) GetArchivedAtOk() (*string, bool)`
+`func (o *UpdateCategoryRequestObject) GetArchivedAtOk() (*time.Time, bool)`
 
 GetArchivedAtOk returns a tuple with the ArchivedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetArchivedAt
 
-`func (o *UpdateCategoryRequestObject) SetArchivedAt(v string)`
+`func (o *UpdateCategoryRequestObject) SetArchivedAt(v time.Time)`
 
 SetArchivedAt sets ArchivedAt field to given value.
 

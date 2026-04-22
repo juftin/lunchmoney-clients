@@ -3,7 +3,7 @@ Lunch Money API - v2
 
 Welcome to the Lunch Money v2 API.  A working version of this API is now available through these docs, or directly at:  `https://api.lunchmoney.dev/v2`  <span class=\"red-text\"><strong>This is in alpha launch of a major API update. It is still subject to change during this alpha review period and bugs may still exist. We strongly encourage users to use the mock service or create a test budget with sample data as the first step to interacting with the v2 API.</strong></span> See the [Getting Started Guide](https://alpha.lunchmoney.dev/v2/getting-started) for more information on using a test budget.<p>  If you are new to the v2 API, you may wish to review the [v2 API Overview of Changes](https://alpha.lunchmoney.dev/v2/changelog).  ### Static Mock Server  You may also use these docs to explore the API using a static mock server endpoint.<p> This will allow you to become familiar with the API without having to create an access token, and eliminates the possibility of changing real data. <p> To access this endpoint, select the second endpoint in the \"Server\" dropdown to the right. When selected, you should see \"Static Mock v2 Lunch Money API Server\".<br> When using this server, set your Bearer token to any string with 11 or more characters.  ### Migrating from V1  The v2 API is NOT backwards compatible with the v1 API. We encourage developers to review the [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) to understand the changes and plan their migration.  ### Acknowledgments  If you have provided feedback on the API during our ongoing design process, **THANK YOU**. We are thrilled that you can finally interact with the working API we built based on your feedback.  ### Useful links: - [Getting Started](https://alpha.lunchmoney.dev/v2/getting-started) - [v2 API Changelog](https://alpha.lunchmoney.dev/v2/changelog) - [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://alpha.lunchmoney.dev/v2/rate-limits) - [Current v1 Lunch Money API Documentation](https://lunchmoney.dev) - [Awesome Lunch Money Projects](https://github.com/lunch-money/awesome-lunchmoney?tab=readme-ov-file)
 
-API version: 2.9.0
+API version: 2.9.2
 Contact: devsupport@lunchmoney.app
 */
 
@@ -657,7 +657,7 @@ func (r ApiUpdateTagRequest) Execute() (*TagObject, *http.Response, error) {
 UpdateTag Update an existing tag
 
 Updates an existing tag.<br><br>
-You may submit the response from a `GET /tags/{id}` as the request body, however only certain properties can be updated using this API. The following system set properties are accepted in the request body but their values will be ignored: `id`, `updated_at`, `created_at`, and `archived_at`.<br><br>
+You may submit the response from a `GET /tags/{id}` as the request body, however only certain properties can be updated using this API. The following system set properties are accepted in the request body but their values will be ignored: `id`, `updated_at`, and `created_at`.<br><br>
 It is also possible to provide only the properties to be updated in the request body, as long as the request includes at least one of the properties that is not listed above. For example a request body that contains only a `name` attribute is valid.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
