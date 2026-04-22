@@ -12,7 +12,7 @@
                 "gitRepoId": "lunchmoney-clients",
                 "library": "urllib3",
                 "additionalProperties": {
-                    "packageVersion": "2.22.0",
+                    "packageVersion": "2.23.0",
                     "packageName": "lunchmoney",
                     "projectName": "lunchmoney-python"
                 },
@@ -28,7 +28,7 @@
                 "gitRepoId": "lunchmoney-clients",
                 "library": "httpx",
                 "additionalProperties": {
-                    "packageVersion": "2.22.0",
+                    "packageVersion": "2.23.0",
                     "packageName": "lunchmoney",
                     "projectName": "lunchmoney-python-async"
                 },
@@ -44,7 +44,7 @@
                 "gitRepoId": "lunchmoney-clients",
                 "packageName": "lunchmoney",
                 "additionalProperties": {
-                    "packageVersion": "2.22.0"
+                    "packageVersion": "2.23.0"
                 },
                 "openapi-normalizer": {
                     "REMOVE_X_INTERNAL": true
