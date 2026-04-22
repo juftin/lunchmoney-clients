@@ -3,7 +3,7 @@ Lunch Money API - v2
 
 Welcome to the Lunch Money v2 API.  A working version of this API is now available through these docs, or directly at:  `https://api.lunchmoney.dev/v2`  <span class=\"red-text\"><strong>This is in alpha launch of a major API update. It is still subject to change during this alpha review period and bugs may still exist. We strongly encourage users to use the mock service or create a test budget with sample data as the first step to interacting with the v2 API.</strong></span> See the [Getting Started Guide](https://alpha.lunchmoney.dev/v2/getting-started) for more information on using a test budget.<p>  If you are new to the v2 API, you may wish to review the [v2 API Overview of Changes](https://alpha.lunchmoney.dev/v2/changelog).  ### Static Mock Server  You may also use these docs to explore the API using a static mock server endpoint.<p> This will allow you to become familiar with the API without having to create an access token, and eliminates the possibility of changing real data. <p> To access this endpoint, select the second endpoint in the \"Server\" dropdown to the right. When selected, you should see \"Static Mock v2 Lunch Money API Server\".<br> When using this server, set your Bearer token to any string with 11 or more characters.  ### Migrating from V1  The v2 API is NOT backwards compatible with the v1 API. We encourage developers to review the [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) to understand the changes and plan their migration.  ### Acknowledgments  If you have provided feedback on the API during our ongoing design process, **THANK YOU**. We are thrilled that you can finally interact with the working API we built based on your feedback.  ### Useful links: - [Getting Started](https://alpha.lunchmoney.dev/v2/getting-started) - [v2 API Changelog](https://alpha.lunchmoney.dev/v2/changelog) - [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://alpha.lunchmoney.dev/v2/rate-limits) - [Current v1 Lunch Money API Documentation](https://lunchmoney.dev) - [Awesome Lunch Money Projects](https://github.com/lunch-money/awesome-lunchmoney?tab=readme-ov-file)
 
-API version: 2.9.0
+API version: 2.9.2
 Contact: devsupport@lunchmoney.app
 */
 
@@ -45,8 +45,8 @@ type UpdateCategoryRequestObject struct {
 	Collapsed NullableBool `json:"collapsed,omitempty"`
 	// System defined unique identifier for the category. Ignored if set.
 	Id *int64 `json:"id,omitempty"`
-	// System set date and time of when the category was last archived (in the ISO 8601 extended format). Ignored if set.
-	ArchivedAt NullableString `json:"archived_at,omitempty"`
+	// If set, updates the archived timestamp for the category. Provide an ISO 8601 extended datetime or `null` to clear it.
+	ArchivedAt NullableTime `json:"archived_at,omitempty"`
 	// System set date and time of when the category was last updated (in the ISO 8601 extended format). Ignored if set.
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 	// System set date and time of when the category was created (in the ISO 8601 extended format). Ignored if set. (in the ISO 8601 extended format). Ignored if set.
@@ -509,9 +509,9 @@ func (o *UpdateCategoryRequestObject) SetId(v int64) {
 }
 
 // GetArchivedAt returns the ArchivedAt field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *UpdateCategoryRequestObject) GetArchivedAt() string {
+func (o *UpdateCategoryRequestObject) GetArchivedAt() time.Time {
 	if o == nil || IsNil(o.ArchivedAt.Get()) {
-		var ret string
+		var ret time.Time
 		return ret
 	}
 	return *o.ArchivedAt.Get()
@@ -520,7 +520,7 @@ func (o *UpdateCategoryRequestObject) GetArchivedAt() string {
 // GetArchivedAtOk returns a tuple with the ArchivedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *UpdateCategoryRequestObject) GetArchivedAtOk() (*string, bool) {
+func (o *UpdateCategoryRequestObject) GetArchivedAtOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -536,8 +536,8 @@ func (o *UpdateCategoryRequestObject) HasArchivedAt() bool {
 	return false
 }
 
-// SetArchivedAt gets a reference to the given NullableString and assigns it to the ArchivedAt field.
-func (o *UpdateCategoryRequestObject) SetArchivedAt(v string) {
+// SetArchivedAt gets a reference to the given NullableTime and assigns it to the ArchivedAt field.
+func (o *UpdateCategoryRequestObject) SetArchivedAt(v time.Time) {
 	o.ArchivedAt.Set(&v)
 }
 // SetArchivedAtNil sets the value for ArchivedAt to be an explicit nil

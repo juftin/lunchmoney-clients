@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **id** | **int** | System-defined unique identifier for the category. Ignored if set. | [optional] 
 **updated_at** | **datetime** | System-set time the tag was last updated. Ignored if set | [optional] 
 **created_at** | **datetime** | System-set time the tag was created. Ignored if set. | [optional] 
-**archived_at** | **datetime** | System-set time the tag was archived. Ignored if set. | [optional] 
+**archived_at** | **datetime** | If set, updates the archived timestamp for the tag. Provide an ISO 8601 extended datetime or &#x60;null&#x60; to clear it. | [optional] 
 
 ## Example
 

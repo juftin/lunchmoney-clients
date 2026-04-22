@@ -42,7 +42,7 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   termsOfService: https://lunchmoney.dev/#current-status
   title: Lunch Money API - v2
-  version: 2.9.0
+  version: 2.9.2
 servers:
 - description: v2 Lunch Money API Server - changes will affect real data!
   url: https://api.lunchmoney.dev/v2
@@ -1398,7 +1398,7 @@ paths:
     put:
       description: |-
         Modifies the properties of an existing category or category group.<br><br>
-        You may submit the response from a `GET /categories/{id}` as the request body; however, only certain properties can be updated using this API. The following properties are accepted in the request body but their values will be ignored: `id`, `is_group`,`archived_at`, `updated_at`, `created_at`, and `order`.<br><br>
+        You may submit the response from a `GET /categories/{id}` as the request body; however, only certain properties can be updated using this API. The following properties are accepted in the request body but their values will be ignored: `id`, `is_group`, `updated_at`, `created_at`, and `order`.<br><br>
         It is also possible to provide only the properties to be updated in the request body, as long as the request includes at least one of the properties that is not listed above. For example, a request body that contains only a `name` property is valid.<br><br>
         It is not possible to use this API to convert a category to a category group, or a vice versa, so while submitting a request body with the `is_group` property is tolerated, it will result in an error response if the value is changed.<br><br>
         It is possible to modify the children of an existing category group with this API by setting the `children` attribute. If this is set, it will replace the existing children with the newly specified children. If the intention is to add or remove a single category, it is more straightforward to update the child category by specifying the new `group_id` attribute. If the goal is to add multiple new children or remove multiple existing children, it is recommended to first call the `GET /categories/:id` endpoint to get the existing children and then modify the list as desired.<br><br>
@@ -5733,7 +5733,7 @@ paths:
     put:
       description: |-
         Updates an existing tag.<br><br>
-        You may submit the response from a `GET /tags/{id}` as the request body, however only certain properties can be updated using this API. The following system set properties are accepted in the request body but their values will be ignored: `id`, `updated_at`, `created_at`, and `archived_at`.<br><br>
+        You may submit the response from a `GET /tags/{id}` as the request body, however only certain properties can be updated using this API. The following system set properties are accepted in the request body but their values will be ignored: `id`, `updated_at`, and `created_at`.<br><br>
         It is also possible to provide only the properties to be updated in the request body, as long as the request includes at least one of the properties that is not listed above. For example a request body that contains only a `name` attribute is valid.
       operationId: updateTag
       parameters:
@@ -6942,11 +6942,12 @@ components:
           type: integer
           x-updatable: false
         archived_at:
-          description: System set date and time of when the category was last archived
-            (in the ISO 8601 extended format). Ignored if set.
+          description: "If set, updates the archived timestamp for the category. Provide\
+            \ an ISO 8601 extended datetime or `null` to clear it."
+          format: date-time
           nullable: true
           type: string
-          x-updatable: false
+          x-updatable: true
         updated_at:
           description: System set date and time of when the category was last updated
             (in the ISO 8601 extended format). Ignored if set.
@@ -7733,11 +7734,12 @@ components:
           type: string
           x-updatable: false
         archived_at:
-          description: System-set time the tag was archived. Ignored if set.
+          description: "If set, updates the archived timestamp for the tag. Provide\
+            \ an ISO 8601 extended datetime or `null` to clear it."
           format: date-time
           nullable: true
           type: string
-          x-updatable: false
+          x-updatable: true
       type: object
     deleteTagResponseWithDependencies:
       additionalProperties: false
@@ -7923,16 +7925,12 @@ components:
             Name of payee set by the user, the financial institution, or by
             a matched recurring item. This will match the value
             displayed in payee field on the transactions page in the GUI.
-          maxLength: 140
-          minLength: 0
           type: string
         original_name:
           description: "Original payee name from the source (financial institution,\
             \ CSV, etc.). For Plaid transactions, this is the raw name before normalization.\
             \ For manual/API transactions, this typically matches `payee`. May be\
             \ null for older transactions."
-          maxLength: 140
-          minLength: 0
           nullable: true
           type: string
         category_id:
@@ -8209,16 +8207,12 @@ components:
             Name of payee set by the user, the financial institution, or by
             a matched recurring item. This will match the value
             displayed in payee field on the transactions page in the GUI.
-          maxLength: 140
-          minLength: 0
           type: string
         original_name:
           description: "Original payee name from the source (financial institution,\
             \ CSV, etc.). For Plaid transactions, this is the raw name before normalization.\
             \ For manual/API transactions, this typically matches `payee`. May be\
             \ null for older transactions."
-          maxLength: 140
-          minLength: 0
           nullable: true
           type: string
         category_id:
@@ -8418,14 +8412,10 @@ components:
             \ If not set defaults to the user account's primary currency."
         payee:
           description: Name of payee for the transaction
-          maxLength: 140
-          minLength: 0
           type: string
         original_name:
           description: "Original payee name. If not provided, defaults to `payee`\
             \ value."
-          maxLength: 140
-          minLength: 0
           nullable: true
           type: string
         category_id:
@@ -8544,14 +8534,10 @@ components:
         payee:
           description: |
             The new payee for the transaction.
-          maxLength: 140
-          minLength: 0
           type: string
           x-updatable: true
         original_name:
           description: Original payee name. Cannot be changed. Ignored if set.
-          maxLength: 140
-          minLength: 0
           nullable: true
           type: string
           x-updatable: false

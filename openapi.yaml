@@ -42,7 +42,7 @@ info:
     license:
         name: Apache 2.0
         url: http://www.apache.org/licenses/LICENSE-2.0.html
-    version: 2.9.0
+    version: 2.9.2
 
 servers:
     - url: https://api.lunchmoney.dev/v2
@@ -592,11 +592,12 @@ components:
                     x-updatable: false
                 archived_at:
                     type: string
+                    format: date-time
                     nullable: true
                     description:
-                        System set date and time of when the category was last archived (in
-                        the ISO 8601 extended format). Ignored if set.
-                    x-updatable: false
+                        If set, updates the archived timestamp for the category.
+                        Provide an ISO 8601 extended datetime or `null` to clear it.
+                    x-updatable: true
                 updated_at:
                     type: string
                     format: date-time
@@ -1542,8 +1543,9 @@ components:
                     type: string
                     format: date-time
                     nullable: true
-                    description: System-set time the tag was archived. Ignored if set.
-                    x-updatable: false
+                    description: If set, updates the archived timestamp for the tag.
+                        Provide an ISO 8601 extended datetime or `null` to clear it.
+                    x-updatable: true
 
         # The object returned when a DELETE /tag/:id request
         # has an id for a tag that has dependencies
@@ -1617,14 +1619,10 @@ components:
                         Name of payee set by the user, the financial institution, or by
                         a matched recurring item. This will match the value
                         displayed in payee field on the transactions page in the GUI.
-                    minLength: 0
-                    maxLength: 140
                 original_name:
                     type: string
                     nullable: true
                     description: Original payee name from the source (financial institution, CSV, etc.). For Plaid transactions, this is the raw name before normalization. For manual/API transactions, this typically matches `payee`. May be null for older transactions.
-                    minLength: 0
-                    maxLength: 140
                 category_id:
                     type: integer
                     format: int32
@@ -1911,14 +1909,10 @@ components:
                         Name of payee set by the user, the financial institution, or by
                         a matched recurring item. This will match the value
                         displayed in payee field on the transactions page in the GUI.
-                    minLength: 0
-                    maxLength: 140
                 original_name:
                     type: string
                     nullable: true
                     description: Original payee name from the source (financial institution, CSV, etc.). For Plaid transactions, this is the raw name before normalization. For manual/API transactions, this typically matches `payee`. May be null for older transactions.
-                    minLength: 0
-                    maxLength: 140
                 category_id:
                     type: integer
                     format: int32
@@ -2172,14 +2166,10 @@ components:
                 payee:
                     type: string
                     description: Name of payee for the transaction
-                    minLength: 0
-                    maxLength: 140
                 original_name:
                     type: string
                     nullable: true
                     description: Original payee name. If not provided, defaults to `payee` value.
-                    minLength: 0
-                    maxLength: 140
                 category_id:
                     type: integer
                     format: int32
@@ -2323,15 +2313,11 @@ components:
                     type: string
                     description: |
                         The new payee for the transaction.
-                    minLength: 0
-                    maxLength: 140
                     x-updatable: true
                 original_name:
                     type: string
                     nullable: true
                     description: Original payee name. Cannot be changed. Ignored if set.
-                    minLength: 0
-                    maxLength: 140
                     x-updatable: false
                 category_id:
                     type: integer
@@ -4642,7 +4628,7 @@ paths:
 
                 You may submit the response from a `GET /categories/{id}` as the request body; however, only certain
                 properties can be updated using this API. The following properties are
-                accepted in the request body but their values will be ignored: `id`, `is_group`,`archived_at`, `updated_at`, `created_at`, and `order`.<br><br>
+                accepted in the request body but their values will be ignored: `id`, `is_group`, `updated_at`, `created_at`, and `order`.<br><br>
 
                 It is also possible to provide only the properties to be updated in the
                 request body, as long as the request includes at least one of the
@@ -8525,7 +8511,7 @@ paths:
 
                 You may submit the response from a `GET /tags/{id}` as the request body, however only certain
                 properties can be updated using this API. The following system set properties are
-                accepted in the request body but their values will be ignored: `id`, `updated_at`, `created_at`, and `archived_at`.<br><br>
+                accepted in the request body but their values will be ignored: `id`, `updated_at`, and `created_at`.<br><br>
 
                 It is also possible to provide only the properties to be updated in the
                 request body, as long as the request includes at least one of the
