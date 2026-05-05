@@ -313,6 +313,10 @@
 
 * `XAF` (value: `"xaf"`)
 
+* `XAG` (value: `"xag"`)
+
+* `XAU` (value: `"xau"`)
+
 * `XCD` (value: `"xcd"`)
 
 * `XOF` (value: `"xof"`)
