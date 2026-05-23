@@ -3,7 +3,7 @@ Lunch Money API - v2
 
 Welcome to the Lunch Money v2 API. The API is available at `https://api.lunchmoney.dev/v2`. Get your access token from the [Lunch Money developers page](https://my.lunchmoney.app/developers).  ### Introduction  <span class=\"red-text\"><strong>The v2 API is in open alpha and is still subject to change. Use the mock server or a test budget when getting started.</strong></span>  **Static Mock Server**  Explore the API without an access token or risk to real data. Select **\"Static Mock v2 Lunch Money API Server\"** from the Server dropdown, then set your Bearer token to any string with 11 or more characters.  **Migrating from v1**  The v2 API is not backwards compatible with v1. See the [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) for details.  **Useful links** - [Developer Portal](https://lunchmoney.dev/v2/introduction) - [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) - [v2 API Overview](https://lunchmoney.dev/v2/overview) - [v2 API Changelog](https://lunchmoney.dev/v2/changelog) - [Migration Guide](https://lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://lunchmoney.dev/v2/rate-limits)
 
-API version: 2.9.3
+API version: 2.9.4
 Contact: devsupport@lunchmoney.app
 */
 

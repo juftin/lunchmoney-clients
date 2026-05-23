@@ -61,6 +61,8 @@
 
 * `CHF` (value: `"chf"`)
 
+* `CLF` (value: `"clf"`)
+
 * `CLP` (value: `"clp"`)
 
 * `CNY` (value: `"cny"`)
@@ -90,6 +92,8 @@
 * `ERN` (value: `"ern"`)
 
 * `ETB` (value: `"etb"`)
+
+* `ETH` (value: `"eth"`)
 
 * `EUR` (value: `"eur"`)
 
@@ -304,6 +308,8 @@
 * `UZS` (value: `"uzs"`)
 
 * `VEF` (value: `"vef"`)
+
+* `VES` (value: `"ves"`)
 
 * `VND` (value: `"vnd"`)
 
