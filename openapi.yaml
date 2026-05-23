@@ -29,7 +29,7 @@ info:
     license:
         name: Apache 2.0
         url: http://www.apache.org/licenses/LICENSE-2.0.html
-    version: 2.9.3
+    version: 2.9.4
 
 servers:
     - url: https://api.lunchmoney.dev/v2
@@ -1671,8 +1671,6 @@ components:
                         Any transaction notes set by the user or by
                         a matched recurring item. This will match the value
                         displayed in notes field on the transactions page in the GUI.
-                    minLength: 0
-                    maxLength: 350
                 status:
                     type: string
                     # description: >
@@ -1916,8 +1914,6 @@ components:
                         Any transaction notes set by the user or by
                         a matched recurring item. This will match the value
                         displayed in notes field on the transactions page in the GUI.
-                    minLength: 0
-                    maxLength: 350
                 status:
                     type: string
                     description: >
@@ -2172,8 +2168,6 @@ components:
                         Any transaction notes set by the user or by
                         a matched recurring item. This will match the value
                         displayed in notes field on the transactions page in the GUI.
-                    minLength: 0
-                    maxLength: 350
                 manual_account_id:
                     type: integer
                     format: int32
@@ -2320,8 +2314,6 @@ components:
                     description: >
                         New notes for the transaction. Set this to an empty string to clear
                         the existing notes.
-                    minLength: 0
-                    maxLength: 350
                     x-updatable: true
                 manual_account_id:
                     type: integer
@@ -2533,7 +2525,6 @@ components:
                         format: int32
                 notes:
                     type: string
-                    maxLength: 350
                     description: Will inherit notes from parent if not defined.
             required:
                 - amount
@@ -3247,6 +3238,7 @@ components:
             #   - `cad`: Canadian Dollar
             #   - `cdf`: Congolese Franc
             #   - `chf`: Swiss Franc
+            #   - `clf`: Chilean Unit of Account (UF)
             #   - `clp`: Chilean Peso
             #   - `cny`: Chinese Yuan
             #   - `cop`: Colombian Peso
@@ -3262,6 +3254,7 @@ components:
             #   - `egp`: Egyptian Pound
             #   - `ern`: Eritrean Nakfa
             #   - `etb`: Ethiopian Birr
+            #   - `eth`: Ethereum
             #   - `eur`: Euro
             #   - `fjd`: Fijian Dollar
             #   - `fkp`: Falkland Islands Pound
@@ -3369,6 +3362,7 @@ components:
             #   - `uyu`: Uruguayan Peso
             #   - `uzs`: Uzbekistan Som
             #   - `vef`: Venezuelan Bolívar
+            #   - `ves`: Venezuelan Bolívar Sotiemas
             #   - `vnd`: Vietnamese Dong
             #   - `vuv`: Vanuatu Vatu
             #   - `wst`: Samoan Tala
@@ -3412,6 +3406,7 @@ components:
                 - cad
                 - cdf
                 - chf
+                - clf
                 - clp
                 - cny
                 - cop
@@ -3427,6 +3422,7 @@ components:
                 - egp
                 - ern
                 - etb
+                - eth
                 - eur
                 - fjd
                 - fkp
@@ -3534,6 +3530,7 @@ components:
                 - uyu
                 - uzs
                 - vef
+                - ves
                 - vnd
                 - vuv
                 - wst
@@ -7565,8 +7562,6 @@ paths:
                                     nullable: true
                                     description: |
                                         Notes for the grouped transaction.
-                                    minLength: 0
-                                    maxLength: 350
                                 status:
                                     type: string
                                     description:

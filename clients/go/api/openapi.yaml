@@ -29,7 +29,7 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   termsOfService: https://lunchmoney.dev/#current-status
   title: Lunch Money API - v2
-  version: 2.9.3
+  version: 2.9.4
 servers:
 - description: v2 Lunch Money API Server - changes will affect real data!
   url: https://api.lunchmoney.dev/v2
@@ -7971,8 +7971,6 @@ components:
             Any transaction notes set by the user or by
             a matched recurring item. This will match the value
             displayed in notes field on the transactions page in the GUI.
-          maxLength: 350
-          minLength: 0
           nullable: true
           type: string
         status:
@@ -8215,8 +8213,6 @@ components:
             Any transaction notes set by the user or by
             a matched recurring item. This will match the value
             displayed in notes field on the transactions page in the GUI.
-          maxLength: 350
-          minLength: 0
           nullable: true
           type: string
         status:
@@ -8417,8 +8413,6 @@ components:
             Any transaction notes set by the user or by
             a matched recurring item. This will match the value
             displayed in notes field on the transactions page in the GUI.
-          maxLength: 350
-          minLength: 0
           nullable: true
           type: string
         manual_account_id:
@@ -8538,8 +8532,6 @@ components:
         notes:
           description: |
             New notes for the transaction. Set this to an empty string to clear the existing notes.
-          maxLength: 350
-          minLength: 0
           nullable: true
           type: string
           x-updatable: true
@@ -8727,7 +8719,6 @@ components:
           type: array
         notes:
           description: Will inherit notes from parent if not defined.
-          maxLength: 350
           type: string
       required:
       - amount
@@ -9947,6 +9938,7 @@ components:
       - cad
       - cdf
       - chf
+      - clf
       - clp
       - cny
       - cop
@@ -9962,6 +9954,7 @@ components:
       - egp
       - ern
       - etb
+      - eth
       - eur
       - fjd
       - fkp
@@ -10069,6 +10062,7 @@ components:
       - uyu
       - uzs
       - vef
+      - ves
       - vnd
       - vuv
       - wst
@@ -10924,8 +10918,6 @@ components:
         notes:
           description: |
             Notes for the grouped transaction.
-          maxLength: 350
-          minLength: 0
           nullable: true
           type: string
         status:
