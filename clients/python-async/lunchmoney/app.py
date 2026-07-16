@@ -15,6 +15,7 @@ import lunchmoney
 from lunchmoney import GetAllTransactions200Response
 from lunchmoney.models import (  # type: ignore[attr-defined]
     CategoryObject,
+    ChildCategoryObject,
     ManualAccountObject,
     PlaidAccountObject,
     TagObject,
@@ -33,6 +34,7 @@ class LunchableModels:
     """
     Container for Lunchable Data Model Types
     """
+
     PlaidAccountObject: ClassVar[type[PlaidAccountObject]] = PlaidAccountObject
     """Plaid Accounts"""
     TransactionObject: ClassVar[type[TransactionObject]] = TransactionObject
@@ -69,6 +71,33 @@ class LunchableData:
     """Tags"""
     user: UserObject | None = None
     """User"""
+
+    def clear(self) -> None:
+        """
+        Clear all stored data
+        """
+        self.plaid_accounts.clear()
+        self.transactions.clear()
+        self.categories.clear()
+        self.manual_accounts.clear()
+        self.tags.clear()
+        self.user = None
+
+    @property
+    def category_map(self) -> dict[int, CategoryObject | ChildCategoryObject]:
+        """
+        Category Mapping Across Parent and Child Categories
+
+        Returns
+        -------
+        dict[int, Union[PlaidAccountObject, ManualAccountObject]]
+        """
+        child_categories: dict[int, ChildCategoryObject] = {
+            child.id: child
+            for category in self.categories.values()
+            for child in category.children or []
+        }
+        return {**self.categories, **child_categories}
 
     @property
     def current_user(self) -> UserObject:
@@ -653,6 +682,7 @@ class LunchMoneyApp:
         """
         self.data.transactions.clear()
 
+
 __all__ = [
     # Data Model Types
     "PlaidAccountObject",
@@ -665,5 +695,6 @@ __all__ = [
     "LunchableModels",
     "models",
     "LunchableData",
-    "LunchMoneyApp"
+    "LunchableClient",
+    "LunchMoneyApp",
 ]

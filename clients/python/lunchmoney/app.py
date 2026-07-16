@@ -14,6 +14,7 @@ import lunchmoney
 from lunchmoney import GetAllTransactions200Response
 from lunchmoney.models import (  # type: ignore[attr-defined]
     CategoryObject,
+    ChildCategoryObject,
     ManualAccountObject,
     PlaidAccountObject,
     TagObject,
@@ -32,6 +33,7 @@ class LunchableModels:
     """
     Container for Lunchable Data Model Types
     """
+
     PlaidAccountObject: ClassVar[type[PlaidAccountObject]] = PlaidAccountObject
     """Plaid Accounts"""
     TransactionObject: ClassVar[type[TransactionObject]] = TransactionObject
@@ -48,6 +50,7 @@ class LunchableModels:
 
 models: type[LunchableModels] = LunchableModels
 """Container for Lunchable Data Model Types"""
+
 
 @dataclass(slots=True)
 class LunchableData:
@@ -67,6 +70,33 @@ class LunchableData:
     """Tags"""
     user: UserObject | None = None
     """User"""
+
+    def clear(self) -> None:
+        """
+        Clear all stored data
+        """
+        self.plaid_accounts.clear()
+        self.transactions.clear()
+        self.categories.clear()
+        self.manual_accounts.clear()
+        self.tags.clear()
+        self.user = None
+
+    @property
+    def category_map(self) -> dict[int, CategoryObject | ChildCategoryObject]:
+        """
+        Category Mapping Across Parent and Child Categories
+
+        Returns
+        -------
+        dict[int, Union[PlaidAccountObject, ManualAccountObject]]
+        """
+        child_categories: dict[int, ChildCategoryObject] = {
+            child.id: child
+            for category in self.categories.values()
+            for child in category.children or []
+        }
+        return {**self.categories, **child_categories}
 
     @property
     def current_user(self) -> UserObject:
@@ -622,9 +652,7 @@ class LunchMoneyApp:
         self.data.transactions.update(transaction_map)
         return transaction_map
 
-    def _paginate_transactions(
-        self, **kwargs: Any
-    ) -> Iterable[TransactionObject]:
+    def _paginate_transactions(self, **kwargs: Any) -> Iterable[TransactionObject]:
         """
         Paginate Transactions from the App
         """
@@ -636,9 +664,7 @@ class LunchMoneyApp:
                 "limit": self._transaction_pagination,
             }
             response: GetAllTransactions200Response = (
-                self.client.transactions_bulk.get_all_transactions(
-                    **paginated_kwargs
-                )
+                self.client.transactions_bulk.get_all_transactions(**paginated_kwargs)
             )
             for transaction in response.transactions:
                 yield transaction
@@ -651,6 +677,7 @@ class LunchMoneyApp:
         Clear Transactions from the App
         """
         self.data.transactions.clear()
+
 
 __all__ = [
     # Data Model Types
@@ -665,5 +692,5 @@ __all__ = [
     "models",
     "LunchableData",
     "LunchableClient",
-    "LunchMoneyApp"
+    "LunchMoneyApp",
 ]
