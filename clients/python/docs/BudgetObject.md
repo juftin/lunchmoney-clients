@@ -6,7 +6,7 @@ A budget object represents a budgeted amount for a specific category and budget 
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** | System created unique identifier for the budget entry. | 
+**id** | **int** | System-created unique identifier for the budget entry. | 
 **category_id** | **int** | The ID of the category this budget applies to. | 
 **amount** | **float** | The budgeted amount for this period. | 
 **currency** | [**CurrencyEnum**](CurrencyEnum.md) | The currency of the budgeted amount in ISO 4217 format. | 

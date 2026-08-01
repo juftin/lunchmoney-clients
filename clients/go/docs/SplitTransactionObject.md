@@ -7,9 +7,9 @@ Name | Type | Description | Notes
 **Amount** | [**SplitTransactionObjectAmount**](SplitTransactionObjectAmount.md) |  | 
 **Payee** | Pointer to **string** | The payee for the child transaction. Will inherit the original payee from the parent if not defined. | [optional] 
 **Date** | Pointer to **string** | Must be in ISO 8601 format (YYYY-MM-DD). Will inherit from the parent if not defined. | [optional] 
-**CategoryId** | Pointer to **int32** | Unique identifier for associated category_id. Category must already exist for the account. Will inherit category from the parent if not defined. | [optional] 
+**CategoryId** | Pointer to **NullableInt32** | Category ID for the child transaction. The category must already exist for the account. If omitted, the child inherits the parent category. If &#x60;null&#x60;, the child has no category. | [optional] 
 **TagIds** | Pointer to **[]int32** | The IDs of any tags to apply to this split child transaction. Each ID must match an existing tag. | [optional] 
-**Notes** | Pointer to **string** | Will inherit notes from parent if not defined. | [optional] 
+**Notes** | Pointer to **NullableString** | Notes for the child transaction. If omitted, the child inherits the parent notes. If &#x60;null&#x60; or an empty string, the child has no notes. | [optional] 
 
 ## Methods
 
@@ -125,6 +125,16 @@ SetCategoryId sets CategoryId field to given value.
 
 HasCategoryId returns a boolean if a field has been set.
 
+### SetCategoryIdNil
+
+`func (o *SplitTransactionObject) SetCategoryIdNil(b bool)`
+
+ SetCategoryIdNil sets the value for CategoryId to be an explicit nil
+
+### UnsetCategoryId
+`func (o *SplitTransactionObject) UnsetCategoryId()`
+
+UnsetCategoryId ensures that no value is present for CategoryId, not even an explicit nil
 ### GetTagIds
 
 `func (o *SplitTransactionObject) GetTagIds() []int32`
@@ -175,6 +185,16 @@ SetNotes sets Notes field to given value.
 
 HasNotes returns a boolean if a field has been set.
 
+### SetNotesNil
+
+`func (o *SplitTransactionObject) SetNotesNil(b bool)`
+
+ SetNotesNil sets the value for Notes to be an explicit nil
+
+### UnsetNotes
+`func (o *SplitTransactionObject) UnsetNotes()`
+
+UnsetNotes ensures that no value is present for Notes, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -31,8 +31,8 @@ import (
 )
 
 func main() {
-	startDate := time.Now() // string | Denotes the beginning of the range used to populate the `matching` object in the recurring items. If omitted, the current month will be used as the range.<br> Required if end_date exists. (optional)
-	endDate := time.Now() // string | Denotes the end of the range used to populate the `matching` object in the recurring items. Required if start_date exists.  (optional)
+	startDate := time.Now() // string | Indicates the beginning of the range used to populate the `matching` object in the recurring items. If omitted, the current month will be used as the range.<br> Required if end_date exists. (optional)
+	endDate := time.Now() // string | Indicates the end of the range used to populate the `matching` object in the recurring items. Required if start_date exists.  (optional)
 	includeSuggested := true // bool |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -58,8 +58,8 @@ Other parameters are passed through a pointer to a apiGetAllRecurringRequest str
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **startDate** | **string** | Denotes the beginning of the range used to populate the &#x60;matching&#x60; object in the recurring items. If omitted, the current month will be used as the range.&lt;br&gt; Required if end_date exists. | 
- **endDate** | **string** | Denotes the end of the range used to populate the &#x60;matching&#x60; object in the recurring items. Required if start_date exists.  | 
+ **startDate** | **string** | Indicates the beginning of the range used to populate the &#x60;matching&#x60; object in the recurring items. If omitted, the current month will be used as the range.&lt;br&gt; Required if end_date exists. | 
+ **endDate** | **string** | Indicates the end of the range used to populate the &#x60;matching&#x60; object in the recurring items. Required if start_date exists.  | 
  **includeSuggested** | **bool** |  | 
 
 ### Return type
@@ -68,7 +68,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[cookieAuth](../README.md#cookieAuth), [bearerSecurity](../README.md#bearerSecurity)
+[bearerSecurity](../README.md#bearerSecurity)
 
 ### HTTP request headers
 
@@ -103,8 +103,8 @@ import (
 
 func main() {
 	id := int32(994069) // int32 | ID of the recurring item to retrieve
-	startDate := time.Now() // string | Denotes the beginning of the range used to populate the `matching` object in the recurring items. If omitted, the current month will be used as the range.<br> Required if end_date exists. (optional)
-	endDate := time.Now() // string | Denotes the end of the range used to populate the `matching` object in the recurring items. Required if start_date exists.  (optional)
+	startDate := time.Now() // string | Indicates the beginning of the range used to populate the `matching` object in the recurring items. If omitted, the current month will be used as the range.<br> Required if end_date exists. (optional)
+	endDate := time.Now() // string | Indicates the end of the range used to populate the `matching` object in the recurring items. Required if start_date exists.  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -134,8 +134,8 @@ Other parameters are passed through a pointer to a apiGetRecurringByIdRequest st
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **startDate** | **string** | Denotes the beginning of the range used to populate the &#x60;matching&#x60; object in the recurring items. If omitted, the current month will be used as the range.&lt;br&gt; Required if end_date exists. | 
- **endDate** | **string** | Denotes the end of the range used to populate the &#x60;matching&#x60; object in the recurring items. Required if start_date exists.  | 
+ **startDate** | **string** | Indicates the beginning of the range used to populate the &#x60;matching&#x60; object in the recurring items. If omitted, the current month will be used as the range.&lt;br&gt; Required if end_date exists. | 
+ **endDate** | **string** | Indicates the end of the range used to populate the &#x60;matching&#x60; object in the recurring items. Required if start_date exists.  | 
 
 ### Return type
 
@@ -143,7 +143,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[cookieAuth](../README.md#cookieAuth), [bearerSecurity](../README.md#bearerSecurity)
+[bearerSecurity](../README.md#bearerSecurity)
 
 ### HTTP request headers
 

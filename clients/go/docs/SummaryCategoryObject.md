@@ -7,7 +7,6 @@ Name | Type | Description | Notes
 **CategoryId** | **int32** | ID of the category associated with the totals. | 
 **Totals** | [**SummaryCategoryTotalsObject**](SummaryCategoryTotalsObject.md) |  | 
 **Occurrences** | Pointer to [**[]SummaryCategoryOccurrenceObject**](SummaryCategoryOccurrenceObject.md) | A list of objects describing the budget activity for each period within the range. This property is only present when &#x60;include_occurrences&#x60; is true.&lt;p&gt; For aligned ranges, there is one occurrence for each budget period in the range; for non-aligned, only periods fully contained in the range are included.&lt;p&gt; If &#x60;include_past_budget_dates&#x60; is also &#x60;true&#x60;, the three budget periods prior to the range are also included. | [optional] 
-**RolloverPool** | Pointer to [**SummaryRolloverPoolObject**](SummaryRolloverPoolObject.md) |  | [optional] 
 
 ## Methods
 
@@ -92,31 +91,6 @@ SetOccurrences sets Occurrences field to given value.
 `func (o *SummaryCategoryObject) HasOccurrences() bool`
 
 HasOccurrences returns a boolean if a field has been set.
-
-### GetRolloverPool
-
-`func (o *SummaryCategoryObject) GetRolloverPool() SummaryRolloverPoolObject`
-
-GetRolloverPool returns the RolloverPool field if non-nil, zero value otherwise.
-
-### GetRolloverPoolOk
-
-`func (o *SummaryCategoryObject) GetRolloverPoolOk() (*SummaryRolloverPoolObject, bool)`
-
-GetRolloverPoolOk returns a tuple with the RolloverPool field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRolloverPool
-
-`func (o *SummaryCategoryObject) SetRolloverPool(v SummaryRolloverPoolObject)`
-
-SetRolloverPool sets RolloverPool field to given value.
-
-### HasRolloverPool
-
-`func (o *SummaryCategoryObject) HasRolloverPool() bool`
-
-HasRolloverPool returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

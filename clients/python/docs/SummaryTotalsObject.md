@@ -1,6 +1,6 @@
 # SummaryTotalsObject
 
-Total inflow and outflow for the given date range.  This object is returned when the query parameter `include_totals` is set to `true`.
+Total inflow and outflow for the given date range. This object is returned when the query parameter `include_totals` is set to `true`.
 
 ## Properties
 
