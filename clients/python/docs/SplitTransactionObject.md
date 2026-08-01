@@ -9,9 +9,9 @@ Name | Type | Description | Notes
 **amount** | [**SplitTransactionObjectAmount**](SplitTransactionObjectAmount.md) |  | 
 **payee** | **str** | The payee for the child transaction. Will inherit the original payee from the parent if not defined. | [optional] 
 **var_date** | **date** | Must be in ISO 8601 format (YYYY-MM-DD). Will inherit from the parent if not defined. | [optional] 
-**category_id** | **int** | Unique identifier for associated category_id. Category must already exist for the account. Will inherit category from the parent if not defined. | [optional] 
+**category_id** | **int** | Category ID for the child transaction. The category must already exist for the account. If omitted, the child inherits the parent category. If &#x60;null&#x60;, the child has no category. | [optional] 
 **tag_ids** | **List[int]** | The IDs of any tags to apply to this split child transaction. Each ID must match an existing tag. | [optional] 
-**notes** | **str** | Will inherit notes from parent if not defined. | [optional] 
+**notes** | **str** | Notes for the child transaction. If omitted, the child inherits the parent notes. If &#x60;null&#x60; or an empty string, the child has no notes. | [optional] 
 
 ## Example
 

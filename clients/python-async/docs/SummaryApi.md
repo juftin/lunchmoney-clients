@@ -16,7 +16,6 @@ Retrieves a summary of the user's budget. Use this endpoint to access budget con
 
 ### Example
 
-* Api Key Authentication (cookieAuth):
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
@@ -35,12 +34,6 @@ configuration = lunchmoney.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: cookieAuth
-configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['cookieAuth'] = 'Bearer'
 
 # Configure Bearer authorization (JWT): bearerSecurity
 configuration = lunchmoney.Configuration(
@@ -89,7 +82,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[cookieAuth](../README.md#cookieAuth), [bearerSecurity](../README.md#bearerSecurity)
+[bearerSecurity](../README.md#bearerSecurity)
 
 ### HTTP request headers
 

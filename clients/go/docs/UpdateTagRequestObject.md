@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **string** | If set, the new name of the category. Must be between 1 and 100 characters. | [optional] 
-**Description** | Pointer to **NullableString** | If set, the new description of the category. Must not exceed 200 characters. | [optional] 
+**Name** | Pointer to **string** | If set, the new name of the tag. Must be between 1 and 100. characters. | [optional] 
+**Description** | Pointer to **NullableString** | If set, the new description of the tag. Must not exceed 200. characters. | [optional] 
 **TextColor** | Pointer to **NullableString** | The text color of the tag. | [optional] 
 **BackgroundColor** | Pointer to **NullableString** | The background color of the tag. | [optional] 
-**Archived** | Pointer to **bool** | If set, will indicate if this category is archived. | [optional] 
-**Id** | Pointer to **int32** | System-defined unique identifier for the category. Ignored if set. | [optional] 
+**Archived** | Pointer to **bool** | If set, determines whether this tag is archived. | [optional] 
+**Id** | Pointer to **int32** | System-defined unique identifier for the tag. Ignored if set. | [optional] 
 **UpdatedAt** | Pointer to **time.Time** | System-set time the tag was last updated. Ignored if set | [optional] 
 **CreatedAt** | Pointer to **time.Time** | System-set time the tag was created. Ignored if set. | [optional] 
 **ArchivedAt** | Pointer to **NullableTime** | If set, updates the archived timestamp for the tag. Provide an ISO 8601 extended datetime or &#x60;null&#x60; to clear it. | [optional] 

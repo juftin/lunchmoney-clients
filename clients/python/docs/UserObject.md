@@ -8,9 +8,9 @@ Name | Type | Description | Notes
 **name** | **str** | The user&#39;s name | 
 **email** | **str** | The user&#39;s email | 
 **id** | **int** | Unique ID for the user | 
-**account_id** | **int** | Unique ID for the linked budgeting account | 
-**budget_name** | **str** | Name of the linked budgeting account | 
-**primary_currency** | [**CurrencyEnum**](CurrencyEnum.md) | Primary currency set in the user&#39;s settings | 
+**account_id** | **int** | Unique ID for the current budgeting account | 
+**budget_name** | **str** | Name of the current budgeting account | 
+**primary_currency** | [**CurrencyEnum**](CurrencyEnum.md) | Primary currency for the current budgeting account | 
 **api_key_label** | **str** | Label assigned by the user to the API key being used. Returns null if no label is set | 
 
 ## Example

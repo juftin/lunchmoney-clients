@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Payee** | **string** | The payee for the new grouped transaction.  | 
 **CategoryId** | Pointer to **NullableInt64** | The ID of an existing category to assign to the grouped transaction. If not set and all the grouped transactions have the same category, the grouped transaction will inherit the category, otherwise the new transaction will have no category. | [optional] 
 **Notes** | Pointer to **NullableString** | Notes for the grouped transaction.  | [optional] 
-**Status** | Pointer to **string** | If set must be either &#x60;reviewed&#x60; or &#x60;unreviewed&#x60;. If not set, defaults to &#x60;reviewed&#x60;. | [optional] 
+**Status** | Pointer to **string** | If set, must be either &#x60;reviewed&#x60; or &#x60;unreviewed&#x60;. If not set, defaults to &#x60;reviewed&#x60;. | [optional] 
 **TagIds** | Pointer to **[]int64** | A list of IDs for the tags associated with the grouped transaction. Each ID must match an existing tag associated with the user&#39;s account. If not set, no tags will be associated with the created transaction. | [optional] 
 
 ## Methods

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**OtherActivity** | **float32** | Total non recurring activity, in the user&#39;s default currency, for the category within the given date range.&lt;br&gt; The total activity for the category is the sum of this and the recurring_activity. | 
+**OtherActivity** | **float32** | Total non-recurring activity, in the user&#39;s default currency, for the category within the given date range.&lt;br&gt; The total activity for the category is the sum of this and the recurring_activity. | 
 **RecurringActivity** | **float32** | Total recurring activity, in the user&#39;s default currency, for the category within the given date range.&lt;br&gt; The total activity for the category is the sum of this and the other_activity. | 
 **Budgeted** | Pointer to **NullableFloat32** | Total budgeted amount, in the user&#39;s default currency, for the category within the given date range or null if the category is not budgeted. This property will not be present in a non-aligned response. | [optional] 
 **Available** | Pointer to **NullableFloat32** | Total amount of funds available, in the user&#39;s default currency, for the category within the given date range. This property will not be present in a non-aligned response. | [optional] 

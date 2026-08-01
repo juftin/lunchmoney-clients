@@ -1,9 +1,9 @@
 /*
 Lunch Money API - v2
 
-Welcome to the Lunch Money v2 API. The API is available at `https://api.lunchmoney.dev/v2`. Get your access token from the [Lunch Money developers page](https://my.lunchmoney.app/developers).  ### Introduction  <span class=\"red-text\"><strong>The v2 API is in open alpha and is still subject to change. Use the mock server or a test budget when getting started.</strong></span>  **Static Mock Server**  Explore the API without an access token or risk to real data. Select **\"Static Mock v2 Lunch Money API Server\"** from the Server dropdown, then set your Bearer token to any string with 11 or more characters.  **Migrating from v1**  The v2 API is not backwards compatible with v1. See the [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) for details.  **Useful links** - [Developer Portal](https://lunchmoney.dev/v2/introduction) - [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) - [v2 API Overview](https://lunchmoney.dev/v2/overview) - [v2 API Changelog](https://lunchmoney.dev/v2/changelog) - [Migration Guide](https://lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://lunchmoney.dev/v2/rate-limits)
+### Introduction  Welcome to the Lunch Money v2 API reference. This is the **v2.11.0** spec.  The API is available at `https://api.lunchmoney.dev/v2`. Get your access token from the [Lunch Money developers page](https://my.lunchmoney.app/developers).   **Try it from these docs**  These docs are interactive — use **Test request** on any endpoint to call the API from this page. Choose a LIVE or MOCK service from the Server dropdown. Requests sent to `https://api.lunchmoney.dev/v2` can <span class=\"red-text\"><strong>change or delete</strong></span> your data and are <span class=\"red-text\"><strong>permanent</strong></span>. See the [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) before using the live API.  **Static mock server**  Explore without risk to real data. Select `https://mock.lunchmoney.dev/v2` in the Server dropdown to work with static mock data. POST, PUT, and DELETE requests will return realistic responses, but do not change the mock data.   **Client Libraries & SDKs**  An official TypeScript SDK is available on [NPM](https://www.npmjs.com/package/@lunch-money/v2-api-spec) and [GitHub](https://github.com/lunch-money/lunch-money-js-v2). For Python or other languages, see [lunchmoney-clients](https://github.com/juftin/lunchmoney-clients) or generate a client from [this OpenAPI spec](/v2/openapi).  **Migrating from v1**  The v2 API is not backwards compatible with v1. See the [Migration Guide](https://lunchmoney.dev/v2/migration-guide) for details.  **Useful links** - [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) - [v2 API Overview](https://lunchmoney.dev/v2/overview) - [Version History](https://lunchmoney.dev/v2/version-history) - [Migration Guide](https://lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://lunchmoney.dev/v2/rate-limits)
 
-API version: 2.9.4
+API version: 2.11.0
 Contact: devsupport@lunchmoney.app
 */
 
@@ -24,14 +24,14 @@ var _ MappedNullable = &CreateManualAccountRequestObject{}
 type CreateManualAccountRequestObject struct {
 	// Name of the manual account
 	Name string `json:"name"`
-	// Name of institution holding the manual account
-	InstitutionName *string `json:"institution_name,omitempty"`
-	// Display name of the manual account as set by user or derived from the `institution_name` and `name` if not explicitly set.<br> This must be unique for the budgeting account.
-	DisplayName *string `json:"display_name,omitempty"`
+	// Name of the institution holding the manual account. If omitted or `null`, no institution name is set.
+	InstitutionName NullableString `json:"institution_name,omitempty"`
+	// Display name of the manual account. If omitted or `null`, it is derived from `institution_name` and `name`. An explicitly set display name must be unique for the budgeting account.
+	DisplayName NullableString `json:"display_name,omitempty"`
 	// The type of manual account
 	Type AccountTypeEnum `json:"type"`
-	// An optional manual account subtype. Examples include<br> - retirement - checking - savings - prepaid credit card
-	Subtype *string `json:"subtype,omitempty"`
+	// Manual account subtype. If omitted or `null`, no subtype is set. Examples include retirement, checking, savings, and prepaid credit card.
+	Subtype NullableString `json:"subtype,omitempty"`
 	Balance CreateManualAccountRequestObjectBalance `json:"balance"`
 	// Date/time the balance of the manual account was last updated in ISO 8601 extended format
 	BalanceAsOf NullableString `json:"balance_as_of,omitempty"`
@@ -102,68 +102,88 @@ func (o *CreateManualAccountRequestObject) SetName(v string) {
 	o.Name = v
 }
 
-// GetInstitutionName returns the InstitutionName field value if set, zero value otherwise.
+// GetInstitutionName returns the InstitutionName field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CreateManualAccountRequestObject) GetInstitutionName() string {
-	if o == nil || IsNil(o.InstitutionName) {
+	if o == nil || IsNil(o.InstitutionName.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.InstitutionName
+	return *o.InstitutionName.Get()
 }
 
 // GetInstitutionNameOk returns a tuple with the InstitutionName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateManualAccountRequestObject) GetInstitutionNameOk() (*string, bool) {
-	if o == nil || IsNil(o.InstitutionName) {
+	if o == nil {
 		return nil, false
 	}
-	return o.InstitutionName, true
+	return o.InstitutionName.Get(), o.InstitutionName.IsSet()
 }
 
 // HasInstitutionName returns a boolean if a field has been set.
 func (o *CreateManualAccountRequestObject) HasInstitutionName() bool {
-	if o != nil && !IsNil(o.InstitutionName) {
+	if o != nil && o.InstitutionName.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetInstitutionName gets a reference to the given string and assigns it to the InstitutionName field.
+// SetInstitutionName gets a reference to the given NullableString and assigns it to the InstitutionName field.
 func (o *CreateManualAccountRequestObject) SetInstitutionName(v string) {
-	o.InstitutionName = &v
+	o.InstitutionName.Set(&v)
+}
+// SetInstitutionNameNil sets the value for InstitutionName to be an explicit nil
+func (o *CreateManualAccountRequestObject) SetInstitutionNameNil() {
+	o.InstitutionName.Set(nil)
 }
 
-// GetDisplayName returns the DisplayName field value if set, zero value otherwise.
+// UnsetInstitutionName ensures that no value is present for InstitutionName, not even an explicit nil
+func (o *CreateManualAccountRequestObject) UnsetInstitutionName() {
+	o.InstitutionName.Unset()
+}
+
+// GetDisplayName returns the DisplayName field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CreateManualAccountRequestObject) GetDisplayName() string {
-	if o == nil || IsNil(o.DisplayName) {
+	if o == nil || IsNil(o.DisplayName.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.DisplayName
+	return *o.DisplayName.Get()
 }
 
 // GetDisplayNameOk returns a tuple with the DisplayName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateManualAccountRequestObject) GetDisplayNameOk() (*string, bool) {
-	if o == nil || IsNil(o.DisplayName) {
+	if o == nil {
 		return nil, false
 	}
-	return o.DisplayName, true
+	return o.DisplayName.Get(), o.DisplayName.IsSet()
 }
 
 // HasDisplayName returns a boolean if a field has been set.
 func (o *CreateManualAccountRequestObject) HasDisplayName() bool {
-	if o != nil && !IsNil(o.DisplayName) {
+	if o != nil && o.DisplayName.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetDisplayName gets a reference to the given string and assigns it to the DisplayName field.
+// SetDisplayName gets a reference to the given NullableString and assigns it to the DisplayName field.
 func (o *CreateManualAccountRequestObject) SetDisplayName(v string) {
-	o.DisplayName = &v
+	o.DisplayName.Set(&v)
+}
+// SetDisplayNameNil sets the value for DisplayName to be an explicit nil
+func (o *CreateManualAccountRequestObject) SetDisplayNameNil() {
+	o.DisplayName.Set(nil)
+}
+
+// UnsetDisplayName ensures that no value is present for DisplayName, not even an explicit nil
+func (o *CreateManualAccountRequestObject) UnsetDisplayName() {
+	o.DisplayName.Unset()
 }
 
 // GetType returns the Type field value
@@ -190,36 +210,46 @@ func (o *CreateManualAccountRequestObject) SetType(v AccountTypeEnum) {
 	o.Type = v
 }
 
-// GetSubtype returns the Subtype field value if set, zero value otherwise.
+// GetSubtype returns the Subtype field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CreateManualAccountRequestObject) GetSubtype() string {
-	if o == nil || IsNil(o.Subtype) {
+	if o == nil || IsNil(o.Subtype.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.Subtype
+	return *o.Subtype.Get()
 }
 
 // GetSubtypeOk returns a tuple with the Subtype field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateManualAccountRequestObject) GetSubtypeOk() (*string, bool) {
-	if o == nil || IsNil(o.Subtype) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Subtype, true
+	return o.Subtype.Get(), o.Subtype.IsSet()
 }
 
 // HasSubtype returns a boolean if a field has been set.
 func (o *CreateManualAccountRequestObject) HasSubtype() bool {
-	if o != nil && !IsNil(o.Subtype) {
+	if o != nil && o.Subtype.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetSubtype gets a reference to the given string and assigns it to the Subtype field.
+// SetSubtype gets a reference to the given NullableString and assigns it to the Subtype field.
 func (o *CreateManualAccountRequestObject) SetSubtype(v string) {
-	o.Subtype = &v
+	o.Subtype.Set(&v)
+}
+// SetSubtypeNil sets the value for Subtype to be an explicit nil
+func (o *CreateManualAccountRequestObject) SetSubtypeNil() {
+	o.Subtype.Set(nil)
+}
+
+// UnsetSubtype ensures that no value is present for Subtype, not even an explicit nil
+func (o *CreateManualAccountRequestObject) UnsetSubtype() {
+	o.Subtype.Unset()
 }
 
 // GetBalance returns the Balance field value
@@ -512,15 +542,15 @@ func (o CreateManualAccountRequestObject) MarshalJSON() ([]byte, error) {
 func (o CreateManualAccountRequestObject) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["name"] = o.Name
-	if !IsNil(o.InstitutionName) {
-		toSerialize["institution_name"] = o.InstitutionName
+	if o.InstitutionName.IsSet() {
+		toSerialize["institution_name"] = o.InstitutionName.Get()
 	}
-	if !IsNil(o.DisplayName) {
-		toSerialize["display_name"] = o.DisplayName
+	if o.DisplayName.IsSet() {
+		toSerialize["display_name"] = o.DisplayName.Get()
 	}
 	toSerialize["type"] = o.Type
-	if !IsNil(o.Subtype) {
-		toSerialize["subtype"] = o.Subtype
+	if o.Subtype.IsSet() {
+		toSerialize["subtype"] = o.Subtype.Get()
 	}
 	toSerialize["balance"] = o.Balance
 	if o.BalanceAsOf.IsSet() {

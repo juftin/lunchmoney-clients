@@ -1,9 +1,9 @@
 /*
 Lunch Money API - v2
 
-Welcome to the Lunch Money v2 API. The API is available at `https://api.lunchmoney.dev/v2`. Get your access token from the [Lunch Money developers page](https://my.lunchmoney.app/developers).  ### Introduction  <span class=\"red-text\"><strong>The v2 API is in open alpha and is still subject to change. Use the mock server or a test budget when getting started.</strong></span>  **Static Mock Server**  Explore the API without an access token or risk to real data. Select **\"Static Mock v2 Lunch Money API Server\"** from the Server dropdown, then set your Bearer token to any string with 11 or more characters.  **Migrating from v1**  The v2 API is not backwards compatible with v1. See the [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) for details.  **Useful links** - [Developer Portal](https://lunchmoney.dev/v2/introduction) - [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) - [v2 API Overview](https://lunchmoney.dev/v2/overview) - [v2 API Changelog](https://lunchmoney.dev/v2/changelog) - [Migration Guide](https://lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://lunchmoney.dev/v2/rate-limits)
+### Introduction  Welcome to the Lunch Money v2 API reference. This is the **v2.11.0** spec.  The API is available at `https://api.lunchmoney.dev/v2`. Get your access token from the [Lunch Money developers page](https://my.lunchmoney.app/developers).   **Try it from these docs**  These docs are interactive — use **Test request** on any endpoint to call the API from this page. Choose a LIVE or MOCK service from the Server dropdown. Requests sent to `https://api.lunchmoney.dev/v2` can <span class=\"red-text\"><strong>change or delete</strong></span> your data and are <span class=\"red-text\"><strong>permanent</strong></span>. See the [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) before using the live API.  **Static mock server**  Explore without risk to real data. Select `https://mock.lunchmoney.dev/v2` in the Server dropdown to work with static mock data. POST, PUT, and DELETE requests will return realistic responses, but do not change the mock data.   **Client Libraries & SDKs**  An official TypeScript SDK is available on [NPM](https://www.npmjs.com/package/@lunch-money/v2-api-spec) and [GitHub](https://github.com/lunch-money/lunch-money-js-v2). For Python or other languages, see [lunchmoney-clients](https://github.com/juftin/lunchmoney-clients) or generate a client from [this OpenAPI spec](/v2/openapi).  **Migrating from v1**  The v2 API is not backwards compatible with v1. See the [Migration Guide](https://lunchmoney.dev/v2/migration-guide) for details.  **Useful links** - [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) - [v2 API Overview](https://lunchmoney.dev/v2/overview) - [Version History](https://lunchmoney.dev/v2/version-history) - [Migration Guide](https://lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://lunchmoney.dev/v2/rate-limits)
 
-API version: 2.9.4
+API version: 2.11.0
 Contact: devsupport@lunchmoney.app
 */
 
@@ -42,7 +42,7 @@ func (r ApiCreateCategoryRequest) Execute() (*CategoryObject, *http.Response, er
 /*
 CreateCategory Create a new category or category group
 
-Creates a new category with the given name.<br> If the `is_group` attribute is set to true, a category group is created. In this case, the `children` attribute may be set to an array of existing category IDs to add to the newly-created category group.
+Creates a new category with the given name.<br> If the `is_group` attribute is set to true, a category group is created. In this case, the `children` attribute may be set to an array of category IDs to add to the newly created category group.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateCategoryRequest
@@ -197,7 +197,7 @@ func (r ApiDeleteCategoryRequest) Execute() (*http.Response, error) {
 /*
 DeleteCategory Delete a category or category group
 
-Attempts to delete the single category or category group specified on the path. By default, this will only work if there are no dependencies, such as existing budgets for the category, categorized transactions, children categories for a category group, categorized recurring items, etc. If there are dependents, this endpoint will return an object that describes the amount and type of existing dependencies.
+Attempts to delete the single category or category group specified on the path. By default, this will only work if there are no dependencies, such as existing budgets for the category, categorized transactions, child categories for a category group, categorized recurring items, etc. If there are dependents, this endpoint will return an object that describes the number and type of existing dependencies.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param id ID of the category to delete
@@ -682,8 +682,8 @@ UpdateCategory Update an existing category or category group
 Modifies the properties of an existing category or category group.<br><br>
 You may submit the response from a `GET /categories/{id}` as the request body; however, only certain properties can be updated using this API. The following properties are accepted in the request body but their values will be ignored: `id`, `is_group`, `updated_at`, `created_at`, and `order`.<br><br>
 It is also possible to provide only the properties to be updated in the request body, as long as the request includes at least one of the properties that is not listed above. For example, a request body that contains only a `name` property is valid.<br><br>
-It is not possible to use this API to convert a category to a category group, or a vice versa, so while submitting a request body with the `is_group` property is tolerated, it will result in an error response if the value is changed.<br><br>
-It is possible to modify the children of an existing category group with this API by setting the `children` attribute. If this is set, it will replace the existing children with the newly specified children. If the intention is to add or remove a single category, it is more straightforward to update the child category by specifying the new `group_id` attribute. If the goal is to add multiple new children or remove multiple existing children, it is recommended to first call the `GET /categories/:id` endpoint to get the existing children and then modify the list as desired.<br><br>
+It is not possible to use this API to convert a category to a category group, or vice versa, so while submitting a request body with the `is_group` property is tolerated, it will result in an error response if the value is changed.<br><br>
+It is possible to modify the children of an existing category group with this API by setting the `children` attribute. If this is set, it will replace the existing children with the newly specified children. If the intention is to add or remove a single category, it is more straightforward to update the child category by specifying the new `group_id` attribute. If the goal is to add multiple new children or remove multiple existing children, it is recommended to first call the `GET /categories/{id}` endpoint to get the existing children and then modify the list as desired.<br><br>
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param id ID of the category to update
