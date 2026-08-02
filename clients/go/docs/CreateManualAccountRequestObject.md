@@ -5,10 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | Name of the manual account | 
-**InstitutionName** | Pointer to **string** | Name of institution holding the manual account | [optional] 
-**DisplayName** | Pointer to **string** | Display name of the manual account as set by user or derived from the &#x60;institution_name&#x60; and &#x60;name&#x60; if not explicitly set.&lt;br&gt; This must be unique for the budgeting account. | [optional] 
+**InstitutionName** | Pointer to **NullableString** | Name of the institution holding the manual account. If omitted or &#x60;null&#x60;, no institution name is set. | [optional] 
+**DisplayName** | Pointer to **NullableString** | Display name of the manual account. If omitted or &#x60;null&#x60;, it is derived from &#x60;institution_name&#x60; and &#x60;name&#x60;. An explicitly set display name must be unique for the budgeting account. | [optional] 
 **Type** | [**AccountTypeEnum**](AccountTypeEnum.md) | The type of manual account | 
-**Subtype** | Pointer to **string** | An optional manual account subtype. Examples include&lt;br&gt; - retirement - checking - savings - prepaid credit card | [optional] 
+**Subtype** | Pointer to **NullableString** | Manual account subtype. If omitted or &#x60;null&#x60;, no subtype is set. Examples include retirement, checking, savings, and prepaid credit card. | [optional] 
 **Balance** | [**CreateManualAccountRequestObjectBalance**](CreateManualAccountRequestObjectBalance.md) |  | 
 **BalanceAsOf** | Pointer to **NullableString** | Date/time the balance of the manual account was last updated in ISO 8601 extended format | [optional] 
 **Currency** | Pointer to [**CurrencyEnum**](CurrencyEnum.md) | Three-letter lowercase currency code of the transaction in ISO 4217 format | [optional] 
@@ -82,6 +82,16 @@ SetInstitutionName sets InstitutionName field to given value.
 
 HasInstitutionName returns a boolean if a field has been set.
 
+### SetInstitutionNameNil
+
+`func (o *CreateManualAccountRequestObject) SetInstitutionNameNil(b bool)`
+
+ SetInstitutionNameNil sets the value for InstitutionName to be an explicit nil
+
+### UnsetInstitutionName
+`func (o *CreateManualAccountRequestObject) UnsetInstitutionName()`
+
+UnsetInstitutionName ensures that no value is present for InstitutionName, not even an explicit nil
 ### GetDisplayName
 
 `func (o *CreateManualAccountRequestObject) GetDisplayName() string`
@@ -107,6 +117,16 @@ SetDisplayName sets DisplayName field to given value.
 
 HasDisplayName returns a boolean if a field has been set.
 
+### SetDisplayNameNil
+
+`func (o *CreateManualAccountRequestObject) SetDisplayNameNil(b bool)`
+
+ SetDisplayNameNil sets the value for DisplayName to be an explicit nil
+
+### UnsetDisplayName
+`func (o *CreateManualAccountRequestObject) UnsetDisplayName()`
+
+UnsetDisplayName ensures that no value is present for DisplayName, not even an explicit nil
 ### GetType
 
 `func (o *CreateManualAccountRequestObject) GetType() AccountTypeEnum`
@@ -152,6 +172,16 @@ SetSubtype sets Subtype field to given value.
 
 HasSubtype returns a boolean if a field has been set.
 
+### SetSubtypeNil
+
+`func (o *CreateManualAccountRequestObject) SetSubtypeNil(b bool)`
+
+ SetSubtypeNil sets the value for Subtype to be an explicit nil
+
+### UnsetSubtype
+`func (o *CreateManualAccountRequestObject) UnsetSubtype()`
+
+UnsetSubtype ensures that no value is present for Subtype, not even an explicit nil
 ### GetBalance
 
 `func (o *CreateManualAccountRequestObject) GetBalance() CreateManualAccountRequestObjectBalance`

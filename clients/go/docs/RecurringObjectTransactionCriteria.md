@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Granularity** | **string** | The unit of time used to define the cadence of the recurring item. | 
 **Quantity** | **int32** | The number of granularity units between each recurrence. | 
 **AnchorDate** | **string** | The date used in conjunction with the &#x60;quantity&#x60; and &#x60;granularity&#x60; properties to calculate expected occurrences of recurring transactions. | 
-**Payee** | **NullableString** | If set, represents the original transaction payee name that triggered this recurring item&#39;s creation. | 
+**Payee** | **NullableString** | If set, specifies the original transaction payee name that triggered this recurring item&#39;s creation. | 
 **Amount** | **string** | The expected amount for a transaction that will match this recurring item. For recurring items that have a flexible amount this is the average of the specified min and max amounts. | 
 **ToBase** | **float32** | The amount converted to the user&#39;s primary currency | 
 **Currency** | **string** | Three-letter lowercase currency code of the recurring item. | 

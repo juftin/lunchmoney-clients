@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**InRange** | **bool** | true if this rollover pool adjustment is for a budget period that falls within the given date range. | 
+**InRange** | **bool** | &#x60;true&#x60; if this rollover pool adjustment is for a budget period that falls within the given date range. | 
 **Date** | **string** | Date the adjustment was made. | 
-**Amount** | **string** | Amount of the rollover pool, in the budgets currency, at the time of the adjustment. | 
+**Amount** | **string** | Amount of the rollover pool, in the budget&#39;s currency, at the time of the adjustment. | 
 **Currency** | [**CurrencyEnum**](CurrencyEnum.md) | Currency of the rollover pool at the time of the adjustment. | 
 **ToBase** | **float32** | Amount of the rollover pool, in the user&#39;s default currency, at the time of the adjustment. | 
 

@@ -1,9 +1,9 @@
 /*
 Lunch Money API - v2
 
-Welcome to the Lunch Money v2 API. The API is available at `https://api.lunchmoney.dev/v2`. Get your access token from the [Lunch Money developers page](https://my.lunchmoney.app/developers).  ### Introduction  <span class=\"red-text\"><strong>The v2 API is in open alpha and is still subject to change. Use the mock server or a test budget when getting started.</strong></span>  **Static Mock Server**  Explore the API without an access token or risk to real data. Select **\"Static Mock v2 Lunch Money API Server\"** from the Server dropdown, then set your Bearer token to any string with 11 or more characters.  **Migrating from v1**  The v2 API is not backwards compatible with v1. See the [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) for details.  **Useful links** - [Developer Portal](https://lunchmoney.dev/v2/introduction) - [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) - [v2 API Overview](https://lunchmoney.dev/v2/overview) - [v2 API Changelog](https://lunchmoney.dev/v2/changelog) - [Migration Guide](https://lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://lunchmoney.dev/v2/rate-limits)
+### Introduction  Welcome to the Lunch Money v2 API reference. This is the **v2.11.0** spec.  The API is available at `https://api.lunchmoney.dev/v2`. Get your access token from the [Lunch Money developers page](https://my.lunchmoney.app/developers).   **Try it from these docs**  These docs are interactive — use **Test request** on any endpoint to call the API from this page. Choose a LIVE or MOCK service from the Server dropdown. Requests sent to `https://api.lunchmoney.dev/v2` can <span class=\"red-text\"><strong>change or delete</strong></span> your data and are <span class=\"red-text\"><strong>permanent</strong></span>. See the [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) before using the live API.  **Static mock server**  Explore without risk to real data. Select `https://mock.lunchmoney.dev/v2` in the Server dropdown to work with static mock data. POST, PUT, and DELETE requests will return realistic responses, but do not change the mock data.   **Client Libraries & SDKs**  An official TypeScript SDK is available on [NPM](https://www.npmjs.com/package/@lunch-money/v2-api-spec) and [GitHub](https://github.com/lunch-money/lunch-money-js-v2). For Python or other languages, see [lunchmoney-clients](https://github.com/juftin/lunchmoney-clients) or generate a client from [this OpenAPI spec](/v2/openapi).  **Migrating from v1**  The v2 API is not backwards compatible with v1. See the [Migration Guide](https://lunchmoney.dev/v2/migration-guide) for details.  **Useful links** - [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) - [v2 API Overview](https://lunchmoney.dev/v2/overview) - [Version History](https://lunchmoney.dev/v2/version-history) - [Migration Guide](https://lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://lunchmoney.dev/v2/rate-limits)
 
-API version: 2.9.4
+API version: 2.11.0
 Contact: devsupport@lunchmoney.app
 */
 
@@ -27,12 +27,12 @@ type SplitTransactionObject struct {
 	Payee *string `json:"payee,omitempty"`
 	// Must be in ISO 8601 format (YYYY-MM-DD). Will inherit from the parent if not defined.
 	Date *string `json:"date,omitempty"`
-	// Unique identifier for associated category_id. Category must already exist for the account. Will inherit category from the parent if not defined.
-	CategoryId *int32 `json:"category_id,omitempty"`
+	// Category ID for the child transaction. The category must already exist for the account. If omitted, the child inherits the parent category. If `null`, the child has no category.
+	CategoryId NullableInt32 `json:"category_id,omitempty"`
 	// The IDs of any tags to apply to this split child transaction. Each ID must match an existing tag.
 	TagIds []int32 `json:"tag_ids,omitempty"`
-	// Will inherit notes from parent if not defined.
-	Notes *string `json:"notes,omitempty"`
+	// Notes for the child transaction. If omitted, the child inherits the parent notes. If `null` or an empty string, the child has no notes.
+	Notes NullableString `json:"notes,omitempty"`
 }
 
 type _SplitTransactionObject SplitTransactionObject
@@ -143,36 +143,46 @@ func (o *SplitTransactionObject) SetDate(v string) {
 	o.Date = &v
 }
 
-// GetCategoryId returns the CategoryId field value if set, zero value otherwise.
+// GetCategoryId returns the CategoryId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *SplitTransactionObject) GetCategoryId() int32 {
-	if o == nil || IsNil(o.CategoryId) {
+	if o == nil || IsNil(o.CategoryId.Get()) {
 		var ret int32
 		return ret
 	}
-	return *o.CategoryId
+	return *o.CategoryId.Get()
 }
 
 // GetCategoryIdOk returns a tuple with the CategoryId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *SplitTransactionObject) GetCategoryIdOk() (*int32, bool) {
-	if o == nil || IsNil(o.CategoryId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CategoryId, true
+	return o.CategoryId.Get(), o.CategoryId.IsSet()
 }
 
 // HasCategoryId returns a boolean if a field has been set.
 func (o *SplitTransactionObject) HasCategoryId() bool {
-	if o != nil && !IsNil(o.CategoryId) {
+	if o != nil && o.CategoryId.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetCategoryId gets a reference to the given int32 and assigns it to the CategoryId field.
+// SetCategoryId gets a reference to the given NullableInt32 and assigns it to the CategoryId field.
 func (o *SplitTransactionObject) SetCategoryId(v int32) {
-	o.CategoryId = &v
+	o.CategoryId.Set(&v)
+}
+// SetCategoryIdNil sets the value for CategoryId to be an explicit nil
+func (o *SplitTransactionObject) SetCategoryIdNil() {
+	o.CategoryId.Set(nil)
+}
+
+// UnsetCategoryId ensures that no value is present for CategoryId, not even an explicit nil
+func (o *SplitTransactionObject) UnsetCategoryId() {
+	o.CategoryId.Unset()
 }
 
 // GetTagIds returns the TagIds field value if set, zero value otherwise.
@@ -207,36 +217,46 @@ func (o *SplitTransactionObject) SetTagIds(v []int32) {
 	o.TagIds = v
 }
 
-// GetNotes returns the Notes field value if set, zero value otherwise.
+// GetNotes returns the Notes field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *SplitTransactionObject) GetNotes() string {
-	if o == nil || IsNil(o.Notes) {
+	if o == nil || IsNil(o.Notes.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.Notes
+	return *o.Notes.Get()
 }
 
 // GetNotesOk returns a tuple with the Notes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *SplitTransactionObject) GetNotesOk() (*string, bool) {
-	if o == nil || IsNil(o.Notes) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Notes, true
+	return o.Notes.Get(), o.Notes.IsSet()
 }
 
 // HasNotes returns a boolean if a field has been set.
 func (o *SplitTransactionObject) HasNotes() bool {
-	if o != nil && !IsNil(o.Notes) {
+	if o != nil && o.Notes.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetNotes gets a reference to the given string and assigns it to the Notes field.
+// SetNotes gets a reference to the given NullableString and assigns it to the Notes field.
 func (o *SplitTransactionObject) SetNotes(v string) {
-	o.Notes = &v
+	o.Notes.Set(&v)
+}
+// SetNotesNil sets the value for Notes to be an explicit nil
+func (o *SplitTransactionObject) SetNotesNil() {
+	o.Notes.Set(nil)
+}
+
+// UnsetNotes ensures that no value is present for Notes, not even an explicit nil
+func (o *SplitTransactionObject) UnsetNotes() {
+	o.Notes.Unset()
 }
 
 func (o SplitTransactionObject) MarshalJSON() ([]byte, error) {
@@ -256,14 +276,14 @@ func (o SplitTransactionObject) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Date) {
 		toSerialize["date"] = o.Date
 	}
-	if !IsNil(o.CategoryId) {
-		toSerialize["category_id"] = o.CategoryId
+	if o.CategoryId.IsSet() {
+		toSerialize["category_id"] = o.CategoryId.Get()
 	}
 	if !IsNil(o.TagIds) {
 		toSerialize["tag_ids"] = o.TagIds
 	}
-	if !IsNil(o.Notes) {
-		toSerialize["notes"] = o.Notes
+	if o.Notes.IsSet() {
+		toSerialize["notes"] = o.Notes.Get()
 	}
 	return toSerialize, nil
 }

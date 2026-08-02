@@ -20,7 +20,6 @@ Creates a new tag with the given name
 
 ### Example
 
-* Api Key Authentication (cookieAuth):
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
@@ -40,12 +39,6 @@ configuration = lunchmoney.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: cookieAuth
-configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['cookieAuth'] = 'Bearer'
 
 # Configure Bearer authorization (JWT): bearerSecurity
 configuration = lunchmoney.Configuration(
@@ -82,7 +75,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[cookieAuth](../README.md#cookieAuth), [bearerSecurity](../README.md#bearerSecurity)
+[bearerSecurity](../README.md#bearerSecurity)
 
 ### HTTP request headers
 
@@ -107,11 +100,10 @@ Name | Type | Description  | Notes
 Delete a tag
 
 Deletes the tag with the ID specified on the path.<br>
-If transaction or rules exist with the tag a dependents object is returned and the tag is not deleted. This behavior can be overridden by setting the `force` param to `true`.
+If transactions or rules exist with the tag, a dependents object is returned and the tag is not deleted. This behavior can be overridden by setting the `force` parameter to `true`.
 
 ### Example
 
-* Api Key Authentication (cookieAuth):
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
@@ -129,12 +121,6 @@ configuration = lunchmoney.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: cookieAuth
-configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['cookieAuth'] = 'Bearer'
 
 # Configure Bearer authorization (JWT): bearerSecurity
 configuration = lunchmoney.Configuration(
@@ -171,7 +157,7 @@ void (empty response body)
 
 ### Authorization
 
-[cookieAuth](../README.md#cookieAuth), [bearerSecurity](../README.md#bearerSecurity)
+[bearerSecurity](../README.md#bearerSecurity)
 
 ### HTTP request headers
 
@@ -185,7 +171,7 @@ void (empty response body)
 **204** | No Content |  -  |
 **401** | Unauthorized. This error occurs when an invalid API token is passed to the request. |  -  |
 **404** | Not Found |  -  |
-**422** | Unprocessable Entity |  -  |
+**422** | Unprocessable Content |  -  |
 **429** | Too Many Requests. Retry your request after the number of seconds specified in the retry-after header. |  -  |
 **500** | Internal Server Error. Contact support. |  -  |
 
@@ -200,7 +186,6 @@ Retrieve a list of all tags associated with the user's account.
 
 ### Example
 
-* Api Key Authentication (cookieAuth):
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
@@ -219,12 +204,6 @@ configuration = lunchmoney.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: cookieAuth
-configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['cookieAuth'] = 'Bearer'
 
 # Configure Bearer authorization (JWT): bearerSecurity
 configuration = lunchmoney.Configuration(
@@ -257,7 +236,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[cookieAuth](../README.md#cookieAuth), [bearerSecurity](../README.md#bearerSecurity)
+[bearerSecurity](../README.md#bearerSecurity)
 
 ### HTTP request headers
 
@@ -285,7 +264,6 @@ Retrieve the details of a specific tag with the specified ID.
 
 ### Example
 
-* Api Key Authentication (cookieAuth):
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
@@ -304,12 +282,6 @@ configuration = lunchmoney.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: cookieAuth
-configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['cookieAuth'] = 'Bearer'
 
 # Configure Bearer authorization (JWT): bearerSecurity
 configuration = lunchmoney.Configuration(
@@ -346,7 +318,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[cookieAuth](../README.md#cookieAuth), [bearerSecurity](../README.md#bearerSecurity)
+[bearerSecurity](../README.md#bearerSecurity)
 
 ### HTTP request headers
 
@@ -372,12 +344,11 @@ Name | Type | Description  | Notes
 Update an existing tag
 
 Updates an existing tag.<br><br>
-You may submit the response from a `GET /tags/{id}` as the request body, however only certain properties can be updated using this API. The following system set properties are accepted in the request body but their values will be ignored: `id`, `updated_at`, and `created_at`.<br><br>
-It is also possible to provide only the properties to be updated in the request body, as long as the request includes at least one of the properties that is not listed above. For example a request body that contains only a `name` attribute is valid.
+You may submit the response from a `GET /tags/{id}` as the request body; however, only certain properties can be updated using this API. The following system set properties are accepted in the request body but their values will be ignored: `id`, `updated_at`, and `created_at`.<br><br>
+It is also possible to provide only the properties to be updated in the request body, as long as the request includes at least one of the properties that is not listed above. For example, a request body that contains only a `name` attribute is valid.
 
 ### Example
 
-* Api Key Authentication (cookieAuth):
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
@@ -397,12 +368,6 @@ configuration = lunchmoney.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: cookieAuth
-configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['cookieAuth'] = 'Bearer'
 
 # Configure Bearer authorization (JWT): bearerSecurity
 configuration = lunchmoney.Configuration(
@@ -441,7 +406,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[cookieAuth](../README.md#cookieAuth), [bearerSecurity](../README.md#bearerSecurity)
+[bearerSecurity](../README.md#bearerSecurity)
 
 ### HTTP request headers
 
@@ -452,7 +417,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Category or Category Group updated successfully |  -  |
+**200** | Tag updated successfully |  -  |
 **400** | Bad Request |  -  |
 **401** | Unauthorized. This error occurs when an invalid API token is passed to the request. |  -  |
 **404** | Not Found |  -  |
