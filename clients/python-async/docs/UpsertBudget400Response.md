@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **previous_valid_start_date** | **date** | The previous valid budget period start date before the requested date | [optional] 
 **next_valid_start_date** | **date** | The next valid budget period start date after the requested date | [optional] 
 **err_msg** | **str** | Human-readable error message | 
-**errors** | [**List[ErrorResponseObjectErrorsInner]**](ErrorResponseObjectErrorsInner.md) | An list of objects that describe the errors encountered while processing the request.&lt;br&gt; If multiple errors were encountered, the list will contain multiple objects.&lt;br&gt; Each &#x60;error&#x60; object is guaranteed to have an &#x60;errMsg&#x60;, but it may also contain other error specific properties. | 
+**errors** | [**List[ErrorResponseObjectErrorsInner]**](ErrorResponseObjectErrorsInner.md) | A list of objects that describe the errors encountered while processing the request.&lt;br&gt; If multiple errors were encountered, the list will contain multiple objects.&lt;br&gt; Each &#x60;error&#x60; object is guaranteed to have an &#x60;errMsg&#x60;, but it may also contain other error-specific properties such as &#x60;code&#x60; (for example &#x60;VALIDATION_ERROR&#x60;), or other properties that are useful to map the error to the relevant part of the request. | 
 
 ## Example
 

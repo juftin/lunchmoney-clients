@@ -6,20 +6,20 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** | System defined unique ID for the category | 
-**name** | **str** | The name of the category. | 
-**description** | **str** | The description of the category or &#x60;null&#x60; if not set. | 
-**is_income** | **bool** | If &#x60;true&#x60;, the transactions in this category will be treated as income. (See &lt;a href&#x3D;\&quot;https://support.lunchmoney.app/setup/categories/category-properties\&quot;&gt;Category Properties&lt;/a&gt; for more details) | 
-**exclude_from_budget** | **bool** | If &#x60;true&#x60;, the transactions in this category will be excluded from the budget. (See &lt;a href&#x3D;\&quot;https://support.lunchmoney.app/setup/categories/category-properties\&quot;&gt;Category Properties&lt;/a&gt; for more details) | 
-**exclude_from_totals** | **bool** | If &#x60;true&#x60;, the transactions in this category will be excluded from totals. (See &lt;a href&#x3D;\&quot;https://support.lunchmoney.app/setup/categories/category-properties\&quot;&gt;Category Properties&lt;/a&gt; for more details) | 
-**updated_at** | **datetime** | The date and time of when the category was last updated (in the ISO 8601 extended format). | 
-**created_at** | **datetime** | The date and time of when the category was created (in the ISO 8601 extended format). | 
-**group_id** | **int** | The ID of the category group this category belongs to or &#x60;null&#x60; if the category doesn&#39;t belong to a group, or is itself a category group. | 
-**is_group** | **bool** | If &#x60;true&#x60;, the category is created as a category group. | 
-**children** | [**List[ChildCategoryObject]**](ChildCategoryObject.md) | For category groups, this will populate with details about the categories that belong to this group. The objects in this array are similar to Category Objects but do not include the &#x60;is_income&#x60;, &#x60;exclude_from_budget&#x60;, and &#x60;exclude_from_totals&#x60; properties as these are inherited from the category group. In addition, the &#x60;is_group&#x60; property will always be &#x60;false&#x60;, and there will be no &#x60;children&#x60; attribute. | [optional] 
-**archived** | **bool** | If true, the category is archived and not displayed in relevant areas of the Lunch Money app. | 
-**archived_at** | **datetime** | The date and time of when the category was last archived (in the ISO 8601 extended format). | 
-**order** | **int** | An integer specifying the position in which the category is displayed on the categories page in the Lunch Money GUI. For categories within a category group the order is relative to the other categories within the group.&lt;br&gt;Categories with &#x60;order: null&#x60; will be displayed in alphabetical order by name, prior to any categories with an order | 
-**collapsed** | **bool** | If &#x60;true&#x60;, the category is collapsed in the Lunch Money GUI. | [default to False]
+**name** | **str** | Name of the category | 
+**description** | **str** | Category description, or &#x60;null&#x60; if none is set | 
+**is_income** | **bool** | If &#x60;true&#x60;, transactions in this category are treated as income. (See [Category Properties](https://support.lunchmoney.app/setup/categories/category-properties) for details) | 
+**exclude_from_budget** | **bool** | If &#x60;true&#x60;, transactions in this category are excluded from the budget. (See [Category Properties](https://support.lunchmoney.app/setup/categories/category-properties) for details) | 
+**exclude_from_totals** | **bool** | If &#x60;true&#x60;, transactions in this category are excluded from totals. (See [Category Properties](https://support.lunchmoney.app/setup/categories/category-properties) for details) | 
+**updated_at** | **datetime** | Date and time the category was last updated (in the ISO 8601 extended format). | 
+**created_at** | **datetime** | Date and time of when the category was created (ISO 8601 extended format). | 
+**group_id** | **int** | ID of the category group this category belongs to, or &#x60;null&#x60; if it does not belong to a group, or is itself a group. | 
+**is_group** | **bool** | If &#x60;true&#x60;, this category is created as a category group | 
+**children** | [**List[ChildCategoryObject]**](ChildCategoryObject.md) | For category groups, contains details about the categories in the group. These objects are similar to Category Objects but the &#x60;is_group&#x60; property will always be &#x60;false&#x60;, and there will be no &#x60;children&#x60; attribute. | [optional] 
+**archived** | **bool** | If true, the category is archived and hidden in relevant areas of the Lunch Money app. | 
+**archived_at** | **datetime** | Date and time the category was last archived ( ISO 8601 extended format). | 
+**order** | **int** | Position of the category on the categories page in the Lunch Money app. For grouped categories, the order is relative to others in the same group.&lt;br&gt; Categories with &#x60;order: null&#x60; are shown alphabetically before ordered categories | 
+**collapsed** | **bool** | If &#x60;true&#x60;, the category appears collapsed in the Lunch Money app | [default to False]
 
 ## Example
 

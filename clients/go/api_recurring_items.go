@@ -1,9 +1,9 @@
 /*
 Lunch Money API - v2
 
-Welcome to the Lunch Money v2 API. The API is available at `https://api.lunchmoney.dev/v2`. Get your access token from the [Lunch Money developers page](https://my.lunchmoney.app/developers).  ### Introduction  <span class=\"red-text\"><strong>The v2 API is in open alpha and is still subject to change. Use the mock server or a test budget when getting started.</strong></span>  **Static Mock Server**  Explore the API without an access token or risk to real data. Select **\"Static Mock v2 Lunch Money API Server\"** from the Server dropdown, then set your Bearer token to any string with 11 or more characters.  **Migrating from v1**  The v2 API is not backwards compatible with v1. See the [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) for details.  **Useful links** - [Developer Portal](https://lunchmoney.dev/v2/introduction) - [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) - [v2 API Overview](https://lunchmoney.dev/v2/overview) - [v2 API Changelog](https://lunchmoney.dev/v2/changelog) - [Migration Guide](https://lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://lunchmoney.dev/v2/rate-limits)
+### Introduction  Welcome to the Lunch Money v2 API reference. This is the **v2.11.0** spec.  The API is available at `https://api.lunchmoney.dev/v2`. Get your access token from the [Lunch Money developers page](https://my.lunchmoney.app/developers).   **Try it from these docs**  These docs are interactive — use **Test request** on any endpoint to call the API from this page. Choose a LIVE or MOCK service from the Server dropdown. Requests sent to `https://api.lunchmoney.dev/v2` can <span class=\"red-text\"><strong>change or delete</strong></span> your data and are <span class=\"red-text\"><strong>permanent</strong></span>. See the [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) before using the live API.  **Static mock server**  Explore without risk to real data. Select `https://mock.lunchmoney.dev/v2` in the Server dropdown to work with static mock data. POST, PUT, and DELETE requests will return realistic responses, but do not change the mock data.   **Client Libraries & SDKs**  An official TypeScript SDK is available on [NPM](https://www.npmjs.com/package/@lunch-money/v2-api-spec) and [GitHub](https://github.com/lunch-money/lunch-money-js-v2). For Python or other languages, see [lunchmoney-clients](https://github.com/juftin/lunchmoney-clients) or generate a client from [this OpenAPI spec](/v2/openapi).  **Migrating from v1**  The v2 API is not backwards compatible with v1. See the [Migration Guide](https://lunchmoney.dev/v2/migration-guide) for details.  **Useful links** - [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) - [v2 API Overview](https://lunchmoney.dev/v2/overview) - [Version History](https://lunchmoney.dev/v2/version-history) - [Migration Guide](https://lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://lunchmoney.dev/v2/rate-limits)
 
-API version: 2.9.4
+API version: 2.11.0
 Contact: devsupport@lunchmoney.app
 */
 
@@ -32,13 +32,13 @@ type ApiGetAllRecurringRequest struct {
 	includeSuggested *bool
 }
 
-// Denotes the beginning of the range used to populate the &#x60;matching&#x60; object in the recurring items. If omitted, the current month will be used as the range.&lt;br&gt; Required if end_date exists.
+// Indicates the beginning of the range used to populate the &#x60;matching&#x60; object in the recurring items. If omitted, the current month will be used as the range.&lt;br&gt; Required if end_date exists.
 func (r ApiGetAllRecurringRequest) StartDate(startDate string) ApiGetAllRecurringRequest {
 	r.startDate = &startDate
 	return r
 }
 
-// Denotes the end of the range used to populate the &#x60;matching&#x60; object in the recurring items. Required if start_date exists. 
+// Indicates the end of the range used to populate the &#x60;matching&#x60; object in the recurring items. Required if start_date exists. 
 func (r ApiGetAllRecurringRequest) EndDate(endDate string) ApiGetAllRecurringRequest {
 	r.endDate = &endDate
 	return r
@@ -56,7 +56,7 @@ func (r ApiGetAllRecurringRequest) Execute() (*GetAllRecurring200Response, *http
 /*
 GetAllRecurring Get all recurring items
 
-Get info about the recurring items for a specified time frame
+Retrieve recurring items for a specified time frame.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetAllRecurringRequest
@@ -214,13 +214,13 @@ type ApiGetRecurringByIdRequest struct {
 	endDate *string
 }
 
-// Denotes the beginning of the range used to populate the &#x60;matching&#x60; object in the recurring items. If omitted, the current month will be used as the range.&lt;br&gt; Required if end_date exists.
+// Indicates the beginning of the range used to populate the &#x60;matching&#x60; object in the recurring items. If omitted, the current month will be used as the range.&lt;br&gt; Required if end_date exists.
 func (r ApiGetRecurringByIdRequest) StartDate(startDate string) ApiGetRecurringByIdRequest {
 	r.startDate = &startDate
 	return r
 }
 
-// Denotes the end of the range used to populate the &#x60;matching&#x60; object in the recurring items. Required if start_date exists. 
+// Indicates the end of the range used to populate the &#x60;matching&#x60; object in the recurring items. Required if start_date exists. 
 func (r ApiGetRecurringByIdRequest) EndDate(endDate string) ApiGetRecurringByIdRequest {
 	r.endDate = &endDate
 	return r

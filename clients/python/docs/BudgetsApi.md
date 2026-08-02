@@ -5,7 +5,7 @@ All URIs are relative to *https://api.lunchmoney.dev/v2*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**delete_budget**](BudgetsApi.md#delete_budget) | **DELETE** /budgets | Delete budget
-[**get_budget_settings**](BudgetsApi.md#get_budget_settings) | **GET** /budgets/settings | Get budget settings
+[**get_budget_settings**](BudgetsApi.md#get_budget_settings) | **GET** /budgets/settings | Get budget period settings
 [**upsert_budget**](BudgetsApi.md#upsert_budget) | **PUT** /budgets | Upsert budget
 
 
@@ -14,11 +14,10 @@ Method | HTTP request | Description
 
 Delete budget
 
-Removes the budget for the given category and period. If there already is no budget set for that period, the request still succeeds (idempotent).<p> Note that `start_date` **must** be a valid budget period start for the account (based on the account's budget period settings). If an invalid `start_date` is provided, the request will fail with an error that indicates what the previous and next valid start dates are.<p> Use the [budgets/settings](#tag/budgets/GET/budgets/settings) endpoint to view the account's budget settings.<br> To view existing budgets details use the [summary](#tag/summary) endpoint.
+Removes the budget for the given category and period. If there already is no budget set for that period, the request still succeeds (idempotent).<p> Note that `start_date` **must** be a valid budget period start for the account (based on the account's budget period settings). If an invalid `start_date` is provided, the request will fail with an error that indicates what the previous and next valid start dates are.<p> Use the [/budgets/settings](#tag/budgets/GET/budgets/settings) endpoint to view the account's budget settings.<br> To view details for existing budgets, use the [summary](#tag/summary) endpoint.
 
 ### Example
 
-* Api Key Authentication (cookieAuth):
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
@@ -36,12 +35,6 @@ configuration = lunchmoney.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: cookieAuth
-configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['cookieAuth'] = 'Bearer'
 
 # Configure Bearer authorization (JWT): bearerSecurity
 configuration = lunchmoney.Configuration(
@@ -78,7 +71,7 @@ void (empty response body)
 
 ### Authorization
 
-[cookieAuth](../README.md#cookieAuth), [bearerSecurity](../README.md#bearerSecurity)
+[bearerSecurity](../README.md#bearerSecurity)
 
 ### HTTP request headers
 
@@ -100,13 +93,14 @@ void (empty response body)
 # **get_budget_settings**
 > BudgetSettingsResponseObject get_budget_settings()
 
-Get budget settings
+Get budget period settings
 
-Returns the budget-related settings for the user's account.
+Returns budget period and display settings for the budget
+associated with this API token.<p> These control how budget **periods** are calculated
+(granularity, anchor date, rollover, and related options).
 
 ### Example
 
-* Api Key Authentication (cookieAuth):
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
@@ -126,12 +120,6 @@ configuration = lunchmoney.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure API key authorization: cookieAuth
-configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['cookieAuth'] = 'Bearer'
-
 # Configure Bearer authorization (JWT): bearerSecurity
 configuration = lunchmoney.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
@@ -143,7 +131,7 @@ with lunchmoney.ApiClient(configuration) as api_client:
     api_instance = lunchmoney.BudgetsApi(api_client)
 
     try:
-        # Get budget settings
+        # Get budget period settings
         api_response = api_instance.get_budget_settings()
         print("The response of BudgetsApi->get_budget_settings:\n")
         pprint(api_response)
@@ -163,7 +151,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[cookieAuth](../README.md#cookieAuth), [bearerSecurity](../README.md#bearerSecurity)
+[bearerSecurity](../README.md#bearerSecurity)
 
 ### HTTP request headers
 
@@ -174,7 +162,7 @@ This endpoint does not need any parameter.
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Budget settings for the account |  -  |
+**200** | Budget period settings for the current budget |  -  |
 **401** | Unauthorized. This error occurs when an invalid API token is passed to the request. |  -  |
 **429** | Too Many Requests. Retry your request after the number of seconds specified in the retry-after header. |  -  |
 **500** | Internal Server Error. Contact support. |  -  |
@@ -192,12 +180,11 @@ If a budget already exists for the specified `start_date` and `category_id`, the
 Note that `start_date` **must** be a valid budget period start for the account (based on the account's
 budget period settings). If an invalid `start_date` is provided, the request will fail with an error that indicates what the previous and next valid start dates are.<p>
 
-Use the [budgets/settings](#tag/budgets/GET/budgets/settings) endpoint to view the account's budget settings.<br>
-To view existing budgets details use the [summary](#tag/summary) endpoint.
+Use the [/budgets/settings](#tag/budgets/GET/budgets/settings) endpoint to view the budget period settings for the account.<br>
+To view details for existing budgets, use the [summary](#tag/summary) endpoint.
 
 ### Example
 
-* Api Key Authentication (cookieAuth):
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
@@ -217,12 +204,6 @@ configuration = lunchmoney.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: cookieAuth
-configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['cookieAuth'] = 'Bearer'
 
 # Configure Bearer authorization (JWT): bearerSecurity
 configuration = lunchmoney.Configuration(
@@ -259,7 +240,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[cookieAuth](../README.md#cookieAuth), [bearerSecurity](../README.md#bearerSecurity)
+[bearerSecurity](../README.md#bearerSecurity)
 
 ### HTTP request headers
 
