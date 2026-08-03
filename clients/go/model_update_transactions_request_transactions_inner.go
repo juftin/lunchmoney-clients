@@ -1,9 +1,9 @@
 /*
 Lunch Money API - v2
 
-Welcome to the Lunch Money v2 API. The API is available at `https://api.lunchmoney.dev/v2`. Get your access token from the [Lunch Money developers page](https://my.lunchmoney.app/developers).  ### Introduction  <span class=\"red-text\"><strong>The v2 API is in open alpha and is still subject to change. Use the mock server or a test budget when getting started.</strong></span>  **Static Mock Server**  Explore the API without an access token or risk to real data. Select **\"Static Mock v2 Lunch Money API Server\"** from the Server dropdown, then set your Bearer token to any string with 11 or more characters.  **Migrating from v1**  The v2 API is not backwards compatible with v1. See the [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) for details.  **Useful links** - [Developer Portal](https://lunchmoney.dev/v2/introduction) - [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) - [v2 API Overview](https://lunchmoney.dev/v2/overview) - [v2 API Changelog](https://lunchmoney.dev/v2/changelog) - [Migration Guide](https://lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://lunchmoney.dev/v2/rate-limits)
+### Introduction  Welcome to the Lunch Money v2 API reference. This is the **v2.11.0** spec.  The API is available at `https://api.lunchmoney.dev/v2`. Get your access token from the [Lunch Money developers page](https://my.lunchmoney.app/developers).   **Try it from these docs**  These docs are interactive — use **Test request** on any endpoint to call the API from this page. Choose a LIVE or MOCK service from the Server dropdown. Requests sent to `https://api.lunchmoney.dev/v2` can <span class=\"red-text\"><strong>change or delete</strong></span> your data and are <span class=\"red-text\"><strong>permanent</strong></span>. See the [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) before using the live API.  **Static mock server**  Explore without risk to real data. Select `https://mock.lunchmoney.dev/v2` in the Server dropdown to work with static mock data. POST, PUT, and DELETE requests will return realistic responses, but do not change the mock data.   **Client Libraries & SDKs**  An official TypeScript SDK is available on [NPM](https://www.npmjs.com/package/@lunch-money/v2-api-spec) and [GitHub](https://github.com/lunch-money/lunch-money-js-v2). For Python or other languages, see [lunchmoney-clients](https://github.com/juftin/lunchmoney-clients) or generate a client from [this OpenAPI spec](/v2/openapi).  **Migrating from v1**  The v2 API is not backwards compatible with v1. See the [Migration Guide](https://lunchmoney.dev/v2/migration-guide) for details.  **Useful links** - [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) - [v2 API Overview](https://lunchmoney.dev/v2/overview) - [Version History](https://lunchmoney.dev/v2/version-history) - [Migration Guide](https://lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://lunchmoney.dev/v2/rate-limits)
 
-API version: 2.9.4
+API version: 2.11.0
 Contact: devsupport@lunchmoney.app
 */
 
@@ -25,7 +25,7 @@ var _ MappedNullable = &UpdateTransactionsRequestTransactionsInner{}
 type UpdateTransactionsRequestTransactionsInner struct {
 	// The ID of the transaction to update
 	Id int64 `json:"id"`
-	// Date of transaction in ISO 8601 format
+	// Transaction date in ISO 8601 format
 	Date *string `json:"date,omitempty"`
 	Amount *UpdateTransactionObjectAmount `json:"amount,omitempty"`
 	// Three-letter lowercase currency code of the transaction in ISO 4217 format.<br> May not be updated on transactions that belong to a synced account with the \"Allow Modifications to Transactions\" property disabled.
@@ -40,13 +40,13 @@ type UpdateTransactionsRequestTransactionsInner struct {
 	CategoryId NullableInt32 `json:"category_id,omitempty"`
 	// New notes for the transaction. Set this to an empty string to clear the existing notes. 
 	Notes NullableString `json:"notes,omitempty"`
-	// The unique identifier of the manual account associated with this transaction. Set this to null to disassociate the transaction with an account. If set `plaid_account_id` may not also be set to a non null value. Moving an existing transaction to to another account will not work if the transaction belongs to a synced account who's \"Allow Modifications to Transactions\" property is not set.
+	// The unique identifier of the manual account associated with this transaction. Set this to null to disassociate the transaction with an account. If set, `plaid_account_id` may not also be set to a non null value. Moving an existing transaction to another account will not work if the transaction belongs to a synced account whose \"Allow Modifications to Transactions\" property is not set.
 	ManualAccountId NullableInt32 `json:"manual_account_id,omitempty"`
-	// The unique identifier of the plaid account associated with this transaction. If set `manual_account_id` may not also be set to a non null value. Attempting to modify this on a transaction associated with a Plaid account will not work if the account's \"Allow Modifications to Transactions\" property is not set. Similarly, this cannot be set to an id associated with this type of locked Plaid account.
+	// The unique identifier of the Plaid account associated with this transaction. If set, `manual_account_id` may not also be set to a non null value. Attempting to modify this on a transaction associated with a Plaid account will not work if the account's \"Allow Modifications to Transactions\" property is not set. Similarly, this cannot be set to an id associated with this type of locked Plaid account.
 	PlaidAccountId NullableInt32 `json:"plaid_account_id,omitempty"`
 	// A list of tag_ids for the tags associated with this transaction. If set, this property will overwrite any existing tags. Use `additional_tag_ids` to add tags to the existing transaction's tags. Set this to an empty array to remove all tags from a transaction. If set `additional_tag_ids` may not be set.
 	TagIds []int32 `json:"tag_ids,omitempty"`
-	// A list of tag_ids for the tags associated with this transaction. If set, the tags listed in this property be added to any existing transaction tags. Use `tag_ids` to overwrite or clear transaction tags. If set `tag_ids` may not be set.
+	// A list of tag_ids for the tags associated with this transaction. If set, the tags listed in this property will be added to any existing transaction tags. Use `tag_ids` to overwrite or clear transaction tags. If set, `tag_ids` may not be set.
 	AdditionalTagIds []int32 `json:"additional_tag_ids,omitempty"`
 	// A user-defined external ID for the transaction. The update will fail if the transaction does not also have a `manual_account_id` or if there is already an existing transaction with the same `manual_account_id`/`external_id` combination.
 	ExternalId NullableString `json:"external_id,omitempty"`
@@ -66,7 +66,7 @@ type UpdateTransactionsRequestTransactionsInner struct {
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 	// System defined boolean indicating if this transaction was split. To split or unsplit a transaction use the `/transactions/split` endpoint. Ignored if set.
 	IsSplitParent *bool `json:"is_split_parent,omitempty"`
-	// An array of child transactions that exists when a transaction has been split or if the transaction is a group. Split
+	// An array of child transactions present when a transaction has been split or when the transaction is a group. Split and grouped transactions may not be modified using this API. Ignored if set.
 	Children []ChildTransactionObject `json:"children,omitempty"`
 	// A transaction ID if this is a split transaction. Split transactions may not be modified this API. Use the `transactions/split` endpoint instead. Ignored if set.
 	SplitParentId NullableInt64 `json:"split_parent_id,omitempty"`

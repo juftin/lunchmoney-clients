@@ -5,7 +5,7 @@ All URIs are relative to *https://api.lunchmoney.dev/v2*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**DeleteBudget**](BudgetsAPI.md#DeleteBudget) | **Delete** /budgets | Delete budget
-[**GetBudgetSettings**](BudgetsAPI.md#GetBudgetSettings) | **Get** /budgets/settings | Get budget settings
+[**GetBudgetSettings**](BudgetsAPI.md#GetBudgetSettings) | **Get** /budgets/settings | Get budget period settings
 [**UpsertBudget**](BudgetsAPI.md#UpsertBudget) | **Put** /budgets | Upsert budget
 
 
@@ -65,7 +65,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[cookieAuth](../README.md#cookieAuth), [bearerSecurity](../README.md#bearerSecurity)
+[bearerSecurity](../README.md#bearerSecurity)
 
 ### HTTP request headers
 
@@ -81,7 +81,7 @@ Name | Type | Description  | Notes
 
 > BudgetSettingsResponseObject GetBudgetSettings(ctx).Execute()
 
-Get budget settings
+Get budget period settings
 
 
 
@@ -126,7 +126,7 @@ Other parameters are passed through a pointer to a apiGetBudgetSettingsRequest s
 
 ### Authorization
 
-[cookieAuth](../README.md#cookieAuth), [bearerSecurity](../README.md#bearerSecurity)
+[bearerSecurity](../README.md#bearerSecurity)
 
 ### HTTP request headers
 
@@ -193,7 +193,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[cookieAuth](../README.md#cookieAuth), [bearerSecurity](../README.md#bearerSecurity)
+[bearerSecurity](../README.md#bearerSecurity)
 
 ### HTTP request headers
 

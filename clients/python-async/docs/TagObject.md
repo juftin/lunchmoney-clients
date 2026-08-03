@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **background_color** | **str** | The background color of the tag. | 
 **updated_at** | **datetime** | The date and time of when the tag was last updated (in the ISO 8601 extended format). | 
 **created_at** | **datetime** | The date and time of when the tag was created (in the ISO 8601 extended format). | 
-**archived** | **bool** | If &#x60;true&#x60;, the tag will not show up when creating or updating transactions in the Lunch Money app. **Can it be assigned via the API** | 
+**archived** | **bool** | If &#x60;true&#x60;, the tag will not show up when creating or updating transactions in the Lunch Money app. | 
 **archived_at** | **datetime** | The date and time of when the tag was last archived or &#x60;null&#x60; if not archived | 
 
 ## Example

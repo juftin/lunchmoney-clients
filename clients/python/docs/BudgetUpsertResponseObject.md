@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **category_id** | **int** | Category ID | [optional] 
 **start_date** | **date** | Start date of the budget period | [optional] 
-**amount** | **str** | Budget amount in the stored currency (string for consistency with other amount fields in the API) | [optional] 
+**amount** | **str** | Budget amount in the stored currency (string for consistency with other amount fields in the API). | [optional] 
 **currency** | **str** | Currency code for the budget | [optional] 
 **to_base** | **float** | Amount converted to the user&#39;s primary currency | [optional] 
 **notes** | **str** | Notes for the budget period | [optional] 
