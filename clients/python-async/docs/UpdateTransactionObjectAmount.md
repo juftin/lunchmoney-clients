@@ -1,6 +1,6 @@
 # UpdateTransactionObjectAmount
 
-Numeric value of amount without currency symbol. i.e. $4.25 should be denoted as 4.25. May be a string or a number in double format. Positive values indicate a debit transaction, negative values indicate a credit transaction. <br> May not be updated on transactions that belong to a synced account with the \"Allow Modifications to Transactions\" property disabled.
+Numeric value of the amount without a currency symbol. For example, $4.25 should be provided as 4.25. May be a string or a number in double format. Positive values indicate a debit transaction, negative values indicate a credit transaction. <br> May not be updated on transactions that belong to a synced account with the \"Allow Modifications to Transactions\" property disabled.
 
 ## Properties
 

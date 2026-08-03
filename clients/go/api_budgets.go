@@ -1,9 +1,9 @@
 /*
 Lunch Money API - v2
 
-Welcome to the Lunch Money v2 API. The API is available at `https://api.lunchmoney.dev/v2`. Get your access token from the [Lunch Money developers page](https://my.lunchmoney.app/developers).  ### Introduction  <span class=\"red-text\"><strong>The v2 API is in open alpha and is still subject to change. Use the mock server or a test budget when getting started.</strong></span>  **Static Mock Server**  Explore the API without an access token or risk to real data. Select **\"Static Mock v2 Lunch Money API Server\"** from the Server dropdown, then set your Bearer token to any string with 11 or more characters.  **Migrating from v1**  The v2 API is not backwards compatible with v1. See the [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) for details.  **Useful links** - [Developer Portal](https://lunchmoney.dev/v2/introduction) - [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) - [v2 API Overview](https://lunchmoney.dev/v2/overview) - [v2 API Changelog](https://lunchmoney.dev/v2/changelog) - [Migration Guide](https://lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://lunchmoney.dev/v2/rate-limits)
+### Introduction  Welcome to the Lunch Money v2 API reference. This is the **v2.11.0** spec.  The API is available at `https://api.lunchmoney.dev/v2`. Get your access token from the [Lunch Money developers page](https://my.lunchmoney.app/developers).   **Try it from these docs**  These docs are interactive — use **Test request** on any endpoint to call the API from this page. Choose a LIVE or MOCK service from the Server dropdown. Requests sent to `https://api.lunchmoney.dev/v2` can <span class=\"red-text\"><strong>change or delete</strong></span> your data and are <span class=\"red-text\"><strong>permanent</strong></span>. See the [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) before using the live API.  **Static mock server**  Explore without risk to real data. Select `https://mock.lunchmoney.dev/v2` in the Server dropdown to work with static mock data. POST, PUT, and DELETE requests will return realistic responses, but do not change the mock data.   **Client Libraries & SDKs**  An official TypeScript SDK is available on [NPM](https://www.npmjs.com/package/@lunch-money/v2-api-spec) and [GitHub](https://github.com/lunch-money/lunch-money-js-v2). For Python or other languages, see [lunchmoney-clients](https://github.com/juftin/lunchmoney-clients) or generate a client from [this OpenAPI spec](/v2/openapi).  **Migrating from v1**  The v2 API is not backwards compatible with v1. See the [Migration Guide](https://lunchmoney.dev/v2/migration-guide) for details.  **Useful links** - [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) - [v2 API Overview](https://lunchmoney.dev/v2/overview) - [Version History](https://lunchmoney.dev/v2/version-history) - [Migration Guide](https://lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://lunchmoney.dev/v2/rate-limits)
 
-API version: 2.9.4
+API version: 2.11.0
 Contact: devsupport@lunchmoney.app
 */
 
@@ -49,7 +49,7 @@ func (r ApiDeleteBudgetRequest) Execute() (*http.Response, error) {
 /*
 DeleteBudget Delete budget
 
-Removes the budget for the given category and period. If there already is no budget set for that period, the request still succeeds (idempotent).<p> Note that `start_date` **must** be a valid budget period start for the account (based on the account's budget period settings). If an invalid `start_date` is provided, the request will fail with an error that indicates what the previous and next valid start dates are.<p> Use the [budgets/settings](#tag/budgets/GET/budgets/settings) endpoint to view the account's budget settings.<br> To view existing budgets details use the [summary](#tag/summary) endpoint.
+Removes the budget for the given category and period. If there already is no budget set for that period, the request still succeeds (idempotent).<p> Note that `start_date` **must** be a valid budget period start for the account (based on the account's budget period settings). If an invalid `start_date` is provided, the request will fail with an error that indicates what the previous and next valid start dates are.<p> Use the [/budgets/settings](#tag/budgets/GET/budgets/settings) endpoint to view the account's budget settings.<br> To view details for existing budgets, use the [summary](#tag/summary) endpoint.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiDeleteBudgetRequest
@@ -186,9 +186,11 @@ func (r ApiGetBudgetSettingsRequest) Execute() (*BudgetSettingsResponseObject, *
 }
 
 /*
-GetBudgetSettings Get budget settings
+GetBudgetSettings Get budget period settings
 
-Returns the budget-related settings for the user's account.
+Returns budget period and display settings for the budget
+associated with this API token.<p> These control how budget **periods** are calculated
+(granularity, anchor date, rollover, and related options).
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetBudgetSettingsRequest
@@ -331,8 +333,8 @@ If a budget already exists for the specified `start_date` and `category_id`, the
 Note that `start_date` **must** be a valid budget period start for the account (based on the account's
 budget period settings). If an invalid `start_date` is provided, the request will fail with an error that indicates what the previous and next valid start dates are.<p>
 
-Use the [budgets/settings](#tag/budgets/GET/budgets/settings) endpoint to view the account's budget settings.<br>
-To view existing budgets details use the [summary](#tag/summary) endpoint.
+Use the [/budgets/settings](#tag/budgets/GET/budgets/settings) endpoint to view the budget period settings for the account.<br>
+To view details for existing budgets, use the [summary](#tag/summary) endpoint.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiUpsertBudgetRequest

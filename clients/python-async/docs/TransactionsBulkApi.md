@@ -21,7 +21,6 @@ The successful request to this endpoint will return a response body which will i
 
 ### Example
 
-* Api Key Authentication (cookieAuth):
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
@@ -41,12 +40,6 @@ configuration = lunchmoney.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: cookieAuth
-configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['cookieAuth'] = 'Bearer'
 
 # Configure Bearer authorization (JWT): bearerSecurity
 configuration = lunchmoney.Configuration(
@@ -83,7 +76,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[cookieAuth](../README.md#cookieAuth), [bearerSecurity](../README.md#bearerSecurity)
+[bearerSecurity](../README.md#bearerSecurity)
 
 ### HTTP request headers
 
@@ -114,7 +107,6 @@ Otherwise, the specified transactions are deleted.<p>
 
 ### Example
 
-* Api Key Authentication (cookieAuth):
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
@@ -133,12 +125,6 @@ configuration = lunchmoney.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: cookieAuth
-configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['cookieAuth'] = 'Bearer'
 
 # Configure Bearer authorization (JWT): bearerSecurity
 configuration = lunchmoney.Configuration(
@@ -173,7 +159,7 @@ void (empty response body)
 
 ### Authorization
 
-[cookieAuth](../README.md#cookieAuth), [bearerSecurity](../README.md#bearerSecurity)
+[bearerSecurity](../README.md#bearerSecurity)
 
 ### HTTP request headers
 
@@ -198,11 +184,10 @@ void (empty response body)
 
 Get all transactions
 
-Retrieve a list of all transactions associated with a user's account. <br>If called with no parameters, this endpoint will return the most recent transactions up to `limit` number of transactions.
+Retrieve a list of all transactions associated with a user's account. <br>If called with no parameters, this endpoint will return the most recent transactions, up to the specified `limit`.
 
 ### Example
 
-* Api Key Authentication (cookieAuth):
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
@@ -222,12 +207,6 @@ configuration = lunchmoney.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure API key authorization: cookieAuth
-configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['cookieAuth'] = 'Bearer'
-
 # Configure Bearer authorization (JWT): bearerSecurity
 configuration = lunchmoney.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
@@ -237,26 +216,26 @@ configuration = lunchmoney.Configuration(
 async with lunchmoney.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = lunchmoney.TransactionsBulkApi(api_client)
-    start_date = '2013-10-20' # date | Denotes the beginning of the time period to fetch transactions for. If omitted, the most recent transactions will be returned. See `limit`. Required if end_date exists. <br> (optional)
-    end_date = '2013-10-20' # date | Denotes the end of the time period you'd like to get transactions for. Required if start_date exists.  (optional)
+    start_date = '2013-10-20' # date | Indicates the beginning of the time period to fetch transactions for. If omitted, the most recent transactions will be returned. See `limit`. Required if end_date exists. <br> (optional)
+    end_date = '2013-10-20' # date | Indicates the end of the time period to fetch transactions for. Required if start_date exists.  (optional)
     created_since = lunchmoney.GetAllTransactionsCreatedSinceParameter() # GetAllTransactionsCreatedSinceParameter | Filter transactions to those created after the specified timestamp. Accepts either a date (YYYY-MM-DD) or ISO 8601 datetime string. Date-only values are interpreted as midnight UTC (00:00:00Z). (optional)
     updated_since = lunchmoney.GetAllTransactionsCreatedSinceParameter() # GetAllTransactionsCreatedSinceParameter | Filter transactions to those updated after the specified timestamp. Accepts either a date (YYYY-MM-DD) or ISO 8601 datetime string. Date-only values are interpreted as midnight UTC (00:00:00Z). (optional)
-    manual_account_id = 219909 # int | Filter transactions to those associated with specified manual account ID or set this to 0 to omit any transactions from manual accounts. Setting both this and `plaid_account_id` to 0 will return transactions with no account. These are listed as \"Cash Transactions\" in the Lunch Money GUI.<br> Note that transaction groups are not associated with any account. If you want the response to include transactions from transaction groups, set the `include_group_children` query parameter to `true` when filtering by manual accounts. (optional)
-    plaid_account_id = 119807 # int | Filter transactions to those associated with specified plaid account ID or set this to 0 to omit any transactions from plaid accounts. Setting both this and `manual_account_id` to 0 will return transactions with no account. These are listed as \"Cash Transactions\" in the Lunch Money GUI.<br> Note that transaction groups are not associated with any account. If you want the response to include transactions from transaction groups, set the `include_group_children` query parameter to `true` when filtering by plaid accounts. (optional)
-    recurring_id = 994069 # int | Filter transactions to those associated with specified Recurring  Item ID  (optional)
-    category_id = 83 # int | Filter transactions to those associated with the specified category ID. Will also match category groups.  Set this to 0 to return only un-categorized transactions (optional)
-    tag_id = 56 # int | Filter transactions to those that have a tag with the specified Tag ID (optional)
+    manual_account_id = 219909 # int | Filter transactions to those associated with specified manual account ID or set this to 0 to omit any transactions from manual accounts. Setting both this and `plaid_account_id` to 0 will return transactions with no account. These are listed as \"Cash Transactions\" in the Lunch Money app.<br> Note that transaction groups are not associated with any account. If you want the response to include transactions from transaction groups, set the `include_group_children` query parameter to `true` when filtering by manual accounts. (optional)
+    plaid_account_id = 119807 # int | Filter transactions to those associated with specified plaid account ID or set this to 0 to omit any transactions from plaid accounts. Setting both this and `manual_account_id` to 0 will return transactions with no account. These are listed as \"Cash Transactions\" in the Lunch Money app.<br> Note that transaction groups are not associated with any account. If you want the response to include transactions from transaction groups, set the `include_group_children` query parameter to `true` when filtering by plaid accounts. (optional)
+    recurring_id = 994069 # int | Filter transactions to those associated with the specified recurring item ID.  (optional)
+    category_id = 83 # int | Filter transactions to those associated with the specified category ID. Will also match category groups. Set this to 0 to return only uncategorized transactions. (optional)
+    tag_id = 56 # int | Filter transactions to those that have the specified tag ID (optional)
     is_group_parent = True # bool | Filter by group (returns only transaction groups if `true`) (optional)
     status = 'unreviewed' # str | Filter transactions to those with the specified status:<br> - `reviewed`: Only user reviewed transactions or those that were automatically marked as reviewed due to reviewed recurring_item logic<br> - `unreviewed`: Only transactions that need to be reviewed<br> - `delete_pending`: Only transactions that require manual intervention because the plaid account deleted this transaction after it was updated by the user. (optional)
     is_pending = true # bool | Filter transactions by pending status. Set to `true` to return only pending transactions, or `false` to return only non-pending transactions. When this parameter is set, it takes precedence over `include_pending`. Note: Pending transactions always have a status of `unreviewed`, so when setting this parameter to `true`, either omit the `status` parameter or set it to `unreviewed`.  (optional)
     include_pending = False # bool | By default, pending transactions are excluded from results. Set to `true` to include imported transactions with a pending status in the results. This query param is ignored if the `is_pending` query param is also set.  (optional) (default to False)
-    include_metadata = False # bool | By default, custom and plaid metadata are not included in the response.  Set to true if you'd like the returned transactions objects to include any  metadata associated with the transactions. (optional) (default to False)
-    include_split_parents = False # bool | By default, transactions that were split into multiple transactions are not included in the response. Set to true if you'd like the returned transactions objects to include any  transactions that were split into multiple transactions.  Use with caution as this data is normally not exposed after the split transactions are created. (optional) (default to False)
+    include_metadata = False # bool | By default, custom and plaid metadata are not included in the response. Set to true if you'd like the returned transaction objects to include any metadata associated with the transactions. (optional) (default to False)
+    include_split_parents = False # bool | By default, transactions that were split into multiple transactions are not included in the response. Set to true if you'd like the returned transaction objects to include transactions that were split into multiple transactions. Use with caution, as this data is normally not exposed after the split transactions are created. (optional) (default to False)
     include_group_children = False # bool | By default, individual transactions that joined into a transaction group are not included in the response. Set to true if you'd like the returned transactions objects to include any transactions that joined into a transaction group. (optional) (default to False)
-    include_children = False # bool | By default, the `children` property is not included in the response. Set to true if you'd like the children property to be populated with the transactions that  make up a transaction group, or, if the `include_split_parents` query param is also set,  the transactions that were split from a parent transaction. (optional) (default to False)
-    include_files = False # bool | By default, the `files` property is not included in the response. Set to true if you'd like the responses to include a list of of  objects that describe any files attached to the transactions. (optional) (default to False)
-    limit = 1000 # int | Sets the maximum number of transactions to return. If more match the filter criteria, the response will include a `has_more` attribute set to `true`. See [Pagination](https://alpha.lunchmoney.dev/v2/pagination) (optional) (default to 1000)
-    offset = 56 # int | Sets the offset for the records returned. This is typically set automatically in the header. See [Pagination](https://alpha.lunchmoney.dev/v2/pagination) (optional)
+    include_children = False # bool | By default, the `children` property is not included in the response. Set to true if you'd like the children property to be populated with the transactions that make up a transaction group, or, if the `include_split_parents` query param is also set, the transactions that were split from a parent transaction. (optional) (default to False)
+    include_files = False # bool | By default, the `files` property is not included in the response. Set to true if you'd like the responses to include a list of objects that describe any files attached to the transactions. (optional) (default to False)
+    limit = 1000 # int | Sets the maximum number of transactions to return. If more match the filter criteria, the response will include a `has_more` attribute set to `true`. See [Pagination](https://lunchmoney.dev/v2/pagination) (optional) (default to 1000)
+    offset = 56 # int | Sets the offset for the records returned. This is typically set automatically in the header. See [Pagination](https://lunchmoney.dev/v2/pagination) (optional)
 
     try:
         # Get all transactions
@@ -274,26 +253,26 @@ async with lunchmoney.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **start_date** | **date**| Denotes the beginning of the time period to fetch transactions for. If omitted, the most recent transactions will be returned. See &#x60;limit&#x60;. Required if end_date exists. &lt;br&gt; | [optional] 
- **end_date** | **date**| Denotes the end of the time period you&#39;d like to get transactions for. Required if start_date exists.  | [optional] 
+ **start_date** | **date**| Indicates the beginning of the time period to fetch transactions for. If omitted, the most recent transactions will be returned. See &#x60;limit&#x60;. Required if end_date exists. &lt;br&gt; | [optional] 
+ **end_date** | **date**| Indicates the end of the time period to fetch transactions for. Required if start_date exists.  | [optional] 
  **created_since** | [**GetAllTransactionsCreatedSinceParameter**](.md)| Filter transactions to those created after the specified timestamp. Accepts either a date (YYYY-MM-DD) or ISO 8601 datetime string. Date-only values are interpreted as midnight UTC (00:00:00Z). | [optional] 
  **updated_since** | [**GetAllTransactionsCreatedSinceParameter**](.md)| Filter transactions to those updated after the specified timestamp. Accepts either a date (YYYY-MM-DD) or ISO 8601 datetime string. Date-only values are interpreted as midnight UTC (00:00:00Z). | [optional] 
- **manual_account_id** | **int**| Filter transactions to those associated with specified manual account ID or set this to 0 to omit any transactions from manual accounts. Setting both this and &#x60;plaid_account_id&#x60; to 0 will return transactions with no account. These are listed as \&quot;Cash Transactions\&quot; in the Lunch Money GUI.&lt;br&gt; Note that transaction groups are not associated with any account. If you want the response to include transactions from transaction groups, set the &#x60;include_group_children&#x60; query parameter to &#x60;true&#x60; when filtering by manual accounts. | [optional] 
- **plaid_account_id** | **int**| Filter transactions to those associated with specified plaid account ID or set this to 0 to omit any transactions from plaid accounts. Setting both this and &#x60;manual_account_id&#x60; to 0 will return transactions with no account. These are listed as \&quot;Cash Transactions\&quot; in the Lunch Money GUI.&lt;br&gt; Note that transaction groups are not associated with any account. If you want the response to include transactions from transaction groups, set the &#x60;include_group_children&#x60; query parameter to &#x60;true&#x60; when filtering by plaid accounts. | [optional] 
- **recurring_id** | **int**| Filter transactions to those associated with specified Recurring  Item ID  | [optional] 
- **category_id** | **int**| Filter transactions to those associated with the specified category ID. Will also match category groups.  Set this to 0 to return only un-categorized transactions | [optional] 
- **tag_id** | **int**| Filter transactions to those that have a tag with the specified Tag ID | [optional] 
+ **manual_account_id** | **int**| Filter transactions to those associated with specified manual account ID or set this to 0 to omit any transactions from manual accounts. Setting both this and &#x60;plaid_account_id&#x60; to 0 will return transactions with no account. These are listed as \&quot;Cash Transactions\&quot; in the Lunch Money app.&lt;br&gt; Note that transaction groups are not associated with any account. If you want the response to include transactions from transaction groups, set the &#x60;include_group_children&#x60; query parameter to &#x60;true&#x60; when filtering by manual accounts. | [optional] 
+ **plaid_account_id** | **int**| Filter transactions to those associated with specified plaid account ID or set this to 0 to omit any transactions from plaid accounts. Setting both this and &#x60;manual_account_id&#x60; to 0 will return transactions with no account. These are listed as \&quot;Cash Transactions\&quot; in the Lunch Money app.&lt;br&gt; Note that transaction groups are not associated with any account. If you want the response to include transactions from transaction groups, set the &#x60;include_group_children&#x60; query parameter to &#x60;true&#x60; when filtering by plaid accounts. | [optional] 
+ **recurring_id** | **int**| Filter transactions to those associated with the specified recurring item ID.  | [optional] 
+ **category_id** | **int**| Filter transactions to those associated with the specified category ID. Will also match category groups. Set this to 0 to return only uncategorized transactions. | [optional] 
+ **tag_id** | **int**| Filter transactions to those that have the specified tag ID | [optional] 
  **is_group_parent** | **bool**| Filter by group (returns only transaction groups if &#x60;true&#x60;) | [optional] 
  **status** | **str**| Filter transactions to those with the specified status:&lt;br&gt; - &#x60;reviewed&#x60;: Only user reviewed transactions or those that were automatically marked as reviewed due to reviewed recurring_item logic&lt;br&gt; - &#x60;unreviewed&#x60;: Only transactions that need to be reviewed&lt;br&gt; - &#x60;delete_pending&#x60;: Only transactions that require manual intervention because the plaid account deleted this transaction after it was updated by the user. | [optional] 
  **is_pending** | **bool**| Filter transactions by pending status. Set to &#x60;true&#x60; to return only pending transactions, or &#x60;false&#x60; to return only non-pending transactions. When this parameter is set, it takes precedence over &#x60;include_pending&#x60;. Note: Pending transactions always have a status of &#x60;unreviewed&#x60;, so when setting this parameter to &#x60;true&#x60;, either omit the &#x60;status&#x60; parameter or set it to &#x60;unreviewed&#x60;.  | [optional] 
  **include_pending** | **bool**| By default, pending transactions are excluded from results. Set to &#x60;true&#x60; to include imported transactions with a pending status in the results. This query param is ignored if the &#x60;is_pending&#x60; query param is also set.  | [optional] [default to False]
- **include_metadata** | **bool**| By default, custom and plaid metadata are not included in the response.  Set to true if you&#39;d like the returned transactions objects to include any  metadata associated with the transactions. | [optional] [default to False]
- **include_split_parents** | **bool**| By default, transactions that were split into multiple transactions are not included in the response. Set to true if you&#39;d like the returned transactions objects to include any  transactions that were split into multiple transactions.  Use with caution as this data is normally not exposed after the split transactions are created. | [optional] [default to False]
+ **include_metadata** | **bool**| By default, custom and plaid metadata are not included in the response. Set to true if you&#39;d like the returned transaction objects to include any metadata associated with the transactions. | [optional] [default to False]
+ **include_split_parents** | **bool**| By default, transactions that were split into multiple transactions are not included in the response. Set to true if you&#39;d like the returned transaction objects to include transactions that were split into multiple transactions. Use with caution, as this data is normally not exposed after the split transactions are created. | [optional] [default to False]
  **include_group_children** | **bool**| By default, individual transactions that joined into a transaction group are not included in the response. Set to true if you&#39;d like the returned transactions objects to include any transactions that joined into a transaction group. | [optional] [default to False]
- **include_children** | **bool**| By default, the &#x60;children&#x60; property is not included in the response. Set to true if you&#39;d like the children property to be populated with the transactions that  make up a transaction group, or, if the &#x60;include_split_parents&#x60; query param is also set,  the transactions that were split from a parent transaction. | [optional] [default to False]
- **include_files** | **bool**| By default, the &#x60;files&#x60; property is not included in the response. Set to true if you&#39;d like the responses to include a list of of  objects that describe any files attached to the transactions. | [optional] [default to False]
- **limit** | **int**| Sets the maximum number of transactions to return. If more match the filter criteria, the response will include a &#x60;has_more&#x60; attribute set to &#x60;true&#x60;. See [Pagination](https://alpha.lunchmoney.dev/v2/pagination) | [optional] [default to 1000]
- **offset** | **int**| Sets the offset for the records returned. This is typically set automatically in the header. See [Pagination](https://alpha.lunchmoney.dev/v2/pagination) | [optional] 
+ **include_children** | **bool**| By default, the &#x60;children&#x60; property is not included in the response. Set to true if you&#39;d like the children property to be populated with the transactions that make up a transaction group, or, if the &#x60;include_split_parents&#x60; query param is also set, the transactions that were split from a parent transaction. | [optional] [default to False]
+ **include_files** | **bool**| By default, the &#x60;files&#x60; property is not included in the response. Set to true if you&#39;d like the responses to include a list of objects that describe any files attached to the transactions. | [optional] [default to False]
+ **limit** | **int**| Sets the maximum number of transactions to return. If more match the filter criteria, the response will include a &#x60;has_more&#x60; attribute set to &#x60;true&#x60;. See [Pagination](https://lunchmoney.dev/v2/pagination) | [optional] [default to 1000]
+ **offset** | **int**| Sets the offset for the records returned. This is typically set automatically in the header. See [Pagination](https://lunchmoney.dev/v2/pagination) | [optional] 
 
 ### Return type
 
@@ -301,7 +280,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[cookieAuth](../README.md#cookieAuth), [bearerSecurity](../README.md#bearerSecurity)
+[bearerSecurity](../README.md#bearerSecurity)
 
 ### HTTP request headers
 
@@ -312,7 +291,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Returns an array of transactions. &lt;br&gt;&lt;br&gt;The &#x60;has_more&#x60; property is set to &#x60;true&#x60; if more transactions are available. See [Pagination](https://alpha.lunchmoney.dev/v2/pagination) |  -  |
+**200** | Returns an array of transactions. &lt;br&gt;&lt;br&gt;The &#x60;has_more&#x60; property is set to &#x60;true&#x60; if more transactions are available. See [Pagination](https://lunchmoney.dev/v2/pagination) |  -  |
 **400** | Invalid request parameters |  -  |
 **401** | Unauthorized. This error occurs when an invalid API token is passed to the request. |  -  |
 **429** | Too Many Requests. Retry your request after the number of seconds specified in the retry-after header. |  -  |
@@ -333,7 +312,6 @@ The request can include between 1 and 500 transactions to update in a single cal
 
 ### Example
 
-* Api Key Authentication (cookieAuth):
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
@@ -353,12 +331,6 @@ configuration = lunchmoney.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: cookieAuth
-configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['cookieAuth'] = 'Bearer'
 
 # Configure Bearer authorization (JWT): bearerSecurity
 configuration = lunchmoney.Configuration(
@@ -395,7 +367,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[cookieAuth](../README.md#cookieAuth), [bearerSecurity](../README.md#bearerSecurity)
+[bearerSecurity](../README.md#bearerSecurity)
 
 ### HTTP request headers
 

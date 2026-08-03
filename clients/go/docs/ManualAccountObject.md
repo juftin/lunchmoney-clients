@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 **ExcludeFromTransactions** | **bool** | If true, this account will not show up as an option for assignment when creating transactions manually | [default to false]
 **CreatedByName** | **string** | The name of the user who created the account | 
 **CreatedAt** | **time.Time** | Date/time the account was created in ISO 8601 extended format | 
-**UpdatedAt** | **time.Time** | Date/time the account was created in ISO 8601 extended format | 
+**UpdatedAt** | **time.Time** | Date/time the account was last updated in ISO 8601 extended format | 
 
 ## Methods
 

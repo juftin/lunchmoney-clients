@@ -1,9 +1,9 @@
 /*
 Lunch Money API - v2
 
-Welcome to the Lunch Money v2 API. The API is available at `https://api.lunchmoney.dev/v2`. Get your access token from the [Lunch Money developers page](https://my.lunchmoney.app/developers).  ### Introduction  <span class=\"red-text\"><strong>The v2 API is in open alpha and is still subject to change. Use the mock server or a test budget when getting started.</strong></span>  **Static Mock Server**  Explore the API without an access token or risk to real data. Select **\"Static Mock v2 Lunch Money API Server\"** from the Server dropdown, then set your Bearer token to any string with 11 or more characters.  **Migrating from v1**  The v2 API is not backwards compatible with v1. See the [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) for details.  **Useful links** - [Developer Portal](https://lunchmoney.dev/v2/introduction) - [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) - [v2 API Overview](https://lunchmoney.dev/v2/overview) - [v2 API Changelog](https://lunchmoney.dev/v2/changelog) - [Migration Guide](https://lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://lunchmoney.dev/v2/rate-limits)
+### Introduction  Welcome to the Lunch Money v2 API reference. This is the **v2.11.0** spec.  The API is available at `https://api.lunchmoney.dev/v2`. Get your access token from the [Lunch Money developers page](https://my.lunchmoney.app/developers).   **Try it from these docs**  These docs are interactive — use **Test request** on any endpoint to call the API from this page. Choose a LIVE or MOCK service from the Server dropdown. Requests sent to `https://api.lunchmoney.dev/v2` can <span class=\"red-text\"><strong>change or delete</strong></span> your data and are <span class=\"red-text\"><strong>permanent</strong></span>. See the [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) before using the live API.  **Static mock server**  Explore without risk to real data. Select `https://mock.lunchmoney.dev/v2` in the Server dropdown to work with static mock data. POST, PUT, and DELETE requests will return realistic responses, but do not change the mock data.   **Client Libraries & SDKs**  An official TypeScript SDK is available on [NPM](https://www.npmjs.com/package/@lunch-money/v2-api-spec) and [GitHub](https://github.com/lunch-money/lunch-money-js-v2). For Python or other languages, see [lunchmoney-clients](https://github.com/juftin/lunchmoney-clients) or generate a client from [this OpenAPI spec](/v2/openapi).  **Migrating from v1**  The v2 API is not backwards compatible with v1. See the [Migration Guide](https://lunchmoney.dev/v2/migration-guide) for details.  **Useful links** - [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) - [v2 API Overview](https://lunchmoney.dev/v2/overview) - [Version History](https://lunchmoney.dev/v2/version-history) - [Migration Guide](https://lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://lunchmoney.dev/v2/rate-limits)
 
-API version: 2.9.4
+API version: 2.11.0
 Contact: devsupport@lunchmoney.app
 */
 
@@ -25,33 +25,33 @@ var _ MappedNullable = &CategoryObject{}
 type CategoryObject struct {
 	// System defined unique ID for the category
 	Id int32 `json:"id"`
-	// The name of the category.
+	// Name of the category
 	Name string `json:"name"`
-	// The description of the category or `null` if not set.
+	// Category description, or `null` if none is set
 	Description NullableString `json:"description"`
-	// If `true`, the transactions in this category will be treated as income. (See <a href=\"https://support.lunchmoney.app/setup/categories/category-properties\">Category Properties</a> for more details)
+	// If `true`, transactions in this category are treated as income. (See [Category Properties](https://support.lunchmoney.app/setup/categories/category-properties) for details)
 	IsIncome bool `json:"is_income"`
-	// If `true`, the transactions in this category will be excluded from the budget. (See <a href=\"https://support.lunchmoney.app/setup/categories/category-properties\">Category Properties</a> for more details)
+	// If `true`, transactions in this category are excluded from the budget. (See [Category Properties](https://support.lunchmoney.app/setup/categories/category-properties) for details)
 	ExcludeFromBudget bool `json:"exclude_from_budget"`
-	// If `true`, the transactions in this category will be excluded from totals. (See <a href=\"https://support.lunchmoney.app/setup/categories/category-properties\">Category Properties</a> for more details)
+	// If `true`, transactions in this category are excluded from totals. (See [Category Properties](https://support.lunchmoney.app/setup/categories/category-properties) for details)
 	ExcludeFromTotals bool `json:"exclude_from_totals"`
-	// The date and time of when the category was last updated (in the ISO 8601 extended format).
+	// Date and time the category was last updated (in the ISO 8601 extended format).
 	UpdatedAt time.Time `json:"updated_at"`
-	// The date and time of when the category was created (in the ISO 8601 extended format).
+	// Date and time of when the category was created (ISO 8601 extended format).
 	CreatedAt time.Time `json:"created_at"`
-	// The ID of the category group this category belongs to or `null` if the category doesn't belong to a group, or is itself a category group.
+	// ID of the category group this category belongs to, or `null` if it does not belong to a group, or is itself a group.
 	GroupId NullableInt64 `json:"group_id"`
-	// If `true`, the category is created as a category group.
+	// If `true`, this category is created as a category group
 	IsGroup bool `json:"is_group"`
-	// For category groups, this will populate with details about the categories that belong to this group. The objects in this array are similar to Category Objects but do not include the `is_income`, `exclude_from_budget`, and `exclude_from_totals` properties as these are inherited from the category group. In addition, the `is_group` property will always be `false`, and there will be no `children` attribute.
+	// For category groups, contains details about the categories in the group. These objects are similar to Category Objects but the `is_group` property will always be `false`, and there will be no `children` attribute.
 	Children []ChildCategoryObject `json:"children,omitempty"`
-	// If true, the category is archived and not displayed in relevant areas of the Lunch Money app.
+	// If true, the category is archived and hidden in relevant areas of the Lunch Money app.
 	Archived bool `json:"archived"`
-	// The date and time of when the category was last archived (in the ISO 8601 extended format).
+	// Date and time the category was last archived ( ISO 8601 extended format).
 	ArchivedAt NullableTime `json:"archived_at"`
-	// An integer specifying the position in which the category is displayed on the categories page in the Lunch Money GUI. For categories within a category group the order is relative to the other categories within the group.<br>Categories with `order: null` will be displayed in alphabetical order by name, prior to any categories with an order
+	// Position of the category on the categories page in the Lunch Money app. For grouped categories, the order is relative to others in the same group.<br> Categories with `order: null` are shown alphabetically before ordered categories
 	Order NullableInt32 `json:"order"`
-	// If `true`, the category is collapsed in the Lunch Money GUI.
+	// If `true`, the category appears collapsed in the Lunch Money app
 	Collapsed bool `json:"collapsed"`
 }
 

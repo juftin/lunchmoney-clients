@@ -1,9 +1,9 @@
 /*
 Lunch Money API - v2
 
-Welcome to the Lunch Money v2 API. The API is available at `https://api.lunchmoney.dev/v2`. Get your access token from the [Lunch Money developers page](https://my.lunchmoney.app/developers).  ### Introduction  <span class=\"red-text\"><strong>The v2 API is in open alpha and is still subject to change. Use the mock server or a test budget when getting started.</strong></span>  **Static Mock Server**  Explore the API without an access token or risk to real data. Select **\"Static Mock v2 Lunch Money API Server\"** from the Server dropdown, then set your Bearer token to any string with 11 or more characters.  **Migrating from v1**  The v2 API is not backwards compatible with v1. See the [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) for details.  **Useful links** - [Developer Portal](https://lunchmoney.dev/v2/introduction) - [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) - [v2 API Overview](https://lunchmoney.dev/v2/overview) - [v2 API Changelog](https://lunchmoney.dev/v2/changelog) - [Migration Guide](https://lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://lunchmoney.dev/v2/rate-limits)
+### Introduction  Welcome to the Lunch Money v2 API reference. This is the **v2.11.0** spec.  The API is available at `https://api.lunchmoney.dev/v2`. Get your access token from the [Lunch Money developers page](https://my.lunchmoney.app/developers).   **Try it from these docs**  These docs are interactive — use **Test request** on any endpoint to call the API from this page. Choose a LIVE or MOCK service from the Server dropdown. Requests sent to `https://api.lunchmoney.dev/v2` can <span class=\"red-text\"><strong>change or delete</strong></span> your data and are <span class=\"red-text\"><strong>permanent</strong></span>. See the [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) before using the live API.  **Static mock server**  Explore without risk to real data. Select `https://mock.lunchmoney.dev/v2` in the Server dropdown to work with static mock data. POST, PUT, and DELETE requests will return realistic responses, but do not change the mock data.   **Client Libraries & SDKs**  An official TypeScript SDK is available on [NPM](https://www.npmjs.com/package/@lunch-money/v2-api-spec) and [GitHub](https://github.com/lunch-money/lunch-money-js-v2). For Python or other languages, see [lunchmoney-clients](https://github.com/juftin/lunchmoney-clients) or generate a client from [this OpenAPI spec](/v2/openapi).  **Migrating from v1**  The v2 API is not backwards compatible with v1. See the [Migration Guide](https://lunchmoney.dev/v2/migration-guide) for details.  **Useful links** - [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) - [v2 API Overview](https://lunchmoney.dev/v2/overview) - [Version History](https://lunchmoney.dev/v2/version-history) - [Migration Guide](https://lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://lunchmoney.dev/v2/rate-limits)
 
-API version: 2.9.4
+API version: 2.11.0
 Contact: devsupport@lunchmoney.app
 */
 
@@ -21,35 +21,35 @@ var _ MappedNullable = &UpdateCategoryRequestObject{}
 
 // UpdateCategoryRequestObject struct for UpdateCategoryRequestObject
 type UpdateCategoryRequestObject struct {
-	// If set, the new name of the category. Must be between 1 and 100 characters.
+	// If set, updates the category name. Must be between 1 and 100 characters.
 	Name *string `json:"name,omitempty"`
-	// If set, the new description of the category. Must not exceed 200 characters.
+	// If set, updates the category description. Must not exceed 200 characters.
 	Description NullableString `json:"description,omitempty"`
-	// If set, will indicate if this category will be treated as income. (See <a href=\"https://support.lunchmoney.app/setup/categories/category-properties\">Category Properties</a> for more details)
+	// If set, determines whether transactions in this category are treated as income. (See [Category Properties](https://support.lunchmoney.app/setup/categories/category-properties) for details)
 	IsIncome *bool `json:"is_income,omitempty"`
-	// If set, will indicate if this category will be excluded from budgets. (See <a href=\"https://support.lunchmoney.app/setup/categories/category-properties\">Category Properties</a> for more details)
+	// If set, determines whether transactions in this category are excluded from budgets. (See [Category Properties](https://support.lunchmoney.app/setup/categories/category-properties) for details)
 	ExcludeFromBudget *bool `json:"exclude_from_budget,omitempty"`
-	// If set, will indicate if this category will be excluded from totals. (See <a href=\"https://support.lunchmoney.app/setup/categories/category-properties\">Category Properties</a> for more details)
+	// If set, determines whether transactions in this category are excluded from totals. (See [Category Properties](https://support.lunchmoney.app/setup/categories/category-properties) for details)
 	ExcludeFromTotals *bool `json:"exclude_from_totals,omitempty"`
-	// If set, will indicate if this category is archived.
+	// If set, determines whether this category is archived.
 	Archived *bool `json:"archived,omitempty"`
-	// If set to the ID of an existing category group, and this category is not itself a category group, this category will be a child of the specified group.
+	// If set to the ID of an existing category group, and this category is not itself a category group, this category will be assigned to that group.
 	GroupId NullableInt64 `json:"group_id,omitempty"`
-	// This attribute may not be set to a value that is different than the current status of the category or category group. In other words, this API may not be used to convert a category to a category group or vice versa.
+	// This property is tolerated but cannot be changed. This API cannot be used to convert a category into a category group or vice versa.
 	IsGroup NullableBool `json:"is_group,omitempty"`
-	// The list of existing category objects, or existing category IDs or names of new categories to add to the new category group. This attribute should only be set if modifying an existing category group.<br> The categories or IDs specified must already exist and not belong to an existing category group. Categories that already belong to another category group will be moved. If strings are specified, they will be used as the names of new categories that will be added to the new category group. The request will fail if any names are the same as the name of an existing category.<br> It is permissible to provide both full category objects and IDs as well as strings for names in the same request.
+	// List of existing category objects, existing category IDs, or names of new categories to add to the category group. This attribute should only be set when modifying an existing category group.<br> Categories or IDs must already exist and must not already belong to a category group. Categories that already belong to another category group will be moved. If strings are specified, they will be used as names for new categories added to the group. The request will fail if any provided name matches an existing category name.<br> You may mix full category objects, IDs, and new category names in the same request.
 	Children []CreateCategoryRequestObjectChildrenInner `json:"children,omitempty"`
-	// An index specifying the position in which the category is displayed on the categories page in the Lunch Money GUI. For categories within a category group the order is relative to the other categories within the group.<br>While this property can be set via the API it is generally set by the user in the Lunch Money GUI. API.
+	// Position of the category on the categories page in the Lunch Money app. For categories within a category group, the order is relative to the other categories in the group.<br>While this property can be set via the API, it is generally managed by the user in the Lunch Money app.
 	Order NullableInt32 `json:"order,omitempty"`
-	// If `true`, the category is collapsed in the Lunch Money GUI.<br>While this property can be set via the API it is generally set by the user in the Lunch Money GUI.
+	// If `true`, the category is collapsed in the Lunch Money app.<br>While this property can be set via the API it is generally set by the user in the Lunch Money app.
 	Collapsed NullableBool `json:"collapsed,omitempty"`
 	// System defined unique identifier for the category. Ignored if set.
 	Id *int64 `json:"id,omitempty"`
-	// If set, updates the archived timestamp for the category. Provide an ISO 8601 extended datetime or `null` to clear it.
+	// System set date and time of when the category was last archived (in the ISO 8601 extended format). Provide an ISO 8601 extended datetime or `null` to clear it.
 	ArchivedAt NullableTime `json:"archived_at,omitempty"`
 	// System set date and time of when the category was last updated (in the ISO 8601 extended format). Ignored if set.
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
-	// System set date and time of when the category was created (in the ISO 8601 extended format). Ignored if set. (in the ISO 8601 extended format). Ignored if set.
+	// System set date and time of when the category was created (in the ISO 8601 extended format). Ignored if set.
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 }
 

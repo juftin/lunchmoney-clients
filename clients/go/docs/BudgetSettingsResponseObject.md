@@ -5,10 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **BudgetPeriodGranularity** | **string** | Budget period granularity | 
-**BudgetPeriodQuantity** | **float64** | The number of &#x60;granularity&#x60; units that make up a single budgeting period. | 
+**BudgetPeriodQuantity** | **int32** | The number of &#x60;granularity&#x60; units that make up a single budgeting period. | 
 **BudgetPeriodAnchorDate** | **string** | The date from which the budgeting period is calculated. All future (and past) periods are derived by applying &#x60;quantity&#x60; × &#x60;granularity&#x60; forward and backward from this date. | 
-**BudgetHideNoActivity** | **bool** | The display preference for hiding categories in budget view that have no activity and no budgeted value | [default to false]
-**BudgetUseLastDayOfMonth** | **bool** | The display preference for using the last day of the month as the period end for monthly periods | [default to false]
+**BudgetHideNoActivity** | **bool** | Display preference for hiding categories in budget view that have no activity and no budgeted value | [default to false]
+**BudgetUseLastDayOfMonth** | **bool** | Display preference for using the last day of the month as the period end for monthly periods | [default to false]
 **BudgetIncomeOption** | **string** | Determines which income value is used as the base when calculating available funds for a budgeting period | 
 **BudgetRolloverLeftToBudget** | **bool** | Determines whether the remaining unallocated funds (“Left to Budget”) at the end of a budgeting period are carried forward to the next period | [default to false]
 
@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 
 ### NewBudgetSettingsResponseObject
 
-`func NewBudgetSettingsResponseObject(budgetPeriodGranularity string, budgetPeriodQuantity float64, budgetPeriodAnchorDate string, budgetHideNoActivity bool, budgetUseLastDayOfMonth bool, budgetIncomeOption string, budgetRolloverLeftToBudget bool, ) *BudgetSettingsResponseObject`
+`func NewBudgetSettingsResponseObject(budgetPeriodGranularity string, budgetPeriodQuantity int32, budgetPeriodAnchorDate string, budgetHideNoActivity bool, budgetUseLastDayOfMonth bool, budgetIncomeOption string, budgetRolloverLeftToBudget bool, ) *BudgetSettingsResponseObject`
 
 NewBudgetSettingsResponseObject instantiates a new BudgetSettingsResponseObject object
 This constructor will assign default values to properties that have it defined,
@@ -53,20 +53,20 @@ SetBudgetPeriodGranularity sets BudgetPeriodGranularity field to given value.
 
 ### GetBudgetPeriodQuantity
 
-`func (o *BudgetSettingsResponseObject) GetBudgetPeriodQuantity() float64`
+`func (o *BudgetSettingsResponseObject) GetBudgetPeriodQuantity() int32`
 
 GetBudgetPeriodQuantity returns the BudgetPeriodQuantity field if non-nil, zero value otherwise.
 
 ### GetBudgetPeriodQuantityOk
 
-`func (o *BudgetSettingsResponseObject) GetBudgetPeriodQuantityOk() (*float64, bool)`
+`func (o *BudgetSettingsResponseObject) GetBudgetPeriodQuantityOk() (*int32, bool)`
 
 GetBudgetPeriodQuantityOk returns a tuple with the BudgetPeriodQuantity field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBudgetPeriodQuantity
 
-`func (o *BudgetSettingsResponseObject) SetBudgetPeriodQuantity(v float64)`
+`func (o *BudgetSettingsResponseObject) SetBudgetPeriodQuantity(v int32)`
 
 SetBudgetPeriodQuantity sets BudgetPeriodQuantity field to given value.
 

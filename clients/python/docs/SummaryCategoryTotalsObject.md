@@ -1,12 +1,12 @@
 # SummaryCategoryTotalsObject
 
-Total activity for the given category within the given date range which is aligned with budget period setting.
+Total activity for the given category within the given date range when it is aligned with the budget period setting.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**other_activity** | **float** | Total non recurring activity, in the user&#39;s default currency, for the category within the given date range.&lt;br&gt; The total activity for the category is the sum of this and the recurring_activity. | 
+**other_activity** | **float** | Total non-recurring activity, in the user&#39;s default currency, for the category within the given date range.&lt;br&gt; The total activity for the category is the sum of this and the recurring_activity. | 
 **recurring_activity** | **float** | Total recurring activity, in the user&#39;s default currency, for the category within the given date range.&lt;br&gt; The total activity for the category is the sum of this and the other_activity. | 
 **budgeted** | **float** | Total budgeted amount, in the user&#39;s default currency, for the category within the given date range or null if the category is not budgeted. This property will not be present in a non-aligned response. | [optional] 
 **available** | **float** | Total amount of funds available, in the user&#39;s default currency, for the category within the given date range. This property will not be present in a non-aligned response. | [optional] 

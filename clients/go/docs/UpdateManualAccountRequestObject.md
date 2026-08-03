@@ -6,21 +6,21 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **int32** | System defined unique identifier of this account. Ignored if set | [optional] 
 **Name** | Pointer to **string** | If set, the new name of the manual account | [optional] 
-**InstitutionName** | Pointer to **NullableString** | If set, the name of institution holding the account | [optional] 
+**InstitutionName** | Pointer to **NullableString** | If set, the name of the institution holding the account | [optional] 
 **DisplayName** | Pointer to **NullableString** | If set, the new display name for the manual account.&lt;br&gt; This must be unique for the user. | [optional] 
 **Type** | Pointer to [**AccountTypeEnum**](AccountTypeEnum.md) | If set, the new type of the manual account | [optional] 
-**Subtype** | Pointer to **string** | If set, an optional account subtype. Examples include&lt;br&gt; - retirement - checking - savings - prepaid credit card | [optional] 
+**Subtype** | Pointer to **NullableString** | If set, an optional account subtype. Set to &#x60;null&#x60; to clear it. Examples include&lt;br&gt; - retirement - checking - savings - prepaid credit card | [optional] 
 **Balance** | Pointer to [**UpdateManualAccountRequestObjectBalance**](UpdateManualAccountRequestObjectBalance.md) |  | [optional] 
 **Currency** | Pointer to [**CurrencyEnum**](CurrencyEnum.md) | If set, the new three-letter lowercase currency code of the manual account balance. | [optional] 
-**BalanceAsOf** | Pointer to **NullableString** | A new date for the &#x60;updated_at&#x60; property. May be set as a date, ie: YYYY-MM-DD, or date-time string in ISO 8601 extended format. This property is ignored if &#x60;balance&#x60; is not also set. If &#x60;balance&#x60; is set and this property is not set the current time is used. | [optional] 
-**Status** | Pointer to **string** | If set, the status of the manual account. If set to &#x60;closed&#x60;, the &#x60;closed_on_date&#x60; date will be set to the current date, unless it is also set. | [optional] 
+**BalanceAsOf** | Pointer to **NullableString** | If set, updates the &#x60;balance_as_of&#x60; value. May be provided as a date in YYYY-MM-DD format or as a date-time string in ISO 8601 extended format. This property is ignored unless &#x60;balance&#x60; is also set. If &#x60;balance&#x60; is set and this property is not set, the current time is used. | [optional] 
+**Status** | Pointer to **string** | If set, updates the status of the manual account. If set to &#x60;closed&#x60;, &#x60;closed_on&#x60; will be set to the current date unless it is also set. | [optional] 
 **ClosedOn** | Pointer to [**NullableUpdateManualAccountRequestObjectClosedOn**](UpdateManualAccountRequestObjectClosedOn.md) |  | [optional] 
 **ExternalId** | Pointer to **NullableString** | An optional user-defined ID for the manual account | [optional] 
 **CustomMetadata** | Pointer to **map[string]interface{}** | An optional JSON object that includes additional data related to this account. This must be a valid JSON object and, when stringified, must not exceed 4096 characters. | [optional] 
 **ExcludeFromTransactions** | Pointer to **bool** | If set, transactions may not be assigned to this manual account | [optional] 
 **ToBase** | Pointer to **float32** | System defined balance converted to the user&#39;s primary currency. Ignored if set. Use &#x60;balance&#x60; to update the balance in the account | [optional] 
 **CreatedAt** | Pointer to **time.Time** | System defined date/time the account was created in ISO 8601 extended format. Ignored if set. | [optional] 
-**UpdatedAt** | Pointer to **time.Time** | System defined date/time the account was created in ISO 8601 extended format. Ignored if set. | [optional] 
+**UpdatedAt** | Pointer to **time.Time** | System defined date/time the account was last updated in ISO 8601 extended format. Ignored if set. | [optional] 
 **CreatedByName** | Pointer to **string** | System defined name of the user who created the account. Ignored if set | [optional] 
 
 ## Methods
@@ -212,6 +212,16 @@ SetSubtype sets Subtype field to given value.
 
 HasSubtype returns a boolean if a field has been set.
 
+### SetSubtypeNil
+
+`func (o *UpdateManualAccountRequestObject) SetSubtypeNil(b bool)`
+
+ SetSubtypeNil sets the value for Subtype to be an explicit nil
+
+### UnsetSubtype
+`func (o *UpdateManualAccountRequestObject) UnsetSubtype()`
+
+UnsetSubtype ensures that no value is present for Subtype, not even an explicit nil
 ### GetBalance
 
 `func (o *UpdateManualAccountRequestObject) GetBalance() UpdateManualAccountRequestObjectBalance`
