@@ -1,9 +1,9 @@
 /*
 Lunch Money API - v2
 
-Welcome to the Lunch Money v2 API. The API is available at `https://api.lunchmoney.dev/v2`. Get your access token from the [Lunch Money developers page](https://my.lunchmoney.app/developers).  ### Introduction  <span class=\"red-text\"><strong>The v2 API is in open alpha and is still subject to change. Use the mock server or a test budget when getting started.</strong></span>  **Static Mock Server**  Explore the API without an access token or risk to real data. Select **\"Static Mock v2 Lunch Money API Server\"** from the Server dropdown, then set your Bearer token to any string with 11 or more characters.  **Migrating from v1**  The v2 API is not backwards compatible with v1. See the [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) for details.  **Useful links** - [Developer Portal](https://lunchmoney.dev/v2/introduction) - [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) - [v2 API Overview](https://lunchmoney.dev/v2/overview) - [v2 API Changelog](https://lunchmoney.dev/v2/changelog) - [Migration Guide](https://lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://lunchmoney.dev/v2/rate-limits)
+### Introduction  Welcome to the Lunch Money v2 API reference. This is the **v2.11.0** spec.  The API is available at `https://api.lunchmoney.dev/v2`. Get your access token from the [Lunch Money developers page](https://my.lunchmoney.app/developers).   **Try it from these docs**  These docs are interactive — use **Test request** on any endpoint to call the API from this page. Choose a LIVE or MOCK service from the Server dropdown. Requests sent to `https://api.lunchmoney.dev/v2` can <span class=\"red-text\"><strong>change or delete</strong></span> your data and are <span class=\"red-text\"><strong>permanent</strong></span>. See the [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) before using the live API.  **Static mock server**  Explore without risk to real data. Select `https://mock.lunchmoney.dev/v2` in the Server dropdown to work with static mock data. POST, PUT, and DELETE requests will return realistic responses, but do not change the mock data.   **Client Libraries & SDKs**  An official TypeScript SDK is available on [NPM](https://www.npmjs.com/package/@lunch-money/v2-api-spec) and [GitHub](https://github.com/lunch-money/lunch-money-js-v2). For Python or other languages, see [lunchmoney-clients](https://github.com/juftin/lunchmoney-clients) or generate a client from [this OpenAPI spec](/v2/openapi).  **Migrating from v1**  The v2 API is not backwards compatible with v1. See the [Migration Guide](https://lunchmoney.dev/v2/migration-guide) for details.  **Useful links** - [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) - [v2 API Overview](https://lunchmoney.dev/v2/overview) - [Version History](https://lunchmoney.dev/v2/version-history) - [Migration Guide](https://lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://lunchmoney.dev/v2/rate-limits)
 
-API version: 2.9.4
+API version: 2.11.0
 Contact: devsupport@lunchmoney.app
 */
 
@@ -20,17 +20,17 @@ import (
 // checks if the BudgetSettingsResponseObject type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &BudgetSettingsResponseObject{}
 
-// BudgetSettingsResponseObject Budget period and display settings
+// BudgetSettingsResponseObject Budget period and display settings for the current budgeting account.
 type BudgetSettingsResponseObject struct {
 	// Budget period granularity
 	BudgetPeriodGranularity string `json:"budget_period_granularity"`
 	// The number of `granularity` units that make up a single budgeting period.
-	BudgetPeriodQuantity float64 `json:"budget_period_quantity"`
+	BudgetPeriodQuantity int32 `json:"budget_period_quantity"`
 	// The date from which the budgeting period is calculated. All future (and past) periods are derived by applying `quantity` × `granularity` forward and backward from this date.
 	BudgetPeriodAnchorDate string `json:"budget_period_anchor_date"`
-	// The display preference for hiding categories in budget view that have no activity and no budgeted value
+	// Display preference for hiding categories in budget view that have no activity and no budgeted value
 	BudgetHideNoActivity bool `json:"budget_hide_no_activity"`
-	// The display preference for using the last day of the month as the period end for monthly periods
+	// Display preference for using the last day of the month as the period end for monthly periods
 	BudgetUseLastDayOfMonth bool `json:"budget_use_last_day_of_month"`
 	// Determines which income value is used as the base when calculating available funds for a budgeting period
 	BudgetIncomeOption string `json:"budget_income_option"`
@@ -44,7 +44,7 @@ type _BudgetSettingsResponseObject BudgetSettingsResponseObject
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBudgetSettingsResponseObject(budgetPeriodGranularity string, budgetPeriodQuantity float64, budgetPeriodAnchorDate string, budgetHideNoActivity bool, budgetUseLastDayOfMonth bool, budgetIncomeOption string, budgetRolloverLeftToBudget bool) *BudgetSettingsResponseObject {
+func NewBudgetSettingsResponseObject(budgetPeriodGranularity string, budgetPeriodQuantity int32, budgetPeriodAnchorDate string, budgetHideNoActivity bool, budgetUseLastDayOfMonth bool, budgetIncomeOption string, budgetRolloverLeftToBudget bool) *BudgetSettingsResponseObject {
 	this := BudgetSettingsResponseObject{}
 	this.BudgetPeriodGranularity = budgetPeriodGranularity
 	this.BudgetPeriodQuantity = budgetPeriodQuantity
@@ -95,9 +95,9 @@ func (o *BudgetSettingsResponseObject) SetBudgetPeriodGranularity(v string) {
 }
 
 // GetBudgetPeriodQuantity returns the BudgetPeriodQuantity field value
-func (o *BudgetSettingsResponseObject) GetBudgetPeriodQuantity() float64 {
+func (o *BudgetSettingsResponseObject) GetBudgetPeriodQuantity() int32 {
 	if o == nil {
-		var ret float64
+		var ret int32
 		return ret
 	}
 
@@ -106,7 +106,7 @@ func (o *BudgetSettingsResponseObject) GetBudgetPeriodQuantity() float64 {
 
 // GetBudgetPeriodQuantityOk returns a tuple with the BudgetPeriodQuantity field value
 // and a boolean to check if the value has been set.
-func (o *BudgetSettingsResponseObject) GetBudgetPeriodQuantityOk() (*float64, bool) {
+func (o *BudgetSettingsResponseObject) GetBudgetPeriodQuantityOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -114,7 +114,7 @@ func (o *BudgetSettingsResponseObject) GetBudgetPeriodQuantityOk() (*float64, bo
 }
 
 // SetBudgetPeriodQuantity sets field value
-func (o *BudgetSettingsResponseObject) SetBudgetPeriodQuantity(v float64) {
+func (o *BudgetSettingsResponseObject) SetBudgetPeriodQuantity(v int32) {
 	o.BudgetPeriodQuantity = v
 }
 

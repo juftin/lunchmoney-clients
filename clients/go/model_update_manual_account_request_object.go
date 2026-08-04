@@ -1,9 +1,9 @@
 /*
 Lunch Money API - v2
 
-Welcome to the Lunch Money v2 API. The API is available at `https://api.lunchmoney.dev/v2`. Get your access token from the [Lunch Money developers page](https://my.lunchmoney.app/developers).  ### Introduction  <span class=\"red-text\"><strong>The v2 API is in open alpha and is still subject to change. Use the mock server or a test budget when getting started.</strong></span>  **Static Mock Server**  Explore the API without an access token or risk to real data. Select **\"Static Mock v2 Lunch Money API Server\"** from the Server dropdown, then set your Bearer token to any string with 11 or more characters.  **Migrating from v1**  The v2 API is not backwards compatible with v1. See the [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) for details.  **Useful links** - [Developer Portal](https://lunchmoney.dev/v2/introduction) - [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) - [v2 API Overview](https://lunchmoney.dev/v2/overview) - [v2 API Changelog](https://lunchmoney.dev/v2/changelog) - [Migration Guide](https://lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://lunchmoney.dev/v2/rate-limits)
+### Introduction  Welcome to the Lunch Money v2 API reference. This is the **v2.11.0** spec.  The API is available at `https://api.lunchmoney.dev/v2`. Get your access token from the [Lunch Money developers page](https://my.lunchmoney.app/developers).   **Try it from these docs**  These docs are interactive — use **Test request** on any endpoint to call the API from this page. Choose a LIVE or MOCK service from the Server dropdown. Requests sent to `https://api.lunchmoney.dev/v2` can <span class=\"red-text\"><strong>change or delete</strong></span> your data and are <span class=\"red-text\"><strong>permanent</strong></span>. See the [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) before using the live API.  **Static mock server**  Explore without risk to real data. Select `https://mock.lunchmoney.dev/v2` in the Server dropdown to work with static mock data. POST, PUT, and DELETE requests will return realistic responses, but do not change the mock data.   **Client Libraries & SDKs**  An official TypeScript SDK is available on [NPM](https://www.npmjs.com/package/@lunch-money/v2-api-spec) and [GitHub](https://github.com/lunch-money/lunch-money-js-v2). For Python or other languages, see [lunchmoney-clients](https://github.com/juftin/lunchmoney-clients) or generate a client from [this OpenAPI spec](/v2/openapi).  **Migrating from v1**  The v2 API is not backwards compatible with v1. See the [Migration Guide](https://lunchmoney.dev/v2/migration-guide) for details.  **Useful links** - [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) - [v2 API Overview](https://lunchmoney.dev/v2/overview) - [Version History](https://lunchmoney.dev/v2/version-history) - [Migration Guide](https://lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://lunchmoney.dev/v2/rate-limits)
 
-API version: 2.9.4
+API version: 2.11.0
 Contact: devsupport@lunchmoney.app
 */
 
@@ -25,20 +25,20 @@ type UpdateManualAccountRequestObject struct {
 	Id *int32 `json:"id,omitempty"`
 	// If set, the new name of the manual account
 	Name *string `json:"name,omitempty"`
-	// If set, the name of institution holding the account
+	// If set, the name of the institution holding the account
 	InstitutionName NullableString `json:"institution_name,omitempty"`
 	// If set, the new display name for the manual account.<br> This must be unique for the user.
 	DisplayName NullableString `json:"display_name,omitempty"`
 	// If set, the new type of the manual account
 	Type *AccountTypeEnum `json:"type,omitempty"`
-	// If set, an optional account subtype. Examples include<br> - retirement - checking - savings - prepaid credit card
-	Subtype *string `json:"subtype,omitempty"`
+	// If set, an optional account subtype. Set to `null` to clear it. Examples include<br> - retirement - checking - savings - prepaid credit card
+	Subtype NullableString `json:"subtype,omitempty"`
 	Balance *UpdateManualAccountRequestObjectBalance `json:"balance,omitempty"`
 	// If set, the new three-letter lowercase currency code of the manual account balance.
 	Currency *CurrencyEnum `json:"currency,omitempty"`
-	// A new date for the `updated_at` property. May be set as a date, ie: YYYY-MM-DD, or date-time string in ISO 8601 extended format. This property is ignored if `balance` is not also set. If `balance` is set and this property is not set the current time is used.
+	// If set, updates the `balance_as_of` value. May be provided as a date in YYYY-MM-DD format or as a date-time string in ISO 8601 extended format. This property is ignored unless `balance` is also set. If `balance` is set and this property is not set, the current time is used.
 	BalanceAsOf NullableString `json:"balance_as_of,omitempty"`
-	// If set, the status of the manual account. If set to `closed`, the `closed_on_date` date will be set to the current date, unless it is also set.
+	// If set, updates the status of the manual account. If set to `closed`, `closed_on` will be set to the current date unless it is also set.
 	Status *string `json:"status,omitempty"`
 	ClosedOn NullableUpdateManualAccountRequestObjectClosedOn `json:"closed_on,omitempty"`
 	// An optional user-defined ID for the manual account
@@ -51,7 +51,7 @@ type UpdateManualAccountRequestObject struct {
 	ToBase *float32 `json:"to_base,omitempty"`
 	// System defined date/time the account was created in ISO 8601 extended format. Ignored if set.
 	CreatedAt *time.Time `json:"created_at,omitempty"`
-	// System defined date/time the account was created in ISO 8601 extended format. Ignored if set.
+	// System defined date/time the account was last updated in ISO 8601 extended format. Ignored if set.
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 	// System defined name of the user who created the account. Ignored if set
 	CreatedByName *string `json:"created_by_name,omitempty"`
@@ -254,36 +254,46 @@ func (o *UpdateManualAccountRequestObject) SetType(v AccountTypeEnum) {
 	o.Type = &v
 }
 
-// GetSubtype returns the Subtype field value if set, zero value otherwise.
+// GetSubtype returns the Subtype field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UpdateManualAccountRequestObject) GetSubtype() string {
-	if o == nil || IsNil(o.Subtype) {
+	if o == nil || IsNil(o.Subtype.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.Subtype
+	return *o.Subtype.Get()
 }
 
 // GetSubtypeOk returns a tuple with the Subtype field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UpdateManualAccountRequestObject) GetSubtypeOk() (*string, bool) {
-	if o == nil || IsNil(o.Subtype) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Subtype, true
+	return o.Subtype.Get(), o.Subtype.IsSet()
 }
 
 // HasSubtype returns a boolean if a field has been set.
 func (o *UpdateManualAccountRequestObject) HasSubtype() bool {
-	if o != nil && !IsNil(o.Subtype) {
+	if o != nil && o.Subtype.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetSubtype gets a reference to the given string and assigns it to the Subtype field.
+// SetSubtype gets a reference to the given NullableString and assigns it to the Subtype field.
 func (o *UpdateManualAccountRequestObject) SetSubtype(v string) {
-	o.Subtype = &v
+	o.Subtype.Set(&v)
+}
+// SetSubtypeNil sets the value for Subtype to be an explicit nil
+func (o *UpdateManualAccountRequestObject) SetSubtypeNil() {
+	o.Subtype.Set(nil)
+}
+
+// UnsetSubtype ensures that no value is present for Subtype, not even an explicit nil
+func (o *UpdateManualAccountRequestObject) UnsetSubtype() {
+	o.Subtype.Unset()
 }
 
 // GetBalance returns the Balance field value if set, zero value otherwise.
@@ -726,8 +736,8 @@ func (o UpdateManualAccountRequestObject) ToMap() (map[string]interface{}, error
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if !IsNil(o.Subtype) {
-		toSerialize["subtype"] = o.Subtype
+	if o.Subtype.IsSet() {
+		toSerialize["subtype"] = o.Subtype.Get()
 	}
 	if !IsNil(o.Balance) {
 		toSerialize["balance"] = o.Balance

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Reason** | Pointer to **string** | The reason the transaction was skipped, may be one of: - &#x60;duplicate_external_id&#x60;: The transaction has the same &#x60;manual_account_id&#x60; and &#x60;external_id&#x60; as an existing transaction - &#x60;duplicate_payee_amount_date&#x60;: The &#x60;skip_duplicates&#x60; request body property was set to &#x60;true&#x60; and the transaction has the same &#x60;amount&#x60;, &#x60;payee&#x60;, and &#x60;date&#x60; as an existing transaction associated with the same account.  | [optional] 
-**RequestTransactionsIndex** | Pointer to **int64** | The  of the transaction in the request body&#39;s transactions array that was skipped. | [optional] 
+**RequestTransactionsIndex** | Pointer to **int64** | The index of the transaction in the request body&#39;s transactions array that was skipped. | [optional] 
 **ExistingTransactionId** | Pointer to **int64** | The id of the existing transactions that the requested transaction duplicates. | [optional] 
 **RequestTransaction** | Pointer to [**InsertTransactionObject**](InsertTransactionObject.md) | The requested transaction that was skipped. | [optional] 
 

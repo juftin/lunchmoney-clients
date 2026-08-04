@@ -1,9 +1,9 @@
 /*
 Lunch Money API - v2
 
-Welcome to the Lunch Money v2 API. The API is available at `https://api.lunchmoney.dev/v2`. Get your access token from the [Lunch Money developers page](https://my.lunchmoney.app/developers).  ### Introduction  <span class=\"red-text\"><strong>The v2 API is in open alpha and is still subject to change. Use the mock server or a test budget when getting started.</strong></span>  **Static Mock Server**  Explore the API without an access token or risk to real data. Select **\"Static Mock v2 Lunch Money API Server\"** from the Server dropdown, then set your Bearer token to any string with 11 or more characters.  **Migrating from v1**  The v2 API is not backwards compatible with v1. See the [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) for details.  **Useful links** - [Developer Portal](https://lunchmoney.dev/v2/introduction) - [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) - [v2 API Overview](https://lunchmoney.dev/v2/overview) - [v2 API Changelog](https://lunchmoney.dev/v2/changelog) - [Migration Guide](https://lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://lunchmoney.dev/v2/rate-limits)
+### Introduction  Welcome to the Lunch Money v2 API reference. This is the **v2.11.0** spec.  The API is available at `https://api.lunchmoney.dev/v2`. Get your access token from the [Lunch Money developers page](https://my.lunchmoney.app/developers).   **Try it from these docs**  These docs are interactive — use **Test request** on any endpoint to call the API from this page. Choose a LIVE or MOCK service from the Server dropdown. Requests sent to `https://api.lunchmoney.dev/v2` can <span class=\"red-text\"><strong>change or delete</strong></span> your data and are <span class=\"red-text\"><strong>permanent</strong></span>. See the [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) before using the live API.  **Static mock server**  Explore without risk to real data. Select `https://mock.lunchmoney.dev/v2` in the Server dropdown to work with static mock data. POST, PUT, and DELETE requests will return realistic responses, but do not change the mock data.   **Client Libraries & SDKs**  An official TypeScript SDK is available on [NPM](https://www.npmjs.com/package/@lunch-money/v2-api-spec) and [GitHub](https://github.com/lunch-money/lunch-money-js-v2). For Python or other languages, see [lunchmoney-clients](https://github.com/juftin/lunchmoney-clients) or generate a client from [this OpenAPI spec](/v2/openapi).  **Migrating from v1**  The v2 API is not backwards compatible with v1. See the [Migration Guide](https://lunchmoney.dev/v2/migration-guide) for details.  **Useful links** - [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) - [v2 API Overview](https://lunchmoney.dev/v2/overview) - [Version History](https://lunchmoney.dev/v2/version-history) - [Migration Guide](https://lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://lunchmoney.dev/v2/rate-limits)
 
-API version: 2.9.4
+API version: 2.11.0
 Contact: devsupport@lunchmoney.app
 */
 
@@ -27,7 +27,6 @@ type SummaryCategoryObject struct {
 	Totals SummaryCategoryTotalsObject `json:"totals"`
 	// A list of objects describing the budget activity for each period within the range. This property is only present when `include_occurrences` is true.<p> For aligned ranges, there is one occurrence for each budget period in the range; for non-aligned, only periods fully contained in the range are included.<p> If `include_past_budget_dates` is also `true`, the three budget periods prior to the range are also included.
 	Occurrences []SummaryCategoryOccurrenceObject `json:"occurrences,omitempty"`
-	RolloverPool *SummaryRolloverPoolObject `json:"rollover_pool,omitempty"`
 }
 
 type _SummaryCategoryObject SummaryCategoryObject
@@ -131,38 +130,6 @@ func (o *SummaryCategoryObject) SetOccurrences(v []SummaryCategoryOccurrenceObje
 	o.Occurrences = v
 }
 
-// GetRolloverPool returns the RolloverPool field value if set, zero value otherwise.
-func (o *SummaryCategoryObject) GetRolloverPool() SummaryRolloverPoolObject {
-	if o == nil || IsNil(o.RolloverPool) {
-		var ret SummaryRolloverPoolObject
-		return ret
-	}
-	return *o.RolloverPool
-}
-
-// GetRolloverPoolOk returns a tuple with the RolloverPool field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SummaryCategoryObject) GetRolloverPoolOk() (*SummaryRolloverPoolObject, bool) {
-	if o == nil || IsNil(o.RolloverPool) {
-		return nil, false
-	}
-	return o.RolloverPool, true
-}
-
-// HasRolloverPool returns a boolean if a field has been set.
-func (o *SummaryCategoryObject) HasRolloverPool() bool {
-	if o != nil && !IsNil(o.RolloverPool) {
-		return true
-	}
-
-	return false
-}
-
-// SetRolloverPool gets a reference to the given SummaryRolloverPoolObject and assigns it to the RolloverPool field.
-func (o *SummaryCategoryObject) SetRolloverPool(v SummaryRolloverPoolObject) {
-	o.RolloverPool = &v
-}
-
 func (o SummaryCategoryObject) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -177,9 +144,6 @@ func (o SummaryCategoryObject) ToMap() (map[string]interface{}, error) {
 	toSerialize["totals"] = o.Totals
 	if !IsNil(o.Occurrences) {
 		toSerialize["occurrences"] = o.Occurrences
-	}
-	if !IsNil(o.RolloverPool) {
-		toSerialize["rollover_pool"] = o.RolloverPool
 	}
 	return toSerialize, nil
 }
