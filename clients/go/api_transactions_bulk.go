@@ -1,9 +1,9 @@
 /*
 Lunch Money API - v2
 
-Welcome to the Lunch Money v2 API. The API is available at `https://api.lunchmoney.dev/v2`. Get your access token from the [Lunch Money developers page](https://my.lunchmoney.app/developers).  ### Introduction  <span class=\"red-text\"><strong>The v2 API is in open alpha and is still subject to change. Use the mock server or a test budget when getting started.</strong></span>  **Static Mock Server**  Explore the API without an access token or risk to real data. Select **\"Static Mock v2 Lunch Money API Server\"** from the Server dropdown, then set your Bearer token to any string with 11 or more characters.  **Migrating from v1**  The v2 API is not backwards compatible with v1. See the [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) for details.  **Useful links** - [Developer Portal](https://lunchmoney.dev/v2/introduction) - [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) - [v2 API Overview](https://lunchmoney.dev/v2/overview) - [v2 API Changelog](https://lunchmoney.dev/v2/changelog) - [Migration Guide](https://lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://lunchmoney.dev/v2/rate-limits)
+### Introduction  Welcome to the Lunch Money v2 API reference. This is the **v2.11.0** spec.  The API is available at `https://api.lunchmoney.dev/v2`. Get your access token from the [Lunch Money developers page](https://my.lunchmoney.app/developers).   **Try it from these docs**  These docs are interactive — use **Test request** on any endpoint to call the API from this page. Choose a LIVE or MOCK service from the Server dropdown. Requests sent to `https://api.lunchmoney.dev/v2` can <span class=\"red-text\"><strong>change or delete</strong></span> your data and are <span class=\"red-text\"><strong>permanent</strong></span>. See the [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) before using the live API.  **Static mock server**  Explore without risk to real data. Select `https://mock.lunchmoney.dev/v2` in the Server dropdown to work with static mock data. POST, PUT, and DELETE requests will return realistic responses, but do not change the mock data.   **Client Libraries & SDKs**  An official TypeScript SDK is available on [NPM](https://www.npmjs.com/package/@lunch-money/v2-api-spec) and [GitHub](https://github.com/lunch-money/lunch-money-js-v2). For Python or other languages, see [lunchmoney-clients](https://github.com/juftin/lunchmoney-clients) or generate a client from [this OpenAPI spec](/v2/openapi).  **Migrating from v1**  The v2 API is not backwards compatible with v1. See the [Migration Guide](https://lunchmoney.dev/v2/migration-guide) for details.  **Useful links** - [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) - [v2 API Overview](https://lunchmoney.dev/v2/overview) - [Version History](https://lunchmoney.dev/v2/version-history) - [Migration Guide](https://lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://lunchmoney.dev/v2/rate-limits)
 
-API version: 2.9.4
+API version: 2.11.0
 Contact: devsupport@lunchmoney.app
 */
 
@@ -359,13 +359,13 @@ type ApiGetAllTransactionsRequest struct {
 	offset *int32
 }
 
-// Denotes the beginning of the time period to fetch transactions for. If omitted, the most recent transactions will be returned. See &#x60;limit&#x60;. Required if end_date exists. &lt;br&gt;
+// Indicates the beginning of the time period to fetch transactions for. If omitted, the most recent transactions will be returned. See &#x60;limit&#x60;. Required if end_date exists. &lt;br&gt;
 func (r ApiGetAllTransactionsRequest) StartDate(startDate string) ApiGetAllTransactionsRequest {
 	r.startDate = &startDate
 	return r
 }
 
-// Denotes the end of the time period you&#39;d like to get transactions for. Required if start_date exists. 
+// Indicates the end of the time period to fetch transactions for. Required if start_date exists. 
 func (r ApiGetAllTransactionsRequest) EndDate(endDate string) ApiGetAllTransactionsRequest {
 	r.endDate = &endDate
 	return r
@@ -383,31 +383,31 @@ func (r ApiGetAllTransactionsRequest) UpdatedSince(updatedSince GetAllTransactio
 	return r
 }
 
-// Filter transactions to those associated with specified manual account ID or set this to 0 to omit any transactions from manual accounts. Setting both this and &#x60;plaid_account_id&#x60; to 0 will return transactions with no account. These are listed as \&quot;Cash Transactions\&quot; in the Lunch Money GUI.&lt;br&gt; Note that transaction groups are not associated with any account. If you want the response to include transactions from transaction groups, set the &#x60;include_group_children&#x60; query parameter to &#x60;true&#x60; when filtering by manual accounts.
+// Filter transactions to those associated with specified manual account ID or set this to 0 to omit any transactions from manual accounts. Setting both this and &#x60;plaid_account_id&#x60; to 0 will return transactions with no account. These are listed as \&quot;Cash Transactions\&quot; in the Lunch Money app.&lt;br&gt; Note that transaction groups are not associated with any account. If you want the response to include transactions from transaction groups, set the &#x60;include_group_children&#x60; query parameter to &#x60;true&#x60; when filtering by manual accounts.
 func (r ApiGetAllTransactionsRequest) ManualAccountId(manualAccountId int32) ApiGetAllTransactionsRequest {
 	r.manualAccountId = &manualAccountId
 	return r
 }
 
-// Filter transactions to those associated with specified plaid account ID or set this to 0 to omit any transactions from plaid accounts. Setting both this and &#x60;manual_account_id&#x60; to 0 will return transactions with no account. These are listed as \&quot;Cash Transactions\&quot; in the Lunch Money GUI.&lt;br&gt; Note that transaction groups are not associated with any account. If you want the response to include transactions from transaction groups, set the &#x60;include_group_children&#x60; query parameter to &#x60;true&#x60; when filtering by plaid accounts.
+// Filter transactions to those associated with specified plaid account ID or set this to 0 to omit any transactions from plaid accounts. Setting both this and &#x60;manual_account_id&#x60; to 0 will return transactions with no account. These are listed as \&quot;Cash Transactions\&quot; in the Lunch Money app.&lt;br&gt; Note that transaction groups are not associated with any account. If you want the response to include transactions from transaction groups, set the &#x60;include_group_children&#x60; query parameter to &#x60;true&#x60; when filtering by plaid accounts.
 func (r ApiGetAllTransactionsRequest) PlaidAccountId(plaidAccountId int32) ApiGetAllTransactionsRequest {
 	r.plaidAccountId = &plaidAccountId
 	return r
 }
 
-// Filter transactions to those associated with specified Recurring  Item ID 
+// Filter transactions to those associated with the specified recurring item ID. 
 func (r ApiGetAllTransactionsRequest) RecurringId(recurringId int32) ApiGetAllTransactionsRequest {
 	r.recurringId = &recurringId
 	return r
 }
 
-// Filter transactions to those associated with the specified category ID. Will also match category groups.  Set this to 0 to return only un-categorized transactions
+// Filter transactions to those associated with the specified category ID. Will also match category groups. Set this to 0 to return only uncategorized transactions.
 func (r ApiGetAllTransactionsRequest) CategoryId(categoryId int32) ApiGetAllTransactionsRequest {
 	r.categoryId = &categoryId
 	return r
 }
 
-// Filter transactions to those that have a tag with the specified Tag ID
+// Filter transactions to those that have the specified tag ID
 func (r ApiGetAllTransactionsRequest) TagId(tagId int32) ApiGetAllTransactionsRequest {
 	r.tagId = &tagId
 	return r
@@ -437,13 +437,13 @@ func (r ApiGetAllTransactionsRequest) IncludePending(includePending bool) ApiGet
 	return r
 }
 
-// By default, custom and plaid metadata are not included in the response.  Set to true if you&#39;d like the returned transactions objects to include any  metadata associated with the transactions.
+// By default, custom and plaid metadata are not included in the response. Set to true if you&#39;d like the returned transaction objects to include any metadata associated with the transactions.
 func (r ApiGetAllTransactionsRequest) IncludeMetadata(includeMetadata bool) ApiGetAllTransactionsRequest {
 	r.includeMetadata = &includeMetadata
 	return r
 }
 
-// By default, transactions that were split into multiple transactions are not included in the response. Set to true if you&#39;d like the returned transactions objects to include any  transactions that were split into multiple transactions.  Use with caution as this data is normally not exposed after the split transactions are created.
+// By default, transactions that were split into multiple transactions are not included in the response. Set to true if you&#39;d like the returned transaction objects to include transactions that were split into multiple transactions. Use with caution, as this data is normally not exposed after the split transactions are created.
 func (r ApiGetAllTransactionsRequest) IncludeSplitParents(includeSplitParents bool) ApiGetAllTransactionsRequest {
 	r.includeSplitParents = &includeSplitParents
 	return r
@@ -455,25 +455,25 @@ func (r ApiGetAllTransactionsRequest) IncludeGroupChildren(includeGroupChildren 
 	return r
 }
 
-// By default, the &#x60;children&#x60; property is not included in the response. Set to true if you&#39;d like the children property to be populated with the transactions that  make up a transaction group, or, if the &#x60;include_split_parents&#x60; query param is also set,  the transactions that were split from a parent transaction.
+// By default, the &#x60;children&#x60; property is not included in the response. Set to true if you&#39;d like the children property to be populated with the transactions that make up a transaction group, or, if the &#x60;include_split_parents&#x60; query param is also set, the transactions that were split from a parent transaction.
 func (r ApiGetAllTransactionsRequest) IncludeChildren(includeChildren bool) ApiGetAllTransactionsRequest {
 	r.includeChildren = &includeChildren
 	return r
 }
 
-// By default, the &#x60;files&#x60; property is not included in the response. Set to true if you&#39;d like the responses to include a list of of  objects that describe any files attached to the transactions.
+// By default, the &#x60;files&#x60; property is not included in the response. Set to true if you&#39;d like the responses to include a list of objects that describe any files attached to the transactions.
 func (r ApiGetAllTransactionsRequest) IncludeFiles(includeFiles bool) ApiGetAllTransactionsRequest {
 	r.includeFiles = &includeFiles
 	return r
 }
 
-// Sets the maximum number of transactions to return. If more match the filter criteria, the response will include a &#x60;has_more&#x60; attribute set to &#x60;true&#x60;. See [Pagination](https://alpha.lunchmoney.dev/v2/pagination)
+// Sets the maximum number of transactions to return. If more match the filter criteria, the response will include a &#x60;has_more&#x60; attribute set to &#x60;true&#x60;. See [Pagination](https://lunchmoney.dev/v2/pagination)
 func (r ApiGetAllTransactionsRequest) Limit(limit int32) ApiGetAllTransactionsRequest {
 	r.limit = &limit
 	return r
 }
 
-// Sets the offset for the records returned. This is typically set automatically in the header. See [Pagination](https://alpha.lunchmoney.dev/v2/pagination)
+// Sets the offset for the records returned. This is typically set automatically in the header. See [Pagination](https://lunchmoney.dev/v2/pagination)
 func (r ApiGetAllTransactionsRequest) Offset(offset int32) ApiGetAllTransactionsRequest {
 	r.offset = &offset
 	return r
@@ -486,7 +486,7 @@ func (r ApiGetAllTransactionsRequest) Execute() (*GetAllTransactions200Response,
 /*
 GetAllTransactions Get all transactions
 
-Retrieve a list of all transactions associated with a user's account. <br>If called with no parameters, this endpoint will return the most recent transactions up to `limit` number of transactions.
+Retrieve a list of all transactions associated with a user's account. <br>If called with no parameters, this endpoint will return the most recent transactions, up to the specified `limit`.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetAllTransactionsRequest

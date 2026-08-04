@@ -1,9 +1,9 @@
 /*
 Lunch Money API - v2
 
-Welcome to the Lunch Money v2 API. The API is available at `https://api.lunchmoney.dev/v2`. Get your access token from the [Lunch Money developers page](https://my.lunchmoney.app/developers).  ### Introduction  <span class=\"red-text\"><strong>The v2 API is in open alpha and is still subject to change. Use the mock server or a test budget when getting started.</strong></span>  **Static Mock Server**  Explore the API without an access token or risk to real data. Select **\"Static Mock v2 Lunch Money API Server\"** from the Server dropdown, then set your Bearer token to any string with 11 or more characters.  **Migrating from v1**  The v2 API is not backwards compatible with v1. See the [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) for details.  **Useful links** - [Developer Portal](https://lunchmoney.dev/v2/introduction) - [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) - [v2 API Overview](https://lunchmoney.dev/v2/overview) - [v2 API Changelog](https://lunchmoney.dev/v2/changelog) - [Migration Guide](https://lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://lunchmoney.dev/v2/rate-limits)
+### Introduction  Welcome to the Lunch Money v2 API reference. This is the **v2.11.0** spec.  The API is available at `https://api.lunchmoney.dev/v2`. Get your access token from the [Lunch Money developers page](https://my.lunchmoney.app/developers).   **Try it from these docs**  These docs are interactive — use **Test request** on any endpoint to call the API from this page. Choose a LIVE or MOCK service from the Server dropdown. Requests sent to `https://api.lunchmoney.dev/v2` can <span class=\"red-text\"><strong>change or delete</strong></span> your data and are <span class=\"red-text\"><strong>permanent</strong></span>. See the [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) before using the live API.  **Static mock server**  Explore without risk to real data. Select `https://mock.lunchmoney.dev/v2` in the Server dropdown to work with static mock data. POST, PUT, and DELETE requests will return realistic responses, but do not change the mock data.   **Client Libraries & SDKs**  An official TypeScript SDK is available on [NPM](https://www.npmjs.com/package/@lunch-money/v2-api-spec) and [GitHub](https://github.com/lunch-money/lunch-money-js-v2). For Python or other languages, see [lunchmoney-clients](https://github.com/juftin/lunchmoney-clients) or generate a client from [this OpenAPI spec](/v2/openapi).  **Migrating from v1**  The v2 API is not backwards compatible with v1. See the [Migration Guide](https://lunchmoney.dev/v2/migration-guide) for details.  **Useful links** - [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) - [v2 API Overview](https://lunchmoney.dev/v2/overview) - [Version History](https://lunchmoney.dev/v2/version-history) - [Migration Guide](https://lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://lunchmoney.dev/v2/rate-limits)
 
-API version: 2.9.4
+API version: 2.11.0
 Contact: devsupport@lunchmoney.app
 */
 
@@ -23,9 +23,9 @@ var _ MappedNullable = &TransactionObject{}
 
 // TransactionObject struct for TransactionObject
 type TransactionObject struct {
-	// System created unique identifier for transaction
+	// System-created unique identifier for the transaction
 	Id int64 `json:"id"`
-	// Date of transaction in ISO 8601 format
+	// Transaction date in ISO 8601 format
 	Date string `json:"date"`
 	// Amount of the transaction in numeric format to 4 decimal places. Positive values indicate a debit transaction, negative values indicate a credit transaction.
 	Amount string `json:"amount"`
@@ -35,21 +35,21 @@ type TransactionObject struct {
 	ToBase float64 `json:"to_base"`
 	// The unique identifier of the associated recurring item that this transaction matched.
 	RecurringId NullableInt32 `json:"recurring_id"`
-	// Name of payee set by the user, the financial institution, or by a matched recurring item. This will match the value displayed in payee field on the transactions page in the GUI. 
+	// Name of payee set by the user, the financial institution, or by a matched recurring item. This will match the value displayed in payee field on the transactions page in the Lunch Money app. 
 	Payee string `json:"payee"`
 	// Original payee name from the source (financial institution, CSV, etc.). For Plaid transactions, this is the raw name before normalization. For manual/API transactions, this typically matches `payee`. May be null for older transactions.
 	OriginalName NullableString `json:"original_name,omitempty"`
 	// Unique identifier of associated category set by the user or by a matched recurring_item.<br> Category details can be obtained by passing the value of this property to the [Get A Single Category](../operations/getCategoryById) API
 	CategoryId NullableInt32 `json:"category_id"`
-	// The unique identifier of the plaid account associated with this transaction. This will always be null if this transaction is associated with a manual account or if this transaction has no associated account and appears as a \"Cash Transaction\" in the Lunch Money GUI.
+	// The unique identifier of the plaid account associated with this transaction. This will always be null if this transaction is associated with a manual account or if this transaction has no associated account and appears as a \"Cash Transaction\" in the Lunch Money app.
 	PlaidAccountId NullableInt32 `json:"plaid_account_id"`
-	// The unique identifier of the manual account associated with this transaction. This will always be null if this transaction is associated with a synced account or if this transaction has no associated account and appears as a \"Cash Transaction\" in the Lunch Money GUI.
+	// The unique identifier of the manual account associated with this transaction. This will always be null if this transaction is associated with a synced account or if this transaction has no associated account and appears as a \"Cash Transaction\" in the Lunch Money app.
 	ManualAccountId NullableInt32 `json:"manual_account_id"`
-	// A user-defined external ID for any transaction that was added via csv import, `POST /transactions` API call, or manually added via the Lunch Money GUI. No external ID exists for transactions associated with synced accounts, and they cannot be added. For transactions associated with manual accounts, the external ID must be unique as attempts to add a subsequent transaction with the same external_id and manual_account_id will be flagged as duplicates and fail.
+	// A user-defined external ID associated with the transaction. For transactions belonging to manual accounts, the external ID must be unique for each transaction associated with the account.
 	ExternalId NullableString `json:"external_id"`
 	// A list of tag_ids for the tags associated with this transaction. If the transaction has no tags this will be an empty list.<br> Tag details can be obtained by passing the value of this attribute as the `ids` query parameter to the [List Tags](../operations/getTags) API
 	TagIds []int32 `json:"tag_ids"`
-	// Any transaction notes set by the user or by a matched recurring item. This will match the value displayed in notes field on the transactions page in the GUI. 
+	// Any transaction notes set by the user or by a matched recurring item. This will match the value displayed in notes field on the transactions page in the Lunch Money app. 
 	Notes NullableString `json:"notes"`
 	// Status of the transaction: - `reviewed`: User has reviewed the transaction, or it was automatically marked as reviewed due to reviewed recurring_item logic - `unreviewed`: User has not reviewed the transaction and it does not match any reviewed recurring_items. Note that any transactions where `is_pending` is true will be returned with a status of unreviewed. - `delete_pending`: The synced account deleted this transaction after it was updated by the user. Requires manual intervention. 
 	Status string `json:"status"`
@@ -65,15 +65,15 @@ type TransactionObject struct {
 	SplitParentId NullableInt64 `json:"split_parent_id"`
 	// `true` if this transaction represents a group of transactions. If so, amount and currency represent the totalled amount of transactions bearing this transaction's id as their group_parent_id. Amount is calculated based on the user's primary currency.
 	IsGroupParent bool `json:"is_group_parent"`
-	// Is set if this transaction is part of a group. Denotes the ID of the grouped transaction this is now included in. By default the transactions that were grouped are not returned in a call to `GET /transactions` but they can be queried directly by calling the `GET /transactions/group/{id}`, where the id passed is associated with a transaction where the `is_group_parent` attribute is true
+	// If set, this transaction is part of a group. Denotes the ID of the grouped transaction that it is included in. By default, the transactions that were grouped are not returned in a call to `GET /transactions` but they can be queried directly by calling the `GET /transactions/group/{id}`, where the id passed is associated with a transaction where the `is_group_parent` attribute is true.
 	GroupParentId NullableInt64 `json:"group_parent_id"`
 	// Exists only for transactions which are the parent of a split transaction or for transaction groups. It will not exist in the response unless the `include_children` query parameter is set to `true`.<br> For parents of split transactions, it contains a list of the associated transactions that it was split into. For transaction groups, it contains the transactions that were grouped together. Examine the `is_split_parent` and `is_group_parent` properties to determine which of these it is.
 	Children []ChildTransactionObject `json:"children,omitempty"`
-	// If requested, the transaction's plaid_metadata that came when this transaction was obtained. This will be a json object, but the schema is variable. This is only present when the `include_metadata` query parameter is set to true.
+	// If requested, the transaction's plaid_metadata that came when this transaction was obtained. This will be a JSON object, but the schema is variable. This is only present when the `include_metadata` query parameter is set to true.
 	PlaidMetadata map[string]interface{} `json:"plaid_metadata,omitempty"`
-	// If requested, the transaction's custom_metadata that was included when the transaction was inserted via the API. This will be a json object, but the schema is variable. This is only present when the `include_metadata` query parameter is set to true.
+	// If requested, the transaction's custom_metadata that was included when the transaction was inserted via the API. This will be a JSON object, but the schema is variable. This is only present when the `include_metadata` query parameter is set to true.
 	CustomMetadata map[string]interface{} `json:"custom_metadata,omitempty"`
-	// A list of objects that describe any attachments to the Transactions. This is only present when the `include_files` query parameter is set to true.
+	// A list of objects that describe any attachments to the transaction. This is only present when the `include_files` query parameter is set to true.
 	Files []TransactionAttachmentObject `json:"files,omitempty"`
 	// Source of the transaction: - `api`: Transaction was added by a call to the [POST /transactions](../operations/createTransaction) API - `csv`: Transaction was added via a CSV Import - `manual`: Transaction was created via the \"Add to Cash\" button on the Transactions page - `merge`: Transactions were originally in an account that was merged into another account - `plaid`: Transaction came from a Financial Institution synced via Plaid - `recurring`: Transaction was created from the Recurring page - `rule`: Transaction was created by a rule to split a transaction - `split`: Transaction was created by splitting another transaction - `user`: This is a legacy value and is replaced by either csv or manual 
 	Source NullableString `json:"source"`

@@ -18,7 +18,6 @@ Retrieve a list of all synced accounts associated with the user's account.
 
 ### Example
 
-* Api Key Authentication (cookieAuth):
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
@@ -37,12 +36,6 @@ configuration = lunchmoney.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: cookieAuth
-configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['cookieAuth'] = 'Bearer'
 
 # Configure Bearer authorization (JWT): bearerSecurity
 configuration = lunchmoney.Configuration(
@@ -75,7 +68,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[cookieAuth](../README.md#cookieAuth), [bearerSecurity](../README.md#bearerSecurity)
+[bearerSecurity](../README.md#bearerSecurity)
 
 ### HTTP request headers
 
@@ -103,7 +96,6 @@ Retrieve the details of the plaid account with the specified ID.
 
 ### Example
 
-* Api Key Authentication (cookieAuth):
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
@@ -122,12 +114,6 @@ configuration = lunchmoney.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: cookieAuth
-configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['cookieAuth'] = 'Bearer'
 
 # Configure Bearer authorization (JWT): bearerSecurity
 configuration = lunchmoney.Configuration(
@@ -164,7 +150,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[cookieAuth](../README.md#cookieAuth), [bearerSecurity](../README.md#bearerSecurity)
+[bearerSecurity](../README.md#bearerSecurity)
 
 ### HTTP request headers
 
@@ -195,7 +181,6 @@ Successful calls will return a 202 ACCEPTED response. Note that fetching from Pl
 
 ### Example
 
-* Api Key Authentication (cookieAuth):
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
@@ -214,12 +199,6 @@ configuration = lunchmoney.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure API key authorization: cookieAuth
-configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['cookieAuth'] = 'Bearer'
-
 # Configure Bearer authorization (JWT): bearerSecurity
 configuration = lunchmoney.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
@@ -229,8 +208,8 @@ configuration = lunchmoney.Configuration(
 with lunchmoney.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = lunchmoney.PlaidAccountsApi(api_client)
-    start_date = '2013-10-20' # date | Denotes the beginning of the time period to fetch transactions for. If omitted, the most recent transactions will be returned. <br> Required if end_date exists. <br> (optional)
-    end_date = '2013-10-20' # date | Denotes the end of the time period you'd like to get transactions for. Required if start_date exists.  (optional)
+    start_date = '2013-10-20' # date | Indicates the beginning of the time period to fetch transactions for. If omitted, the most recent transactions will be returned. <br> Required if end_date exists. <br> (optional)
+    end_date = '2013-10-20' # date | Indicates the end of the time period to fetch transactions for. Required if start_date exists.  (optional)
     id = 119807 # int | Specific ID of a plaid account to fetch. If not set the endpoint will trigger a fetch for all eligible accounts. (optional)
 
     try:
@@ -247,8 +226,8 @@ with lunchmoney.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **start_date** | **date**| Denotes the beginning of the time period to fetch transactions for. If omitted, the most recent transactions will be returned. &lt;br&gt; Required if end_date exists. &lt;br&gt; | [optional] 
- **end_date** | **date**| Denotes the end of the time period you&#39;d like to get transactions for. Required if start_date exists.  | [optional] 
+ **start_date** | **date**| Indicates the beginning of the time period to fetch transactions for. If omitted, the most recent transactions will be returned. &lt;br&gt; Required if end_date exists. &lt;br&gt; | [optional] 
+ **end_date** | **date**| Indicates the end of the time period to fetch transactions for. Required if start_date exists.  | [optional] 
  **id** | **int**| Specific ID of a plaid account to fetch. If not set the endpoint will trigger a fetch for all eligible accounts. | [optional] 
 
 ### Return type
@@ -257,7 +236,7 @@ void (empty response body)
 
 ### Authorization
 
-[cookieAuth](../README.md#cookieAuth), [bearerSecurity](../README.md#bearerSecurity)
+[bearerSecurity](../README.md#bearerSecurity)
 
 ### HTTP request headers
 
@@ -268,7 +247,7 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**202** | A 202 ACCEPTED status is returned if Plaid acknowledged the fetch request. This indicates that it is possible to subsequently query the &#x60;GET /plaid_accounts&#x60; endpoint to determine if the request was successful (&#x60;plaid_last_successful_update&#x60; is more recent than &#x60;last_fetch), or if new transactions were synced (&#x60;last_import&#x60; is more recent than &#x60;last_fetch&#x60;).&lt;br&gt; |  -  |
+**202** | A 202 ACCEPTED status is returned if Plaid acknowledged the fetch request. This indicates that it is possible to subsequently query the &#x60;GET /plaid_accounts&#x60; endpoint to determine if the request was successful (&#x60;plaid_last_successful_update&#x60; is more recent than &#x60;last_fetch&#x60;), or if new transactions were synced (&#x60;last_import&#x60; is more recent than &#x60;last_fetch&#x60;).&lt;br&gt; |  -  |
 **400** | Bad Request |  -  |
 **401** | Unauthorized. This error occurs when an invalid API token is passed to the request. |  -  |
 **425** | Too Early |  -  |

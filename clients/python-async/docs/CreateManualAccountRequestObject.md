@@ -6,10 +6,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **str** | Name of the manual account | 
-**institution_name** | **str** | Name of institution holding the manual account | [optional] 
-**display_name** | **str** | Display name of the manual account as set by user or derived from the &#x60;institution_name&#x60; and &#x60;name&#x60; if not explicitly set.&lt;br&gt; This must be unique for the budgeting account. | [optional] 
+**institution_name** | **str** | Name of the institution holding the manual account. If omitted or &#x60;null&#x60;, no institution name is set. | [optional] 
+**display_name** | **str** | Display name of the manual account. If omitted or &#x60;null&#x60;, it is derived from &#x60;institution_name&#x60; and &#x60;name&#x60;. An explicitly set display name must be unique for the budgeting account. | [optional] 
 **type** | [**AccountTypeEnum**](AccountTypeEnum.md) | The type of manual account | 
-**subtype** | **str** | An optional manual account subtype. Examples include&lt;br&gt; - retirement - checking - savings - prepaid credit card | [optional] 
+**subtype** | **str** | Manual account subtype. If omitted or &#x60;null&#x60;, no subtype is set. Examples include retirement, checking, savings, and prepaid credit card. | [optional] 
 **balance** | [**CreateManualAccountRequestObjectBalance**](CreateManualAccountRequestObjectBalance.md) |  | 
 **balance_as_of** | **str** | Date/time the balance of the manual account was last updated in ISO 8601 extended format | [optional] 
 **currency** | [**CurrencyEnum**](CurrencyEnum.md) | Three-letter lowercase currency code of the transaction in ISO 4217 format | [optional] 

@@ -1,9 +1,9 @@
 /*
 Lunch Money API - v2
 
-Welcome to the Lunch Money v2 API. The API is available at `https://api.lunchmoney.dev/v2`. Get your access token from the [Lunch Money developers page](https://my.lunchmoney.app/developers).  ### Introduction  <span class=\"red-text\"><strong>The v2 API is in open alpha and is still subject to change. Use the mock server or a test budget when getting started.</strong></span>  **Static Mock Server**  Explore the API without an access token or risk to real data. Select **\"Static Mock v2 Lunch Money API Server\"** from the Server dropdown, then set your Bearer token to any string with 11 or more characters.  **Migrating from v1**  The v2 API is not backwards compatible with v1. See the [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) for details.  **Useful links** - [Developer Portal](https://lunchmoney.dev/v2/introduction) - [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) - [v2 API Overview](https://lunchmoney.dev/v2/overview) - [v2 API Changelog](https://lunchmoney.dev/v2/changelog) - [Migration Guide](https://lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://lunchmoney.dev/v2/rate-limits)
+### Introduction  Welcome to the Lunch Money v2 API reference. This is the **v2.11.0** spec.  The API is available at `https://api.lunchmoney.dev/v2`. Get your access token from the [Lunch Money developers page](https://my.lunchmoney.app/developers).   **Try it from these docs**  These docs are interactive — use **Test request** on any endpoint to call the API from this page. Choose a LIVE or MOCK service from the Server dropdown. Requests sent to `https://api.lunchmoney.dev/v2` can <span class=\"red-text\"><strong>change or delete</strong></span> your data and are <span class=\"red-text\"><strong>permanent</strong></span>. See the [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) before using the live API.  **Static mock server**  Explore without risk to real data. Select `https://mock.lunchmoney.dev/v2` in the Server dropdown to work with static mock data. POST, PUT, and DELETE requests will return realistic responses, but do not change the mock data.   **Client Libraries & SDKs**  An official TypeScript SDK is available on [NPM](https://www.npmjs.com/package/@lunch-money/v2-api-spec) and [GitHub](https://github.com/lunch-money/lunch-money-js-v2). For Python or other languages, see [lunchmoney-clients](https://github.com/juftin/lunchmoney-clients) or generate a client from [this OpenAPI spec](/v2/openapi).  **Migrating from v1**  The v2 API is not backwards compatible with v1. See the [Migration Guide](https://lunchmoney.dev/v2/migration-guide) for details.  **Useful links** - [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) - [v2 API Overview](https://lunchmoney.dev/v2/overview) - [Version History](https://lunchmoney.dev/v2/version-history) - [Migration Guide](https://lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://lunchmoney.dev/v2/rate-limits)
 
-API version: 2.9.4
+API version: 2.11.0
 Contact: devsupport@lunchmoney.app
 */
 
@@ -22,26 +22,26 @@ var _ MappedNullable = &InsertTransactionObject{}
 
 // InsertTransactionObject struct for InsertTransactionObject
 type InsertTransactionObject struct {
-	// Date of transaction in ISO 8601 format
+	// Transaction date in ISO 8601 format
 	Date string `json:"date"`
 	Amount InsertTransactionObjectAmount `json:"amount"`
-	// Three-letter lowercase currency code of the transaction in ISO 4217 format. Must match one of the [supported currencies](https://alpha.lunchmoney.dev/v2/currencies). If not set defaults to the user account's primary currency.
+	// Three-letter lowercase currency code of the transaction in ISO 4217 format. Must match one of the [supported currencies](https://lunchmoney.dev/v2/currencies). If not set defaults to the user account's primary currency.
 	Currency *CurrencyEnum `json:"currency,omitempty"`
 	// Name of payee for the transaction
 	Payee *string `json:"payee,omitempty"`
 	// Original payee name. If not provided, defaults to `payee` value.
 	OriginalName NullableString `json:"original_name,omitempty"`
-	// The ID of the category associated with the transactions. If set, the category ID must exist for the user's account and it cannot be a category group.
+	// The ID of the category associated with the transaction. If set, the category ID must exist for the user's account and it cannot be a category group.
 	CategoryId NullableInt32 `json:"category_id,omitempty"`
-	// Any transaction notes set by the user or by a matched recurring item. This will match the value displayed in notes field on the transactions page in the GUI. 
+	// Any transaction notes set by the user or by a matched recurring item. This will match the value displayed in notes field on the transactions page in the Lunch Money app. 
 	Notes NullableString `json:"notes,omitempty"`
-	// The Unique identifier for the associated manually managed account. If set, this must match an existing manual account id associated with the user's account. If not set, and `plaid_account_id` is also not set, no account is associated with the transaction and it will appear as a \"Cash Transaction\" in the Lunch Money GUI. It is an error if this, and `plaid_account_id` is also set on the same transaction.
+	// The unique identifier of the associated manual account. If set, this must match an existing manual account id associated with the user's account. If not set, and `plaid_account_id` is also not set, no account is associated with the transaction and it will appear as a \"Cash Transaction\" in the Lunch Money app. It is an error if this and `plaid_account_id` are both set on the same transaction.
 	ManualAccountId NullableInt32 `json:"manual_account_id,omitempty"`
-	// The Unique identifier for the associated plaid synced account. If set, this must match an existing plaid account id associated with the user's account. If not set, and `manual_account_id` is also not set, no account is associated with the transaction and it will appear as a \"Cash Transaction\" in the Lunch Money GUI. It is an error if this, and `manual_account_id` is also set on the same transaction. In addition the specified plaid account must have the \"Allow Modifications To Transactions\" property set (which is enabled by default), or the insert will fail.
+	// The unique identifier of the associated Plaid account. If set, this must match an existing plaid account id associated with the user's account. If not set, and `manual_account_id` is also not set, no account is associated with the transaction and it will appear as a \"Cash Transaction\" in the Lunch Money app. It is an error if this and `manual_account_id` are both set on the same transaction. In addition the specified plaid account must have the \"Allow Modifications To Transactions\" property set (which is enabled by default), or the insert will fail.
 	PlaidAccountId NullableInt32 `json:"plaid_account_id,omitempty"`
 	// Unique identifier for associated recurring item. Recurring item must be associated with the same account.
 	RecurringId NullableInt32 `json:"recurring_id,omitempty"`
-	// If set must be either `reviewed` or `unreviewed`. If not set, defaults to `unreviewed`.
+	// If set, must be either `reviewed` or `unreviewed`. If not set, defaults to `unreviewed`.
 	Status *string `json:"status,omitempty"`
 	// A list of IDs for the tags associated with this transaction. Each ID must match an existing tag associated with the user's account. If not set, no tags will be associated with the created transaction.
 	TagIds []int32 `json:"tag_ids,omitempty"`
