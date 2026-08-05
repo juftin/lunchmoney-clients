@@ -23,7 +23,7 @@ Name | Type | Description | Notes
 **exclude_from_transactions** | **bool** | If true, this account will not show up as an option for assignment when creating transactions manually | [default to False]
 **created_by_name** | **str** | The name of the user who created the account | 
 **created_at** | **datetime** | Date/time the account was created in ISO 8601 extended format | 
-**updated_at** | **datetime** | Date/time the account was created in ISO 8601 extended format | 
+**updated_at** | **datetime** | Date/time the account was last updated in ISO 8601 extended format | 
 
 ## Example
 

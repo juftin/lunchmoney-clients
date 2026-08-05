@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **BackgroundColor** | **NullableString** | The background color of the tag. | 
 **UpdatedAt** | **time.Time** | The date and time of when the tag was last updated (in the ISO 8601 extended format). | 
 **CreatedAt** | **time.Time** | The date and time of when the tag was created (in the ISO 8601 extended format). | 
-**Archived** | **bool** | If &#x60;true&#x60;, the tag will not show up when creating or updating transactions in the Lunch Money app. **Can it be assigned via the API** | 
+**Archived** | **bool** | If &#x60;true&#x60;, the tag will not show up when creating or updating transactions in the Lunch Money app. | 
 **ArchivedAt** | **NullableTime** | The date and time of when the tag was last archived or &#x60;null&#x60; if not archived | 
 
 ## Methods

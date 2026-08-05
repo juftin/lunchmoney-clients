@@ -57,7 +57,7 @@ Other parameters are passed through a pointer to a apiGetMeRequest struct via th
 
 ### Authorization
 
-[cookieAuth](../README.md#cookieAuth), [bearerSecurity](../README.md#bearerSecurity)
+[bearerSecurity](../README.md#bearerSecurity)
 
 ### HTTP request headers
 

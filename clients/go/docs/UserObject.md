@@ -7,9 +7,9 @@ Name | Type | Description | Notes
 **Name** | **string** | The user&#39;s name | 
 **Email** | **string** | The user&#39;s email | 
 **Id** | **int32** | Unique ID for the user | 
-**AccountId** | **int64** | Unique ID for the linked budgeting account | 
-**BudgetName** | **string** | Name of the linked budgeting account | 
-**PrimaryCurrency** | [**CurrencyEnum**](CurrencyEnum.md) | Primary currency set in the user&#39;s settings | 
+**AccountId** | **int64** | Unique ID for the current budgeting account | 
+**BudgetName** | **string** | Name of the current budgeting account | 
+**PrimaryCurrency** | [**CurrencyEnum**](CurrencyEnum.md) | Primary currency for the current budgeting account | 
 **ApiKeyLabel** | **NullableString** | Label assigned by the user to the API key being used. Returns null if no label is set | 
 
 ## Methods

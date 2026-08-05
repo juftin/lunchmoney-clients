@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CategoryId** | Pointer to **int32** | Category ID | [optional] 
 **StartDate** | Pointer to **string** | Start date of the budget period | [optional] 
-**Amount** | Pointer to **string** | Budget amount in the stored currency (string for consistency with other amount fields in the API) | [optional] 
+**Amount** | Pointer to **string** | Budget amount in the stored currency (string for consistency with other amount fields in the API). | [optional] 
 **Currency** | Pointer to **string** | Currency code for the budget | [optional] 
 **ToBase** | Pointer to **float32** | Amount converted to the user&#39;s primary currency | [optional] 
 **Notes** | Pointer to **NullableString** | Notes for the budget period | [optional] 

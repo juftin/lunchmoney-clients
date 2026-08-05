@@ -59,7 +59,7 @@ Other parameters are passed through a pointer to a apiGetAllPlaidAccountsRequest
 
 ### Authorization
 
-[cookieAuth](../README.md#cookieAuth), [bearerSecurity](../README.md#bearerSecurity)
+[bearerSecurity](../README.md#bearerSecurity)
 
 ### HTTP request headers
 
@@ -129,7 +129,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[cookieAuth](../README.md#cookieAuth), [bearerSecurity](../README.md#bearerSecurity)
+[bearerSecurity](../README.md#bearerSecurity)
 
 ### HTTP request headers
 
@@ -163,8 +163,8 @@ import (
 )
 
 func main() {
-	startDate := time.Now() // string | Denotes the beginning of the time period to fetch transactions for. If omitted, the most recent transactions will be returned. <br> Required if end_date exists. <br> (optional)
-	endDate := time.Now() // string | Denotes the end of the time period you'd like to get transactions for. Required if start_date exists.  (optional)
+	startDate := time.Now() // string | Indicates the beginning of the time period to fetch transactions for. If omitted, the most recent transactions will be returned. <br> Required if end_date exists. <br> (optional)
+	endDate := time.Now() // string | Indicates the end of the time period to fetch transactions for. Required if start_date exists.  (optional)
 	id := int32(119807) // int32 | Specific ID of a plaid account to fetch. If not set the endpoint will trigger a fetch for all eligible accounts. (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -188,8 +188,8 @@ Other parameters are passed through a pointer to a apiTriggerPlaidAccountFetchRe
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **startDate** | **string** | Denotes the beginning of the time period to fetch transactions for. If omitted, the most recent transactions will be returned. &lt;br&gt; Required if end_date exists. &lt;br&gt; | 
- **endDate** | **string** | Denotes the end of the time period you&#39;d like to get transactions for. Required if start_date exists.  | 
+ **startDate** | **string** | Indicates the beginning of the time period to fetch transactions for. If omitted, the most recent transactions will be returned. &lt;br&gt; Required if end_date exists. &lt;br&gt; | 
+ **endDate** | **string** | Indicates the end of the time period to fetch transactions for. Required if start_date exists.  | 
  **id** | **int32** | Specific ID of a plaid account to fetch. If not set the endpoint will trigger a fetch for all eligible accounts. | 
 
 ### Return type
@@ -198,7 +198,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[cookieAuth](../README.md#cookieAuth), [bearerSecurity](../README.md#bearerSecurity)
+[bearerSecurity](../README.md#bearerSecurity)
 
 ### HTTP request headers
 

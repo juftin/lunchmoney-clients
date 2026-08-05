@@ -1,9 +1,9 @@
 /*
 Lunch Money API - v2
 
-Welcome to the Lunch Money v2 API. The API is available at `https://api.lunchmoney.dev/v2`. Get your access token from the [Lunch Money developers page](https://my.lunchmoney.app/developers).  ### Introduction  <span class=\"red-text\"><strong>The v2 API is in open alpha and is still subject to change. Use the mock server or a test budget when getting started.</strong></span>  **Static Mock Server**  Explore the API without an access token or risk to real data. Select **\"Static Mock v2 Lunch Money API Server\"** from the Server dropdown, then set your Bearer token to any string with 11 or more characters.  **Migrating from v1**  The v2 API is not backwards compatible with v1. See the [Migration Guide](https://alpha.lunchmoney.dev/v2/migration-guide) for details.  **Useful links** - [Developer Portal](https://lunchmoney.dev/v2/introduction) - [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) - [v2 API Overview](https://lunchmoney.dev/v2/overview) - [v2 API Changelog](https://lunchmoney.dev/v2/changelog) - [Migration Guide](https://lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://lunchmoney.dev/v2/rate-limits)
+### Introduction  Welcome to the Lunch Money v2 API reference. This is the **v2.11.0** spec.  The API is available at `https://api.lunchmoney.dev/v2`. Get your access token from the [Lunch Money developers page](https://my.lunchmoney.app/developers).   **Try it from these docs**  These docs are interactive — use **Test request** on any endpoint to call the API from this page. Choose a LIVE or MOCK service from the Server dropdown. Requests sent to `https://api.lunchmoney.dev/v2` can <span class=\"red-text\"><strong>change or delete</strong></span> your data and are <span class=\"red-text\"><strong>permanent</strong></span>. See the [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) before using the live API.  **Static mock server**  Explore without risk to real data. Select `https://mock.lunchmoney.dev/v2` in the Server dropdown to work with static mock data. POST, PUT, and DELETE requests will return realistic responses, but do not change the mock data.   **Client Libraries & SDKs**  An official TypeScript SDK is available on [NPM](https://www.npmjs.com/package/@lunch-money/v2-api-spec) and [GitHub](https://github.com/lunch-money/lunch-money-js-v2). For Python or other languages, see [lunchmoney-clients](https://github.com/juftin/lunchmoney-clients) or generate a client from [this OpenAPI spec](/v2/openapi).  **Migrating from v1**  The v2 API is not backwards compatible with v1. See the [Migration Guide](https://lunchmoney.dev/v2/migration-guide) for details.  **Useful links** - [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) - [v2 API Overview](https://lunchmoney.dev/v2/overview) - [Version History](https://lunchmoney.dev/v2/version-history) - [Migration Guide](https://lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://lunchmoney.dev/v2/rate-limits)
 
-API version: 2.9.4
+API version: 2.11.0
 Contact: devsupport@lunchmoney.app
 */
 
@@ -23,34 +23,34 @@ var _ MappedNullable = &ChildCategoryObject{}
 
 // ChildCategoryObject struct for ChildCategoryObject
 type ChildCategoryObject struct {
-	// A system defined unique identifier for the category.
+	// System defined unique ID for the category
 	Id int32 `json:"id"`
-	// The name of the category.
+	// The name of the category
 	Name string `json:"name"`
-	// The description of the category or `null` if not set.
+	// Category description, or `null` if none is set
 	Description NullableString `json:"description"`
-	// If true, the transactions in this category will be treated as income. Inherited from Category Group.
+	// If true, transactions in this category are treated as income. (Inherited from the Category Group).
 	IsIncome bool `json:"is_income"`
-	// If true, the transactions in this category will be excluded from the budget. Inherited from Category Group.
+	// If true, transactions in this category are excluded from the budget. (Inherited from Category Group).
 	ExcludeFromBudget bool `json:"exclude_from_budget"`
-	// If true, the transactions in this category will be excluded from totals. Inherited from Category Group.
+	// If true, transactions in this category are excluded from totals. (Inherited from Category Group).
 	ExcludeFromTotals bool `json:"exclude_from_totals"`
-	// The date and time of when the category was last updated (in the ISO 8601 extended format).
+	// Date and time the category was last updated (ISO 8601 extended format).
 	UpdatedAt time.Time `json:"updated_at"`
-	// The date and time of when the category was created (in the ISO 8601 extended format).
+	// Date and time the category was created (ISO 8601 extended format).
 	CreatedAt time.Time `json:"created_at"`
-	// The ID of the category group this category belongs to or `null` if the category doesn't belong to a group, or is itself a category group.
+	// ID of the category group this category belongs to, or `null` if it does not belong to a group, or is itself a group.
 	GroupId NullableInt64 `json:"group_id"`
-	// Will always be false for a category that is part of category group.
+	// Always false for categories that belong to a category group
 	IsGroup bool `json:"is_group"`
-	// If true, the category is archived and not displayed in relevant areas of the Lunch Money app.
+	// If true, the category is archived and hidden in relevant areas of the Lunch Money app.
 	Archived bool `json:"archived"`
-	// The date and time of when the category was last archived (in the ISO 8601 extended format).
+	// Date and time the category was last archived ( ISO 8601 extended format).
 	ArchivedAt NullableTime `json:"archived_at"`
-	// An index specifying the position in which the category is displayed on the categories page in the Lunch Money GUI. For categories within a category group the order is relative to the other categories within the group.<br> API.
+	// Position of the category on the categories page in the Lunch Money app. For grouped categories, the order is relative to the others in the same group.
 	Order NullableInt32 `json:"order"`
-	// If `true`, the category is collapsed in the Lunch Money GUI.
-	Collapsed NullableBool `json:"collapsed,omitempty"`
+	// Always `false` for a child category. Child categories cannot be collapsed.
+	Collapsed bool `json:"collapsed"`
 }
 
 type _ChildCategoryObject ChildCategoryObject
@@ -59,7 +59,7 @@ type _ChildCategoryObject ChildCategoryObject
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewChildCategoryObject(id int32, name string, description NullableString, isIncome bool, excludeFromBudget bool, excludeFromTotals bool, updatedAt time.Time, createdAt time.Time, groupId NullableInt64, isGroup bool, archived bool, archivedAt NullableTime, order NullableInt32) *ChildCategoryObject {
+func NewChildCategoryObject(id int32, name string, description NullableString, isIncome bool, excludeFromBudget bool, excludeFromTotals bool, updatedAt time.Time, createdAt time.Time, groupId NullableInt64, isGroup bool, archived bool, archivedAt NullableTime, order NullableInt32, collapsed bool) *ChildCategoryObject {
 	this := ChildCategoryObject{}
 	this.Id = id
 	this.Name = name
@@ -74,6 +74,7 @@ func NewChildCategoryObject(id int32, name string, description NullableString, i
 	this.Archived = archived
 	this.ArchivedAt = archivedAt
 	this.Order = order
+	this.Collapsed = collapsed
 	return &this
 }
 
@@ -405,46 +406,28 @@ func (o *ChildCategoryObject) SetOrder(v int32) {
 	o.Order.Set(&v)
 }
 
-// GetCollapsed returns the Collapsed field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetCollapsed returns the Collapsed field value
 func (o *ChildCategoryObject) GetCollapsed() bool {
-	if o == nil || IsNil(o.Collapsed.Get()) {
+	if o == nil {
 		var ret bool
 		return ret
 	}
-	return *o.Collapsed.Get()
+
+	return o.Collapsed
 }
 
-// GetCollapsedOk returns a tuple with the Collapsed field value if set, nil otherwise
+// GetCollapsedOk returns a tuple with the Collapsed field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ChildCategoryObject) GetCollapsedOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.Collapsed.Get(), o.Collapsed.IsSet()
+	return &o.Collapsed, true
 }
 
-// HasCollapsed returns a boolean if a field has been set.
-func (o *ChildCategoryObject) HasCollapsed() bool {
-	if o != nil && o.Collapsed.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetCollapsed gets a reference to the given NullableBool and assigns it to the Collapsed field.
+// SetCollapsed sets field value
 func (o *ChildCategoryObject) SetCollapsed(v bool) {
-	o.Collapsed.Set(&v)
-}
-// SetCollapsedNil sets the value for Collapsed to be an explicit nil
-func (o *ChildCategoryObject) SetCollapsedNil() {
-	o.Collapsed.Set(nil)
-}
-
-// UnsetCollapsed ensures that no value is present for Collapsed, not even an explicit nil
-func (o *ChildCategoryObject) UnsetCollapsed() {
-	o.Collapsed.Unset()
+	o.Collapsed = v
 }
 
 func (o ChildCategoryObject) MarshalJSON() ([]byte, error) {
@@ -470,9 +453,7 @@ func (o ChildCategoryObject) ToMap() (map[string]interface{}, error) {
 	toSerialize["archived"] = o.Archived
 	toSerialize["archived_at"] = o.ArchivedAt.Get()
 	toSerialize["order"] = o.Order.Get()
-	if o.Collapsed.IsSet() {
-		toSerialize["collapsed"] = o.Collapsed.Get()
-	}
+	toSerialize["collapsed"] = o.Collapsed
 	return toSerialize, nil
 }
 
@@ -494,6 +475,7 @@ func (o *ChildCategoryObject) UnmarshalJSON(data []byte) (err error) {
 		"archived",
 		"archived_at",
 		"order",
+		"collapsed",
 	}
 
 	allProperties := make(map[string]interface{})

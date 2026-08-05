@@ -1,13 +1,13 @@
 # ErrorResponseObject
 
-The object returned will any 4XX error response. Each response is guaranteed to have a `message` and at least one `error` object.
+The object returned with any 4XX error response. Each response is guaranteed to have a `message` and at least one `error` object.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **message** | **str** | High level error type, for example &#39;Not Found&#39; or &#39;Request Validation Failure&#39; | 
-**errors** | [**List[ErrorResponseObjectErrorsInner]**](ErrorResponseObjectErrorsInner.md) | An list of objects that describe the errors encountered while processing the request.&lt;br&gt; If multiple errors were encountered, the list will contain multiple objects.&lt;br&gt; Each &#x60;error&#x60; object is guaranteed to have an &#x60;errMsg&#x60;, but it may also contain other error specific properties. | 
+**errors** | [**List[ErrorResponseObjectErrorsInner]**](ErrorResponseObjectErrorsInner.md) | A list of objects that describe the errors encountered while processing the request.&lt;br&gt; If multiple errors were encountered, the list will contain multiple objects.&lt;br&gt; Each &#x60;error&#x60; object is guaranteed to have an &#x60;errMsg&#x60;, but it may also contain other error-specific properties such as &#x60;code&#x60; (for example &#x60;VALIDATION_ERROR&#x60;), or other properties that are useful to map the error to the relevant part of the request. | 
 
 ## Example
 
