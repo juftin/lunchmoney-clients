@@ -1,6 +1,6 @@
 # SummaryRecurringTransactionObject
 
-A single transaction associated with a recurring item. I don't think we will expose this in the summary since it's gettable by querying the recurring_id
+A single transaction associated with a recurring item.
 
 ## Properties
 

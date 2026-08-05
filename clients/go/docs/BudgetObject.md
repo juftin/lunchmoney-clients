@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **int64** | System created unique identifier for the budget entry. | 
+**Id** | **int64** | System-created unique identifier for the budget entry. | 
 **CategoryId** | **int32** | The ID of the category this budget applies to. | 
 **Amount** | **float64** | The budgeted amount for this period. | 
 **Currency** | [**CurrencyEnum**](CurrencyEnum.md) | The currency of the budgeted amount in ISO 4217 format. | 

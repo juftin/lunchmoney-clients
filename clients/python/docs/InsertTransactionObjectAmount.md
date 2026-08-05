@@ -1,6 +1,6 @@
 # InsertTransactionObjectAmount
 
-Numeric value of amount without currency symbol. i.e. $4.25 should be denoted as 4.25. May be a string or a number in double format. Positive values indicate a debit transaction, negative values indicate a credit transaction.
+Numeric value of the amount without a currency symbol. For example, $4.25 should be provided as 4.25. May be a string or a number in double format. Positive values indicate a debit transaction, negative values indicate a credit transaction.
 
 ## Properties
 

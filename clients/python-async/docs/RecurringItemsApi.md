@@ -13,11 +13,10 @@ Method | HTTP request | Description
 
 Get all recurring items
 
-Get info about the recurring items for a specified time frame
+Retrieve recurring items for a specified time frame.
 
 ### Example
 
-* Api Key Authentication (cookieAuth):
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
@@ -37,12 +36,6 @@ configuration = lunchmoney.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure API key authorization: cookieAuth
-configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['cookieAuth'] = 'Bearer'
-
 # Configure Bearer authorization (JWT): bearerSecurity
 configuration = lunchmoney.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
@@ -52,8 +45,8 @@ configuration = lunchmoney.Configuration(
 async with lunchmoney.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = lunchmoney.RecurringItemsApi(api_client)
-    start_date = '2013-10-20' # date | Denotes the beginning of the range used to populate the `matching` object in the recurring items. If omitted, the current month will be used as the range.<br> Required if end_date exists. (optional)
-    end_date = '2013-10-20' # date | Denotes the end of the range used to populate the `matching` object in the recurring items. Required if start_date exists.  (optional)
+    start_date = '2013-10-20' # date | Indicates the beginning of the range used to populate the `matching` object in the recurring items. If omitted, the current month will be used as the range.<br> Required if end_date exists. (optional)
+    end_date = '2013-10-20' # date | Indicates the end of the range used to populate the `matching` object in the recurring items. Required if start_date exists.  (optional)
     include_suggested = True # bool |  (optional)
 
     try:
@@ -72,8 +65,8 @@ async with lunchmoney.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **start_date** | **date**| Denotes the beginning of the range used to populate the &#x60;matching&#x60; object in the recurring items. If omitted, the current month will be used as the range.&lt;br&gt; Required if end_date exists. | [optional] 
- **end_date** | **date**| Denotes the end of the range used to populate the &#x60;matching&#x60; object in the recurring items. Required if start_date exists.  | [optional] 
+ **start_date** | **date**| Indicates the beginning of the range used to populate the &#x60;matching&#x60; object in the recurring items. If omitted, the current month will be used as the range.&lt;br&gt; Required if end_date exists. | [optional] 
+ **end_date** | **date**| Indicates the end of the range used to populate the &#x60;matching&#x60; object in the recurring items. Required if start_date exists.  | [optional] 
  **include_suggested** | **bool**|  | [optional] 
 
 ### Return type
@@ -82,7 +75,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[cookieAuth](../README.md#cookieAuth), [bearerSecurity](../README.md#bearerSecurity)
+[bearerSecurity](../README.md#bearerSecurity)
 
 ### HTTP request headers
 
@@ -111,7 +104,6 @@ Retrieve the details of a specific recurring item with the specified ID.
 
 ### Example
 
-* Api Key Authentication (cookieAuth):
 * Bearer (JWT) Authentication (bearerSecurity):
 
 ```python
@@ -131,12 +123,6 @@ configuration = lunchmoney.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure API key authorization: cookieAuth
-configuration.api_key['cookieAuth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['cookieAuth'] = 'Bearer'
-
 # Configure Bearer authorization (JWT): bearerSecurity
 configuration = lunchmoney.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
@@ -147,8 +133,8 @@ async with lunchmoney.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = lunchmoney.RecurringItemsApi(api_client)
     id = 994069 # int | ID of the recurring item to retrieve
-    start_date = '2013-10-20' # date | Denotes the beginning of the range used to populate the `matching` object in the recurring items. If omitted, the current month will be used as the range.<br> Required if end_date exists. (optional)
-    end_date = '2013-10-20' # date | Denotes the end of the range used to populate the `matching` object in the recurring items. Required if start_date exists.  (optional)
+    start_date = '2013-10-20' # date | Indicates the beginning of the range used to populate the `matching` object in the recurring items. If omitted, the current month will be used as the range.<br> Required if end_date exists. (optional)
+    end_date = '2013-10-20' # date | Indicates the end of the range used to populate the `matching` object in the recurring items. Required if start_date exists.  (optional)
 
     try:
         # Get a single recurring item
@@ -167,8 +153,8 @@ async with lunchmoney.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| ID of the recurring item to retrieve | 
- **start_date** | **date**| Denotes the beginning of the range used to populate the &#x60;matching&#x60; object in the recurring items. If omitted, the current month will be used as the range.&lt;br&gt; Required if end_date exists. | [optional] 
- **end_date** | **date**| Denotes the end of the range used to populate the &#x60;matching&#x60; object in the recurring items. Required if start_date exists.  | [optional] 
+ **start_date** | **date**| Indicates the beginning of the range used to populate the &#x60;matching&#x60; object in the recurring items. If omitted, the current month will be used as the range.&lt;br&gt; Required if end_date exists. | [optional] 
+ **end_date** | **date**| Indicates the end of the range used to populate the &#x60;matching&#x60; object in the recurring items. Required if start_date exists.  | [optional] 
 
 ### Return type
 
@@ -176,7 +162,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[cookieAuth](../README.md#cookieAuth), [bearerSecurity](../README.md#bearerSecurity)
+[bearerSecurity](../README.md#bearerSecurity)
 
 ### HTTP request headers
 
@@ -187,7 +173,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Tag Object with the requested Tag ID |  -  |
+**200** | Recurring item object with the requested recurring item ID |  -  |
 **400** | Bad Request |  -  |
 **401** | Unauthorized. This error occurs when an invalid API token is passed to the request. |  -  |
 **404** | Not Found |  -  |

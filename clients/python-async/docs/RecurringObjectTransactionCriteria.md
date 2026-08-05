@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **granularity** | **str** | The unit of time used to define the cadence of the recurring item. | 
 **quantity** | **int** | The number of granularity units between each recurrence. | 
 **anchor_date** | **date** | The date used in conjunction with the &#x60;quantity&#x60; and &#x60;granularity&#x60; properties to calculate expected occurrences of recurring transactions. | 
-**payee** | **str** | If set, represents the original transaction payee name that triggered this recurring item&#39;s creation. | 
+**payee** | **str** | If set, specifies the original transaction payee name that triggered this recurring item&#39;s creation. | 
 **amount** | **str** | The expected amount for a transaction that will match this recurring item. For recurring items that have a flexible amount this is the average of the specified min and max amounts. | 
 **to_base** | **float** | The amount converted to the user&#39;s primary currency | 
 **currency** | **str** | Three-letter lowercase currency code of the recurring item. | 
