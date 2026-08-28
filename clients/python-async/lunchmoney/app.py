@@ -15,6 +15,7 @@ import lunchmoney
 from lunchmoney import GetAllTransactions200Response
 from lunchmoney.models import (  # type: ignore[attr-defined]
     CategoryObject,
+    ChildCategoryObject,
     ManualAccountObject,
     PlaidAccountObject,
     TagObject,
@@ -27,6 +28,29 @@ logger = logging.getLogger(__name__)
 
 
 LunchableModelType = TypeVar("LunchableModelType", bound=BaseModel)
+
+
+class LunchableModels:
+    """
+    Container for Lunchable Data Model Types
+    """
+
+    PlaidAccountObject: ClassVar[type[PlaidAccountObject]] = PlaidAccountObject
+    """Plaid Accounts"""
+    TransactionObject: ClassVar[type[TransactionObject]] = TransactionObject
+    """Transactions"""
+    CategoryObject: ClassVar[type[CategoryObject]] = CategoryObject
+    """Categories"""
+    ManualAccountObject: ClassVar[type[ManualAccountObject]] = ManualAccountObject
+    """Manual Accounts"""
+    TagObject: ClassVar[type[TagObject]] = TagObject
+    """Tags"""
+    UserObject: ClassVar[type[UserObject]] = UserObject
+    """User"""
+
+
+models: type[LunchableModels] = LunchableModels
+"""Container for Lunchable Data Model Types"""
 
 
 @dataclass(slots=True)
@@ -47,6 +71,33 @@ class LunchableData:
     """Tags"""
     user: UserObject | None = None
     """User"""
+
+    def clear(self) -> None:
+        """
+        Clear all stored data
+        """
+        self.plaid_accounts.clear()
+        self.transactions.clear()
+        self.categories.clear()
+        self.manual_accounts.clear()
+        self.tags.clear()
+        self.user = None
+
+    @property
+    def category_map(self) -> dict[int, CategoryObject | ChildCategoryObject]:
+        """
+        Category Mapping Across Parent and Child Categories
+
+        Returns
+        -------
+        dict[int, Union[PlaidAccountObject, ManualAccountObject]]
+        """
+        child_categories: dict[int, ChildCategoryObject] = {
+            child.id: child
+            for category in self.categories.values()
+            for child in category.children or []
+        }
+        return {**self.categories, **child_categories}
 
     @property
     def current_user(self) -> UserObject:
@@ -140,44 +191,98 @@ class _ObjectMapper(NamedTuple):
     data_attr: str
 
 
-@dataclass(slots=True)
-class LunchableApi:
+class LunchableClient:
     """
     API Container for Lunchable App APIs
     """
 
-    plaid: lunchmoney.PlaidAccountsApi
-    transactions: lunchmoney.TransactionsApi
-    transactions_bulk: lunchmoney.TransactionsBulkApi
-    categories: lunchmoney.CategoriesApi
-    manual_accounts: lunchmoney.ManualAccountsApi
-    tags: lunchmoney.TagsApi
-    me: lunchmoney.MeApi
-    recurring_items: lunchmoney.RecurringItemsApi
-    summary: lunchmoney.SummaryApi
-    transactions_files: lunchmoney.TransactionsFilesApi
-    transactions_group: lunchmoney.TransactionsGroupApi
-    transactions_split: lunchmoney.TransactionsSplitApi
+    def __init__(self, access_token: str | None = None) -> None:
+        """Initialize the LunchableApi container.
 
-    @classmethod
-    def from_client(cls, client: lunchmoney.ApiClient) -> "LunchableApi":
+        Parameters
+        ----------
+        access_token: str | None
+            LunchMoney Access Token. If not provided, will attempt to read from
+            `LUNCHMONEY_ACCESS_TOKEN` environment variable.
         """
-        Initialize LunchableApi from ApiClient
-        """
-        return cls(
-            plaid=lunchmoney.PlaidAccountsApi(client),
-            transactions=lunchmoney.TransactionsApi(client),
-            transactions_bulk=lunchmoney.TransactionsBulkApi(client),
-            categories=lunchmoney.CategoriesApi(client),
-            manual_accounts=lunchmoney.ManualAccountsApi(client),
-            tags=lunchmoney.TagsApi(client),
-            me=lunchmoney.MeApi(client),
-            recurring_items=lunchmoney.RecurringItemsApi(client),
-            summary=lunchmoney.SummaryApi(client),
-            transactions_files=lunchmoney.TransactionsFilesApi(client),
-            transactions_group=lunchmoney.TransactionsGroupApi(client),
-            transactions_split=lunchmoney.TransactionsSplitApi(client),
+        access_token = access_token or getenv("LUNCHMONEY_ACCESS_TOKEN")
+        if not access_token:
+            raise ValueError(
+                "LunchMoney API key must be provided via "
+                "parameter or LUNCHMONEY_ACCESS_TOKEN environment "
+                "variable."
+            )
+        self.configuration = lunchmoney.Configuration(
+            host="https://api.lunchmoney.dev/v2", access_token=access_token
         )
+        self.api_client: lunchmoney.ApiClient = lunchmoney.ApiClient(
+            configuration=self.configuration
+        )
+
+    @cached_property
+    def budgets(self) -> lunchmoney.BudgetsApi:
+        """BudgetsApi client instance."""
+        return lunchmoney.BudgetsApi(api_client=self.api_client)
+
+    @cached_property
+    def categories(self) -> lunchmoney.CategoriesApi:
+        """CategoriesApi client instance."""
+        return lunchmoney.CategoriesApi(api_client=self.api_client)
+
+    @cached_property
+    def manual_accounts(self) -> lunchmoney.ManualAccountsApi:
+        """ManualAccountsApi client instance."""
+        return lunchmoney.ManualAccountsApi(api_client=self.api_client)
+
+    @cached_property
+    def me(self) -> lunchmoney.MeApi:
+        """MeApi client instance for user-related operations."""
+        return lunchmoney.MeApi(api_client=self.api_client)
+
+    @cached_property
+    def plaid(self) -> lunchmoney.PlaidAccountsApi:
+        """PlaidAccountsApi client instance."""
+        return lunchmoney.PlaidAccountsApi(api_client=self.api_client)
+
+    @cached_property
+    def recurring_items(self) -> lunchmoney.RecurringItemsApi:
+        """RecurringItemsApi client instance."""
+        return lunchmoney.RecurringItemsApi(api_client=self.api_client)
+
+    @cached_property
+    def summary(self) -> lunchmoney.SummaryApi:
+        """SummaryApi client instance."""
+        return lunchmoney.SummaryApi(api_client=self.api_client)
+
+    @cached_property
+    def tags(self) -> lunchmoney.TagsApi:
+        """TagsApi client instance."""
+        return lunchmoney.TagsApi(api_client=self.api_client)
+
+    @cached_property
+    def transactions(self) -> lunchmoney.TransactionsApi:
+        """TransactionsApi client instance."""
+        return lunchmoney.TransactionsApi(api_client=self.api_client)
+
+    @cached_property
+    def transactions_bulk(self) -> lunchmoney.TransactionsBulkApi:
+        """TransactionsBulkApi client instance used for bulk operations."""
+        return lunchmoney.TransactionsBulkApi(api_client=self.api_client)
+
+    @cached_property
+    def transactions_files(self) -> lunchmoney.TransactionsFilesApi:
+        """TransactionsFilesApi client instance for handling attachments."""
+        return lunchmoney.TransactionsFilesApi(api_client=self.api_client)
+
+    @cached_property
+    def transactions_group(self) -> lunchmoney.TransactionsGroupApi:
+        """TransactionsGroupApi client instance for grouping operations."""
+        return lunchmoney.TransactionsGroupApi(api_client=self.api_client)
+
+    @cached_property
+    def transactions_split(self) -> lunchmoney.TransactionsSplitApi:
+        """TransactionsSplitApi client instance for split transactions."""
+        return lunchmoney.TransactionsSplitApi(api_client=self.api_client)
 
 
 class LunchMoneyApp:
@@ -185,6 +290,8 @@ class LunchMoneyApp:
     Base LunchMoney App Class
     """
 
+    models: ClassVar[type[LunchableModels]] = LunchableModels
+    """Container for Lunchable Data Model Types"""
     lunchable_models: ClassVar[Iterable[type[BaseModel]]] = [
         PlaidAccountObject,
         CategoryObject,
@@ -223,20 +330,7 @@ class LunchMoneyApp:
             Number of Transactions to fetch per page during pagination. If not provided,
             will default to the class variable `transaction_pagination`.
         """
-        access_token = access_token or getenv("LUNCHMONEY_ACCESS_TOKEN")
-        if not access_token:
-            raise ValueError(
-                "LunchMoney API key must be provided via "
-                "parameter or LUNCHMONEY_ACCESS_TOKEN environment "
-                "variable."
-            )
-        configuration = lunchmoney.Configuration(
-            host="https://api.lunchmoney.dev/v2", access_token=access_token
-        )
-        self.client: lunchmoney.ApiClient = lunchmoney.ApiClient(
-            configuration=configuration
-        )
-        self.api: LunchableApi = LunchableApi.from_client(self.client)
+        self.client: LunchableClient = LunchableClient(access_token=access_token)
         self.data: LunchableData = LunchableData()
         self._lunchable_models: Iterable[type[BaseModel]] = (
             lunchable_models or self.__class__.lunchable_models
@@ -255,27 +349,27 @@ class LunchMoneyApp:
         """
         return {
             PlaidAccountObject: _ObjectMapper(
-                func=self.api.plaid.get_all_plaid_accounts,
+                func=self.client.plaid.get_all_plaid_accounts,
                 data_attr="plaid_accounts",
             ),
             TransactionObject: _ObjectMapper(
-                func=self.api.transactions_bulk.get_all_transactions,
+                func=self.client.transactions_bulk.get_all_transactions,
                 data_attr="transactions",
             ),
             CategoryObject: _ObjectMapper(
-                func=self.api.categories.get_all_categories,
+                func=self.client.categories.get_all_categories,
                 data_attr="categories",
             ),
             ManualAccountObject: _ObjectMapper(
-                func=self.api.manual_accounts.get_all_manual_accounts,
+                func=self.client.manual_accounts.get_all_manual_accounts,
                 data_attr="manual_accounts",
             ),
             TagObject: _ObjectMapper(
-                func=self.api.tags.get_all_tags,
+                func=self.client.tags.get_all_tags,
                 data_attr="tags",
             ),
             UserObject: _ObjectMapper(
-                func=self.api.me.get_me,
+                func=self.client.me.get_me,
                 data_attr="me",
             ),
         }
@@ -572,7 +666,7 @@ class LunchMoneyApp:
                 "limit": self._transaction_pagination,
             }
             response: GetAllTransactions200Response = (
-                await self.api.transactions_bulk.get_all_transactions(
+                await self.client.transactions_bulk.get_all_transactions(
                     **paginated_kwargs
                 )
             )
@@ -587,3 +681,20 @@ class LunchMoneyApp:
         Clear Transactions from the App
         """
         self.data.transactions.clear()
+
+
+__all__ = [
+    # Data Model Types
+    "PlaidAccountObject",
+    "TransactionObject",
+    "CategoryObject",
+    "ManualAccountObject",
+    "TagObject",
+    "UserObject",
+    # Module Exports
+    "LunchableModels",
+    "models",
+    "LunchableData",
+    "LunchableClient",
+    "LunchMoneyApp",
+]
