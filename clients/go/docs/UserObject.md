@@ -8,8 +8,8 @@ Name | Type | Description | Notes
 **Email** | **string** | The user&#39;s email | 
 **Id** | **int32** | Unique ID for the user | 
 **AccountId** | **int64** | Unique ID for the current budgeting account | 
-**BudgetName** | **string** | Name of the current budgeting account | 
-**PrimaryCurrency** | [**CurrencyEnum**](CurrencyEnum.md) | Primary currency for the current budgeting account | 
+**BudgetName** | **string** | Name of the current budgeting account.&lt;p&gt; Also available as &#x60;display_name&#x60; on [/me/account/settings](#tag/me/GET/me/account/settings), which is the preferred endpoint for reading and updating account settings. | 
+**PrimaryCurrency** | [**CurrencyEnum**](CurrencyEnum.md) | Primary currency for the current budgeting account.&lt;p&gt; Also available on [/me/account/settings](#tag/me/GET/me/account/settings), which is the preferred endpoint for reading and updating account settings. | 
 **ApiKeyLabel** | **NullableString** | Label assigned by the user to the API key being used. Returns null if no label is set | 
 
 ## Methods

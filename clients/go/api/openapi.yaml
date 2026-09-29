@@ -5,7 +5,7 @@ info:
   description: |-
     ### Introduction
 
-    Welcome to the Lunch Money v2 API reference. This is the **v2.11.0** spec.
+    Welcome to the Lunch Money v2 API reference. This is the **v2.11.1** spec.
 
     The API is available at `https://api.lunchmoney.dev/v2`. Get your access token from the [Lunch Money developers page](https://my.lunchmoney.app/developers).
 
@@ -42,7 +42,7 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   termsOfService: https://lunchmoney.dev/#current-status
   title: Lunch Money API - v2
-  version: 2.11.0
+  version: 2.11.1
 servers:
 - description: ⚠ LIVE — changes real Lunch Money data
   url: https://api.lunchmoney.dev/v2
@@ -51,7 +51,11 @@ servers:
 security:
 - bearerSecurity: []
 tags:
-- description: View details and settings for the current user and account
+- description: "View details and settings for the current user and account.<p> Use\
+    \ [/me/user/settings](#tag/me/GET/me/user/settings) for user-wide preferences,\
+    \ [/me/account/settings](#tag/me/GET/me/account/settings) for account-wide preferences,\
+    \ and [/me/user/account/settings](#tag/me/GET/me/user/account/settings) for preferences\
+    \ specific to the current user and budgeting account."
   name: me
 - description: Work with categories
   externalDocs:
@@ -130,8 +134,16 @@ tags:
 paths:
   /me:
     get:
-      description: Get details about the user associated with the supplied authorization
-        token.
+      description: |-
+        Get details about the user associated with the supplied authorization
+        token.<p> Use [/me/user/settings](#tag/me/GET/me/user/settings) for
+        user-wide preferences,
+        [/me/account/settings](#tag/me/GET/me/account/settings) for account-wide
+        preferences, and
+        [/me/user/account/settings](#tag/me/GET/me/user/account/settings) for
+        preferences specific to the current user and budgeting account.
+        Properties such as `primary_currency` and `budget_name` remain on this
+        response for backwards compatibility.
       operationId: getMe
       parameters: []
       responses:
@@ -183,6 +195,405 @@ paths:
                 $ref: "#/components/schemas/errorResponseObject"
           description: Internal Server Error. Contact support.
       summary: Get current user
+      tags:
+      - me
+  /me/account/settings:
+    get:
+      description: Returns settings for the current budgeting account. These settings
+        apply regardless of which user is accessing the account.
+      operationId: getAccountSettings
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                primary_currency: usd
+                supported_currencies:
+                - usd
+                - cad
+                - jpy
+                display_name: 🏠 Family budget
+                locale: en-US
+                auto_create_category_rules: true
+                auto_create_suggested_transaction_rules: true
+                include_pending_in_totals: true
+              schema:
+                $ref: "#/components/schemas/accountSettingsObject"
+          description: Account settings for the current budgeting account
+        "401":
+          content:
+            application/json:
+              example:
+                message: Unauthorized
+                errors:
+                - errMsg: Access token does not exist.
+              schema:
+                $ref: "#/components/schemas/errorResponseObject"
+          description: Unauthorized. This error occurs when an invalid API token is
+            passed to the request.
+        "429":
+          content:
+            application/json:
+              example:
+                message: Too Many Requests
+                errors:
+                - errMsg: "Too many requests, please try again later."
+              schema:
+                $ref: "#/components/schemas/errorResponseObject"
+          description: Too Many Requests. Retry your request after the number of seconds
+            specified in the retry-after header.
+        "500":
+          content:
+            application/json:
+              example:
+                message: Internal Server Error
+                errors:
+                - errMsg: Currently in maintenance mode. Please try again in a few
+                    minutes.
+              schema:
+                $ref: "#/components/schemas/errorResponseObject"
+          description: Internal Server Error. Contact support.
+      summary: Get account settings
+      tags:
+      - me
+    put:
+      description: |-
+        Updates account-level settings for the budgeting account
+        associated with the authorized API token. Submit the full response from
+        `GET /me/account/settings` with one or more properties changed, or
+        provide only the properties to update. The request body must include at
+        least one property.
+      operationId: updateAccountSettings
+      requestBody:
+        content:
+          application/json:
+            examples:
+              Update display name:
+                value:
+                  display_name: Travel budget
+              Update automation preferences:
+                value:
+                  auto_create_category_rules: false
+                  include_pending_in_totals: false
+            schema:
+              $ref: "#/components/schemas/updateAccountSettingsRequestObject"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/accountSettingsObject"
+          description: Account settings updated successfully
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponseObject"
+          description: Invalid request body
+        "401":
+          content:
+            application/json:
+              example:
+                message: Unauthorized
+                errors:
+                - errMsg: Access token does not exist.
+              schema:
+                $ref: "#/components/schemas/errorResponseObject"
+          description: Unauthorized. This error occurs when an invalid API token is
+            passed to the request.
+        "429":
+          content:
+            application/json:
+              example:
+                message: Too Many Requests
+                errors:
+                - errMsg: "Too many requests, please try again later."
+              schema:
+                $ref: "#/components/schemas/errorResponseObject"
+          description: Too Many Requests. Retry your request after the number of seconds
+            specified in the retry-after header.
+        "500":
+          content:
+            application/json:
+              example:
+                message: Internal Server Error
+                errors:
+                - errMsg: Currently in maintenance mode. Please try again in a few
+                    minutes.
+              schema:
+                $ref: "#/components/schemas/errorResponseObject"
+          description: Internal Server Error. Contact support.
+      summary: Update account settings
+      tags:
+      - me
+  /me/user/settings:
+    get:
+      description: Returns display and formatting preferences for the authorized user.
+        These settings apply across every budgeting account the user owns or collaborates
+        on.
+      operationId: getUserSettings
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                show_debits_as_negative: true
+                auto_suggest_payee: true
+                month_year_format: MMM YYYY
+                month_day_year_format: "MMM D, YYYY"
+                month_day_format: MMM D
+                show_am_pm: true
+                week_starts_on: sunday
+                always_display_year: false
+                always_display_weekday: true
+              schema:
+                $ref: "#/components/schemas/userSettingsObject"
+          description: User settings for the authorized user
+        "401":
+          content:
+            application/json:
+              example:
+                message: Unauthorized
+                errors:
+                - errMsg: Access token does not exist.
+              schema:
+                $ref: "#/components/schemas/errorResponseObject"
+          description: Unauthorized. This error occurs when an invalid API token is
+            passed to the request.
+        "429":
+          content:
+            application/json:
+              example:
+                message: Too Many Requests
+                errors:
+                - errMsg: "Too many requests, please try again later."
+              schema:
+                $ref: "#/components/schemas/errorResponseObject"
+          description: Too Many Requests. Retry your request after the number of seconds
+            specified in the retry-after header.
+        "500":
+          content:
+            application/json:
+              example:
+                message: Internal Server Error
+                errors:
+                - errMsg: Currently in maintenance mode. Please try again in a few
+                    minutes.
+              schema:
+                $ref: "#/components/schemas/errorResponseObject"
+          description: Internal Server Error. Contact support.
+      summary: Get user settings
+      tags:
+      - me
+    put:
+      description: |-
+        Updates user-level display and formatting preferences for the user
+        associated with the authorized API token. Submit the full response from
+        `GET /me/user/settings` with one or more properties changed, or provide
+        only the properties to update. The request body must include at least
+        one property.<p> Updating
+        `show_debits_as_negative` affects display in the Lunch Money app only.
+        Amount fields in API responses always use positive values for debits and
+        negative values for credits.
+      operationId: updateUserSettings
+      requestBody:
+        content:
+          application/json:
+            examples:
+              Update date formats:
+                value:
+                  month_year_format: YYYY-MM
+                  month_day_year_format: YYYY-MM-DD
+                  month_day_format: MM-DD
+              Use 24-hour time and Monday week start:
+                value:
+                  show_am_pm: false
+                  week_starts_on: monday
+            schema:
+              $ref: "#/components/schemas/updateUserSettingsRequestObject"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/userSettingsObject"
+          description: User settings updated successfully
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponseObject"
+          description: Invalid request body
+        "401":
+          content:
+            application/json:
+              example:
+                message: Unauthorized
+                errors:
+                - errMsg: Access token does not exist.
+              schema:
+                $ref: "#/components/schemas/errorResponseObject"
+          description: Unauthorized. This error occurs when an invalid API token is
+            passed to the request.
+        "429":
+          content:
+            application/json:
+              example:
+                message: Too Many Requests
+                errors:
+                - errMsg: "Too many requests, please try again later."
+              schema:
+                $ref: "#/components/schemas/errorResponseObject"
+          description: Too Many Requests. Retry your request after the number of seconds
+            specified in the retry-after header.
+        "500":
+          content:
+            application/json:
+              example:
+                message: Internal Server Error
+                errors:
+                - errMsg: Currently in maintenance mode. Please try again in a few
+                    minutes.
+              schema:
+                $ref: "#/components/schemas/errorResponseObject"
+          description: Internal Server Error. Contact support.
+      summary: Update user settings
+      tags:
+      - me
+  /me/user/account/settings:
+    get:
+      description: Returns settings specific to the authorized user within the current
+        budgeting account. These settings do not affect other users or the authorized
+        user's settings in other budgeting accounts.
+      operationId: getUserAccountSettings
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                auto_review_transaction_on_update: true
+                auto_review_transaction_on_creation: true
+                default_manual_account_id: null
+              schema:
+                $ref: "#/components/schemas/userAccountSettingsObject"
+          description: Settings for the authorized user in the current budgeting account
+        "401":
+          content:
+            application/json:
+              example:
+                message: Unauthorized
+                errors:
+                - errMsg: Access token does not exist.
+              schema:
+                $ref: "#/components/schemas/errorResponseObject"
+          description: Unauthorized. This error occurs when an invalid API token is
+            passed to the request.
+        "429":
+          content:
+            application/json:
+              example:
+                message: Too Many Requests
+                errors:
+                - errMsg: "Too many requests, please try again later."
+              schema:
+                $ref: "#/components/schemas/errorResponseObject"
+          description: Too Many Requests. Retry your request after the number of seconds
+            specified in the retry-after header.
+        "500":
+          content:
+            application/json:
+              example:
+                message: Internal Server Error
+                errors:
+                - errMsg: Currently in maintenance mode. Please try again in a few
+                    minutes.
+              schema:
+                $ref: "#/components/schemas/errorResponseObject"
+          description: Internal Server Error. Contact support.
+      summary: Get user account settings
+      tags:
+      - me
+    put:
+      description: |-
+        Updates settings specific to the authorized user within the current
+        budgeting account. Submit the full response from
+        `GET /me/user/account/settings` with one or more properties changed, or
+        provide only the properties to update. The request body must include at
+        least one property.
+      operationId: updateUserAccountSettings
+      requestBody:
+        content:
+          application/json:
+            examples:
+              Update review preference:
+                value:
+                  auto_review_transaction_on_creation: false
+              Clear default manual account:
+                value:
+                  default_manual_account_id: null
+            schema:
+              $ref: "#/components/schemas/updateUserAccountSettingsRequestObject"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                Update review preference:
+                  value:
+                    auto_review_transaction_on_update: true
+                    auto_review_transaction_on_creation: false
+                    default_manual_account_id: null
+                Clear default manual account:
+                  value:
+                    auto_review_transaction_on_update: true
+                    auto_review_transaction_on_creation: true
+                    default_manual_account_id: null
+              schema:
+                $ref: "#/components/schemas/userAccountSettingsObject"
+          description: User account settings updated successfully
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponseObject"
+          description: Invalid request body
+        "401":
+          content:
+            application/json:
+              example:
+                message: Unauthorized
+                errors:
+                - errMsg: Access token does not exist.
+              schema:
+                $ref: "#/components/schemas/errorResponseObject"
+          description: Unauthorized. This error occurs when an invalid API token is
+            passed to the request.
+        "429":
+          content:
+            application/json:
+              example:
+                message: Too Many Requests
+                errors:
+                - errMsg: "Too many requests, please try again later."
+              schema:
+                $ref: "#/components/schemas/errorResponseObject"
+          description: Too Many Requests. Retry your request after the number of seconds
+            specified in the retry-after header.
+        "500":
+          content:
+            application/json:
+              example:
+                message: Internal Server Error
+                errors:
+                - errMsg: Currently in maintenance mode. Please try again in a few
+                    minutes.
+              schema:
+                $ref: "#/components/schemas/errorResponseObject"
+          description: Internal Server Error. Contact support.
+      summary: Update user account settings
       tags:
       - me
   /summary:
@@ -8658,7 +9069,9 @@ paths:
       description: |-
         Returns budget period and display settings for the budget
         associated with this API token.<p> These control how budget **periods** are calculated
-        (granularity, anchor date, rollover, and related options).
+        (granularity, anchor date, rollover, and related options). For general
+        budget preferences such as currency and locale, see
+        [/me/account/settings](#tag/me/GET/me/account/settings).
       operationId: getBudgetSettings
       responses:
         "200":
@@ -8955,12 +9368,16 @@ components:
           format: int64
           type: integer
         budget_name:
-          description: Name of the current budgeting account
+          description: "Name of the current budgeting account.<p> Also available as\
+            \ `display_name` on [/me/account/settings](#tag/me/GET/me/account/settings),\
+            \ which is the preferred endpoint for reading and updating account settings."
           type: string
         primary_currency:
           allOf:
           - $ref: "#/components/schemas/currencyEnum"
-          description: Primary currency for the current budgeting account
+          description: "Primary currency for the current budgeting account.<p> Also\
+            \ available on [/me/account/settings](#tag/me/GET/me/account/settings),\
+            \ which is the preferred endpoint for reading and updating account settings."
         api_key_label:
           description: Label assigned by the user to the API key being used. Returns
             null if no label is set
@@ -12884,6 +13301,521 @@ components:
       - budget_rollover_left_to_budget
       - budget_use_last_day_of_month
       title: budget settings object
+      type: object
+    weekStartsOnEnum:
+      description: The day on which a calendar week begins.
+      enum:
+      - sunday
+      - monday
+      title: week starts on enum
+      type: string
+    monthYearFormatEnum:
+      description: Format string for displaying month and year values in the Lunch
+        Money app.
+      enum:
+      - MMMM YYYY
+      - MMM YYYY
+      - YYYY MMM
+      - MM YYYY
+      - MM-YYYY
+      - MM.YYYY
+      - MM/YYYY
+      - M YYYY
+      - M-YYYY
+      - M.YYYY
+      - M/YYYY
+      - YYYY M
+      - YYYY-M
+      - YYYY.M
+      - YYYY/M
+      - YYYY MM
+      - YYYY-MM
+      - YYYY.MM
+      - YYYY/MM
+      title: month and year format enum
+      type: string
+    monthDayYearFormatEnum:
+      description: Format string for displaying full dates in the Lunch Money app.
+      enum:
+      - "MMM D, YYYY"
+      - D MMM YYYY
+      - YYYY MM DD
+      - YYYY-MM-DD
+      - YYYY.MM.DD
+      - YYYY/MM/DD
+      - YYYY M DD
+      - YYYY-M-DD
+      - YYYY.M.DD
+      - YYYY/M/DD
+      - YYYY MM D
+      - YYYY-MM-D
+      - YYYY.MM.D
+      - YYYY/MM/D
+      - YYYY M D
+      - YYYY-M-D
+      - YYYY.M.D
+      - YYYY/M/D
+      - DD MM YYYY
+      - DD-MM-YYYY
+      - DD.MM.YYYY
+      - DD/MM/YYYY
+      - DD M YYYY
+      - DD-M-YYYY
+      - DD.M.YYYY
+      - DD/M/YYYY
+      - D MM YYYY
+      - D-MM-YYYY
+      - D.MM.YYYY
+      - D/MM/YYYY
+      - D M YYYY
+      - D-M-YYYY
+      - D.M.YYYY
+      - D/M/YYYY
+      - M D YYYY
+      - M-D-YYYY
+      - M.D.YYYY
+      - M/D/YYYY
+      - MM D YYYY
+      - MM-D-YYYY
+      - MM.D.YYYY
+      - MM/D/YYYY
+      - MM DD YYYY
+      - MM-DD-YYYY
+      - MM.DD.YYYY
+      - MM/DD/YYYY
+      - M DD YYYY
+      - M-DD-YYYY
+      - M.DD.YYYY
+      - M/DD/YYYY
+      title: "month, day and year format enum"
+      type: string
+    monthDayFormatEnum:
+      description: Format string for displaying month and day values without a year.
+      enum:
+      - MMM D
+      - MMM DD
+      - D MMM
+      - DD MMM
+      - MM D
+      - MM-D
+      - MM.D
+      - MM/D
+      - MM DD
+      - MM-DD
+      - MM.DD
+      - MM/DD
+      - M D
+      - M-D
+      - M.D
+      - M/D
+      - M DD
+      - M-DD
+      - M.DD
+      - M/DD
+      - D MM
+      - D-MM
+      - D.MM
+      - D/MM
+      - DD MM
+      - DD-MM
+      - DD.MM
+      - DD/MM
+      - D M
+      - D-M
+      - D.M
+      - D/M
+      - DD M
+      - DD-M
+      - DD.M
+      - DD/M
+      title: month and day format enum
+      type: string
+    localeEnum:
+      description: Locale used for formatting numbers and currency amounts in the
+        Lunch Money app.
+      enum:
+      - sq-AL
+      - be-BY
+      - bg-BG
+      - ca-ES
+      - zh-CN
+      - zh-HK
+      - zh-TW
+      - hr-HR
+      - cs-CZ
+      - da-DK
+      - nl-BE
+      - nl-NL
+      - en-AU
+      - en-CA
+      - en-IN
+      - en-IE
+      - en-MT
+      - en-NZ
+      - en-PH
+      - en-SG
+      - en-ZA
+      - en-GB
+      - en-US
+      - et-EE
+      - fi-FI
+      - fr-BE
+      - fr-CA
+      - fr-FR
+      - fr-LU
+      - fr-CH
+      - de-AT
+      - de-DE
+      - de-LU
+      - de-CH
+      - el-CY
+      - el-GR
+      - iw-IL
+      - hi-IN
+      - hu-HU
+      - is-IS
+      - in-ID
+      - ga-IE
+      - it-IT
+      - it-CH
+      - ja-JP
+      - ko-KR
+      - lv-LV
+      - lt-LT
+      - mk-MK
+      - ms-MY
+      - mt-MT
+      - no-NO
+      - pl-PL
+      - pt-BR
+      - pt-PT
+      - ro-RO
+      - ru-RU
+      - sk-SK
+      - sl-SI
+      - es-AR
+      - es-BO
+      - es-CL
+      - es-CO
+      - es-CR
+      - es-DO
+      - es-EC
+      - es-SV
+      - es-GT
+      - es-HN
+      - es-MX
+      - es-NI
+      - es-PA
+      - es-PY
+      - es-PE
+      - es-PR
+      - es-ES
+      - es-US
+      - es-UY
+      - es-VE
+      - sv-SE
+      - th-TH
+      - tr-TR
+      - uk-UA
+      - vi-VN
+      example: en-US
+      title: locale enum
+      type: string
+    accountSettingsObject:
+      additionalProperties: false
+      description: Account-level settings for the budgeting account associated with
+        the authorized API token.
+      example:
+        auto_create_category_rules: true
+        auto_create_suggested_transaction_rules: true
+        primary_currency: ""
+        display_name: display_name
+        locale: en-US
+        include_pending_in_totals: true
+        supported_currencies:
+        - aed
+        - aed
+      properties:
+        primary_currency:
+          allOf:
+          - $ref: "#/components/schemas/currencyEnum"
+          description: Primary currency for the account.
+        supported_currencies:
+          description: "Currencies available when creating or editing transactions,\
+            \ balances, and other amounts in the Lunch Money app."
+          items:
+            $ref: "#/components/schemas/currencyEnum"
+          type: array
+        display_name:
+          description: Display name of the budgeting account in the Lunch Money app.
+          nullable: true
+          type: string
+        locale:
+          allOf:
+          - $ref: "#/components/schemas/localeEnum"
+          description: "Locale used for formatting numbers and currency amounts in\
+            \ the Lunch Money app (for example, `en-US`). See [Supported Locales](https://lunchmoney.dev/v2/locales)\
+            \ for accepted values. Date presentation is configured separately through\
+            \ [GET /me/user/settings](#tag/me/GET/me/user/settings) and [PUT /me/user/settings](#tag/me/PUT/me/user/settings).\
+            \ When no locale is explicitly stored for the account, the effective locale\
+            \ is derived from the `default_locale` associated with `primary_currency`\
+            \ in the currencies table (for example, `usd` → `en-US`, `cad` → `en-CA`,\
+            \ `gbp` → `en-GB`)."
+          example: en-US
+        auto_create_category_rules:
+          default: true
+          description: "If `true`, category rules are created automatically when categorizing\
+            \ transactions."
+          type: boolean
+        auto_create_suggested_transaction_rules:
+          default: true
+          description: "If `true`, suggested transaction rules are created automatically."
+          type: boolean
+        include_pending_in_totals:
+          default: true
+          description: "If `true`, pending transactions are included in account totals."
+          type: boolean
+      required:
+      - auto_create_category_rules
+      - auto_create_suggested_transaction_rules
+      - display_name
+      - include_pending_in_totals
+      - locale
+      - primary_currency
+      - supported_currencies
+      title: account settings object
+      type: object
+    updateAccountSettingsRequestObject:
+      additionalProperties: false
+      description: Request body for updating account settings. Include at least one
+        property to update.
+      minProperties: 1
+      properties:
+        primary_currency:
+          allOf:
+          - $ref: "#/components/schemas/currencyEnum"
+          description: "If set, updates the account's primary currency."
+          x-updatable: true
+        supported_currencies:
+          description: "If set, replaces the list of supported currencies for the\
+            \ account."
+          items:
+            $ref: "#/components/schemas/currencyEnum"
+          type: array
+          x-updatable: true
+        display_name:
+          description: "If set, updates the display name of the budgeting account."
+          nullable: true
+          type: string
+          x-updatable: true
+        locale:
+          allOf:
+          - $ref: "#/components/schemas/localeEnum"
+          description: "If set, updates the locale used for formatting numbers and\
+            \ currency amounts in the Lunch Money app. See [Supported Locales](https://lunchmoney.dev/v2/locales)\
+            \ for accepted values. Date presentation is configured separately through\
+            \ [GET /me/user/settings](#tag/me/GET/me/user/settings) and [PUT /me/user/settings](#tag/me/PUT/me/user/settings)."
+          example: en-US
+          x-updatable: true
+        auto_create_category_rules:
+          description: "If set, updates whether category rules are created automatically."
+          type: boolean
+          x-updatable: true
+        auto_create_suggested_transaction_rules:
+          description: "If set, updates whether suggested transaction rules are created\
+            \ automatically."
+          type: boolean
+          x-updatable: true
+        include_pending_in_totals:
+          description: "If set, updates whether pending transactions are included\
+            \ in account totals."
+          type: boolean
+          x-updatable: true
+      type: object
+    userAccountSettingsObject:
+      additionalProperties: false
+      description: Settings specific to the authorized user within the current budgeting
+        account.
+      example:
+        auto_review_transaction_on_update: true
+        default_manual_account_id: 0
+        auto_review_transaction_on_creation: true
+      properties:
+        auto_review_transaction_on_update:
+          default: true
+          description: "If `true`, transactions are marked as reviewed when their\
+            \ date, category, payee, amount, account, or notes are changed."
+          type: boolean
+        auto_review_transaction_on_creation:
+          default: true
+          description: "If `true`, new manual transactions start as reviewed. If `false`,\
+            \ they start as unreviewed."
+          type: boolean
+        default_manual_account_id:
+          description: "Manual account selected by default when the user creates a\
+            \ manual transaction in the current budgeting account. Must identify a\
+            \ manual account returned by [GET /manual_accounts](#tag/manual_accounts/GET/manual_accounts)\
+            \ for the current budgeting account. Set to `null` to clear the selection."
+          nullable: true
+          type: integer
+      required:
+      - auto_review_transaction_on_creation
+      - auto_review_transaction_on_update
+      - default_manual_account_id
+      title: user account settings object
+      type: object
+    updateUserAccountSettingsRequestObject:
+      additionalProperties: false
+      description: Request body for updating settings specific to the authorized user
+        within the current budgeting account. Include at least one property to update.
+      minProperties: 1
+      properties:
+        auto_review_transaction_on_update:
+          description: "If set, updates whether transactions are marked as reviewed\
+            \ when their date, category, payee, amount, account, or notes are changed."
+          type: boolean
+          x-updatable: true
+        auto_review_transaction_on_creation:
+          description: "If set, updates whether new manual transactions start as reviewed\
+            \ or unreviewed."
+          type: boolean
+          x-updatable: true
+        default_manual_account_id:
+          description: "If set, updates the manual account selected by default when\
+            \ the user creates a manual transaction in the current budgeting account.\
+            \ Must identify a manual account returned by [GET /manual_accounts](#tag/manual_accounts/GET/manual_accounts)\
+            \ for the current budgeting account. Set to `null` to clear the selection."
+          nullable: true
+          type: integer
+          x-updatable: true
+      type: object
+    userSettingsObject:
+      additionalProperties: false
+      description: User-level display and formatting preferences for the user associated
+        with the authorized API token.
+      example:
+        auto_suggest_payee: true
+        always_display_weekday: true
+        show_am_pm: true
+        month_day_year_format: ""
+        month_day_format: ""
+        week_starts_on: ""
+        month_year_format: ""
+        show_debits_as_negative: true
+        always_display_year: false
+      properties:
+        show_debits_as_negative:
+          default: true
+          description: "Display preference for how amounts are shown in the Lunch\
+            \ Money app. When `true`, debits are shown as negative values and credits\
+            \ as positive values.<p> This setting does **not** change amount sign\
+            \ conventions in API responses. Amount fields such as `amount` and `to_base`\
+            \ on transaction objects always use positive values for debits and negative\
+            \ values for credits."
+          type: boolean
+        auto_suggest_payee:
+          default: true
+          description: "If `true`, payee suggestions are shown when entering transactions\
+            \ in the Lunch Money app."
+          type: boolean
+        month_year_format:
+          allOf:
+          - $ref: "#/components/schemas/monthYearFormatEnum"
+          default: MMM YYYY
+          description: Format string used when displaying month and year values.
+        month_day_year_format:
+          allOf:
+          - $ref: "#/components/schemas/monthDayYearFormatEnum"
+          default: "MMM D, YYYY"
+          description: "Format string used when displaying full dates (month, day,\
+            \ and year)."
+        month_day_format:
+          allOf:
+          - $ref: "#/components/schemas/monthDayFormatEnum"
+          default: MMM D
+          description: Format string used when displaying month and day values without
+            a year.
+        show_am_pm:
+          default: true
+          description: "If `true`, times are displayed using a 12-hour clock with\
+            \ AM/PM. If `false`, times are displayed using a 24-hour clock."
+          type: boolean
+        week_starts_on:
+          allOf:
+          - $ref: "#/components/schemas/weekStartsOnEnum"
+          default: sunday
+          description: The day on which a calendar week begins.
+        always_display_year:
+          default: false
+          description: "If `true`, dates always include the year and `month_day_format`\
+            \ is not used."
+          type: boolean
+        always_display_weekday:
+          default: true
+          description: "If `true`, weekday names are included when displaying dates."
+          type: boolean
+      required:
+      - always_display_weekday
+      - always_display_year
+      - auto_suggest_payee
+      - month_day_format
+      - month_day_year_format
+      - month_year_format
+      - show_am_pm
+      - show_debits_as_negative
+      - week_starts_on
+      title: user settings object
+      type: object
+    updateUserSettingsRequestObject:
+      additionalProperties: false
+      description: Request body for updating user settings. Include at least one property
+        to update.
+      minProperties: 1
+      properties:
+        show_debits_as_negative:
+          description: "If set, updates the display preference for amount signs in\
+            \ the Lunch Money app. Does not affect amount sign conventions in API\
+            \ responses."
+          type: boolean
+          x-updatable: true
+        auto_suggest_payee:
+          description: "If set, updates whether payee suggestions are shown."
+          type: boolean
+          x-updatable: true
+        month_year_format:
+          allOf:
+          - $ref: "#/components/schemas/monthYearFormatEnum"
+          description: "If set, updates the month and year display format."
+          x-updatable: true
+        month_day_year_format:
+          allOf:
+          - $ref: "#/components/schemas/monthDayYearFormatEnum"
+          description: "If set, updates the full date display format."
+          x-updatable: true
+        month_day_format:
+          allOf:
+          - $ref: "#/components/schemas/monthDayFormatEnum"
+          description: "If set, updates the month and day display format."
+          x-updatable: true
+        show_am_pm:
+          description: "If set, updates whether times use a 12-hour (AM/PM) or 24-hour\
+            \ clock."
+          type: boolean
+          x-updatable: true
+        week_starts_on:
+          allOf:
+          - $ref: "#/components/schemas/weekStartsOnEnum"
+          description: "If set, updates the day on which a calendar week begins."
+          x-updatable: true
+        always_display_year:
+          description: "If set, updates whether dates always include the year."
+          type: boolean
+          x-updatable: true
+        always_display_weekday:
+          description: "If set, updates whether weekday names are shown when displaying\
+            \ dates."
+          type: boolean
+          x-updatable: true
       type: object
     summaryResponseObject:
       additionalProperties: false
