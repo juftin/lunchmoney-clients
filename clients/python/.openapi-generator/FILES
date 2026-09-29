@@ -273,15 +273,4 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
-test/test_account_settings_object.py
-test/test_locale_enum.py
-test/test_month_day_format_enum.py
-test/test_month_day_year_format_enum.py
-test/test_month_year_format_enum.py
-test/test_update_account_settings_request_object.py
-test/test_update_user_account_settings_request_object.py
-test/test_update_user_settings_request_object.py
-test/test_user_account_settings_object.py
-test/test_user_settings_object.py
-test/test_week_starts_on_enum.py
 tox.ini
