@@ -97,7 +97,9 @@ Get budget period settings
 
 Returns budget period and display settings for the budget
 associated with this API token.<p> These control how budget **periods** are calculated
-(granularity, anchor date, rollover, and related options).
+(granularity, anchor date, rollover, and related options). For general
+budget preferences such as currency and locale, see
+[/me/account/settings](#tag/me/GET/me/account/settings).
 
 ### Example
 
