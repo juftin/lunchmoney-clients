@@ -9,8 +9,8 @@ Name | Type | Description | Notes
 **email** | **str** | The user&#39;s email | 
 **id** | **int** | Unique ID for the user | 
 **account_id** | **int** | Unique ID for the current budgeting account | 
-**budget_name** | **str** | Name of the current budgeting account | 
-**primary_currency** | [**CurrencyEnum**](CurrencyEnum.md) | Primary currency for the current budgeting account | 
+**budget_name** | **str** | Name of the current budgeting account.&lt;p&gt; Also available as &#x60;display_name&#x60; on [/me/account/settings](#tag/me/GET/me/account/settings), which is the preferred endpoint for reading and updating account settings. | 
+**primary_currency** | [**CurrencyEnum**](CurrencyEnum.md) | Primary currency for the current budgeting account.&lt;p&gt; Also available on [/me/account/settings](#tag/me/GET/me/account/settings), which is the preferred endpoint for reading and updating account settings. | 
 **api_key_label** | **str** | Label assigned by the user to the API key being used. Returns null if no label is set | 
 
 ## Example
