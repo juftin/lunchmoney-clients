@@ -25,11 +25,11 @@ from typing_extensions import Self
 
 class UserAccountSettingsObject(BaseModel):
     """
-    Settings specific to the authorized user within the current budgeting account.
+    Settings specific to the authorized user within the current budget account.
     """ # noqa: E501
     auto_review_transaction_on_update: StrictBool = Field(description="If `true`, transactions are marked as reviewed when their date, category, payee, amount, account, or notes are changed.")
     auto_review_transaction_on_creation: StrictBool = Field(description="If `true`, new manual transactions start as reviewed. If `false`, they start as unreviewed.")
-    default_manual_account_id: Optional[StrictInt] = Field(description="Manual account selected by default when the user creates a manual transaction in the current budgeting account. Must identify a manual account returned by [GET /manual_accounts](#tag/manual_accounts/GET/manual_accounts) for the current budgeting account. Set to `null` to clear the selection.")
+    default_manual_account_id: Optional[StrictInt] = Field(description="Manual account selected by default when the user creates a manual transaction in the current budget account. Must identify a manual account returned by [GET /manual_accounts](#tag/manual_accounts/GET/manual_accounts) for the current budget account. Set to `null` to clear the selection.")
     __properties: ClassVar[List[str]] = ["auto_review_transaction_on_update", "auto_review_transaction_on_creation", "default_manual_account_id"]
 
     model_config = ConfigDict(

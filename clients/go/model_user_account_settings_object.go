@@ -20,13 +20,13 @@ import (
 // checks if the UserAccountSettingsObject type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &UserAccountSettingsObject{}
 
-// UserAccountSettingsObject Settings specific to the authorized user within the current budgeting account.
+// UserAccountSettingsObject Settings specific to the authorized user within the current budget account.
 type UserAccountSettingsObject struct {
 	// If `true`, transactions are marked as reviewed when their date, category, payee, amount, account, or notes are changed.
 	AutoReviewTransactionOnUpdate bool `json:"auto_review_transaction_on_update"`
 	// If `true`, new manual transactions start as reviewed. If `false`, they start as unreviewed.
 	AutoReviewTransactionOnCreation bool `json:"auto_review_transaction_on_creation"`
-	// Manual account selected by default when the user creates a manual transaction in the current budgeting account. Must identify a manual account returned by [GET /manual_accounts](#tag/manual_accounts/GET/manual_accounts) for the current budgeting account. Set to `null` to clear the selection.
+	// Manual account selected by default when the user creates a manual transaction in the current budget account. Must identify a manual account returned by [GET /manual_accounts](#tag/manual_accounts/GET/manual_accounts) for the current budget account. Set to `null` to clear the selection.
 	DefaultManualAccountId NullableInt32 `json:"default_manual_account_id"`
 }
 

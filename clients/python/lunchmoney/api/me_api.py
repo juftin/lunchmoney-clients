@@ -61,7 +61,7 @@ class MeApi:
     ) -> AccountSettingsObject:
         """Get account settings
 
-        Returns settings for the current budgeting account. These settings apply regardless of which user is accessing the account.
+        Returns settings for the current budget account. These settings apply regardless of which user is accessing the account.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -127,7 +127,7 @@ class MeApi:
     ) -> ApiResponse[AccountSettingsObject]:
         """Get account settings
 
-        Returns settings for the current budgeting account. These settings apply regardless of which user is accessing the account.
+        Returns settings for the current budget account. These settings apply regardless of which user is accessing the account.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -193,7 +193,7 @@ class MeApi:
     ) -> RESTResponseType:
         """Get account settings
 
-        Returns settings for the current budgeting account. These settings apply regardless of which user is accessing the account.
+        Returns settings for the current budget account. These settings apply regardless of which user is accessing the account.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -316,7 +316,7 @@ class MeApi:
     ) -> UserObject:
         """Get current user
 
-        Get details about the user associated with the supplied authorization token.<p> Use [/me/user/settings](#tag/me/GET/me/user/settings) for user-wide preferences, [/me/account/settings](#tag/me/GET/me/account/settings) for account-wide preferences, and [/me/user/account/settings](#tag/me/GET/me/user/account/settings) for preferences specific to the current user and budgeting account. Properties such as `primary_currency` and `budget_name` remain on this response for backwards compatibility.
+        Get details about the user associated with the supplied authorization token.<p> Use [/me/user/settings](#tag/me/GET/me/user/settings) for user-wide preferences, [/me/account/settings](#tag/me/GET/me/account/settings) for account-wide preferences, and [/me/user/account/settings](#tag/me/GET/me/user/account/settings) for preferences specific to the current user and budget account. Properties such as `primary_currency` and `budget_name` remain on this response for backwards compatibility.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -382,7 +382,7 @@ class MeApi:
     ) -> ApiResponse[UserObject]:
         """Get current user
 
-        Get details about the user associated with the supplied authorization token.<p> Use [/me/user/settings](#tag/me/GET/me/user/settings) for user-wide preferences, [/me/account/settings](#tag/me/GET/me/account/settings) for account-wide preferences, and [/me/user/account/settings](#tag/me/GET/me/user/account/settings) for preferences specific to the current user and budgeting account. Properties such as `primary_currency` and `budget_name` remain on this response for backwards compatibility.
+        Get details about the user associated with the supplied authorization token.<p> Use [/me/user/settings](#tag/me/GET/me/user/settings) for user-wide preferences, [/me/account/settings](#tag/me/GET/me/account/settings) for account-wide preferences, and [/me/user/account/settings](#tag/me/GET/me/user/account/settings) for preferences specific to the current user and budget account. Properties such as `primary_currency` and `budget_name` remain on this response for backwards compatibility.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -448,7 +448,7 @@ class MeApi:
     ) -> RESTResponseType:
         """Get current user
 
-        Get details about the user associated with the supplied authorization token.<p> Use [/me/user/settings](#tag/me/GET/me/user/settings) for user-wide preferences, [/me/account/settings](#tag/me/GET/me/account/settings) for account-wide preferences, and [/me/user/account/settings](#tag/me/GET/me/user/account/settings) for preferences specific to the current user and budgeting account. Properties such as `primary_currency` and `budget_name` remain on this response for backwards compatibility.
+        Get details about the user associated with the supplied authorization token.<p> Use [/me/user/settings](#tag/me/GET/me/user/settings) for user-wide preferences, [/me/account/settings](#tag/me/GET/me/account/settings) for account-wide preferences, and [/me/user/account/settings](#tag/me/GET/me/user/account/settings) for preferences specific to the current user and budget account. Properties such as `primary_currency` and `budget_name` remain on this response for backwards compatibility.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -571,7 +571,7 @@ class MeApi:
     ) -> UserAccountSettingsObject:
         """Get user account settings
 
-        Returns settings specific to the authorized user within the current budgeting account. These settings do not affect other users or the authorized user's settings in other budgeting accounts.
+        Returns settings specific to the authorized user within the current budget account. These settings do not affect other users or the authorized user's settings in other budget accounts.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -637,7 +637,7 @@ class MeApi:
     ) -> ApiResponse[UserAccountSettingsObject]:
         """Get user account settings
 
-        Returns settings specific to the authorized user within the current budgeting account. These settings do not affect other users or the authorized user's settings in other budgeting accounts.
+        Returns settings specific to the authorized user within the current budget account. These settings do not affect other users or the authorized user's settings in other budget accounts.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -703,7 +703,7 @@ class MeApi:
     ) -> RESTResponseType:
         """Get user account settings
 
-        Returns settings specific to the authorized user within the current budgeting account. These settings do not affect other users or the authorized user's settings in other budgeting accounts.
+        Returns settings specific to the authorized user within the current budget account. These settings do not affect other users or the authorized user's settings in other budget accounts.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -826,7 +826,7 @@ class MeApi:
     ) -> UserSettingsObject:
         """Get user settings
 
-        Returns display and formatting preferences for the authorized user. These settings apply across every budgeting account the user owns or collaborates on.
+        Returns display and formatting preferences for the authorized user. These settings apply across every budget account the user owns or collaborates on.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -892,7 +892,7 @@ class MeApi:
     ) -> ApiResponse[UserSettingsObject]:
         """Get user settings
 
-        Returns display and formatting preferences for the authorized user. These settings apply across every budgeting account the user owns or collaborates on.
+        Returns display and formatting preferences for the authorized user. These settings apply across every budget account the user owns or collaborates on.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -958,7 +958,7 @@ class MeApi:
     ) -> RESTResponseType:
         """Get user settings
 
-        Returns display and formatting preferences for the authorized user. These settings apply across every budgeting account the user owns or collaborates on.
+        Returns display and formatting preferences for the authorized user. These settings apply across every budget account the user owns or collaborates on.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1082,7 +1082,7 @@ class MeApi:
     ) -> AccountSettingsObject:
         """Update account settings
 
-        Updates account-level settings for the budgeting account associated with the authorized API token. Submit the full response from `GET /me/account/settings` with one or more properties changed, or provide only the properties to update. The request body must include at least one property.
+        Updates account-level settings for the budget account associated with the authorized API token. Submit the full response from `GET /me/account/settings` with one or more properties changed, or provide only the properties to update. The request body must include at least one property.
 
         :param update_account_settings_request_object: (required)
         :type update_account_settings_request_object: UpdateAccountSettingsRequestObject
@@ -1153,7 +1153,7 @@ class MeApi:
     ) -> ApiResponse[AccountSettingsObject]:
         """Update account settings
 
-        Updates account-level settings for the budgeting account associated with the authorized API token. Submit the full response from `GET /me/account/settings` with one or more properties changed, or provide only the properties to update. The request body must include at least one property.
+        Updates account-level settings for the budget account associated with the authorized API token. Submit the full response from `GET /me/account/settings` with one or more properties changed, or provide only the properties to update. The request body must include at least one property.
 
         :param update_account_settings_request_object: (required)
         :type update_account_settings_request_object: UpdateAccountSettingsRequestObject
@@ -1224,7 +1224,7 @@ class MeApi:
     ) -> RESTResponseType:
         """Update account settings
 
-        Updates account-level settings for the budgeting account associated with the authorized API token. Submit the full response from `GET /me/account/settings` with one or more properties changed, or provide only the properties to update. The request body must include at least one property.
+        Updates account-level settings for the budget account associated with the authorized API token. Submit the full response from `GET /me/account/settings` with one or more properties changed, or provide only the properties to update. The request body must include at least one property.
 
         :param update_account_settings_request_object: (required)
         :type update_account_settings_request_object: UpdateAccountSettingsRequestObject
@@ -1368,7 +1368,7 @@ class MeApi:
     ) -> UserAccountSettingsObject:
         """Update user account settings
 
-        Updates settings specific to the authorized user within the current budgeting account. Submit the full response from `GET /me/user/account/settings` with one or more properties changed, or provide only the properties to update. The request body must include at least one property.
+        Updates settings specific to the authorized user within the current budget account. Submit the full response from `GET /me/user/account/settings` with one or more properties changed, or provide only the properties to update. The request body must include at least one property.
 
         :param update_user_account_settings_request_object: (required)
         :type update_user_account_settings_request_object: UpdateUserAccountSettingsRequestObject
@@ -1439,7 +1439,7 @@ class MeApi:
     ) -> ApiResponse[UserAccountSettingsObject]:
         """Update user account settings
 
-        Updates settings specific to the authorized user within the current budgeting account. Submit the full response from `GET /me/user/account/settings` with one or more properties changed, or provide only the properties to update. The request body must include at least one property.
+        Updates settings specific to the authorized user within the current budget account. Submit the full response from `GET /me/user/account/settings` with one or more properties changed, or provide only the properties to update. The request body must include at least one property.
 
         :param update_user_account_settings_request_object: (required)
         :type update_user_account_settings_request_object: UpdateUserAccountSettingsRequestObject
@@ -1510,7 +1510,7 @@ class MeApi:
     ) -> RESTResponseType:
         """Update user account settings
 
-        Updates settings specific to the authorized user within the current budgeting account. Submit the full response from `GET /me/user/account/settings` with one or more properties changed, or provide only the properties to update. The request body must include at least one property.
+        Updates settings specific to the authorized user within the current budget account. Submit the full response from `GET /me/user/account/settings` with one or more properties changed, or provide only the properties to update. The request body must include at least one property.
 
         :param update_user_account_settings_request_object: (required)
         :type update_user_account_settings_request_object: UpdateUserAccountSettingsRequestObject

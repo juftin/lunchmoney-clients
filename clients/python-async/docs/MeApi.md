@@ -18,7 +18,7 @@ Method | HTTP request | Description
 
 Get account settings
 
-Returns settings for the current budgeting account. These settings apply regardless of which user is accessing the account.
+Returns settings for the current budget account. These settings apply regardless of which user is accessing the account.
 
 ### Example
 
@@ -83,7 +83,7 @@ This endpoint does not need any parameter.
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Account settings for the current budgeting account |  -  |
+**200** | Account settings for the current budget account |  -  |
 **401** | Unauthorized. This error occurs when an invalid API token is passed to the request. |  -  |
 **429** | Too Many Requests. Retry your request after the number of seconds specified in the retry-after header. |  -  |
 **500** | Internal Server Error. Contact support. |  -  |
@@ -101,7 +101,7 @@ user-wide preferences,
 [/me/account/settings](#tag/me/GET/me/account/settings) for account-wide
 preferences, and
 [/me/user/account/settings](#tag/me/GET/me/user/account/settings) for
-preferences specific to the current user and budgeting account.
+preferences specific to the current user and budget account.
 Properties such as `primary_currency` and `budget_name` remain on this
 response for backwards compatibility.
 
@@ -180,7 +180,7 @@ This endpoint does not need any parameter.
 
 Get user account settings
 
-Returns settings specific to the authorized user within the current budgeting account. These settings do not affect other users or the authorized user's settings in other budgeting accounts.
+Returns settings specific to the authorized user within the current budget account. These settings do not affect other users or the authorized user's settings in other budget accounts.
 
 ### Example
 
@@ -245,7 +245,7 @@ This endpoint does not need any parameter.
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Settings for the authorized user in the current budgeting account |  -  |
+**200** | Settings for the authorized user in the current budget account |  -  |
 **401** | Unauthorized. This error occurs when an invalid API token is passed to the request. |  -  |
 **429** | Too Many Requests. Retry your request after the number of seconds specified in the retry-after header. |  -  |
 **500** | Internal Server Error. Contact support. |  -  |
@@ -257,7 +257,7 @@ This endpoint does not need any parameter.
 
 Get user settings
 
-Returns display and formatting preferences for the authorized user. These settings apply across every budgeting account the user owns or collaborates on.
+Returns display and formatting preferences for the authorized user. These settings apply across every budget account the user owns or collaborates on.
 
 ### Example
 
@@ -334,7 +334,7 @@ This endpoint does not need any parameter.
 
 Update account settings
 
-Updates account-level settings for the budgeting account
+Updates account-level settings for the budget account
 associated with the authorized API token. Submit the full response from
 `GET /me/account/settings` with one or more properties changed, or
 provide only the properties to update. The request body must include at
@@ -422,7 +422,7 @@ Name | Type | Description  | Notes
 Update user account settings
 
 Updates settings specific to the authorized user within the current
-budgeting account. Submit the full response from
+budget account. Submit the full response from
 `GET /me/user/account/settings` with one or more properties changed, or
 provide only the properties to update. The request body must include at
 least one property.

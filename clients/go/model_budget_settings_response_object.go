@@ -20,7 +20,7 @@ import (
 // checks if the BudgetSettingsResponseObject type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &BudgetSettingsResponseObject{}
 
-// BudgetSettingsResponseObject Budget period and display settings for the current budgeting account.
+// BudgetSettingsResponseObject Budget period and display settings for the current budget account.
 type BudgetSettingsResponseObject struct {
 	// Budget period granularity
 	BudgetPeriodGranularity string `json:"budget_period_granularity"`
