@@ -26,7 +26,7 @@ from typing_extensions import Self
 
 class BudgetSettingsResponseObject(BaseModel):
     """
-    Budget period and display settings for the current budgeting account.
+    Budget period and display settings for the current budget account.
     """ # noqa: E501
     budget_period_granularity: StrictStr = Field(description="Budget period granularity")
     budget_period_quantity: StrictInt = Field(description="The number of `granularity` units that make up a single budgeting period.")

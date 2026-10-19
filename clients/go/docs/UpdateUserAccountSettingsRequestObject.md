@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AutoReviewTransactionOnUpdate** | Pointer to **bool** | If set, updates whether transactions are marked as reviewed when their date, category, payee, amount, account, or notes are changed. | [optional] 
 **AutoReviewTransactionOnCreation** | Pointer to **bool** | If set, updates whether new manual transactions start as reviewed or unreviewed. | [optional] 
-**DefaultManualAccountId** | Pointer to **NullableInt32** | If set, updates the manual account selected by default when the user creates a manual transaction in the current budgeting account. Must identify a manual account returned by [GET /manual_accounts](#tag/manual_accounts/GET/manual_accounts) for the current budgeting account. Set to &#x60;null&#x60; to clear the selection. | [optional] 
+**DefaultManualAccountId** | Pointer to **NullableInt32** | If set, updates the manual account selected by default when the user creates a manual transaction in the current budget account. Must identify a manual account returned by [GET /manual_accounts](#tag/manual_accounts/GET/manual_accounts) for the current budget account. Set to &#x60;null&#x60; to clear the selection. | [optional] 
 
 ## Methods
 

@@ -28,11 +28,11 @@ type UserObject struct {
 	Email string `json:"email"`
 	// Unique ID for the user
 	Id int32 `json:"id"`
-	// Unique ID for the current budgeting account
+	// Unique ID for the current budget account
 	AccountId int64 `json:"account_id"`
-	// Name of the current budgeting account.<p> Also available as `display_name` on [/me/account/settings](#tag/me/GET/me/account/settings), which is the preferred endpoint for reading and updating account settings.
+	// Name of the current budget account.<p> Also available as `display_name` on [/me/account/settings](#tag/me/GET/me/account/settings), which is the preferred endpoint for reading and updating account settings.
 	BudgetName string `json:"budget_name"`
-	// Primary currency for the current budgeting account.<p> Also available on [/me/account/settings](#tag/me/GET/me/account/settings), which is the preferred endpoint for reading and updating account settings.
+	// Primary currency for the current budget account.<p> Also available on [/me/account/settings](#tag/me/GET/me/account/settings), which is the preferred endpoint for reading and updating account settings.
 	PrimaryCurrency CurrencyEnum `json:"primary_currency"`
 	// Label assigned by the user to the API key being used. Returns null if no label is set
 	ApiKeyLabel NullableString `json:"api_key_label"`

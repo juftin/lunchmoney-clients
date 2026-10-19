@@ -31,7 +31,7 @@ class UpdateAccountSettingsRequestObject(BaseModel):
     """ # noqa: E501
     primary_currency: Optional[CurrencyEnum] = Field(default=None, description="If set, updates the account's primary currency.")
     supported_currencies: Optional[List[CurrencyEnum]] = Field(default=None, description="If set, replaces the list of supported currencies for the account.")
-    display_name: Optional[StrictStr] = Field(default=None, description="If set, updates the display name of the budgeting account.")
+    display_name: Optional[StrictStr] = Field(default=None, description="If set, updates the display name of the budget account.")
     locale: Optional[LocaleEnum] = Field(default=None, description="If set, updates the locale used for formatting numbers and currency amounts in the Lunch Money app. See [Supported Locales](https://lunchmoney.dev/v2/locales) for accepted values. Date presentation is configured separately through [GET /me/user/settings](#tag/me/GET/me/user/settings) and [PUT /me/user/settings](#tag/me/PUT/me/user/settings).")
     auto_create_category_rules: Optional[StrictBool] = Field(default=None, description="If set, updates whether category rules are created automatically.")
     auto_create_suggested_transaction_rules: Optional[StrictBool] = Field(default=None, description="If set, updates whether suggested transaction rules are created automatically.")

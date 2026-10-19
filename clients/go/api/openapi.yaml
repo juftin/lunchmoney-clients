@@ -55,7 +55,7 @@ tags:
     \ [/me/user/settings](#tag/me/GET/me/user/settings) for user-wide preferences,\
     \ [/me/account/settings](#tag/me/GET/me/account/settings) for account-wide preferences,\
     \ and [/me/user/account/settings](#tag/me/GET/me/user/account/settings) for preferences\
-    \ specific to the current user and budgeting account."
+    \ specific to the current user and budget account."
   name: me
 - description: Work with categories
   externalDocs:
@@ -141,7 +141,7 @@ paths:
         [/me/account/settings](#tag/me/GET/me/account/settings) for account-wide
         preferences, and
         [/me/user/account/settings](#tag/me/GET/me/user/account/settings) for
-        preferences specific to the current user and budgeting account.
+        preferences specific to the current user and budget account.
         Properties such as `primary_currency` and `budget_name` remain on this
         response for backwards compatibility.
       operationId: getMe
@@ -199,7 +199,7 @@ paths:
       - me
   /me/account/settings:
     get:
-      description: Returns settings for the current budgeting account. These settings
+      description: Returns settings for the current budget account. These settings
         apply regardless of which user is accessing the account.
       operationId: getAccountSettings
       responses:
@@ -219,7 +219,7 @@ paths:
                 include_pending_in_totals: true
               schema:
                 $ref: "#/components/schemas/accountSettingsObject"
-          description: Account settings for the current budgeting account
+          description: Account settings for the current budget account
         "401":
           content:
             application/json:
@@ -258,7 +258,7 @@ paths:
       - me
     put:
       description: |-
-        Updates account-level settings for the budgeting account
+        Updates account-level settings for the budget account
         associated with the authorized API token. Submit the full response from
         `GET /me/account/settings` with one or more properties changed, or
         provide only the properties to update. The request body must include at
@@ -330,7 +330,7 @@ paths:
   /me/user/settings:
     get:
       description: Returns display and formatting preferences for the authorized user.
-        These settings apply across every budgeting account the user owns or collaborates
+        These settings apply across every budget account the user owns or collaborates
         on.
       operationId: getUserSettings
       responses:
@@ -465,8 +465,8 @@ paths:
   /me/user/account/settings:
     get:
       description: Returns settings specific to the authorized user within the current
-        budgeting account. These settings do not affect other users or the authorized
-        user's settings in other budgeting accounts.
+        budget account. These settings do not affect other users or the authorized
+        user's settings in other budget accounts.
       operationId: getUserAccountSettings
       responses:
         "200":
@@ -478,7 +478,7 @@ paths:
                 default_manual_account_id: null
               schema:
                 $ref: "#/components/schemas/userAccountSettingsObject"
-          description: Settings for the authorized user in the current budgeting account
+          description: Settings for the authorized user in the current budget account
         "401":
           content:
             application/json:
@@ -518,7 +518,7 @@ paths:
     put:
       description: |-
         Updates settings specific to the authorized user within the current
-        budgeting account. Submit the full response from
+        budget account. Submit the full response from
         `GET /me/user/account/settings` with one or more properties changed, or
         provide only the properties to update. The request body must include at
         least one property.
@@ -9364,20 +9364,20 @@ components:
           format: int32
           type: integer
         account_id:
-          description: Unique ID for the current budgeting account
+          description: Unique ID for the current budget account
           format: int64
           type: integer
         budget_name:
-          description: "Name of the current budgeting account.<p> Also available as\
-            \ `display_name` on [/me/account/settings](#tag/me/GET/me/account/settings),\
-            \ which is the preferred endpoint for reading and updating account settings."
+          description: "Name of the current budget account.<p> Also available as `display_name`\
+            \ on [/me/account/settings](#tag/me/GET/me/account/settings), which is\
+            \ the preferred endpoint for reading and updating account settings."
           type: string
         primary_currency:
           allOf:
           - $ref: "#/components/schemas/currencyEnum"
-          description: "Primary currency for the current budgeting account.<p> Also\
-            \ available on [/me/account/settings](#tag/me/GET/me/account/settings),\
-            \ which is the preferred endpoint for reading and updating account settings."
+          description: "Primary currency for the current budget account.<p> Also available\
+            \ on [/me/account/settings](#tag/me/GET/me/account/settings), which is\
+            \ the preferred endpoint for reading and updating account settings."
         api_key_label:
           description: Label assigned by the user to the API key being used. Returns
             null if no label is set
@@ -10593,7 +10593,7 @@ components:
         display_name:
           description: "Display name of the manual account. If omitted or `null`,\
             \ it is derived from `institution_name` and `name`. An explicitly set\
-            \ display name must be unique for the budgeting account."
+            \ display name must be unique for the budget account."
           example: Savings
           nullable: true
           type: string
@@ -13238,7 +13238,7 @@ components:
       type: object
     budgetSettingsResponseObject:
       additionalProperties: false
-      description: Budget period and display settings for the current budgeting account.
+      description: Budget period and display settings for the current budget account.
       example:
         budget_period_anchor_date: 2000-01-23
         budget_rollover_left_to_budget: false
@@ -13523,8 +13523,8 @@ components:
       type: string
     accountSettingsObject:
       additionalProperties: false
-      description: Account-level settings for the budgeting account associated with
-        the authorized API token.
+      description: Account-level settings for the budget account associated with the
+        authorized API token.
       example:
         auto_create_category_rules: true
         auto_create_suggested_transaction_rules: true
@@ -13547,7 +13547,7 @@ components:
             $ref: "#/components/schemas/currencyEnum"
           type: array
         display_name:
-          description: Display name of the budgeting account in the Lunch Money app.
+          description: Display name of the budget account in the Lunch Money app.
           nullable: true
           type: string
         locale:
@@ -13604,7 +13604,7 @@ components:
           type: array
           x-updatable: true
         display_name:
-          description: "If set, updates the display name of the budgeting account."
+          description: "If set, updates the display name of the budget account."
           nullable: true
           type: string
           x-updatable: true
@@ -13634,7 +13634,7 @@ components:
       type: object
     userAccountSettingsObject:
       additionalProperties: false
-      description: Settings specific to the authorized user within the current budgeting
+      description: Settings specific to the authorized user within the current budget
         account.
       example:
         auto_review_transaction_on_update: true
@@ -13653,9 +13653,9 @@ components:
           type: boolean
         default_manual_account_id:
           description: "Manual account selected by default when the user creates a\
-            \ manual transaction in the current budgeting account. Must identify a\
-            \ manual account returned by [GET /manual_accounts](#tag/manual_accounts/GET/manual_accounts)\
-            \ for the current budgeting account. Set to `null` to clear the selection."
+            \ manual transaction in the current budget account. Must identify a manual\
+            \ account returned by [GET /manual_accounts](#tag/manual_accounts/GET/manual_accounts)\
+            \ for the current budget account. Set to `null` to clear the selection."
           nullable: true
           type: integer
       required:
@@ -13667,7 +13667,7 @@ components:
     updateUserAccountSettingsRequestObject:
       additionalProperties: false
       description: Request body for updating settings specific to the authorized user
-        within the current budgeting account. Include at least one property to update.
+        within the current budget account. Include at least one property to update.
       minProperties: 1
       properties:
         auto_review_transaction_on_update:
@@ -13682,9 +13682,9 @@ components:
           x-updatable: true
         default_manual_account_id:
           description: "If set, updates the manual account selected by default when\
-            \ the user creates a manual transaction in the current budgeting account.\
+            \ the user creates a manual transaction in the current budget account.\
             \ Must identify a manual account returned by [GET /manual_accounts](#tag/manual_accounts/GET/manual_accounts)\
-            \ for the current budgeting account. Set to `null` to clear the selection."
+            \ for the current budget account. Set to `null` to clear the selection."
           nullable: true
           type: integer
           x-updatable: true

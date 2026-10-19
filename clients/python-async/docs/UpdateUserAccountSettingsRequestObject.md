@@ -1,6 +1,6 @@
 # UpdateUserAccountSettingsRequestObject
 
-Request body for updating settings specific to the authorized user within the current budgeting account. Include at least one property to update.
+Request body for updating settings specific to the authorized user within the current budget account. Include at least one property to update.
 
 ## Properties
 
@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **auto_review_transaction_on_update** | **bool** | If set, updates whether transactions are marked as reviewed when their date, category, payee, amount, account, or notes are changed. | [optional] 
 **auto_review_transaction_on_creation** | **bool** | If set, updates whether new manual transactions start as reviewed or unreviewed. | [optional] 
-**default_manual_account_id** | **int** | If set, updates the manual account selected by default when the user creates a manual transaction in the current budgeting account. Must identify a manual account returned by [GET /manual_accounts](#tag/manual_accounts/GET/manual_accounts) for the current budgeting account. Set to &#x60;null&#x60; to clear the selection. | [optional] 
+**default_manual_account_id** | **int** | If set, updates the manual account selected by default when the user creates a manual transaction in the current budget account. Must identify a manual account returned by [GET /manual_accounts](#tag/manual_accounts/GET/manual_accounts) for the current budget account. Set to &#x60;null&#x60; to clear the selection. | [optional] 
 
 ## Example
 

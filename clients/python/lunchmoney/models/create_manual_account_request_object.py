@@ -34,7 +34,7 @@ class CreateManualAccountRequestObject(BaseModel):
     """ # noqa: E501
     name: Annotated[str, Field(min_length=1, strict=True, max_length=45)] = Field(description="Name of the manual account")
     institution_name: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=50)]] = Field(default=None, description="Name of the institution holding the manual account. If omitted or `null`, no institution name is set.")
-    display_name: Optional[StrictStr] = Field(default=None, description="Display name of the manual account. If omitted or `null`, it is derived from `institution_name` and `name`. An explicitly set display name must be unique for the budgeting account.")
+    display_name: Optional[StrictStr] = Field(default=None, description="Display name of the manual account. If omitted or `null`, it is derived from `institution_name` and `name`. An explicitly set display name must be unique for the budget account.")
     type: AccountTypeEnum = Field(description="The type of manual account")
     subtype: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=100)]] = Field(default=None, description="Manual account subtype. If omitted or `null`, no subtype is set. Examples include retirement, checking, savings, and prepaid credit card.")
     balance: CreateManualAccountRequestObjectBalance

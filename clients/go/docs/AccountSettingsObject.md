@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **PrimaryCurrency** | [**CurrencyEnum**](CurrencyEnum.md) | Primary currency for the account. | 
 **SupportedCurrencies** | [**[]CurrencyEnum**](CurrencyEnum.md) | Currencies available when creating or editing transactions, balances, and other amounts in the Lunch Money app. | 
-**DisplayName** | **NullableString** | Display name of the budgeting account in the Lunch Money app. | 
+**DisplayName** | **NullableString** | Display name of the budget account in the Lunch Money app. | 
 **Locale** | [**LocaleEnum**](LocaleEnum.md) | Locale used for formatting numbers and currency amounts in the Lunch Money app (for example, &#x60;en-US&#x60;). See [Supported Locales](https://lunchmoney.dev/v2/locales) for accepted values. Date presentation is configured separately through [GET /me/user/settings](#tag/me/GET/me/user/settings) and [PUT /me/user/settings](#tag/me/PUT/me/user/settings). When no locale is explicitly stored for the account, the effective locale is derived from the &#x60;default_locale&#x60; associated with &#x60;primary_currency&#x60; in the currencies table (for example, &#x60;usd&#x60; → &#x60;en-US&#x60;, &#x60;cad&#x60; → &#x60;en-CA&#x60;, &#x60;gbp&#x60; → &#x60;en-GB&#x60;). | 
 **AutoCreateCategoryRules** | **bool** | If &#x60;true&#x60;, category rules are created automatically when categorizing transactions. | [default to true]
 **AutoCreateSuggestedTransactionRules** | **bool** | If &#x60;true&#x60;, suggested transaction rules are created automatically. | [default to true]

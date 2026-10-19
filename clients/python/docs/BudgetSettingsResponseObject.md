@@ -1,6 +1,6 @@
 # BudgetSettingsResponseObject
 
-Budget period and display settings for the current budgeting account.
+Budget period and display settings for the current budget account.
 
 ## Properties
 

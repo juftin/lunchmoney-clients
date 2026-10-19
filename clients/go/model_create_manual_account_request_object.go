@@ -26,7 +26,7 @@ type CreateManualAccountRequestObject struct {
 	Name string `json:"name"`
 	// Name of the institution holding the manual account. If omitted or `null`, no institution name is set.
 	InstitutionName NullableString `json:"institution_name,omitempty"`
-	// Display name of the manual account. If omitted or `null`, it is derived from `institution_name` and `name`. An explicitly set display name must be unique for the budgeting account.
+	// Display name of the manual account. If omitted or `null`, it is derived from `institution_name` and `name`. An explicitly set display name must be unique for the budget account.
 	DisplayName NullableString `json:"display_name,omitempty"`
 	// The type of manual account
 	Type AccountTypeEnum `json:"type"`

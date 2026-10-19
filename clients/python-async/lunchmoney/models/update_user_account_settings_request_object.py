@@ -25,11 +25,11 @@ from typing_extensions import Self
 
 class UpdateUserAccountSettingsRequestObject(BaseModel):
     """
-    Request body for updating settings specific to the authorized user within the current budgeting account. Include at least one property to update.
+    Request body for updating settings specific to the authorized user within the current budget account. Include at least one property to update.
     """ # noqa: E501
     auto_review_transaction_on_update: Optional[StrictBool] = Field(default=None, description="If set, updates whether transactions are marked as reviewed when their date, category, payee, amount, account, or notes are changed.")
     auto_review_transaction_on_creation: Optional[StrictBool] = Field(default=None, description="If set, updates whether new manual transactions start as reviewed or unreviewed.")
-    default_manual_account_id: Optional[StrictInt] = Field(default=None, description="If set, updates the manual account selected by default when the user creates a manual transaction in the current budgeting account. Must identify a manual account returned by [GET /manual_accounts](#tag/manual_accounts/GET/manual_accounts) for the current budgeting account. Set to `null` to clear the selection.")
+    default_manual_account_id: Optional[StrictInt] = Field(default=None, description="If set, updates the manual account selected by default when the user creates a manual transaction in the current budget account. Must identify a manual account returned by [GET /manual_accounts](#tag/manual_accounts/GET/manual_accounts) for the current budget account. Set to `null` to clear the selection.")
     __properties: ClassVar[List[str]] = ["auto_review_transaction_on_update", "auto_review_transaction_on_creation", "default_manual_account_id"]
 
     model_config = ConfigDict(

@@ -27,11 +27,11 @@ from typing_extensions import Self
 
 class AccountSettingsObject(BaseModel):
     """
-    Account-level settings for the budgeting account associated with the authorized API token.
+    Account-level settings for the budget account associated with the authorized API token.
     """ # noqa: E501
     primary_currency: CurrencyEnum = Field(description="Primary currency for the account.")
     supported_currencies: List[CurrencyEnum] = Field(description="Currencies available when creating or editing transactions, balances, and other amounts in the Lunch Money app.")
-    display_name: Optional[StrictStr] = Field(description="Display name of the budgeting account in the Lunch Money app.")
+    display_name: Optional[StrictStr] = Field(description="Display name of the budget account in the Lunch Money app.")
     locale: LocaleEnum = Field(description="Locale used for formatting numbers and currency amounts in the Lunch Money app (for example, `en-US`). See [Supported Locales](https://lunchmoney.dev/v2/locales) for accepted values. Date presentation is configured separately through [GET /me/user/settings](#tag/me/GET/me/user/settings) and [PUT /me/user/settings](#tag/me/PUT/me/user/settings). When no locale is explicitly stored for the account, the effective locale is derived from the `default_locale` associated with `primary_currency` in the currencies table (for example, `usd` → `en-US`, `cad` → `en-CA`, `gbp` → `en-GB`).")
     auto_create_category_rules: StrictBool = Field(description="If `true`, category rules are created automatically when categorizing transactions.")
     auto_create_suggested_transaction_rules: StrictBool = Field(description="If `true`, suggested transaction rules are created automatically.")

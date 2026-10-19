@@ -31,9 +31,9 @@ class UserObject(BaseModel):
     name: StrictStr = Field(description="The user's name")
     email: StrictStr = Field(description="The user's email")
     id: StrictInt = Field(description="Unique ID for the user")
-    account_id: StrictInt = Field(description="Unique ID for the current budgeting account")
-    budget_name: StrictStr = Field(description="Name of the current budgeting account.<p> Also available as `display_name` on [/me/account/settings](#tag/me/GET/me/account/settings), which is the preferred endpoint for reading and updating account settings.")
-    primary_currency: CurrencyEnum = Field(description="Primary currency for the current budgeting account.<p> Also available on [/me/account/settings](#tag/me/GET/me/account/settings), which is the preferred endpoint for reading and updating account settings.")
+    account_id: StrictInt = Field(description="Unique ID for the current budget account")
+    budget_name: StrictStr = Field(description="Name of the current budget account.<p> Also available as `display_name` on [/me/account/settings](#tag/me/GET/me/account/settings), which is the preferred endpoint for reading and updating account settings.")
+    primary_currency: CurrencyEnum = Field(description="Primary currency for the current budget account.<p> Also available on [/me/account/settings](#tag/me/GET/me/account/settings), which is the preferred endpoint for reading and updating account settings.")
     api_key_label: Optional[StrictStr] = Field(description="Label assigned by the user to the API key being used. Returns null if no label is set")
     __properties: ClassVar[List[str]] = ["name", "email", "id", "account_id", "budget_name", "primary_currency", "api_key_label"]
 

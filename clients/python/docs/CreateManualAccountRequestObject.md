@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **str** | Name of the manual account | 
 **institution_name** | **str** | Name of the institution holding the manual account. If omitted or &#x60;null&#x60;, no institution name is set. | [optional] 
-**display_name** | **str** | Display name of the manual account. If omitted or &#x60;null&#x60;, it is derived from &#x60;institution_name&#x60; and &#x60;name&#x60;. An explicitly set display name must be unique for the budgeting account. | [optional] 
+**display_name** | **str** | Display name of the manual account. If omitted or &#x60;null&#x60;, it is derived from &#x60;institution_name&#x60; and &#x60;name&#x60;. An explicitly set display name must be unique for the budget account. | [optional] 
 **type** | [**AccountTypeEnum**](AccountTypeEnum.md) | The type of manual account | 
 **subtype** | **str** | Manual account subtype. If omitted or &#x60;null&#x60;, no subtype is set. Examples include retirement, checking, savings, and prepaid credit card. | [optional] 
 **balance** | [**CreateManualAccountRequestObjectBalance**](CreateManualAccountRequestObjectBalance.md) |  | 
