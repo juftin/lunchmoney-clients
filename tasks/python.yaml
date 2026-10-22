@@ -44,6 +44,25 @@ tasks:
                   toml set \
                   --toml-path pyproject.toml \
                   project.name "{{.PROJECT_NAME}}"
+            - |
+                uv tool run --isolated \
+                  --from toml-cli \
+                  toml set \
+                  --toml-path pyproject.toml \
+                  project.requires-python ">=3.10"
+            - uv add --optional mcp --no-sync "fastmcp>=3,<4"
+            - |
+                uv tool run --isolated \
+                  --from toml-cli \
+                  toml add_section \
+                  --toml-path pyproject.toml \
+                  project.scripts || true
+            - |
+                uv tool run --isolated \
+                  --from toml-cli \
+                  toml set \
+                  --toml-path pyproject.toml \
+                  project.scripts.lunchmoney-mcp "lunchmoney.mcp:main"
         requires:
             vars:
                 - PROJECT_NAME
