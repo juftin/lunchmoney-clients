@@ -642,8 +642,8 @@ class TransactionsBulkApi:
         include_group_children: Annotated[Optional[StrictBool], Field(description="By default, individual transactions that joined into a transaction group are not included in the response. Set to true if you'd like the returned transactions objects to include any transactions that joined into a transaction group.")] = None,
         include_children: Annotated[Optional[StrictBool], Field(description="By default, the `children` property is not included in the response. Set to true if you'd like the children property to be populated with the transactions that make up a transaction group, or, if the `include_split_parents` query param is also set, the transactions that were split from a parent transaction.")] = None,
         include_files: Annotated[Optional[StrictBool], Field(description="By default, the `files` property is not included in the response. Set to true if you'd like the responses to include a list of objects that describe any files attached to the transactions.")] = None,
-        limit: Annotated[Optional[Annotated[int, Field(le=2000, strict=True, ge=1)]], Field(description="Sets the maximum number of transactions to return. If more match the filter criteria, the response will include a `has_more` attribute set to `true`. See [Pagination](https://lunchmoney.dev/v2/pagination)")] = None,
-        offset: Annotated[Optional[StrictInt], Field(description="Sets the offset for the records returned. This is typically set automatically in the header. See [Pagination](https://lunchmoney.dev/v2/pagination)")] = None,
+        limit: Annotated[Optional[Annotated[int, Field(le=2000, strict=True, ge=1)]], Field(description="Sets the maximum number of transactions to return. Defaults to `1000`. When more transactions match, `has_more` is `true`. See [Pagination](https://lunchmoney.dev/pagination)")] = None,
+        offset: Annotated[Optional[StrictInt], Field(description="Sets the number of matching transactions to skip before returning results. Increase this query parameter for each page. See [Pagination](https://lunchmoney.dev/pagination)")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -697,9 +697,9 @@ class TransactionsBulkApi:
         :type include_children: bool
         :param include_files: By default, the `files` property is not included in the response. Set to true if you'd like the responses to include a list of objects that describe any files attached to the transactions.
         :type include_files: bool
-        :param limit: Sets the maximum number of transactions to return. If more match the filter criteria, the response will include a `has_more` attribute set to `true`. See [Pagination](https://lunchmoney.dev/v2/pagination)
+        :param limit: Sets the maximum number of transactions to return. Defaults to `1000`. When more transactions match, `has_more` is `true`. See [Pagination](https://lunchmoney.dev/pagination)
         :type limit: int
-        :param offset: Sets the offset for the records returned. This is typically set automatically in the header. See [Pagination](https://lunchmoney.dev/v2/pagination)
+        :param offset: Sets the number of matching transactions to skip before returning results. Increase this query parameter for each page. See [Pagination](https://lunchmoney.dev/pagination)
         :type offset: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -789,8 +789,8 @@ class TransactionsBulkApi:
         include_group_children: Annotated[Optional[StrictBool], Field(description="By default, individual transactions that joined into a transaction group are not included in the response. Set to true if you'd like the returned transactions objects to include any transactions that joined into a transaction group.")] = None,
         include_children: Annotated[Optional[StrictBool], Field(description="By default, the `children` property is not included in the response. Set to true if you'd like the children property to be populated with the transactions that make up a transaction group, or, if the `include_split_parents` query param is also set, the transactions that were split from a parent transaction.")] = None,
         include_files: Annotated[Optional[StrictBool], Field(description="By default, the `files` property is not included in the response. Set to true if you'd like the responses to include a list of objects that describe any files attached to the transactions.")] = None,
-        limit: Annotated[Optional[Annotated[int, Field(le=2000, strict=True, ge=1)]], Field(description="Sets the maximum number of transactions to return. If more match the filter criteria, the response will include a `has_more` attribute set to `true`. See [Pagination](https://lunchmoney.dev/v2/pagination)")] = None,
-        offset: Annotated[Optional[StrictInt], Field(description="Sets the offset for the records returned. This is typically set automatically in the header. See [Pagination](https://lunchmoney.dev/v2/pagination)")] = None,
+        limit: Annotated[Optional[Annotated[int, Field(le=2000, strict=True, ge=1)]], Field(description="Sets the maximum number of transactions to return. Defaults to `1000`. When more transactions match, `has_more` is `true`. See [Pagination](https://lunchmoney.dev/pagination)")] = None,
+        offset: Annotated[Optional[StrictInt], Field(description="Sets the number of matching transactions to skip before returning results. Increase this query parameter for each page. See [Pagination](https://lunchmoney.dev/pagination)")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -844,9 +844,9 @@ class TransactionsBulkApi:
         :type include_children: bool
         :param include_files: By default, the `files` property is not included in the response. Set to true if you'd like the responses to include a list of objects that describe any files attached to the transactions.
         :type include_files: bool
-        :param limit: Sets the maximum number of transactions to return. If more match the filter criteria, the response will include a `has_more` attribute set to `true`. See [Pagination](https://lunchmoney.dev/v2/pagination)
+        :param limit: Sets the maximum number of transactions to return. Defaults to `1000`. When more transactions match, `has_more` is `true`. See [Pagination](https://lunchmoney.dev/pagination)
         :type limit: int
-        :param offset: Sets the offset for the records returned. This is typically set automatically in the header. See [Pagination](https://lunchmoney.dev/v2/pagination)
+        :param offset: Sets the number of matching transactions to skip before returning results. Increase this query parameter for each page. See [Pagination](https://lunchmoney.dev/pagination)
         :type offset: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -936,8 +936,8 @@ class TransactionsBulkApi:
         include_group_children: Annotated[Optional[StrictBool], Field(description="By default, individual transactions that joined into a transaction group are not included in the response. Set to true if you'd like the returned transactions objects to include any transactions that joined into a transaction group.")] = None,
         include_children: Annotated[Optional[StrictBool], Field(description="By default, the `children` property is not included in the response. Set to true if you'd like the children property to be populated with the transactions that make up a transaction group, or, if the `include_split_parents` query param is also set, the transactions that were split from a parent transaction.")] = None,
         include_files: Annotated[Optional[StrictBool], Field(description="By default, the `files` property is not included in the response. Set to true if you'd like the responses to include a list of objects that describe any files attached to the transactions.")] = None,
-        limit: Annotated[Optional[Annotated[int, Field(le=2000, strict=True, ge=1)]], Field(description="Sets the maximum number of transactions to return. If more match the filter criteria, the response will include a `has_more` attribute set to `true`. See [Pagination](https://lunchmoney.dev/v2/pagination)")] = None,
-        offset: Annotated[Optional[StrictInt], Field(description="Sets the offset for the records returned. This is typically set automatically in the header. See [Pagination](https://lunchmoney.dev/v2/pagination)")] = None,
+        limit: Annotated[Optional[Annotated[int, Field(le=2000, strict=True, ge=1)]], Field(description="Sets the maximum number of transactions to return. Defaults to `1000`. When more transactions match, `has_more` is `true`. See [Pagination](https://lunchmoney.dev/pagination)")] = None,
+        offset: Annotated[Optional[StrictInt], Field(description="Sets the number of matching transactions to skip before returning results. Increase this query parameter for each page. See [Pagination](https://lunchmoney.dev/pagination)")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -991,9 +991,9 @@ class TransactionsBulkApi:
         :type include_children: bool
         :param include_files: By default, the `files` property is not included in the response. Set to true if you'd like the responses to include a list of objects that describe any files attached to the transactions.
         :type include_files: bool
-        :param limit: Sets the maximum number of transactions to return. If more match the filter criteria, the response will include a `has_more` attribute set to `true`. See [Pagination](https://lunchmoney.dev/v2/pagination)
+        :param limit: Sets the maximum number of transactions to return. Defaults to `1000`. When more transactions match, `has_more` is `true`. See [Pagination](https://lunchmoney.dev/pagination)
         :type limit: int
-        :param offset: Sets the offset for the records returned. This is typically set automatically in the header. See [Pagination](https://lunchmoney.dev/v2/pagination)
+        :param offset: Sets the number of matching transactions to skip before returning results. Increase this query parameter for each page. See [Pagination](https://lunchmoney.dev/pagination)
         :type offset: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request

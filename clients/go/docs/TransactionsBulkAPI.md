@@ -182,8 +182,8 @@ func main() {
 	includeGroupChildren := true // bool | By default, individual transactions that joined into a transaction group are not included in the response. Set to true if you'd like the returned transactions objects to include any transactions that joined into a transaction group. (optional) (default to false)
 	includeChildren := true // bool | By default, the `children` property is not included in the response. Set to true if you'd like the children property to be populated with the transactions that make up a transaction group, or, if the `include_split_parents` query param is also set, the transactions that were split from a parent transaction. (optional) (default to false)
 	includeFiles := true // bool | By default, the `files` property is not included in the response. Set to true if you'd like the responses to include a list of objects that describe any files attached to the transactions. (optional) (default to false)
-	limit := int32(56) // int32 | Sets the maximum number of transactions to return. If more match the filter criteria, the response will include a `has_more` attribute set to `true`. See [Pagination](https://lunchmoney.dev/v2/pagination) (optional) (default to 1000)
-	offset := int32(56) // int32 | Sets the offset for the records returned. This is typically set automatically in the header. See [Pagination](https://lunchmoney.dev/v2/pagination) (optional)
+	limit := int32(56) // int32 | Sets the maximum number of transactions to return. Defaults to `1000`. When more transactions match, `has_more` is `true`. See [Pagination](https://lunchmoney.dev/pagination) (optional) (default to 1000)
+	offset := int32(56) // int32 | Sets the number of matching transactions to skip before returning results. Increase this query parameter for each page. See [Pagination](https://lunchmoney.dev/pagination) (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -226,8 +226,8 @@ Name | Type | Description  | Notes
  **includeGroupChildren** | **bool** | By default, individual transactions that joined into a transaction group are not included in the response. Set to true if you&#39;d like the returned transactions objects to include any transactions that joined into a transaction group. | [default to false]
  **includeChildren** | **bool** | By default, the &#x60;children&#x60; property is not included in the response. Set to true if you&#39;d like the children property to be populated with the transactions that make up a transaction group, or, if the &#x60;include_split_parents&#x60; query param is also set, the transactions that were split from a parent transaction. | [default to false]
  **includeFiles** | **bool** | By default, the &#x60;files&#x60; property is not included in the response. Set to true if you&#39;d like the responses to include a list of objects that describe any files attached to the transactions. | [default to false]
- **limit** | **int32** | Sets the maximum number of transactions to return. If more match the filter criteria, the response will include a &#x60;has_more&#x60; attribute set to &#x60;true&#x60;. See [Pagination](https://lunchmoney.dev/v2/pagination) | [default to 1000]
- **offset** | **int32** | Sets the offset for the records returned. This is typically set automatically in the header. See [Pagination](https://lunchmoney.dev/v2/pagination) | 
+ **limit** | **int32** | Sets the maximum number of transactions to return. Defaults to &#x60;1000&#x60;. When more transactions match, &#x60;has_more&#x60; is &#x60;true&#x60;. See [Pagination](https://lunchmoney.dev/pagination) | [default to 1000]
+ **offset** | **int32** | Sets the number of matching transactions to skip before returning results. Increase this query parameter for each page. See [Pagination](https://lunchmoney.dev/pagination) | 
 
 ### Return type
 
