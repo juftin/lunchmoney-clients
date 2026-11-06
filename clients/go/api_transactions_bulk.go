@@ -467,13 +467,13 @@ func (r ApiGetAllTransactionsRequest) IncludeFiles(includeFiles bool) ApiGetAllT
 	return r
 }
 
-// Sets the maximum number of transactions to return. If more match the filter criteria, the response will include a &#x60;has_more&#x60; attribute set to &#x60;true&#x60;. See [Pagination](https://lunchmoney.dev/v2/pagination)
+// Sets the maximum number of transactions to return. Defaults to &#x60;1000&#x60;. When more transactions match, &#x60;has_more&#x60; is &#x60;true&#x60;. See [Pagination](https://lunchmoney.dev/pagination)
 func (r ApiGetAllTransactionsRequest) Limit(limit int32) ApiGetAllTransactionsRequest {
 	r.limit = &limit
 	return r
 }
 
-// Sets the offset for the records returned. This is typically set automatically in the header. See [Pagination](https://lunchmoney.dev/v2/pagination)
+// Sets the number of matching transactions to skip before returning results. Increase this query parameter for each page. See [Pagination](https://lunchmoney.dev/pagination)
 func (r ApiGetAllTransactionsRequest) Offset(offset int32) ApiGetAllTransactionsRequest {
 	r.offset = &offset
 	return r

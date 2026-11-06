@@ -234,8 +234,8 @@ with lunchmoney.ApiClient(configuration) as api_client:
     include_group_children = False # bool | By default, individual transactions that joined into a transaction group are not included in the response. Set to true if you'd like the returned transactions objects to include any transactions that joined into a transaction group. (optional) (default to False)
     include_children = False # bool | By default, the `children` property is not included in the response. Set to true if you'd like the children property to be populated with the transactions that make up a transaction group, or, if the `include_split_parents` query param is also set, the transactions that were split from a parent transaction. (optional) (default to False)
     include_files = False # bool | By default, the `files` property is not included in the response. Set to true if you'd like the responses to include a list of objects that describe any files attached to the transactions. (optional) (default to False)
-    limit = 1000 # int | Sets the maximum number of transactions to return. If more match the filter criteria, the response will include a `has_more` attribute set to `true`. See [Pagination](https://lunchmoney.dev/v2/pagination) (optional) (default to 1000)
-    offset = 56 # int | Sets the offset for the records returned. This is typically set automatically in the header. See [Pagination](https://lunchmoney.dev/v2/pagination) (optional)
+    limit = 1000 # int | Sets the maximum number of transactions to return. Defaults to `1000`. When more transactions match, `has_more` is `true`. See [Pagination](https://lunchmoney.dev/pagination) (optional) (default to 1000)
+    offset = 56 # int | Sets the number of matching transactions to skip before returning results. Increase this query parameter for each page. See [Pagination](https://lunchmoney.dev/pagination) (optional)
 
     try:
         # Get all transactions
@@ -271,8 +271,8 @@ Name | Type | Description  | Notes
  **include_group_children** | **bool**| By default, individual transactions that joined into a transaction group are not included in the response. Set to true if you&#39;d like the returned transactions objects to include any transactions that joined into a transaction group. | [optional] [default to False]
  **include_children** | **bool**| By default, the &#x60;children&#x60; property is not included in the response. Set to true if you&#39;d like the children property to be populated with the transactions that make up a transaction group, or, if the &#x60;include_split_parents&#x60; query param is also set, the transactions that were split from a parent transaction. | [optional] [default to False]
  **include_files** | **bool**| By default, the &#x60;files&#x60; property is not included in the response. Set to true if you&#39;d like the responses to include a list of objects that describe any files attached to the transactions. | [optional] [default to False]
- **limit** | **int**| Sets the maximum number of transactions to return. If more match the filter criteria, the response will include a &#x60;has_more&#x60; attribute set to &#x60;true&#x60;. See [Pagination](https://lunchmoney.dev/v2/pagination) | [optional] [default to 1000]
- **offset** | **int**| Sets the offset for the records returned. This is typically set automatically in the header. See [Pagination](https://lunchmoney.dev/v2/pagination) | [optional] 
+ **limit** | **int**| Sets the maximum number of transactions to return. Defaults to &#x60;1000&#x60;. When more transactions match, &#x60;has_more&#x60; is &#x60;true&#x60;. See [Pagination](https://lunchmoney.dev/pagination) | [optional] [default to 1000]
+ **offset** | **int**| Sets the number of matching transactions to skip before returning results. Increase this query parameter for each page. See [Pagination](https://lunchmoney.dev/pagination) | [optional] 
 
 ### Return type
 
@@ -291,7 +291,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Returns an array of transactions. &lt;br&gt;&lt;br&gt;The &#x60;has_more&#x60; property is set to &#x60;true&#x60; if more transactions are available. See [Pagination](https://lunchmoney.dev/v2/pagination) |  -  |
+**200** | Returns an array of transactions. &lt;br&gt;&lt;br&gt;The &#x60;has_more&#x60; property is set to &#x60;true&#x60; if more transactions are available. See [Pagination](https://lunchmoney.dev/pagination) |  -  |
 **400** | Invalid request parameters |  -  |
 **401** | Unauthorized. This error occurs when an invalid API token is passed to the request. |  -  |
 **429** | Too Many Requests. Retry your request after the number of seconds specified in the retry-after header. |  -  |

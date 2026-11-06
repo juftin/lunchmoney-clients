@@ -9571,23 +9571,22 @@ paths:
                       minimum: 1
                       maximum: 2000
                       default: 1000
-                  description: Sets the maximum number of transactions to return. If
-                      more match the filter criteria, the response will include a
-                      `has_more` attribute set to `true`. See
-                      [Pagination](https://lunchmoney.dev/v2/pagination)
+                  description: Sets the maximum number of transactions to return.
+                      Defaults to `1000`. When more transactions match, `has_more` is
+                      `true`. See [Pagination](https://lunchmoney.dev/pagination)
                 - name: offset
                   in: query
                   schema:
                       type: integer
-                  description: Sets the offset for the records returned. This is
-                      typically set automatically in the header. See
-                      [Pagination](https://lunchmoney.dev/v2/pagination)
+                  description: Sets the number of matching transactions to skip before
+                      returning results. Increase this query parameter for each page. See
+                      [Pagination](https://lunchmoney.dev/pagination)
             responses:
                 "200":
                     description:
                         Returns an array of transactions. <br><br>The `has_more`
                         property is set to `true` if more transactions are available. See
-                        [Pagination](https://lunchmoney.dev/v2/pagination)
+                        [Pagination](https://lunchmoney.dev/pagination)
                     content:
                         application/json:
                             schema:
