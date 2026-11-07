@@ -1,9 +1,9 @@
 /*
 Lunch Money API - v2
 
-### Introduction  Welcome to the Lunch Money v2 API reference. This is the **v2.11.1** spec.  The API is available at `https://api.lunchmoney.dev/v2`. Get your access token from the [Lunch Money developers page](https://my.lunchmoney.app/developers).   **Try it from these docs**  These docs are interactive — use **Test request** on any endpoint to call the API from this page. Choose a LIVE or MOCK service from the Server dropdown. Requests sent to `https://api.lunchmoney.dev/v2` can <span class=\"red-text\"><strong>change or delete</strong></span> your data and are <span class=\"red-text\"><strong>permanent</strong></span>. See the [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) before using the live API.  **Static mock server**  Explore without risk to real data. Select `https://mock.lunchmoney.dev/v2` in the Server dropdown to work with static mock data. POST, PUT, and DELETE requests will return realistic responses, but do not change the mock data.   **Client Libraries & SDKs**  An official TypeScript SDK is available on [NPM](https://www.npmjs.com/package/@lunch-money/v2-api-spec) and [GitHub](https://github.com/lunch-money/lunch-money-js-v2). For Python or other languages, see [lunchmoney-clients](https://github.com/juftin/lunchmoney-clients) or generate a client from [this OpenAPI spec](/v2/openapi).  **Migrating from v1**  The v2 API is not backwards compatible with v1. See the [Migration Guide](https://lunchmoney.dev/v2/migration-guide) for details.  **Useful links** - [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) - [v2 API Overview](https://lunchmoney.dev/v2/overview) - [Version History](https://lunchmoney.dev/v2/version-history) - [Migration Guide](https://lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://lunchmoney.dev/v2/rate-limits)
+### Introduction  Welcome to the Lunch Money v2 API reference. This is the **v2.11.2** spec.  The API is available at `https://api.lunchmoney.dev/v2`. Get your access token from the [Lunch Money developers page](https://my.lunchmoney.app/developers).   **Try it from these docs**  These docs are interactive — use **Test request** on any endpoint to call the API from this page. Choose a LIVE or MOCK service from the Server dropdown. Requests sent to `https://api.lunchmoney.dev/v2` can <span class=\"red-text\"><strong>change or delete</strong></span> your data and are <span class=\"red-text\"><strong>permanent</strong></span>. See the [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) before using the live API.  **Static mock server**  Explore without risk to real data. Select `https://mock.lunchmoney.dev/v2` in the Server dropdown to work with static mock data. POST, PUT, and DELETE requests will return realistic responses, but do not change the mock data.   **Client Libraries & SDKs**  An official TypeScript SDK is available on [NPM](https://www.npmjs.com/package/@lunch-money/v2-api-spec) and [GitHub](https://github.com/lunch-money/lunch-money-js-v2). For Python or other languages, see [lunchmoney-clients](https://github.com/juftin/lunchmoney-clients) or generate a client from [this OpenAPI spec](/v2/openapi).  **Migrating from v1**  The v2 API is not backwards compatible with v1. See the [Migration Guide](https://lunchmoney.dev/v2/migration-guide) for details.  **Useful links** - [Getting Started Guide](https://lunchmoney.dev/v2/getting-started) - [v2 API Overview](https://lunchmoney.dev/v2/overview) - [Version History](https://lunchmoney.dev/v2/version-history) - [Migration Guide](https://lunchmoney.dev/v2/migration-guide) - [Rate Limits](https://lunchmoney.dev/v2/rate-limits)
 
-API version: 2.11.1
+API version: 2.11.2
 Contact: devsupport@lunchmoney.app
 */
 
@@ -41,8 +41,8 @@ type ManualAccountObject struct {
 	Currency string `json:"currency"`
 	// The balance converted to the user's primary currency
 	ToBase float32 `json:"to_base"`
-	// Date balance was last updated in ISO 8601 extended format, can be in date or date-time format
-	BalanceAsOf time.Time `json:"balance_as_of"`
+	// Date/time the balance was last updated in ISO 8601 extended format. `null` when no balance date is available.
+	BalanceAsOf NullableTime `json:"balance_as_of"`
 	// The status of the account
 	Status string `json:"status"`
 	// The date this account was closed in YYYY-MM-DD format. Will be null if the account has not been marked as closed.
@@ -67,7 +67,7 @@ type _ManualAccountObject ManualAccountObject
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewManualAccountObject(id int32, name string, institutionName NullableString, displayName NullableString, type_ AccountTypeEnum, subtype NullableString, balance string, currency string, toBase float32, balanceAsOf time.Time, status string, closedOn NullableString, externalId NullableString, excludeFromTransactions bool, createdByName string, createdAt time.Time, updatedAt time.Time) *ManualAccountObject {
+func NewManualAccountObject(id int32, name string, institutionName NullableString, displayName NullableString, type_ AccountTypeEnum, subtype NullableString, balance string, currency string, toBase float32, balanceAsOf NullableTime, status string, closedOn NullableString, externalId NullableString, excludeFromTransactions bool, createdByName string, createdAt time.Time, updatedAt time.Time) *ManualAccountObject {
 	this := ManualAccountObject{}
 	this.Id = id
 	this.Name = name
@@ -322,27 +322,29 @@ func (o *ManualAccountObject) SetToBase(v float32) {
 }
 
 // GetBalanceAsOf returns the BalanceAsOf field value
+// If the value is explicit nil, the zero value for time.Time will be returned
 func (o *ManualAccountObject) GetBalanceAsOf() time.Time {
-	if o == nil {
+	if o == nil || o.BalanceAsOf.Get() == nil {
 		var ret time.Time
 		return ret
 	}
 
-	return o.BalanceAsOf
+	return *o.BalanceAsOf.Get()
 }
 
 // GetBalanceAsOfOk returns a tuple with the BalanceAsOf field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ManualAccountObject) GetBalanceAsOfOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.BalanceAsOf, true
+	return o.BalanceAsOf.Get(), o.BalanceAsOf.IsSet()
 }
 
 // SetBalanceAsOf sets field value
 func (o *ManualAccountObject) SetBalanceAsOf(v time.Time) {
-	o.BalanceAsOf = v
+	o.BalanceAsOf.Set(&v)
 }
 
 // GetStatus returns the Status field value
@@ -569,7 +571,7 @@ func (o ManualAccountObject) ToMap() (map[string]interface{}, error) {
 	toSerialize["balance"] = o.Balance
 	toSerialize["currency"] = o.Currency
 	toSerialize["to_base"] = o.ToBase
-	toSerialize["balance_as_of"] = o.BalanceAsOf
+	toSerialize["balance_as_of"] = o.BalanceAsOf.Get()
 	toSerialize["status"] = o.Status
 	toSerialize["closed_on"] = o.ClosedOn.Get()
 	toSerialize["external_id"] = o.ExternalId.Get()
