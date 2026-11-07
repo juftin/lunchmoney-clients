@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **Balance** | **string** | Current balance of the account in numeric format to 4 decimal places | 
 **Currency** | **string** | Three-letter lowercase currency code of the account balance | 
 **ToBase** | **float32** | The balance converted to the user&#39;s primary currency | 
-**BalanceAsOf** | **time.Time** | Date balance was last updated in ISO 8601 extended format, can be in date or date-time format | 
+**BalanceAsOf** | **NullableTime** | Date/time the balance was last updated in ISO 8601 extended format. &#x60;null&#x60; when no balance date is available. | 
 **Status** | **string** | The status of the account | 
 **ClosedOn** | **NullableString** | The date this account was closed in YYYY-MM-DD format. Will be null if the account has not been marked as closed. | 
 **ExternalId** | **NullableString** | An optional external_id that may be set or updated via the API | 
@@ -27,7 +27,7 @@ Name | Type | Description | Notes
 
 ### NewManualAccountObject
 
-`func NewManualAccountObject(id int32, name string, institutionName NullableString, displayName NullableString, type_ AccountTypeEnum, subtype NullableString, balance string, currency string, toBase float32, balanceAsOf time.Time, status string, closedOn NullableString, externalId NullableString, excludeFromTransactions bool, createdByName string, createdAt time.Time, updatedAt time.Time, ) *ManualAccountObject`
+`func NewManualAccountObject(id int32, name string, institutionName NullableString, displayName NullableString, type_ AccountTypeEnum, subtype NullableString, balance string, currency string, toBase float32, balanceAsOf NullableTime, status string, closedOn NullableString, externalId NullableString, excludeFromTransactions bool, createdByName string, createdAt time.Time, updatedAt time.Time, ) *ManualAccountObject`
 
 NewManualAccountObject instantiates a new ManualAccountObject object
 This constructor will assign default values to properties that have it defined,
@@ -272,6 +272,16 @@ and a boolean to check if the value has been set.
 SetBalanceAsOf sets BalanceAsOf field to given value.
 
 
+### SetBalanceAsOfNil
+
+`func (o *ManualAccountObject) SetBalanceAsOfNil(b bool)`
+
+ SetBalanceAsOfNil sets the value for BalanceAsOf to be an explicit nil
+
+### UnsetBalanceAsOf
+`func (o *ManualAccountObject) UnsetBalanceAsOf()`
+
+UnsetBalanceAsOf ensures that no value is present for BalanceAsOf, not even an explicit nil
 ### GetStatus
 
 `func (o *ManualAccountObject) GetStatus() string`

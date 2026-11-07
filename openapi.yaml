@@ -4,7 +4,7 @@ info:
     description: |-
         ### Introduction
 
-        Welcome to the Lunch Money v2 API reference. This is the **v2.11.1** spec.
+        Welcome to the Lunch Money v2 API reference. This is the **v2.11.2** spec.
 
         The API is available at `https://api.lunchmoney.dev/v2`. Get your access token from the [Lunch Money developers page](https://my.lunchmoney.app/developers).
 
@@ -42,7 +42,7 @@ info:
     license:
         name: Apache 2.0
         url: http://www.apache.org/licenses/LICENSE-2.0.html
-    version: 2.11.1
+    version: 2.11.2
 
 servers:
     - url: https://api.lunchmoney.dev/v2
@@ -1211,8 +1211,9 @@ components:
                 balance_as_of:
                     type: string
                     format: date-time
-                    description: Date balance was last updated in ISO 8601 extended
-                        format, can be in date or date-time format
+                    nullable: true
+                    description: Date/time the balance was last updated in ISO 8601
+                        extended format. `null` when no balance date is available.
                 status:
                     type: string
                     description: The status of the account

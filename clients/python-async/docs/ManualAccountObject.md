@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **balance** | **str** | Current balance of the account in numeric format to 4 decimal places | 
 **currency** | **str** | Three-letter lowercase currency code of the account balance | 
 **to_base** | **float** | The balance converted to the user&#39;s primary currency | 
-**balance_as_of** | **datetime** | Date balance was last updated in ISO 8601 extended format, can be in date or date-time format | 
+**balance_as_of** | **datetime** | Date/time the balance was last updated in ISO 8601 extended format. &#x60;null&#x60; when no balance date is available. | 
 **status** | **str** | The status of the account | 
 **closed_on** | **date** | The date this account was closed in YYYY-MM-DD format. Will be null if the account has not been marked as closed. | 
 **external_id** | **str** | An optional external_id that may be set or updated via the API | 
